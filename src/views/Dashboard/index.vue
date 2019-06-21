@@ -2,6 +2,7 @@
 <template>
   <div class="Dashboard">
     <ns-particles :color="particlesColor" class="ns-particles"></ns-particles>
+    <ns-editor :height="500" v-model="content"/>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
     data() {
       return {
         particlesColor: '#a9abae',
+        content: ''
       };
     },
     created() {
