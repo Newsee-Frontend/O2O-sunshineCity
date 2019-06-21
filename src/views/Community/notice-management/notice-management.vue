@@ -1,0 +1,240 @@
+<template>
+  <div class="win" id="nnn">
+    <div class="ns-container">
+      <div class="ns-container">
+        <!--tree-module-->
+        <div class="ns-container-left">
+        </div>
+        <!--temple container-->
+        <div class="ns-container-right">
+          <!--action-module (search / button)-->
+          <div class="action-module" style="overflow: hidden">
+            <biz-search-conditions>
+              <template slot="btns">
+                <ns-role-button
+                  mode="icon"
+                  :coerciveShow="true"
+                  :roleInfo="{
+                      areaType: 'ACTION',
+                      code: 'actionAddBtn',
+                      name: '新增',
+                      nameEn: '',
+                      index: 1,
+                      btnType: 'single',
+                }"
+                  @click="addNotice()"
+
+                >
+                  <!--<ns-role-button-->
+                  <!--mode="dp-text"-->
+                  <!--title="更多"-->
+                  <!--@command="handleCommand"-->
+                  <!--&gt;</ns-role-button>-->
+                </ns-role-button>
+              </template>
+              <template slot="main">
+                <div class="clear fl search-option">
+                  <ns-input v-model="searchConditions.keyWord" placeholder="请输入标题公告"></ns-input>
+                </div>
+
+                <div class="clear fl search-option">
+                  <ns-select :options="villageOptions" v-model="searchConditions.precinctName"
+                             placeholder="请选择小区"></ns-select>
+                </div>
+
+                <div class="clear fl search-option">
+                  <ns-select :options="noticeTypeOptions" v-model="searchConditions.noticeCategory"
+                             placeholder="请选择公告类型"></ns-select>
+                </div>
+
+                <div class="clear fl search-option">
+                  <ns-select :options="activestatueOptions" v-model="searchConditions.status"
+                             placeholder="请选择公告状态"></ns-select>
+                </div>
+
+                <div class="clear fl search-option">
+                  <ns-date-picker
+                    v-model="dateRange"
+                    type="daterange"
+                    size="medium"
+                    clearable
+                    startPlaceholder="发布时间起"
+                    endPlaceholder="发布时间止"
+                  ></ns-date-picker>
+                </div>
+
+                <div class="clear fl search-option">
+                  <ns-button type="primary">查询</ns-button>
+                </div>
+              </template>
+            </biz-search-conditions>
+          </div>
+          <!--表格部分-->
+          <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
+                     :funcId="Mix_funcId"
+                     :searchConditions="searchConditions"
+                     :showSummary="false"
+                     :showHeadOperation="false"
+                     @reload="getTableData"
+                     @table-action="tableAction"
+                     @selection-change="selectionChange"
+          ></biz-table>
+        </div>
+      </div>
+
+      <notice-dialog
+        :type="noticeTpye"
+        :rowData="rowData"
+        :visible.sync="showNoticeDialog"
+      ></notice-dialog>
+    </div>
+  </div>
+</template>
+
+<script>
+  import noticeDialog from './componnets/notice-dialog';
+  import { getVillageOptions, getNoticeTypeOptions } from '../../../service/Form/getOptions';
+  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
+  import Mixin from "../../../mixins";
+
+  export default {
+    name: 'notice-management',
+
+    pageType: 'basic',
+
+    mixins: [Mixin],
+
+    components: {
+      noticeDialog,
+    },
+
+    data() {
+      return {
+        searchConditions: {
+          keyWord: '',
+          precinctName: '',
+          noticeCategory: '',
+          status: '',
+          pubBeginTime: '',
+          pubEndTime: '',
+          pageNum: 1, //当前页数
+          pageSize: 10, //每页显示条目个数
+        },
+        /**发布或保存*/
+        activestatueOptions: [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }, { label: '已结束', value: 2 }],
+        villageOptions: [],
+        noticeTypeOptions: [],
+
+        noticeTpye: 'add',  //add\edit
+        showNoticeDialog: false,
+        rowData: {},
+        tableData: {},
+        //表格数据加载状态
+        loadState: {
+          data: false,
+          head: false,
+        },
+      };
+    },
+
+    methods: {
+      /**
+       * 获取表格数据
+       */
+      getTableData() {
+        this.loadState.data = false;
+        tableDataFetch(
+          {
+            url: '/system/table/table-data',
+            query: this.searchConditions,
+            funcId: 'funcId',
+          },
+        ).then(res => {
+          this.tableData = res.resultData || {};
+          console.log('请求到的表格数据：');
+          console.log(this.tableData);
+          this.tableData.list.forEach(item => {
+            item.fnsclick = [
+              { label: '编辑', value: 'gridEditBtn' }, { label: '删除', value: 'gridRemoveBtn' },
+              { label: '停用', value: 'stop' }, { label: '启用', value: 'work' },
+            ];
+          });
+          this.loadState.data = true;
+        }).catch(() => {
+          this.loadState.data = true;
+        });
+      },
+
+      /**
+       * 表格 selection 选择
+       * @param row
+       * @param index
+       */
+      selectionChange(row, index) {
+        console.log('表数据 checkbox/radio 选择的时候');
+        console.log(row);
+        console.log(index);
+      }
+      ,
+
+      /**
+       * table column action
+       * @param info
+       * @param scope
+       */
+      tableAction(info, scope) {
+        console.log('操作列按钮点击的时候');
+        console.log(info, scope);
+      },
+
+      /**
+       * 获取小区名称的权限
+       */
+      getVillageOptions: function() {
+        getVillageOptions().then((data) => {
+          this.villageOptions = data.resultData || [];
+        });
+      },
+
+      /**
+       * 获取公告类型
+       */
+      getNoticeTypeOptions: function() {
+        getNoticeTypeOptions().then((data) => {
+          this.noticeTypeOptions = data.resultData || [];
+        });
+      },
+
+      /**
+       * 新增公告
+       */
+      addNotice() {
+        this.noticeTpye = 'add';
+        this.showNoticeDialog = true;
+      },
+    },
+
+    computed: {
+      dateRange: {
+        get: function() {
+          return this.searchConditions.pubBeginTime ? [this.searchConditions.pubBeginTime, this.searchConditions.pubEndTime] : [];
+        },
+
+        set: function(arr) {
+          this.searchConditions.pubBeginTime = arr.length > 1 ? arr[0] : '';
+          this.searchConditions.pubEndTime = arr.length > 1 ? arr[1] : '';
+        },
+      },
+    },
+
+    created() {
+      this.getTableData();
+      this.getVillageOptions();
+      this.getNoticeTypeOptions();
+    },
+  };
+</script>
+
+<style rel="stylesheet/scss" lang="scss">
+
+</style>
