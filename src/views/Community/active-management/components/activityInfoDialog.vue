@@ -131,7 +131,8 @@
           activitySpace: '',
           sponsor: '',
           fileList: [],
-          status: ''
+          status: '',
+          category: "2",
         },
 
         showDialog: this.visible,
@@ -192,7 +193,7 @@
       publish(type){
         this.$refs.activityForm.validate((valid)=>{
           if(valid){
-            this.model.status = this.type === 'publish'? 1 : 0;
+            this.model.status = type === 'publish'? 1 : 0;
             this.submitLoadingBtn = this.type;
             if(this.type === 'add'){
               this.model.id = '';
