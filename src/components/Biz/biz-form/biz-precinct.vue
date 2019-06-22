@@ -38,12 +38,6 @@
       precinctModel: Object,
     },
 
-    watch: {
-      precinctModel(obj){
-        this.model = obj;
-      }
-    },
-
     data(){
       return {
         provinces: [],
@@ -62,20 +56,21 @@
 
     methods: {
       initAreaLink(){
-        this.getAreaList({parentId: '1', type: 'province'});
-        this.model = this.precinctModel;
-        //获取城市
-        if(this.model.provinceId){
-          this.getAreaList({parentId: this.model.provinceId, type: 'city'});
-        }
-        if(this.model.cityId){
-          this.getPrecinct()
-        }
+        this.$nextTick(()=>{
+          this.model = this.precinctModel;
+          //获取城市
+          if(this.model.provinceId){
+            this.getAreaList({parentID: this.model.provinceId, type: '2'});
+          }
+          if(this.model.cityId){
+            this.getPrecinct()
+          }
+        })
       },
 
       getAreaList(query){
         getAreaList(query).then((data)=>{
-          if(query.parentId === '1'){
+          if(query.parentID === '0001'){
             this.provinces = data.resultData;
           }else{
             this.cities = data.resultData;
@@ -91,9 +86,9 @@
         this.cities = [];
         this.precincts = [];
         this.model.cityId = '';
-        this.model.precinctIdList = [];
+        this.model.precinctIds = [];
         if(val){
-          this.getAreaList({parentId: val, type: 'city'})
+          this.getAreaList({parentID: val, type: '2'})
         }
       },
 
@@ -103,7 +98,7 @@
        */
       cityChange(val){
         this.precincts = [];
-        this.model.precinctIdList = [];
+        this.model.precinctIds = [];
         if(val){
           this.getPrecinct()
         }
@@ -121,7 +116,7 @@
     },
 
     created(){
-      this.initAreaLink()
+      this.getAreaList({parentID: '0001', type: '1'});
     }
   };
 </script>

@@ -37,8 +37,9 @@ export function getPrecinct(query) {
   //表数据-获取
   dataFilter(query);
   return fetch({
-    url: '/property-service/property-rest/rest/precinct/getPrecinctByArea',
+    url: '/o2o/precinct/getPrecinctByArea',
     method: 'post',
-    data: query
+    data: query,
+    params: query
   })
 }

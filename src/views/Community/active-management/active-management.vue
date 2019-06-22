@@ -74,11 +74,16 @@
         :rowData="rowData"
       ></activity-info-dialog>
 
+      <check-activity-dialog
+        :visible.sync="checkActivityVisible"
+        :rowData="rowData"
+      ></check-activity-dialog>
     </div>
 </template>
 
 <script>
   import activityInfoDialog from './components/activityInfoDialog'
+  import checkActivityDialog from './components/checkActivityDetail'
   import { deleteActivity } from '../../../service/Channel/activeManagement'
   import { getVillageOptions } from '../../../service/Form/getOptions'
   import Mixin from "../../../mixins";
@@ -91,13 +96,15 @@
     mixins: [Mixin],
 
     components: {
-      activityInfoDialog
+      activityInfoDialog,
+      checkActivityDialog
     },
 
     data(){
       return{
         pageID: 'active',
         activityInfoVisible: false,
+        checkActivityVisible: false,
         activityType: 'add',
         /**发布或保存*/
         activestatueOptions: [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }, { label: '已结束', value: 2 }],
@@ -190,6 +197,8 @@
               this.getTableData();
             });
           })
+        }else if(info.value === 'gridCheckBtn'){
+          this.checkActivityVisible = true;
         }
       },
 

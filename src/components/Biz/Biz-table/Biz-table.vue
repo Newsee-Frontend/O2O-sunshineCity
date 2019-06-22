@@ -70,6 +70,19 @@
         return this.loadState.data && this.loadState.head;
       },
       finalHead() {
+
+        console.log(
+          [
+            ...(this.firstColType ? [columnConfig[this.firstColType]] : []),
+            ...(this.isLocalHead ? this.head : this.tableHead),
+            ...(this.hasActionCol ? [columnConfig['action']] : []),
+            ...(this.showAddRowOperation ? [columnConfig['add-row']] : []),
+
+          ].map(item => {
+            item.resourcecolumnHidden = item.resourcecolumnHidden === '1' ? true : false;
+            return item;
+          })
+        );
         return [
           ...(this.firstColType ? [columnConfig[this.firstColType]] : []),
           ...(this.isLocalHead ? this.head : this.tableHead),

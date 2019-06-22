@@ -293,7 +293,7 @@
        * 获取省
        */
       getProvince(){
-        getAreaList({parentId: '1'}).then((data)=>{
+        getAreaList({parentID: '0001', type: '1'}).then((data)=>{
           this.provinceList = data.resultData || [];
         });
       },
@@ -302,7 +302,7 @@
        * 获取市
        */
       getCity(){
-        getAreaList({parentId: this.villageModel.provinceID, type: 'city'}).then((data)=>{
+        getAreaList({parentID: this.villageModel.provinceID, type: '2'}).then((data)=>{
           this.cityList = data.resultData || [];
         });
       },
@@ -311,7 +311,7 @@
        * 获取区
        */
       getArea(){
-        getAreaList({parentId: this.villageModel.cityID, type: 'area'}).then((data)=>{
+        getAreaList({parentID: this.villageModel.cityID, type: '3'}).then((data)=>{
           this.areaList = data.resultData || [];
         });
       },

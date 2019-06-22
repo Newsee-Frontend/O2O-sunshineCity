@@ -38,37 +38,14 @@
         </biz-search-conditions>
       </div>
 
-      <el-table
-        :data="gridData"
-        border
-        style="width: 100%">
-
-        <el-table-column
-          prop="address"
-          label="地址"
-          width="300">
-        </el-table-column>
-        <el-table-column
-          label="操作"
-          width="400">
-          <template slot-scope="scope">
-            <el-button @click="syncHouse(scope.row)" type="text" size="small">
-              同步房产
-            </el-button>
-            <el-button  @click="editVillage(scope.row)"  type="text" size="small">
-              编辑
-            </el-button>
-            <!--<el-button @click="servicePhoneAction(scope.row)" type="text" size="small">-->
-            <!--服务电话-->
-            <!--</el-button>-->
-          </template>
-        </el-table-column>
-      </el-table>
-
-      <!--<service-phone-dialog-->
-        <!--:visible.sync="showServicePhoneDialog"-->
-        <!--:rowData="rowData"-->
-      <!--&gt;</service-phone-dialog>-->
+      <!--表格部分-->
+      <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
+                 :funcId="Mix_funcId"
+                 :searchConditions="searchConditions"
+                 :showSummary="false"
+                 @reload="getTableData"
+                 @table-action="tableAction"
+      ></biz-table>
 
       <village-info-dialog
         :visible.sync="showVillageDialog"
@@ -83,12 +60,17 @@
 
 <script>
   // import servicePhoneDialog from './componnets/servicePhoneDialog';
+  import Mixin from "../../../mixins";
   import villageInfoDialog from './componnets/villageInfoDialog';
   import { checkhouse } from '../../../service/Channel/villageSetting';
   import { tableDataFetch } from '../../../service/TableFetch/table-fetch'
 
   export default {
     name: 'village-setting',
+
+    pageType: 'basic',
+
+    mixins: [Mixin],
 
     components: {
       villageInfoDialog,
@@ -98,12 +80,19 @@
       return {
         authStatusOptions: [{ label: '待开通', value: '0' }, { label: '开通中', value: '1' }, { label: '已关闭', value: '2' }],
         companyList: [],
-        gridData: [],
+        tableData: {},
         rowData: {},
+        //表格数据加载状态
+        loadState: {
+          data: false,
+          head: false,
+        },
         searchConditions: {
           keyWord: '',
           companyID: '',
           status: '',
+          pageNum: 1,
+          pageSize: 20,
         },
         showServicePhoneDialog: false,
 
@@ -114,15 +103,36 @@
     },
 
     methods: {
-      /***
-       * 获取小区列表
+      /**
+       * 获取表格数据
        */
-      getGridData() {
-        tableDataFetch(this.searchConditions).then((data)=> {
-          this.gridData = data.resultData.pageInfo.list;
-          this.companyList = data.resultData.companyList;
+      getTableData() {
+        tableDataFetch(
+          {
+            url: '/o2o/precinct/listPrecinct',
+            query: this.searchConditions,
+            funcId: this.Mix_funcId,
+          },
+        ).then(res => {
+          this.tableData = res.resultData.pageInfo || [];
+          this.companyList = res.resultData.companyList;
+          console.log('请求到的表格数据：');
+          console.log(this.tableData);
+          this.tableData.list.forEach(item => {
+            item.fnsclick = [
+              { label: '编辑', value: 'gridEditBtn' },
+            ];
+          });
+          this.loadState.data = true;
+        }).catch(() => {
+          this.loadState.data = true;
         });
       },
+
+      /**
+       *  表格操作
+       */
+      tableAction(){},
 
       /**
        * 同步房产
@@ -174,7 +184,7 @@
     },
 
     created() {
-      this.getGridData();
+      this.getTableData();
     },
   };
 </script>

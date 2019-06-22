@@ -6,7 +6,7 @@
     <ns-form ref="activityForm" :model="model" :rules="rules" label-width="140px">
       <ns-row>
         <ns-col :span="12">
-          <biz-precinct :precinctModel="model"></biz-precinct>
+          <biz-precinct :precinctModel="model" ref="bizPrecinct"></biz-precinct>
 
           <ns-form-item label="活动类型" prop="type">
             <ns-select  :options="activityTypeOptions" v-model="model.type" placeholder="请选择活动类型"></ns-select>
@@ -33,6 +33,7 @@
               v-model="model.voteEndTime"
               type="datetime"
               format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="请选择报名截止时间"
             ></ns-date-picker>
           </ns-form-item>
@@ -45,6 +46,7 @@
               v-model="model.activityStartTime"
               type="datetime"
               format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="请选择活动开始时间"
             ></ns-date-picker>
           </ns-form-item>
@@ -54,6 +56,7 @@
               v-model="model.activityEndTime"
               type="datetime"
               format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm:ss"
               placeholder="请选择活动结束时间"
             ></ns-date-picker>
           </ns-form-item>
@@ -79,8 +82,8 @@
       </ns-row>
 
 
-      <ns-form-item label=" 活动内容:" >
-        这是个编辑器
+      <ns-form-item label=" 活动内容:" prop="content">
+        <ns-editor :height="200" v-model="model.content"/>
       </ns-form-item>
     </ns-form>
 
@@ -148,8 +151,8 @@
 
         rules: {
           // precinctIds:  [{ required: true, trigger: 'change',message: '请选择范围'}],
-          provinceId: [{ required: true, trigger: 'change',message: '请选择省'}],
-          cityId: [{ required: true, trigger: 'change',message: '请选择市'}],
+          // provinceId: [{ required: true, trigger: 'change',message: '请选择省'}],
+          // cityId: [{ required: true, trigger: 'change',message: '请选择市'}],
           type: [{ required: true, trigger: 'change',message: '请选择活动类型'}],
           title: [{ required: true, trigger: 'change',message: '请输入活动名称'}],
           voteEndTime: [{ required: true, trigger: 'change',message: '请选择报名截止时间'}],
@@ -157,6 +160,7 @@
           activityEndTime: [{ required: true, trigger: 'change',message: '请选择活动截止时间'}],
           activitySpace: [{ required: true, trigger: 'change',message: '请输入活动地点'}],
           sponsor: [{ required: true, trigger: 'change',message: '请输入主办方'}],
+          // content: [{ required: true, trigger: 'change',message: '请输入活动内容'}],
           // fileList: [{ required: true ,trigger: 'change' ,message: '请选择图片'}],
           // roleids: [{ required: true, validator: validRoleids, trigger: 'blur' }],
           // userName: [{ required: true, validator: validUserName, trigger: 'blur' }],
@@ -180,15 +184,17 @@
           noticeId: this.rowData.id
         }).then((data) => {
           this.model = data.resultData;
+          console.log(this.model);
+          this.$refs.bizPrecinct.initAreaLink();
         })
       },
 
       publish(type){
         this.$refs.activityForm.validate((valid)=>{
           if(valid){
-            this.model.status = type === 'publish'? 1 : 0;
-            this.submitLoadingBtn = type;
-            if(type === 'add'){
+            this.model.status = this.type === 'publish'? 1 : 0;
+            this.submitLoadingBtn = this.type;
+            if(this.type === 'add'){
               this.model.id = '';
               publishActivity(this.model).then(()=>{
                 this.submitLoadingBtn = '';
