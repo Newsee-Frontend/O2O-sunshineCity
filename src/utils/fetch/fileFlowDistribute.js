@@ -30,12 +30,12 @@ export function newRequestHead(Old, New = NewRequestData) {
  */
 export function fileFlowDistribute(response, callback) {
   const headers = response.headers;
-  const fileName = decodeURI(headers['downloadfilename']);
+  const fileName = headers['downloadfilename']? decodeURI(headers['downloadfilename']): '';
   let blob = new Blob([response.data], { type: headers['content-type'] });
   let downloadElement = document.createElement('a');
   let href = window.URL.createObjectURL(blob); //create a
   downloadElement.href = href;
-  downloadElement.download = fileName ? decodeURI(fileName) : 'file.xlsx'; //set file name
+  downloadElement.download = fileName ? decodeURI(fileName) : 'file.xls'; //set file name
   document.body.appendChild(downloadElement);
   downloadElement.click(); //click download
   document.body.removeChild(downloadElement); //remove

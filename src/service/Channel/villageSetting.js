@@ -3,24 +3,23 @@ import fetch from '../../utils/fetch/fetch';
 import { dataFilter } from '../../utils/fetch/fetchDataType';
 
 /*==========================================================================================================================*/
-export function tableDataFetch(query) {
+
+export function getPhoneList(query) {
   //表数据-获取
   dataFilter(query);
   return fetch({
-    url: '/property-service/property-rest/rest/precinct/listPrecinct',
+    url: '/o2o/precinct/getServicePhoneList',
     method: 'post',
     data: query
   });
 };
 
 
-export function getPhoneList(query) {
+export function getCompanyList() {
   //表数据-获取
-  dataFilter(query);
   return fetch({
-    url: '/property-service/property-rest/rest/precinct/getServicePhoneList',
+    url: '/o2o/precinct/getCompanyNameList',
     method: 'post',
-    data: query
   });
 };
 
@@ -38,7 +37,7 @@ export function delServicePhone(query) {
   //表数据-获取
   dataFilter(query);
   return fetch({
-    url: '/property-service/property-rest/rest/precinct/delServicePhone',
+    url: '/o2o/precinct/delServicePhone',
     method: 'post',
     data: query
   });
@@ -50,7 +49,7 @@ export function checkhouse(query) {
   //表数据-获取
   dataFilter(query);
   return fetch({
-    url: '/property-service/property-rest/rest/precinct/checkHouse',
+    url: '/o2o/precinct/checkHouse',
     method: 'post',
     data: query
   });
@@ -60,7 +59,7 @@ export function getPrecinctInfo(query) {
   //表数据-获取
   dataFilter(query);
   return fetch({
-    url: '/property-service/property-rest/rest/precinct/getPrecinct',
+    url: '/o2o/precinct/getPrecinct',
     method: 'post',
     data: query
   });
@@ -70,7 +69,7 @@ export function savePrecinctInfo(query) {
   //表数据-获取
   dataFilter(query);
   return fetch({
-    url: 'property-service/property-rest/rest/precinct/savePrecinct',
+    url: '/o2o/precinct/savePrecinct',
     method: 'post',
     data: query
   });

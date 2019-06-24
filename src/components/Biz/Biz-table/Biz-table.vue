@@ -70,19 +70,6 @@
         return this.loadState.data && this.loadState.head;
       },
       finalHead() {
-
-        console.log(
-          [
-            ...(this.firstColType ? [columnConfig[this.firstColType]] : []),
-            ...(this.isLocalHead ? this.head : this.tableHead),
-            ...(this.hasActionCol ? [columnConfig['action']] : []),
-            ...(this.showAddRowOperation ? [columnConfig['add-row']] : []),
-
-          ].map(item => {
-            item.resourcecolumnHidden = item.resourcecolumnHidden === '1' ? true : false;
-            return item;
-          })
-        );
         return [
           ...(this.firstColType ? [columnConfig[this.firstColType]] : []),
           ...(this.isLocalHead ? this.head : this.tableHead),
@@ -90,12 +77,31 @@
           ...(this.showAddRowOperation ? [columnConfig['add-row']] : []),
 
         ].map(item => {
+          let linkCode = ['precinctName'];
+          if(linkCode.indexOf(item.resourcecolumnCode) > -1){
+            item[this.keyRefer['head']['cell-Config']] = {
+              switchType: true,
+              type: 'link',
+              decimal: null,
+              disabled: false,
+              maxlength: null,
+              max: 0,
+              min: 0,
+              placeHolder: null,
+              require: false,
+              validateRule: null,
+            };
+           }
           item.resourcecolumnHidden = item.resourcecolumnHidden === '1' ? true : false;
           return item;
         });
       },
     },
     created() {
+      if(this.isLocalHead){
+        this.loadState.head = true;
+        return
+      }
       this.$store.dispatch('generateTableHead', { funcId:this.funcId }).then(() => {
         this.loadState.head = true;
       }).catch(() => {
@@ -129,6 +135,7 @@
       cellAction(scope, item) {
         console.log('表格单元格点击行为事件');
         console.log(scope, item);
+        this.$emit('cell-action', scope, item);
       },
       cellFormChange(value, param) {
         this.$emit('cell-form-change', value, param);
@@ -155,7 +162,6 @@
       },
     },
     mounted() {
-
     },
   };
 </script>

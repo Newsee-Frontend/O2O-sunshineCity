@@ -25,21 +25,11 @@ export function getActiveInfo(query) {
   });
 };
 
-export function editActivity(query) {
+export function publishActivity(url, query) {
   //表数据-获取
   dataFilter(query);
   return fetch({
-    url: '/o2o/activity/editActivity',
-    method: 'post',
-    data: query
-  });
-};
-
-export function publishActivity(query) {
-  //表数据-获取
-  dataFilter(query);
-  return fetch({
-    url: '/o2o/activity/publish',
+    url: url,
     method: 'post',
     data: query
   });

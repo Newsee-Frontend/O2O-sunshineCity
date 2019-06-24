@@ -26,15 +26,15 @@ const navmenu = (req, res) => {
       {
         menuIconcls: 'gailan', //图标
         menuMenuname: '活动中心',//显示名称
-        menuMenusubname: 'o2o',//路径符号
+        menuMenusubname: 'community',//路径符号
         syStatus: "1",//隐藏与否
         syOrderindex: 3,//序号
-        funcId: 'o2o',
+        funcId: 'community',
         childMenus: [
           {
             menuIconcls: "",//图标
             menuMenuname: "小区设置",//显示名称
-            menuMenusubname: "villageSetting",//路径符号
+            menuMenusubname: "precinctList",//路径符号
             syStatus: "1",//隐藏与否
             syOrderindex: 1,//序号
             funcId: "o11111111111",//func-ID
@@ -44,7 +44,7 @@ const navmenu = (req, res) => {
 
             menuIconcls: "",//图标
             menuMenuname: "活动管理",//显示名称
-            menuMenusubname: "activeManagement",//路径符号
+            menuMenusubname: "activityList",//路径符号
             syOrderindex: 2,//序号
             syStatus: "1",//隐藏与否
             funcId: "0222222222222",//func-ID
@@ -54,7 +54,7 @@ const navmenu = (req, res) => {
           {
             menuIconcls: "",//图标
             menuMenuname: "公告中心",//显示名称
-            menuMenusubname: "noticeManagement",//路径符号
+            menuMenusubname: "noticeList",//路径符号
             syOrderindex: 3,//序号
             syStatus: "1",//隐藏与否
             funcId: "033333333333",//func-ID
