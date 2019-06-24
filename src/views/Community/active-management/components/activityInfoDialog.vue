@@ -18,14 +18,19 @@
 
           <ns-form-item label="是否可报名" prop="enableApply">
             <ns-switch
-              active-value="1"
-              inactive-value="0"
+              :active-value=" enableApplyOptions.Y"
+              :inactive-value="enableApplyOptions.N"
+              @change="switchChange"
               v-model="model.enableApply"
             ></ns-switch>
           </ns-form-item>
 
           <ns-form-item label="最大报名人数" prop="activityLimitNum">
-            <ns-input v-model="model.activityLimitNum" placeholder="请输入报名人数"></ns-input>
+            <ns-input
+              :disabled="model.enableApply === 0"
+              v-model.number="model.activityLimitNum"
+              placeholder="请输入报名人数"
+            ></ns-input>
           </ns-form-item>
 
           <ns-form-item label="报名截止时间" prop="voteEndTime">
@@ -74,7 +79,7 @@
               v-model="model.fileList"
               :width="200"
               :height="200"
-              action="/o2o/activity/uploadFile"
+              action="http://192.168.1.20:7777/o2o/activity/uploadFile"
             >
             </ns-upload>
           </ns-form-item>
@@ -83,7 +88,7 @@
 
 
       <ns-form-item label=" 活动内容:" prop="content">
-        <ns-editor :height="200" v-model="model.content"/>
+        <ns-editor :height="200" v-model="model.content" ref="editor" v-if="showDialog"/>
       </ns-form-item>
     </ns-form>
 
@@ -96,7 +101,7 @@
 
 <script>
   import bizPrecinct from '../../../../components/biz/biz-form/biz-precinct'
-  import { getActiveInfo, editActivity, publishActivity } from '../../../../service/Channel/activeManagement'
+  import { getActiveInfo, publishActivity } from '../../../../service/Channel/activeManagement'
   export default {
     name: 'activityInfoDialog',
 
@@ -115,29 +120,20 @@
     },
 
     data(){
+      var validActivityLimitNum = (rule, value, callback) => {
+        let reg = /^\d+$/
+        if(this.enableApply && value && !reg.test(value)){
+          callback(new Error('请输入正整数'));
+        }else{
+          callback();
+        }
+      };
+
       return{
-        model: {
-          id: '',
-          provinceId: '',
-          cityId: '',
-          precinctIds: [],
-          title: '',
-          type: '',
-          enableApply: '1',  //是否可报名
-          activityLimitNum: '',
-          activityStartTime: '', //活动开始时间
-          activityEndTime: '', //活动截止时间
-          voteEndTime: '',  //截止报名时间
-          activitySpace: '',
-          sponsor: '',
-          fileList: [],
-          status: '',
-          category: "2",
+        enableApplyOptions: {
+          N: 0,
+          Y: 1
         },
-
-        showDialog: this.visible,
-
-        submitLoadingBtn: '',
 
         activityTypeOptions: [
           {
@@ -150,24 +146,44 @@
           }
         ],
 
+
+        model: {
+          id: '',
+          provinceId: '',
+          cityId: '',
+          precinctIds: [],
+          title: '',
+          type: '',
+          enableApply: '',  //是否可报名
+          activityLimitNum: '',
+          activityStartTime: '', //活动开始时间
+          activityEndTime: '', //活动截止时间
+          voteEndTime: '',  //截止报名时间
+          activitySpace: '',
+          sponsor: '',
+          fileList: [],
+          status: '',
+          category: "2",
+          content: ""
+        },
+
+        showDialog: this.visible,
+
+        submitLoadingBtn: '',
+
         rules: {
-          // precinctIds:  [{ required: true, trigger: 'change',message: '请选择范围'}],
-          // provinceId: [{ required: true, trigger: 'change',message: '请选择省'}],
-          // cityId: [{ required: true, trigger: 'change',message: '请选择市'}],
+          precinctIds:  [{ required: true, trigger: 'change',message: '请选择范围'}],
+          provinceId: [{ required: true, trigger: 'change',message: '请选择省'}],
+          cityId: [{ required: true, trigger: 'change',message: '请选择市'}],
           type: [{ required: true, trigger: 'change',message: '请选择活动类型'}],
           title: [{ required: true, trigger: 'change',message: '请输入活动名称'}],
+          activityLimitNum:  [{validator: validActivityLimitNum, trigger: 'change' }],
           voteEndTime: [{ required: true, trigger: 'change',message: '请选择报名截止时间'}],
-          activityStartTime: [{ required: true, trigger: 'change',message: '请选择活动时间'}],
-          activityEndTime: [{ required: true, trigger: 'change',message: '请选择活动截止时间'}],
+          activityStartTime: [{ required: true,  trigger: 'change',message: '请选择活动时间'},],
+          activityEndTime: [{ required: true,  trigger: 'change',message: '请选择活动截止时间'}],
           activitySpace: [{ required: true, trigger: 'change',message: '请输入活动地点'}],
           sponsor: [{ required: true, trigger: 'change',message: '请输入主办方'}],
-          // content: [{ required: true, trigger: 'change',message: '请输入活动内容'}],
-          // fileList: [{ required: true ,trigger: 'change' ,message: '请选择图片'}],
-          // roleids: [{ required: true, validator: validRoleids, trigger: 'blur' }],
-          // userName: [{ required: true, validator: validUserName, trigger: 'blur' }],
-          // userTelephone: [{ required: true, validator: validUserTelephone, trigger: 'change' }],
-          // userAccount: [{ required: true, validator: validUserAccount, trigger: 'blur' }],
-          // userPassword: [{ required: true, validator: validUserPassword, trigger: 'blur' }],
+          content: [{ required: true, trigger: 'input',message: '请输入活动内容'}],
         },
       }
     },
@@ -179,41 +195,42 @@
         this.$emit('update:visible',  this.showDialog);
       },
 
+      // 是否可报名
+      switchChange(val){
+       if(val ===  this.enableApplyOptions.N){
+         this.model.activityLimitNum = ''
+       }
+      },
+
       //获取详情
       getActiveInfo(){
         getActiveInfo({
           noticeId: this.rowData.id
         }).then((data) => {
           this.model = data.resultData;
-          console.log(this.model);
           this.$refs.bizPrecinct.initAreaLink();
         })
       },
 
-      publish(type){
+      /***
+       * 发布/暂存
+       * @param submitType
+       */
+      publish(submitType){
         this.$refs.activityForm.validate((valid)=>{
           if(valid){
-            this.model.status = type === 'publish'? 1 : 0;
-            this.submitLoadingBtn = this.type;
-            if(this.type === 'add'){
-              this.model.id = '';
-              publishActivity(this.model).then(()=>{
-                this.submitLoadingBtn = '';
-                this.close();
-                this.$emit('reloadGrid')
-              }, ()=>{
-                this.submitLoadingBtn = '';
-              });
-            }else{
-              this.model.id = this.rowData.id;
-              editActivity(this.model).then(()=>{
-                this.submitLoadingBtn = '';
-                this.close();
-                this.$emit('reloadGrid')
-              }, ()=>{
-                this.submitLoadingBtn = '';
-              })
-            }
+            this.model.status = submitType === 'publish'? 1 : 0;
+            this.submitLoadingBtn = submitType;
+            this.model.id = this.type === 'add'? '' : this.rowData.id;
+            let url = this.type === 'add'? '/o2o/activity/publish': '/o2o/activity/editActivity';
+            publishActivity(url, this.model).then(()=>{
+              this.submitLoadingBtn = '';
+              this.$message.success('保存成功');
+              this.close();
+              this.$emit('reloadGrid')
+            }, ()=>{
+              this.submitLoadingBtn = '';
+            });
           }
         });
       }
@@ -222,8 +239,11 @@
     watch: {
       visible(val){
         this.showDialog = val;
-        if(this.showDialog && this.type === 'edit'){
+        if(val) return
+        if(this.type === 'edit'){
           this.getActiveInfo();
+        }else{
+          this.model.enableApply = this.enableApplyOptions.Y;
         }
       }
     },
@@ -238,7 +258,7 @@
       //     this.model.activityEndTime = arr.length > 1 ? arr[1] : '';
       //   }
       // }
-    }
+    },
   };
 </script>
 

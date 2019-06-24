@@ -72,11 +72,13 @@
         :visible.sync="activityInfoVisible"
         :type="activityType"
         :rowData="rowData"
+        @reloadGrid="searchTable"
       ></activity-info-dialog>
 
       <check-activity-dialog
         :visible.sync="checkActivityVisible"
         :rowData="rowData"
+        :funcId="Mix_funcId"
       ></check-activity-dialog>
     </div>
 </template>
@@ -151,6 +153,7 @@
        * 获取表格数据
        */
       getTableData() {
+        this.loadState.data = false;
         tableDataFetch(
           {
             url: '/o2o/activity/listActivity',
@@ -158,7 +161,7 @@
             funcId: this.Mix_funcId,
           },
         ).then(res => {
-          this.tableData = res.resultData.pageInfo || [];
+          this.tableData = res.resultData.pageInfo;
           console.log('请求到的表格数据：');
           console.log(this.tableData);
           this.tableData.list.forEach(item => {

@@ -2,26 +2,28 @@
     <ns-dialog
       :title="type === 'add'? '新增公告': '编辑公告'"
       @close="close"
+      size="large"
       :visible.sync="showDialog"
     >
       <ns-form ref="noticeForm" :model="model" :rules="rules" label-width="140px">
         <biz-precinct :precinctModel="model"></biz-precinct>
 
         <ns-form-item label="公告标题" prop="title">
-          <ns-input v-model="model.title" size="medium"></ns-input>
+          <ns-input v-model="model.title"></ns-input>
         </ns-form-item>
 
         <ns-form-item label="附件" prop="fileList">
           <ns-upload
             v-model="model.fileList"
-            :width="100"
-            :height="100"
+            :width="200"
+            :height="200"
             action="/property-service/common/uploadFile"
           >
           </ns-upload>
         </ns-form-item>
 
-        <ns-form-item label="公告内容">
+        <ns-form-item label="公告内容" prop="content">
+          <ns-editor :height="200" v-model="model.content" v-if="showDialog"/>
         </ns-form-item>
       </ns-form>
 
@@ -33,8 +35,8 @@
 </template>
 
 <script>
-  import { getNoticeTypeOptions } from '../../../../service/Form/getOptions'
   import bizPrecinct from '../../../../components/biz/biz-form/biz-precinct'
+  import { saveNotice, getNotice } from '../../../../service/Channel/noticeManagement.js'
   export default {
     name: 'notice-dialog',
 
@@ -56,13 +58,15 @@
           provinceId: '',
           cityId: '',
           fileList: [],
-          noticeCategory: ''
+          noticeCategory: '',
+          category: "1",
+          content: ''
         },
         rules: {
           precinctIdList:  [{ required: true, trigger: 'change',message: '请选择范围'}],
           provinceId: [{ required: true, trigger: 'change',message: '请选择省'}],
           cityId: [{ required: true, trigger: 'change',message: '请选择市'}],
-          fileList: [{ required: true, trigger: 'change',message: '请选择附件'}],
+          // fileList: [{ required: true, trigger: 'change',message: '请选择附件'}],
           title: [{ required: true, trigger: 'change',message: '请输入公告标题'}],
         }
       }
@@ -78,7 +82,10 @@
       visible(val){
         this.showDialog = val;
         if(val && this.type === 'edit'){
+          this.model.id =  this.rowData.id;
           this.getNoticeInfo()
+        }else{
+          this.model.id = '';
         }
       }
     },
@@ -94,7 +101,9 @@
        * 获取公告基础信息
        */
       getNoticeInfo(){
-
+        getNotice({id:  this.model.id}).then((data)=>{
+          this.model = data.resultData;
+        })
       },
 
 
@@ -103,23 +112,20 @@
        */
       submit: function(){
         this.$refs.noticeForm.validate((valid)=>{
-          this.submitLoading = true;
-          console.log(this.model)
+          if(valid){
+            this.submitLoading = true;
+            saveNotice(this.model).then((data)=>{
+              this.submitLoading = false;
+              this.showDialog = false;
+              this.$message.success('保存成功');
+              this.$emit('reloadGrid')
+            }, ()=>{
+              this.$message.error('保存失败');
+              this.submitLoading = false;
+            })
+          }
         })
       },
-
-      /**
-       * 获取公告类型
-       */
-      getNoticeTypeOptions: function(){
-        getNoticeTypeOptions().then((data)=> {
-          this.noticeTypeOptions = data.resultData || [];
-        })
-      }
-    },
-
-    created(){
-      this.getNoticeTypeOptions();
     }
   };
 </script>

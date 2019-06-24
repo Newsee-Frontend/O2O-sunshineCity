@@ -28,11 +28,11 @@
             </div>
 
             <div class="clear fl search-option">
-              <ns-select v-model="searchConditions.companyID" :options="companyList" placeholder="请选择公司"></ns-select>
+              <ns-select v-model="searchConditions.companyId" :options="companyList" placeholder="请选择公司"></ns-select>
             </div>
 
             <div class="clear fl search-option">
-              <ns-button type="primary">查询</ns-button>
+              <ns-button type="primary" @click="searchTable">查询</ns-button>
             </div>
           </template>
         </biz-search-conditions>
@@ -44,6 +44,7 @@
                  :searchConditions="searchConditions"
                  :showSummary="false"
                  @reload="getTableData"
+                 @cell-action="getCellAction"
                  @table-action="tableAction"
       ></biz-table>
 
@@ -52,6 +53,7 @@
         :rowData="rowData"
         :companyList="companyList"
         :type="villageDialogType"
+        @reloadGrid="searchTable"
       ></village-info-dialog>
 
     </div>
@@ -62,7 +64,7 @@
   // import servicePhoneDialog from './componnets/servicePhoneDialog';
   import Mixin from "../../../mixins";
   import villageInfoDialog from './componnets/villageInfoDialog';
-  import { checkhouse } from '../../../service/Channel/villageSetting';
+  import { checkhouse, getCompanyList } from '../../../service/Channel/villageSetting';
   import { tableDataFetch } from '../../../service/TableFetch/table-fetch'
 
   export default {
@@ -89,7 +91,7 @@
         },
         searchConditions: {
           keyWord: '',
-          companyID: '',
+          companyId: '',
           status: '',
           pageNum: 1,
           pageSize: 20,
@@ -103,10 +105,16 @@
     },
 
     methods: {
+      searchTable() {
+        this.searchConditions.pageNum = 1;
+        this.getTableData();
+      },
+
       /**
        * 获取表格数据
        */
       getTableData() {
+        this.loadState.data = false;
         tableDataFetch(
           {
             url: '/o2o/precinct/listPrecinct',
@@ -115,12 +123,11 @@
           },
         ).then(res => {
           this.tableData = res.resultData.pageInfo || [];
-          this.companyList = res.resultData.companyList;
           console.log('请求到的表格数据：');
           console.log(this.tableData);
           this.tableData.list.forEach(item => {
             item.fnsclick = [
-              { label: '编辑', value: 'gridEditBtn' },
+              { label: '同步房产', value: 'gridSyncBtn' },
             ];
           });
           this.loadState.data = true;
@@ -132,7 +139,20 @@
       /**
        *  表格操作
        */
-      tableAction(){},
+      tableAction(info, scope){
+        this.rowData = scope.row;
+        if(info.value === 'gridSyncBtn'){
+          this.syncHouse(scope.row);
+        }
+      },
+
+      /**
+       * 编辑小区
+       */
+      getCellAction(scope){
+        this.rowData = scope.row;
+        this.editVillage();
+      },
 
       /**
        * 同步房产
@@ -151,19 +171,12 @@
             loading.close();
             this.$message.success('同步成功');
           }, (err) => {
-            this.$message.success(err.resultMsg);
+            this.$message.error(err.resultMsg);
             loading.close();
           });
         });
       },
 
-      /**
-       * 服务电话，暂不开通
-       */
-      servicePhoneAction(row) {
-        this.rowData = row;
-        this.showServicePhoneDialog = true;
-      },
 
       /**
        * 增加小区
@@ -176,15 +189,17 @@
       /**
        * 编辑小区
        */
-      editVillage(row) {
+      editVillage() {
         this.showVillageDialog = true;
         this.villageDialogType = 'edit';
-        this.rowData = row;
       },
     },
 
     created() {
-      this.getTableData();
+      this.searchTable();
+      getCompanyList().then(data=>{
+        this.companyList = data.resultData;
+      })
     },
   };
 </script>

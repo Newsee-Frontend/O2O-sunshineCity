@@ -43,11 +43,6 @@
                 </div>
 
                 <div class="clear fl search-option">
-                  <ns-select :options="noticeTypeOptions" v-model="searchConditions.noticeCategory"
-                             placeholder="请选择公告类型"></ns-select>
-                </div>
-
-                <div class="clear fl search-option">
                   <ns-select :options="activestatueOptions" v-model="searchConditions.status"
                              placeholder="请选择公告状态"></ns-select>
                 </div>
@@ -64,7 +59,7 @@
                 </div>
 
                 <div class="clear fl search-option">
-                  <ns-button type="primary">查询</ns-button>
+                  <ns-button type="primary" @click="searchTable">查询</ns-button>
                 </div>
               </template>
             </biz-search-conditions>
@@ -93,7 +88,7 @@
 
 <script>
   import noticeDialog from './componnets/notice-dialog';
-  import { getVillageOptions, getNoticeTypeOptions } from '../../../service/Form/getOptions';
+  import { getVillageOptions } from '../../../service/Form/getOptions';
   import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
   import Mixin from "../../../mixins";
 
@@ -117,8 +112,9 @@
           status: '',
           pubBeginTime: '',
           pubEndTime: '',
+          category: "1",
           pageNum: 1, //当前页数
-          pageSize: 10, //每页显示条目个数
+          pageSize: 20, //每页显示条目个数
         },
         /**发布或保存*/
         activestatueOptions: [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }, { label: '已结束', value: 2 }],
@@ -138,6 +134,11 @@
     },
 
     methods: {
+      searchTable() {
+        this.searchConditions.pageNum = 1;
+        this.getTableData();
+      },
+
       /**
        * 获取表格数据
        */
@@ -145,7 +146,7 @@
         this.loadState.data = false;
         tableDataFetch(
           {
-            url: '/system/table/table-data',
+            url: '/o2o/notice/listNotice',
             query: this.searchConditions,
             funcId: 'funcId',
           },
@@ -197,15 +198,6 @@
       },
 
       /**
-       * 获取公告类型
-       */
-      getNoticeTypeOptions: function() {
-        getNoticeTypeOptions().then((data) => {
-          this.noticeTypeOptions = data.resultData || [];
-        });
-      },
-
-      /**
        * 新增公告
        */
       addNotice() {
@@ -228,9 +220,8 @@
     },
 
     created() {
-      this.getTableData();
+      this.searchTable();
       this.getVillageOptions();
-      this.getNoticeTypeOptions();
     },
   };
 </script>

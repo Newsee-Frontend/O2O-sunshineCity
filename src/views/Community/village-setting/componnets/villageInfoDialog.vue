@@ -6,8 +6,8 @@
     title="小区详情"
   >
     <ns-form ref="villageForm" :model="villageModel"  :rules="villageRules" label-width="120px">
-      <ns-form-item label="所属公司" prop="companyID">
-        <ns-select size="medium" :options="companyList" v-model="villageModel.companyID" placeholder="请选择公司"></ns-select>
+      <ns-form-item label="所属公司" prop="companyId">
+        <ns-select size="medium" :options="companyList" v-model="villageModel.companyId" placeholder="请选择公司"></ns-select>
       </ns-form-item>
       <ns-form-item label="小区名称"   prop="precinctName">
         <ns-input size="medium" v-model="villageModel.precinctName" placeholder="请填写小区名称"></ns-input>
@@ -16,31 +16,31 @@
         <ns-input size="medium" v-model="villageModel.precinctShortName" placeholder="请填写小区简称"></ns-input>
       </ns-form-item>
       <ns-row style="display: flex;">
-        <ns-form-item label="所属城市" prop="provinceID" >
+        <ns-form-item label="所属城市" prop="provinceId" >
           <ns-select
             width="120px"
             placeholder="请选择省"
             :options="provinceList"
             @change="provinceChange"
-            v-model="villageModel.provinceID"
+            v-model="villageModel.provinceId"
           ></ns-select>
         </ns-form-item>
-        <ns-form-item prop="cityID" label-width="20px">
+        <ns-form-item prop="cityId" label-width="20px">
           <ns-select
             width="120px"
             placeholder="请选择市"
             :options="cityList"
             @change="cityChange"
-            :disabled="!villageModel.provinceID"
-            v-model="villageModel.cityID"></ns-select>
+            :disabled="!villageModel.provinceId"
+            v-model="villageModel.cityId"></ns-select>
         </ns-form-item>
-        <ns-form-item prop="areaID" label-width="20px">
+        <ns-form-item prop="areaId" label-width="20px">
           <ns-select
             width="120px"
             placeholder="请选择区县"
             :options="areaList"
-            :disabled="!villageModel.cityID || !villageModel.provinceID"
-            v-model="villageModel.areaID"></ns-select>
+            :disabled="!villageModel.cityId || !villageModel.provinceId"
+            v-model="villageModel.areaId"></ns-select>
         </ns-form-item>
       </ns-row>
       <ns-form-item label="详细地址" prop="address">
@@ -101,17 +101,17 @@
 
     data(){
       return{
-        authStatusOptions: [{ label: '待开通', value: '0' }, { label: '开通中', value: '1' }, { label: '已关闭', value: '2' }],
+        authStatusOptions: [{ label: '待开通', value: 0 }, { label: '开通中', value: 1 }, { label: '已关闭', value: 2 }],
         showDialog: false,
         submitLoading: false,
         villageModel: {
           id: "",
-          companyID: "",
+          companyId: "",
           precinctName: "",
           precinctShortName: "",
-          provinceID: "",
-          cityID: "",
-          areaID: "",
+          provinceId: "",
+          cityId: "",
+          areaId: "",
           address: "",
           status: "0",
           lngLat: "",
@@ -119,12 +119,12 @@
           serviceCall: ""
         },
         villageRules: {
-          companyID: [{ required: true, trigger: 'change',message: '请选择所属公司'}],
+          companyId: [{ required: true, trigger: 'change',message: '请选择所属公司'}],
           precinctName: [{ required: true, trigger: 'change',message: '请填写小区名称'}],
           precinctShortName: [{ required: true, trigger: 'change',message: '请填写小区简称'}],
-          provinceID: [{ required: true, trigger: 'change',message: '请选择省'}],
-          cityID: [{ required: true, trigger: 'change',message: '请选择市'}],
-          areaID: [{ required: true, trigger: 'change',message: '请选择区/县'}],
+          provinceId: [{ required: true, trigger: 'change',message: '请选择省'}],
+          cityId: [{ required: true, trigger: 'change',message: '请选择市'}],
+          areaId: [{ required: true, trigger: 'change',message: '请选择区/县'}],
           address:[{ required: true, trigger: 'change',message: '请填写详细地址'}],
           contact: [{ required: true, trigger: 'change',message: '请填写联系人'}],
           contactPhone: [{ required: true, trigger: 'change',message: '请填写联系电话'}],
@@ -152,8 +152,9 @@
       initForm(){
         if(this.type === 'edit'){
           //get 初始化数据
-          getPrecinctInfo().then((data)=>{
-            this.villageModel = data.resultData.o2oPropertyPrecinctVo;
+          getPrecinctInfo({precinctId: this.rowData.id}).then((data)=>{
+            this.villageModel = data.resultData.PrecinctVo;
+            this.villageModel.id = this.rowData.id;
             this.getCity();
             this.getArea();
             this.$nextTick(()=>{
@@ -163,6 +164,7 @@
         }else{
           this.$nextTick(()=>{
             this.initMap();
+            this.villageModel.id = '';
           });
         }
       },
@@ -201,9 +203,9 @@
          * 地址的变化，联动地图解析
          */
       addressChange(val){
-        let province = this.translateAreaByCode(this.provinceList, this.villageModel.provinceID);
-        let city = this.translateAreaByCode(this.cityList, this.villageModel.cityID);
-        let area = this.translateAreaByCode(this.areaList, this.villageModel.areaID);
+        let province = this.translateAreaByCode(this.provinceList, this.villageModel.provinceId);
+        let city = this.translateAreaByCode(this.cityList, this.villageModel.cityId);
+        let area = this.translateAreaByCode(this.areaList, this.villageModel.areaId);
         let pointVal = province + city + area + val;
         if(!val) return
         let map = new BMap.Map(this.$refs.allmap);
@@ -243,8 +245,8 @@
       provinceChange(val){
           this.cityList = [];
           this.areaList = [];
-          this.villageModel.cityID = '';
-          this.villageModel.areaID = '';
+          this.villageModel.cityId = '';
+          this.villageModel.areaId = '';
           if(val){
             this.getCity()
           }
@@ -255,7 +257,7 @@
        */
       cityChange(val){
         this.areaList = [];
-        this.villageModel.areaID = '';
+        this.villageModel.areaId = '';
         if(val){
           this.getArea();
         }
@@ -271,6 +273,9 @@
             savePrecinctInfo(this.villageModel).then((data)=>{
               this.submitLoading = false;
               this.showDialog = false;
+              this.$message.success('保存成功');
+              this.$emit('reloadGrid')
+
             }, ()=>{
               this.$message.error('保存失败');
               this.submitLoading = false;
@@ -302,7 +307,7 @@
        * 获取市
        */
       getCity(){
-        getAreaList({parentID: this.villageModel.provinceID, type: '2'}).then((data)=>{
+        getAreaList({parentID: this.villageModel.provinceId, type: '2'}).then((data)=>{
           this.cityList = data.resultData || [];
         });
       },
@@ -311,7 +316,7 @@
        * 获取区
        */
       getArea(){
-        getAreaList({parentID: this.villageModel.cityID, type: '3'}).then((data)=>{
+        getAreaList({parentID: this.villageModel.cityId, type: '3'}).then((data)=>{
           this.areaList = data.resultData || [];
         });
       },

@@ -46,19 +46,15 @@
 
         precincts: [],
 
-        model: {
-          provinceId: '',
-          cityId: '',
-          precinctIds: []
-        }
+        model: this.precinctModel
       }
     },
 
     methods: {
       initAreaLink(){
         this.$nextTick(()=>{
-          this.model = this.precinctModel;
           //获取城市
+          this.model = this.precinctModel;
           if(this.model.provinceId){
             this.getAreaList({parentID: this.model.provinceId, type: '2'});
           }

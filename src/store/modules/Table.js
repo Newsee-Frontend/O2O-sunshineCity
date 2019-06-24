@@ -1,5 +1,6 @@
 import { listColumnService } from '../../service/TableFetch/table-fetch';
 
+
 /**
  * Store public table head data
  * in our system, we use one path / query to request head data

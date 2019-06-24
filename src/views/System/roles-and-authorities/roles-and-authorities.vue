@@ -383,7 +383,11 @@
       handleCommand(command) {
         if (command === 'actionExportBtn') {
           //导出
-          downloadExcel('/system/role/export-excel', this.Mix_searchConditions)
+          downloadExcel('/system/role/export-excel', this.Mix_searchConditions).then(d =>{
+            console.log(d)
+          }, e => {
+            console.log(d)
+          })
         }
       },
     },
