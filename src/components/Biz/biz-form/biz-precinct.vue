@@ -1,6 +1,6 @@
 <template>
     <span>
-      <ns-form-item label="发送范围省" prop="provinceId">
+      <ns-form-item label="发送小区所在省" prop="provinceId">
         <ns-select
           v-model="model.provinceId"
           :options="provinces"
@@ -8,7 +8,7 @@
           placeholder="请选择省"></ns-select>
       </ns-form-item>
 
-      <ns-form-item label="发送范围市" prop="cityId">
+      <ns-form-item label="发送小区所在市" prop="cityId">
         <ns-select v-model="model.cityId"
                    :disabled="!model.provinceId"
                    :options="cities"
@@ -17,11 +17,11 @@
                   ></ns-select>
       </ns-form-item>
 
-      <ns-form-item label="发送范围"  prop="precinctIds">
+      <ns-form-item label="发送小区"  prop="precinctIds">
         <ns-select
           multiple
           collapseTags
-          placeholder="请选择范围"
+          placeholder="请选择发送小区"
           v-model="model.precinctIds"
           :disabled="!model.provinceId || !model.cityId"
           :options="precincts"></ns-select>

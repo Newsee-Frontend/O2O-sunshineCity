@@ -3,6 +3,7 @@
       :title="type === 'add'? '新增公告': '编辑公告'"
       @close="close"
       size="large"
+      :is-append-to-body="false"
       :visible.sync="showDialog"
     >
       <ns-form ref="noticeForm" :model="model" :rules="rules" label-width="140px">
@@ -15,11 +16,11 @@
             <ns-form-item label="附件" prop="fileList">
               <ns-upload
                 v-model="model.fileList"
-                :width="110"
-                :height="110"
+                :width="120"
+                :height="120"
                 :headers="requestHead"
                 @change="itemChanged('fileList')"
-                action="http://192.168.1.20:7777/o2o/activity/uploadFile"
+                action="/api/activity/uploadFile"
               ></ns-upload>
             </ns-form-item>
           </ns-col>
@@ -28,10 +29,9 @@
           <ns-input v-model="model.title" placeholder="请输入公告标题" width="100%"></ns-input>
         </ns-form-item>
         <ns-form-item label="公告内容" prop="content">
-          <ns-editor :height="200" v-model="model.content"  @input="itemChanged('content')" v-if="showDialog"/>
+          <ns-editor :height="200" v-model="model.content" model="normal"  @input="itemChanged('content')" v-if="showDialog"/>
         </ns-form-item>
       </ns-form>
-
       <span slot="footer" class="dialog-footer">
         <ns-button type="primary" @click="submit('publish')" size="small" :loading="submitLoading === 'publish'">保 存</ns-button>
         <ns-button @click="submit('tempPublish')" size="small" :loading="submitLoading === 'tempPublish'">暂 存</ns-button>
