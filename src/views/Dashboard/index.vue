@@ -1,8 +1,7 @@
 <!--主页-->
 <template>
   <div class="Dashboard">
-    <ns-particles :color="particlesColor" class="ns-particles"></ns-particles>
-    <ns-editor :height="500" v-model="content"/>
+    <ns-particles class="ns-particles" :color="particlesColor"/>
   </div>
 </template>
 
@@ -12,7 +11,6 @@
     data() {
       return {
         particlesColor: '#a9abae',
-        content: ''
       };
     },
     created() {
