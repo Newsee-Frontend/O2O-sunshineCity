@@ -207,7 +207,7 @@ const getPrecincts = (req, res) => {
 }
 
 module.exports = {
-  'POST /property-service/property-rest/rest/noticeManage/grid': activeGrid,
-  'POST /property-service/property-rest/rest/noticeManage/getNotice': notice,
-  'POST /property-service/property-rest/rest/precinct/getPrecincts': getPrecincts
+  'POST /o2o/noticeManage/grid': activeGrid,
+  'POST /o2o/noticeManage/getNotice': notice,
+  'POST /o2o/precinct/getPrecincts': getPrecincts
 };

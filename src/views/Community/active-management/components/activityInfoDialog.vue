@@ -79,7 +79,9 @@
               v-model="model.fileList"
               :width="200"
               :height="200"
-              action="http://192.168.1.20:7777/o2o/activity/uploadFile"
+              :headers="requestHead"
+              @change="itemChanged('fileList')"
+              action="/api/fastdfs/fastdfs/uploadFile"
             >
             </ns-upload>
           </ns-form-item>
@@ -88,7 +90,7 @@
 
 
       <ns-form-item label=" 活动内容:" prop="content">
-        <ns-editor :height="200" v-model="model.content" ref="editor" v-if="showDialog"/>
+        <ns-editor :height="200" @input="itemChanged('content')" v-model="model.content" ref="editor" v-if="showDialog"/>
       </ns-form-item>
     </ns-form>
 
@@ -102,6 +104,8 @@
 <script>
   import bizPrecinct from '../../../../components/biz/biz-form/biz-precinct'
   import { getActiveInfo, publishActivity } from '../../../../service/Channel/activeManagement'
+  import {mapGetters} from 'vuex';
+
   export default {
     name: 'activityInfoDialog',
 
@@ -183,7 +187,8 @@
           activityEndTime: [{ required: true,  trigger: 'change',message: '请选择活动截止时间'}],
           activitySpace: [{ required: true, trigger: 'change',message: '请输入活动地点'}],
           sponsor: [{ required: true, trigger: 'change',message: '请输入主办方'}],
-          content: [{ required: true, trigger: 'input',message: '请输入活动内容'}],
+          content: [{ required: true, message: '请输入活动内容'}],
+          fileList: [{ required: true, message: '请选择图片'}],
         },
       }
     },
@@ -208,8 +213,13 @@
           noticeId: this.rowData.id
         }).then((data) => {
           this.model = data.resultData;
+          this.model.fileList = this.model.fileList || [];
           this.$refs.bizPrecinct.initAreaLink();
         })
+      },
+
+      itemChanged(str){
+        this.$refs.activityForm.clearValidate(str);
       },
 
       /***
@@ -243,22 +253,14 @@
         if(this.type === 'edit'){
           this.getActiveInfo();
         }else{
+          this.model.fileList = [];
           this.model.enableApply = this.enableApplyOptions.Y;
         }
       }
     },
     computed: {
-      // 'timeRange': {
-      //   get: function(){
-      //     return this.model.activityStartTime? [this.model.activityStartTime, this.model.activityEndTime]: '';
-      //   },
-      //
-      //   set: function(arr){
-      //     this.model.activityStartTime = arr.length > 1 ? arr[0] :  '';
-      //     this.model.activityEndTime = arr.length > 1 ? arr[1] : '';
-      //   }
-      // }
-    },
+      ...mapGetters(['requestHead'])
+    }
   };
 </script>
 

@@ -748,8 +748,8 @@
 
 "@tinymce/tinymce-vue@^2.0.0":
   version "2.1.0"
-  resolved "https://registry.npmjs.org/@tinymce/tinymce-vue/-/tinymce-vue-2.1.0.tgz#cac3e935b217a277424f2258f3235824aa3c17c0"
-  integrity sha512-lDIpeLbkaobS/f00wWaOhGJdiZLdtL0dEDYB4JvqgVeAAoaDFG2PvXXP/kN49xpHpUe8vOdt7xFaN48nrPmsbQ==
+  resolved "https://registry.npm.taobao.org/@tinymce/tinymce-vue/download/@tinymce/tinymce-vue-2.1.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40tinymce%2Ftinymce-vue%2Fdownload%2F%40tinymce%2Ftinymce-vue-2.1.0.tgz#cac3e935b217a277424f2258f3235824aa3c17c0"
+  integrity sha1-ysPpNbIXondCTyJY8yNYJKo8F8A=
   dependencies:
     vue "^2.5.17"
 
@@ -2328,7 +2328,7 @@ core-js-pure@3.1.2:
 
 core-js@^1.0.0:
   version "1.2.7"
-  resolved "https://registry.npm.taobao.org/core-js/download/core-js-1.2.7.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
+  resolved "https://registry.npm.taobao.org/core-js/download/core-js-1.2.7.tgz?cache=0&sync_timestamp=1560599811627&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
   integrity sha1-ZSKUwUZR2yj6k70tX/KYOk8IxjY=
 
 core-js@^2.4.0, core-js@^2.6.5:
@@ -6217,8 +6217,8 @@ ns-form-components@0.0.18:
 
 ns-form-components@0.0.28:
   version "0.0.28"
-  resolved "https://registry.npmjs.org/ns-form-components/-/ns-form-components-0.0.28.tgz#e74e87568b3847aff5e89ca4b9c11137873313fc"
-  integrity sha512-wB1JY33TEn7UO9/jahAGDHSTOoq+LsCVz66lqGzp7Q9QKHkZ9qdMqSzyGf92r+rhph8jK2X59/r8GkTY+kFPHg==
+  resolved "https://registry.npm.taobao.org/ns-form-components/download/ns-form-components-0.0.28.tgz#e74e87568b3847aff5e89ca4b9c11137873313fc"
+  integrity sha1-506HVos4R6/16JykucERN4czE/w=
   dependencies:
     "@riophae/vue-treeselect" "^0.0.38"
     "@tinymce/tinymce-vue" "^2.0.0"
@@ -8949,9 +8949,9 @@ timsort@^0.3.0:
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
 tinymce@^5.0.6:
-  version "5.0.7"
-  resolved "https://registry.npmjs.org/tinymce/-/tinymce-5.0.7.tgz#60fced0f04a53f25702e37ba86c381d8d293f33a"
-  integrity sha512-iB1Onz+eeN0yADkqWpumT90yh+Mf+RfCTxUEamkrUGxtFH3oVQ0QIOABKrWdksbPD8ttvHqD8hW5ZsDAdMTwEA==
+  version "5.0.8"
+  resolved "https://registry.npm.taobao.org/tinymce/download/tinymce-5.0.8.tgz#a5a15c9f29e2542a8d2bf1a0174903f25775ddbe"
+  integrity sha1-paFcnyniVCqNK/GgF0kD8ld13b4=
 
 tmp@^0.0.33:
   version "0.0.33"

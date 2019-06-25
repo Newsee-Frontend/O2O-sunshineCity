@@ -15,7 +15,7 @@ const noticeType = (req, res) => {
 }
 
 module.exports = {
-  'POST /property-service/property-rest/rest/noticeManage/noticeCagtegory': noticeType,
+  'POST /o2o/noticeManage/noticeCagtegory': noticeType,
 };
 
 

@@ -11,10 +11,11 @@
           <template slot="btns">
             <ns-role-button
               mode="icon"
+              coerciveShow
               :roleInfo="{
                   areaType: 'ACTION',
-                  code: 'actionAddBtn',
-                  name: '新增',
+                  code: 'actionExportBtn',
+                  name: '导出Excel',
                   nameEn: '',
                   index: 1,
                   btnType: 'single',
@@ -22,16 +23,6 @@
               @click="download()"
 
             >
-              <!--<ns-role-button-->
-              <!--mode="dp-text"-->
-              <!--title="更多"-->
-              <!--@command="handleCommand"-->
-              <!--&gt;</ns-role-button>-->
-              <!--<ns-role-button-->
-              <!--mode="dp-text"-->
-              <!--title="更多"-->
-              <!--@command="handleCommand"-->
-              <!--&gt;</ns-role-button>-->
             </ns-role-button>
           </template>
           <template slot="main">
@@ -54,7 +45,7 @@
                :showSummary="false"
                :hasActionCol="false"
                :showHeadOperation="false"
-               :firstColType="false"
+               :firstColType="null"
                @reload="getTableData"
     ></biz-table>
 

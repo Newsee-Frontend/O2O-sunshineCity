@@ -6,10 +6,10 @@
       :visible.sync="showDialog"
     >
       <ns-form ref="noticeForm" :model="model" :rules="rules" label-width="140px">
-        <biz-precinct :precinctModel="model"></biz-precinct>
+        <biz-precinct :precinctModel="model" ref="bizPrecinct"></biz-precinct>
 
         <ns-form-item label="公告标题" prop="title">
-          <ns-input v-model="model.title"></ns-input>
+          <ns-input v-model="model.title" prop="请输入公告标题"></ns-input>
         </ns-form-item>
 
         <ns-form-item label="附件" prop="fileList">
@@ -17,19 +17,20 @@
             v-model="model.fileList"
             :width="200"
             :height="200"
-            action="/property-service/common/uploadFile"
-          >
-          </ns-upload>
+            :headers="requestHead"
+            @change="itemChanged('fileList')"
+            action="http://192.168.1.20:7777/o2o/activity/uploadFile"
+          ></ns-upload>
         </ns-form-item>
 
         <ns-form-item label="公告内容" prop="content">
-          <ns-editor :height="200" v-model="model.content" v-if="showDialog"/>
+          <ns-editor :height="200" v-model="model.content"  @input="itemChanged('content')" v-if="showDialog"/>
         </ns-form-item>
       </ns-form>
 
       <span slot="footer" class="dialog-footer">
-        <ns-button @click="showDialog = false" size="small">取 消</ns-button>
-        <ns-button type="primary" @click="submit" size="small" :loading="submitLoading">确 定</ns-button>
+        <ns-button type="primary" @click="submit('publish')" size="small" :loading="submitLoading === 'publish'">保 存</ns-button>
+        <ns-button @click="submit('tempPublish')" size="small" :loading="submitLoading === 'tempPublish'">暂 存</ns-button>
       </span>
     </ns-dialog>
 </template>
@@ -37,6 +38,7 @@
 <script>
   import bizPrecinct from '../../../../components/biz/biz-form/biz-precinct'
   import { saveNotice, getNotice } from '../../../../service/Channel/noticeManagement.js'
+  import {mapGetters} from 'vuex';
   export default {
     name: 'notice-dialog',
 
@@ -47,26 +49,27 @@
     data(){
       return {
         showDialog: false,
-        submitLoading: false,
+        submitLoading: '',
         provinces: [],
         cities: [],
         precincts: [],
         noticeTypeOptions: [],
         model: {
           title: '',
-          precinctIdList: [],
+          precinctIds: [],
           provinceId: '',
           cityId: '',
           fileList: [],
           noticeCategory: '',
           category: "1",
-          content: ''
+          content: '',
+          status: ''
         },
         rules: {
-          precinctIdList:  [{ required: true, trigger: 'change',message: '请选择范围'}],
+          precinctIds:  [{ required: true, trigger: 'change',message: '请选择范围'}],
           provinceId: [{ required: true, trigger: 'change',message: '请选择省'}],
           cityId: [{ required: true, trigger: 'change',message: '请选择市'}],
-          // fileList: [{ required: true, trigger: 'change',message: '请选择附件'}],
+          content: [{ required: true, trigger: 'change',message: '请输入公告内容'}],
           title: [{ required: true, trigger: 'change',message: '请输入公告标题'}],
         }
       }
@@ -90,11 +93,19 @@
       }
     },
 
+    computed: {
+      ...mapGetters(['requestHead'])
+    },
+
     methods: {
       close(){
         this.$refs.noticeForm.resetFields();
         this.showDialog = false;
         this.$emit('update:visible', this.showDialog)
+      },
+
+      itemChanged(str){
+        this.$refs.noticeForm.clearValidate(str);
       },
 
       /**
@@ -103,6 +114,7 @@
       getNoticeInfo(){
         getNotice({id:  this.model.id}).then((data)=>{
           this.model = data.resultData;
+          this.$refs.bizPrecinct.initAreaLink();
         })
       },
 
@@ -110,18 +122,19 @@
       /**
        *  提交
        */
-      submit: function(){
+      submit: function(submitType){
+        this.model.status = submitType === 'publish'? 1 : 0;
         this.$refs.noticeForm.validate((valid)=>{
           if(valid){
-            this.submitLoading = true;
+            this.submitLoading = submitType;
             saveNotice(this.model).then((data)=>{
-              this.submitLoading = false;
+              this.submitLoading = '';
               this.showDialog = false;
               this.$message.success('保存成功');
               this.$emit('reloadGrid')
             }, ()=>{
               this.$message.error('保存失败');
-              this.submitLoading = false;
+              this.submitLoading = '';
             })
           }
         })

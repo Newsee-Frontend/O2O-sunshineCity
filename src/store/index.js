@@ -11,6 +11,7 @@ import Search from './modules/Search';
 import RoleButton from './modules/common/RoleButton';
 import TreeData from './modules/TreeData';
 import Table from './modules/Table';
+import RequestHead from './modules/RequestHeader'
 
 
 import getters from './getters';
@@ -29,6 +30,7 @@ const store = new Vuex.Store({
     RoleButton,
     TreeData,
     Table,
+    RequestHead
   },
   getters,
 });

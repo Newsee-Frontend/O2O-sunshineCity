@@ -1,3 +1,5 @@
+import RequestHead from './modules/RequestHeader';
+
 const getters = {
 
   //core
@@ -24,6 +26,9 @@ const getters = {
 
   //table
   tableHead: state => state.Table.tableHead,
+
+  //requestHead
+  requestHead: state => state.RequestHead.base
 
 
 };

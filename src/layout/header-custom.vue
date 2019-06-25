@@ -1,7 +1,7 @@
 <template>
   <div class="clear">
-    <div class="fl" style="color: #fff;padding-left: 10px">
-      header-custom
+    <div class="fl" style="color: #fff;padding-left: 24px;font-size: 16px;">
+      社区o2o管理系统
     </div>
   </div>
 </template>

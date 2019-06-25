@@ -113,7 +113,7 @@
           cityId: "",
           areaId: "",
           address: "",
-          status: "0",
+          status: 0,
           lngLat: "",
           contact: "",
           serviceCall: ""

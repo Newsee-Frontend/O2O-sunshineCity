@@ -21,5 +21,5 @@ const upload = (req, res) => {
 };
 
 module.exports = {
-  'POST /property-service/common/uploadFile': upload
+  'POST /o2o/activity/uploadFile': upload
 };

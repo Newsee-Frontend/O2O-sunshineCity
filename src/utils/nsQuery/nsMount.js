@@ -180,12 +180,7 @@ export default {
       fetch: (requestData, successcb, errorcb) => {
         // $store.dispatch('tableDataFetch', {gridID, url, query});
         //requestData.query.isSwitch 房产信息汇总表和房产变动信息表表格单元链接跳转查询参数开关
-        tableDataFetch(
-          requestData.url,
-          requestData.query,
-          requestData.funcId,
-          requestData.params,
-        )
+        tableDataFetch(requestData)
           .then(res => {
             successcb(res.resultData);
           })
