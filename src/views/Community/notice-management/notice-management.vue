@@ -1,5 +1,5 @@
 <template>
-  <div class="win" id="nnn">
+  <div class="win" id="notice">
     <div class="ns-container">
       <div class="ns-container">
         <!--tree-module-->

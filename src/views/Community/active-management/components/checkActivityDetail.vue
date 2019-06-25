@@ -40,6 +40,7 @@
     <!--表格部分-->
     <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
                isLocalHead
+               :localHeight="340"
                :head="head"
                :searchConditions="searchConditions"
                :showSummary="false"

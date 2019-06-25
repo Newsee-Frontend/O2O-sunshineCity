@@ -1,5 +1,5 @@
 <template>
-    <div class="active-management-wrapper">
+    <div class="win">
       <div class="ns-container">
         <div class="ns-container-right">
           <div class="action-module">

@@ -1,14 +1,15 @@
 <template>
-  <div class="ns-container">
-    <div class="ns-container-right">
-      <div class="action-module">
-        <biz-search-conditions>
-          <template slot="btns">
-            <ns-role-button
-              mode="icon"
-              :coerciveShow="true"
-              @click="addVillage"
-              :roleInfo="{
+  <div class="win" id="village">
+    <div class="ns-container">
+      <div class="ns-container-right">
+        <div class="action-module">
+          <biz-search-conditions>
+            <template slot="btns">
+              <ns-role-button
+                mode="icon"
+                :coerciveShow="true"
+                @click="addVillage"
+                :roleInfo="{
                   areaType: 'ACTION',
                   code: 'actionAddBtn',
                   name: '新增',
@@ -16,46 +17,47 @@
                   index: 1,
                   btnType: 'single',
                 }"></ns-role-button>
-          </template>
-          <template slot="main">
-            <div class="clear fl search-option">
-              <ns-input v-model="searchConditions.keyWord" placeholder="请输入小区名称"></ns-input>
-            </div>
+            </template>
+            <template slot="main">
+              <div class="clear fl search-option">
+                <ns-input v-model="searchConditions.keyWord" placeholder="请输入小区名称"></ns-input>
+              </div>
 
-            <div class="clear fl search-option">
-              <ns-select v-model="searchConditions.status" :options="authStatusOptions"
-                         placeholder="请选择认证状态"></ns-select>
-            </div>
+              <div class="clear fl search-option">
+                <ns-select v-model="searchConditions.status" :options="authStatusOptions"
+                           placeholder="请选择认证状态"></ns-select>
+              </div>
 
-            <div class="clear fl search-option">
-              <ns-select v-model="searchConditions.companyId" :options="companyList" placeholder="请选择公司"></ns-select>
-            </div>
+              <div class="clear fl search-option">
+                <ns-select v-model="searchConditions.companyId" :options="companyList" placeholder="请选择公司"></ns-select>
+              </div>
 
-            <div class="clear fl search-option">
-              <ns-button type="primary" @click="searchTable">查询</ns-button>
-            </div>
-          </template>
-        </biz-search-conditions>
+              <div class="clear fl search-option">
+                <ns-button type="primary" @click="searchTable">查询</ns-button>
+              </div>
+            </template>
+          </biz-search-conditions>
+        </div>
+
+        <!--表格部分-->
+        <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
+                   :funcId="Mix_funcId"
+                   :searchConditions="searchConditions"
+                   :showSummary="false"
+                   @reload="getTableData"
+                   @cell-action="getCellAction"
+                   @table-action="tableAction"
+        ></biz-table>
+
+        <!--<village-info-dialog-->
+          <!--:visible.sync="showVillageDialog"-->
+          <!--:rowData="rowData"-->
+          <!--:companyList="companyList"-->
+          <!--:type="villageDialogType"-->
+          <!--@reloadGrid="searchTable"-->
+        <!--&gt;</village-info-dialog>-->
+
       </div>
-
-      <!--表格部分-->
-      <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
-                 :funcId="Mix_funcId"
-                 :searchConditions="searchConditions"
-                 :showSummary="false"
-                 @reload="getTableData"
-                 @cell-action="getCellAction"
-                 @table-action="tableAction"
-      ></biz-table>
-
-      <village-info-dialog
-        :visible.sync="showVillageDialog"
-        :rowData="rowData"
-        :companyList="companyList"
-        :type="villageDialogType"
-        @reloadGrid="searchTable"
-      ></village-info-dialog>
-
     </div>
   </div>
 </template>
@@ -80,7 +82,7 @@
 
     data() {
       return {
-        authStatusOptions: [{ label: '待开通', value: 0 }, { label: '开通中', value: 1 }, { label: '已关闭', value: 2 }],
+        authStatusOptions: [{ label: '待开通', value: '0' }, { label: '开通中', value: '1' }, { label: '已关闭', value: '2' }],
         companyList: [],
         tableData: {},
         rowData: {},
