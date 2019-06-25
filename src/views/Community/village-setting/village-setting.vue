@@ -80,7 +80,7 @@
 
     data() {
       return {
-        authStatusOptions: [{ label: '待开通', value: '0' }, { label: '开通中', value: '1' }, { label: '已关闭', value: '2' }],
+        authStatusOptions: [{ label: '待开通', value: 0 }, { label: '开通中', value: 1 }, { label: '已关闭', value: 2 }],
         companyList: [],
         tableData: {},
         rowData: {},

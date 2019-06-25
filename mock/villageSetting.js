@@ -239,9 +239,9 @@ const precinctInfo = (req, res) => {
 };
 
 module.exports = {
-  'POST /property-service/property-rest/rest/precinct/listPrecinct': list,
-  'POST /property-service/property-rest/rest/precinct/getServicePhoneList': phoneList,
-  'POST /property-service/property-rest/rest/precinct/delServicePhone': phoneList,
-  'POST /property-service/property-rest/rest/precinct/saveServicePhoneList': phoneList,
-  'POST /property-service/property-rest/rest/precinct/getPrecinct': precinctInfo
+  'POST /o2o/precinct/listPrecinct': list,
+  'POST /o2o/precinct/getServicePhoneList': phoneList,
+  'POST /o2o/precinct/delServicePhone': phoneList,
+  'POST /o2o/precinct/saveServicePhoneList': phoneList,
+  'POST /o2o/precinct/getPrecinct': precinctInfo
 };

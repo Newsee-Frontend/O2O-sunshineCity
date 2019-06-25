@@ -30,6 +30,7 @@ export function newRequestHead(Old, New = NewRequestData) {
  */
 export function fileFlowDistribute(response, callback) {
   const headers = response.headers;
+  console.log(response);
   const fileName = headers['downloadfilename']? decodeURI(headers['downloadfilename']): '';
   let blob = new Blob([response.data], { type: headers['content-type'] });
   let downloadElement = document.createElement('a');

@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="clear fl search-option">
-                  <ns-select :options="villageOptions" v-model="searchConditions.precinctName"
+                  <ns-select :options="villageOptions" v-model="searchConditions.precinctId"
                              placeholder="请选择小区"></ns-select>
                 </div>
 
@@ -81,13 +81,24 @@
         :type="noticeTpye"
         :rowData="rowData"
         :visible.sync="showNoticeDialog"
+        @reloadGrid="searchTable"
       ></notice-dialog>
+
+      <check-notice-detail
+        :visible.sync="checkNoticeVisible"
+        :rowData="rowData"
+      >
+
+      </check-notice-detail>
+
     </div>
   </div>
 </template>
 
 <script>
   import noticeDialog from './componnets/notice-dialog';
+  import checkNoticeDetail from './componnets/checkNoticeDetail';
+  import { deleteNotice } from '../../../service/Channel/noticeManagement'
   import { getVillageOptions } from '../../../service/Form/getOptions';
   import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
   import Mixin from "../../../mixins";
@@ -101,13 +112,14 @@
 
     components: {
       noticeDialog,
+      checkNoticeDetail
     },
 
     data() {
       return {
         searchConditions: {
           keyWord: '',
-          precinctName: '',
+          precinctId: '',
           noticeCategory: '',
           status: '',
           pubBeginTime: '',
@@ -123,6 +135,7 @@
 
         noticeTpye: 'add',  //add\edit
         showNoticeDialog: false,
+        checkNoticeVisible: false,
         rowData: {},
         tableData: {},
         //表格数据加载状态
@@ -151,13 +164,14 @@
             funcId: 'funcId',
           },
         ).then(res => {
-          this.tableData = res.resultData || {};
+          this.tableData = res.resultData.pageInfo || {};
           console.log('请求到的表格数据：');
           console.log(this.tableData);
           this.tableData.list.forEach(item => {
             item.fnsclick = [
-              { label: '编辑', value: 'gridEditBtn' }, { label: '删除', value: 'gridRemoveBtn' },
-              { label: '停用', value: 'stop' }, { label: '启用', value: 'work' },
+              { label: '编辑', value: 'gridEditBtn' },
+              { label: '删除', value: 'gridRemoveBtn'},
+              { label: '查看', value: 'gridCheckBtn'}
             ];
           });
           this.loadState.data = true;
@@ -183,9 +197,24 @@
        * @param info
        * @param scope
        */
-      tableAction(info, scope) {
-        console.log('操作列按钮点击的时候');
-        console.log(info, scope);
+      /**
+       * 按钮点击
+       * */
+      tableAction(info, scope){
+        this.rowData = scope.row;
+        if(info.value === "gridEditBtn"){
+          this.showNoticeDialog = true;
+          this.noticeTpye = 'edit'
+        }else if(info.value === 'gridRemoveBtn'){
+          this.$confirm('确定要删除该活动??', '提示', {type: 'warning'}).then(()=>{
+            deleteNotice({id: this.rowData.id}).then(()=>{
+              this.$message.success('删除成功');
+              this.getTableData();
+            });
+          })
+        }else if(info.value === 'gridCheckBtn'){
+          this.checkNoticeVisible = true;
+        }
       },
 
       /**
@@ -213,8 +242,9 @@
         },
 
         set: function(arr) {
-          this.searchConditions.pubBeginTime = arr.length > 1 ? arr[0] : '';
-          this.searchConditions.pubEndTime = arr.length > 1 ? arr[1] : '';
+          let range = arr || [];
+          this.searchConditions.pubBeginTime = range.length > 1 ? range[0] + ' 00:00:00' :  '';
+          this.searchConditions.pubEndTime = range.length > 1 ? range[1] + ' 23:59:59': '';
         },
       },
     },

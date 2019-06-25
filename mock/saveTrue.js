@@ -24,7 +24,7 @@ module.exports = {
   'POST /system/organization/delete-organization': data,
   'GET /system/dictionary/delete-dictionary': data,
   'POST /system/organization/add-department': data,
-  'POST /property-service/property-rest/rest/noticeManage/save': data,
-  'POST /property-service/property-rest/rest/precinct/checkHouse': data,
-  'POST /property-service/property-rest/rest/precinct/savePrecinct': data
+  'POST /o2o/noticeManage/save': data,
+  'POST /o2o/precinct/checkHouse': data,
+  'POST /o2o/precinct/savePrecinct': data
 };
