@@ -8,6 +8,7 @@ const userTemplate = (req, res) => {
       avatar: "",
       loginTime: 1558938719431,
       maxage: 18000000,
+      themeColor: '#252836',
       token: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxODg1NzE3NzExOSIsImp0aSI6IjkxMSIsImlhdCI6MTU1ODkzODcxOX0.ozqfVA7y6wZt401XKaHrBOwvg-ujWcyv71I0omK1DBs",
       userAccount: "superAdmin",
       userId: 172,

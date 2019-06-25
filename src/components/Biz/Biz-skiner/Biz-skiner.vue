@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import {mapGetters} from 'vuex';
 
   export default {
     name: 'Biz-skiner',
@@ -31,9 +31,13 @@
       ...mapGetters(['theme']),
     },
     methods: {
-      changeTheme(key) {
-        console.log('换肤改变');
-        console.log(key);
+      methods: {
+        changeTheme(key) {
+          console.log('换肤改变');
+          updateThemeColor({themeColor: this.skinerModel}).then(res => {
+            
+          })
+        },
       },
 
       show() {
