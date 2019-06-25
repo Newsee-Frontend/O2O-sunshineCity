@@ -35,7 +35,7 @@
         changeTheme(key) {
           console.log('换肤改变');
           updateThemeColor({themeColor: this.skinerModel}).then(res => {
-            
+
           })
         },
       },
