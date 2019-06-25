@@ -2,6 +2,7 @@
   <ns-dialog :title="type === 'add'? '新增活动': '编辑活动'"
              :visible.sync="showDialog"
              size="large"
+             :is-append-to-body="false"
              @close="close">
     <ns-form ref="activityForm" :model="model" :rules="rules" label-width="140px">
       <ns-row>
@@ -81,7 +82,7 @@
               :height="200"
               :headers="requestHead"
               @change="itemChanged('fileList')"
-              action="/api/fastdfs/fastdfs/uploadFile"
+              action="/api/activity/uploadFile"
             >
             </ns-upload>
           </ns-form-item>
@@ -90,7 +91,7 @@
 
 
       <ns-form-item label=" 活动内容:" prop="content">
-        <ns-editor :height="200" @input="itemChanged('content')" v-model="model.content" ref="editor" v-if="showDialog"/>
+        <ns-editor :height="200" @input="itemChanged('content')" model="normal" v-model="model.content"/>
       </ns-form-item>
     </ns-form>
 

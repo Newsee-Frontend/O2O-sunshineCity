@@ -129,7 +129,7 @@
           pageSize: 20, //每页显示条目个数
         },
         /**发布或保存*/
-        activestatueOptions: [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }, { label: '已结束', value: 2 }],
+        activestatueOptions: [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }],
         villageOptions: [],
         noticeTypeOptions: [],
 
