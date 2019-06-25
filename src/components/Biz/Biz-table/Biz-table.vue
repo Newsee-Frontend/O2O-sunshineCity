@@ -2,7 +2,7 @@
 <template>
   <div v-loading="!isRender">
     <ns-table ref="biz-table"
-              :data="data.list" :head="finalHead" :keyRefer="keyRefer" :height="400"
+              :data="data.list" :head="finalHead" :keyRefer="keyRefer" :height="height"
               :cellFifter="cellFifter"
               :showHeadOperation="showHeadOperation"
               :showSummary="showSummary"
@@ -15,6 +15,7 @@
               v-if="isRender"
     ></ns-table>
     <ns-pagination
+      class="biz-pagination"
       :total="data.total" :searchConditions="searchConditions"
       @size-change="sizeChange"
       @current-change="currentChange"
@@ -27,6 +28,7 @@
   import columnConfig from './column-template-config';
   import cellFifter from './cell-fifter';
   import keyRefer from './keyRefer';
+  import { addEventHandler, removeEventHandler} from '../../../utils/index'
 
   export default {
     name: 'biz-table',
@@ -35,6 +37,7 @@
         keyRefer,
         cellFifter,
         isLoading: true,
+        height: 0
       };
     },
     props: {
@@ -63,6 +66,7 @@
       showHeadOperation: { type: Boolean, default: true },//表头设置操作模块开关
       showAddRowOperation: { type: Boolean, default: false },//表头设置 新增行操作模块开关
       showSummary: { type: Boolean, default: true },//是否显示合计行
+      localHeight: { type: Number}
     },
     computed: {
       ...mapGetters(['tableHead']),
@@ -108,7 +112,31 @@
         this.loadState.head = true;
       });
     },
+
+    mounted (){
+      //是否需要自适应高度
+      if(this.localHeight) {
+        this.height = this.localHeight;
+        return
+      }
+      this.getHeight();
+      addEventHandler(window, 'resize', ()=>{
+        this.getHeight();
+      })
+    },
+
+    destroyed(){
+      // removeEventHandler(window,'resize');
+    },
+
     methods: {
+      getHeight(){
+        let containerHeight = $('.ns-container-right').height() || 0;
+        let searchHeight = $('.action-module').height() || 0;
+        let paginationHeight = $('.biz-pagination').height() || 0;
+        this.height = containerHeight - searchHeight - paginationHeight - 10;
+      },
+
       /**
        * 分页器当前显示条数改变
        * @param val
@@ -160,11 +188,6 @@
       resetCheck() {
         this.$refs['biz-table'].resetCheck();
       },
-    },
-    mounted() {
-
-
-
     },
   };
 </script>

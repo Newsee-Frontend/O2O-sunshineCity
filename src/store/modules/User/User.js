@@ -75,6 +75,10 @@ const User = {
       });
     },
 
+    updateLoginData({commit}, query) {
+      commit('SET_LOGIN_DATA', query);
+    },
+
     //多户登录
     multipleEnterpriseLogin({commit}, query) {
       multipleEnterpriseLogin(query).then(res => {

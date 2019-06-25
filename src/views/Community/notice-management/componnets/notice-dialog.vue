@@ -6,23 +6,27 @@
       :visible.sync="showDialog"
     >
       <ns-form ref="noticeForm" :model="model" :rules="rules" label-width="140px">
-        <biz-precinct :precinctModel="model" ref="bizPrecinct"></biz-precinct>
+        <ns-row>
+          <ns-col :span="12">
+            <biz-precinct :precinctModel="model" ref="bizPrecinct"></biz-precinct>
 
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="附件" prop="fileList">
+              <ns-upload
+                v-model="model.fileList"
+                :width="110"
+                :height="110"
+                :headers="requestHead"
+                @change="itemChanged('fileList')"
+                action="http://192.168.1.20:7777/o2o/activity/uploadFile"
+              ></ns-upload>
+            </ns-form-item>
+          </ns-col>
+        </ns-row>
         <ns-form-item label="公告标题" prop="title">
-          <ns-input v-model="model.title" prop="请输入公告标题"></ns-input>
+          <ns-input v-model="model.title" placeholder="请输入公告标题" width="100%"></ns-input>
         </ns-form-item>
-
-        <ns-form-item label="附件" prop="fileList">
-          <ns-upload
-            v-model="model.fileList"
-            :width="200"
-            :height="200"
-            :headers="requestHead"
-            @change="itemChanged('fileList')"
-            action="http://192.168.1.20:7777/o2o/activity/uploadFile"
-          ></ns-upload>
-        </ns-form-item>
-
         <ns-form-item label="公告内容" prop="content">
           <ns-editor :height="200" v-model="model.content"  @input="itemChanged('content')" v-if="showDialog"/>
         </ns-form-item>
@@ -89,6 +93,7 @@
           this.getNoticeInfo()
         }else{
           this.model.id = '';
+          this.model.content = '';
         }
       }
     },
@@ -100,6 +105,7 @@
     methods: {
       close(){
         this.$refs.noticeForm.resetFields();
+        console.log(this.model);
         this.showDialog = false;
         this.$emit('update:visible', this.showDialog)
       },

@@ -28,7 +28,7 @@
           <ns-form-item label="最大报名人数" prop="activityLimitNum">
             <ns-input
               :disabled="model.enableApply === 0"
-              v-model.number="model.activityLimitNum"
+              v-model="model.activityLimitNum"
               placeholder="请输入报名人数"
             ></ns-input>
           </ns-form-item>
@@ -126,7 +126,7 @@
     data(){
       var validActivityLimitNum = (rule, value, callback) => {
         let reg = /^\d+$/
-        if(this.enableApply && value && !reg.test(value)){
+        if(value && !reg.test(value)){
           callback(new Error('请输入正整数'));
         }else{
           callback();
@@ -183,12 +183,12 @@
           title: [{ required: true, trigger: 'change',message: '请输入活动名称'}],
           activityLimitNum:  [{validator: validActivityLimitNum, trigger: 'change' }],
           voteEndTime: [{ required: true, trigger: 'change',message: '请选择报名截止时间'}],
-          activityStartTime: [{ required: true,  trigger: 'change',message: '请选择活动时间'},],
+          activityStartTime: [{ required: true,  trigger: 'change',message: '请选择活动开始时间'}],
           activityEndTime: [{ required: true,  trigger: 'change',message: '请选择活动截止时间'}],
           activitySpace: [{ required: true, trigger: 'change',message: '请输入活动地点'}],
           sponsor: [{ required: true, trigger: 'change',message: '请输入主办方'}],
           content: [{ required: true, message: '请输入活动内容'}],
-          fileList: [{ required: true, message: '请选择图片'}],
+          // fileList: [{ required: true, message: '请选择图片'}],
         },
       }
     },
@@ -213,7 +213,6 @@
           noticeId: this.rowData.id
         }).then((data) => {
           this.model = data.resultData;
-          this.model.fileList = this.model.fileList || [];
           this.$refs.bizPrecinct.initAreaLink();
         })
       },
@@ -229,6 +228,10 @@
       publish(submitType){
         this.$refs.activityForm.validate((valid)=>{
           if(valid){
+            if(this.model.activityStartTime > this.model.activityEndTime){
+              this.$message.error('活动开始时间不能晚于活动结束时间， 请重新选择');
+              return
+            }
             this.model.status = submitType === 'publish'? 1 : 0;
             this.submitLoadingBtn = submitType;
             this.model.id = this.type === 'add'? '' : this.rowData.id;
@@ -249,11 +252,11 @@
     watch: {
       visible(val){
         this.showDialog = val;
-        if(val) return
+        if(!val) return
+        this.model.content = '';
         if(this.type === 'edit'){
           this.getActiveInfo();
         }else{
-          this.model.fileList = [];
           this.model.enableApply = this.enableApplyOptions.Y;
         }
       }

@@ -80,3 +80,17 @@ export const logout = () => {
     method: 'get',
   });
 };
+
+/**
+ * user logout
+ */
+export const updateThemeColor = (query) => {
+  //fetch out
+  dataFilter(query);
+  return fetch({
+    url: '/system/user/update-themeColor',
+    method: 'get',
+    params: query
+  });
+};
+
