@@ -1,15 +1,13 @@
 
 const treeData = {
   state: {
-    treeTempData: {
-
-    }
+    orgnizeTree: []
   },
 
   mutations: {
     SET_TREE_DATA: (state, data)  => {
-      if(data.key){
-        state.treeTempData[data.key] = data.list;
+      if(data.list && data.list.length > 0){
+        state.orgnizeTree = data.list;
       }
     }
   },

@@ -99,7 +99,7 @@ export default {
           fixed: null,
         },
       ], //table head
-      tableData: [{ organizationName: '' }], //table data
+      tableData: [], //table data
       multipleSelection: [],
     };
   },
@@ -115,12 +115,12 @@ export default {
       designSync_search(query)
         .then(response => {
           this.message('success', '加载成功');
-          this.tableData = response.resultData;
+          this.tableData = response.resultData || [];
           this.tableLoading = false;
         })
         .catch(response => {
           this.message('error', '加载失败');
-          return Promise.reject(response);
+          this.tableLoading = false;
         });
     },
     //select all

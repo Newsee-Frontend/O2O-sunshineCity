@@ -1,89 +1,88 @@
 <template>
-  <ns-dialog
-    width="650px"
+  <biz-slip-dialog
+    :title="type === 'add'? '新增小区': '编辑小区'"
     :visible.sync="showDialog"
-    @close="close"
-    title="小区详情"
-  >
-    <ns-form ref="villageForm" :model="villageModel"  :rules="villageRules" label-width="120px">
-      <ns-form-item label="所属公司" prop="companyId">
-        <ns-select size="medium" :options="companyList" v-model="villageModel.companyId" placeholder="请选择公司"></ns-select>
-      </ns-form-item>
-      <ns-form-item label="小区名称"   prop="precinctName">
-        <ns-input size="medium" v-model="villageModel.precinctName" placeholder="请填写小区名称"></ns-input>
-      </ns-form-item>
-      <ns-form-item label="小区简称"  prop="precinctShortName">
-        <ns-input size="medium" v-model="villageModel.precinctShortName" placeholder="请填写小区简称"></ns-input>
-      </ns-form-item>
-      <ns-row style="display: flex;">
-        <ns-form-item label="所属城市" prop="provinceId" >
-          <ns-select
-            width="120px"
-            placeholder="请选择省"
-            :options="provinceList"
-            @change="provinceChange"
-            v-model="villageModel.provinceId"
-          ></ns-select>
+    @close="close">
+    <template slot="slip-btns">
+      <ns-button type="primary" @click="submit" size="mini" :loading="submitLoading">保  存</ns-button>
+    </template>
+    <template slot="main">
+      <ns-form ref="villageForm" :model="villageModel"  :rules="villageRules" label-width="120px">
+        <ns-form-item label="所属公司" prop="companyId">
+          <ns-select size="medium" :options="companyList" v-model="villageModel.companyId" placeholder="请选择公司"></ns-select>
         </ns-form-item>
-        <ns-form-item prop="cityId" label-width="20px">
-          <ns-select
-            width="120px"
-            placeholder="请选择市"
-            :options="cityList"
-            @change="cityChange"
-            :disabled="!villageModel.provinceId"
-            v-model="villageModel.cityId"></ns-select>
+        <ns-form-item label="小区名称"   prop="precinctName">
+          <ns-input size="medium" v-model="villageModel.precinctName" placeholder="请填写小区名称"></ns-input>
         </ns-form-item>
-        <ns-form-item prop="areaId" label-width="20px">
-          <ns-select
-            width="120px"
-            placeholder="请选择区县"
-            :options="areaList"
-            :disabled="!villageModel.cityId || !villageModel.provinceId"
-            v-model="villageModel.areaId"></ns-select>
+        <ns-form-item label="小区简称"  prop="precinctShortName">
+          <ns-input size="medium" v-model="villageModel.precinctShortName" placeholder="请填写小区简称"></ns-input>
         </ns-form-item>
-      </ns-row>
-      <ns-form-item label="详细地址" prop="address">
-        <ns-input
-          size="medium"
-          v-model="villageModel.address"
-          placeholder="请填写详细地址"
-          @input="addressChange"
-        ></ns-input>
-      </ns-form-item>
-      <!--地图-->
-      <ns-form-item prop="lngLat">
-        <div ref="allmap" style="width: 480px; height: 300px;margin-left:-80px;"> </div>
-      </ns-form-item>
+        <ns-row style="display: flex;">
+          <ns-form-item label="所属城市" prop="provinceId" >
+            <ns-select
+              width="120px"
+              placeholder="请选择省"
+              :options="provinceList"
+              @change="provinceChange"
+              v-model="villageModel.provinceId"
+            ></ns-select>
+          </ns-form-item>
+          <ns-form-item prop="cityId" label-width="20px">
+            <ns-select
+              width="120px"
+              placeholder="请选择市"
+              :options="cityList"
+              @change="cityChange"
+              :disabled="!villageModel.provinceId"
+              v-model="villageModel.cityId"></ns-select>
+          </ns-form-item>
+          <ns-form-item prop="areaId" label-width="20px">
+            <ns-select
+              width="120px"
+              placeholder="请选择区县"
+              :options="areaList"
+              :disabled="!villageModel.cityId || !villageModel.provinceId"
+              v-model="villageModel.areaId"></ns-select>
+          </ns-form-item>
+        </ns-row>
+        <ns-form-item label="详细地址" prop="address">
+          <ns-input
+            size="medium"
+            v-model="villageModel.address"
+            placeholder="请填写详细地址"
+            @input="addressChange"
+          ></ns-input>
+        </ns-form-item>
+        <!--地图-->
+        <ns-form-item prop="lngLat">
+          <div ref="allmap" style="width: 480px; height: 300px;margin-left:-80px;"> </div>
+        </ns-form-item>
 
-      <ns-form-item label="状态">
-        <ns-select
-        size="medium"
-        :options="authStatusOptions"
-        v-model="villageModel.status"
-        >
-        </ns-select>
-      </ns-form-item>
-      <ns-form-item label="联系人" prop="contact">
-        <ns-input size="medium" v-model="villageModel.contact" placeholder="请填写联系人"></ns-input>
-      </ns-form-item>
-      <ns-form-item label="联系电话" prop="contactPhone">
-        <ns-input size="medium" v-model="villageModel.contactPhone" placeholder="请填写联系电话"></ns-input>
-      </ns-form-item>
-      <ns-form-item label="园区服务电话" prop="serviceCall">
-        <ns-input size="medium" v-model="villageModel.serviceCall" placeholder="请填写服务电话,多个号码用/隔开"></ns-input>
-      </ns-form-item>
-    </ns-form>
-    <span slot="footer" class="dialog-footer">
-      <ns-button @click="showDialog = false" size="small">取 消</ns-button>
-      <ns-button type="primary" @click="submit" size="small" :loading="submitLoading">确 定</ns-button>
-   </span>
-  </ns-dialog>
+        <ns-form-item label="状态">
+          <ns-select
+            size="medium"
+            :options="authStatusOptions"
+            v-model="villageModel.status"
+          >
+          </ns-select>
+        </ns-form-item>
+        <ns-form-item label="联系人" prop="contact">
+          <ns-input size="medium" v-model="villageModel.contact" placeholder="请填写联系人"></ns-input>
+        </ns-form-item>
+        <ns-form-item label="联系电话" prop="contactPhone">
+          <ns-input size="medium" v-model="villageModel.contactPhone" placeholder="请填写联系电话"></ns-input>
+        </ns-form-item>
+        <ns-form-item label="园区服务电话" prop="serviceCall">
+          <ns-input size="medium" v-model="villageModel.serviceCall" placeholder="请填写服务电话,多个号码用/隔开"></ns-input>
+        </ns-form-item>
+      </ns-form>
+    </template>
+  </biz-slip-dialog>
 </template>
 
 <script>
   import { getAreaList} from '../../../../service/Form/getOptions'
-  import { getPrecinctInfo, savePrecinctInfo } from '../../../../service/Channel/villageSetting'
+  import { getPrecinctInfo, savePrecinctInfo } from '../../../../service/Community/villageSetting'
   export default {
     name: 'villageDialog',
 

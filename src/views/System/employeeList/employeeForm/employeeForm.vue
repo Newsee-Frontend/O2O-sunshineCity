@@ -47,7 +47,7 @@
           <ns-form-item label="性别" prop="">
             <ns-select
               v-model="ruleForm.userSex"
-              :items="options"
+              :options="options"
               placeholder="请选择"
               :clearable="true"
             ></ns-select>
@@ -92,7 +92,7 @@
           <ns-form-item label="证件类型" prop="">
             <ns-select
               v-model="ruleForm.userCertificateType"
-              :items="documentTypeOptions"
+              :options="documentTypeOptions"
               placeholder="请选择"
               :clearable="true"
             ></ns-select>
@@ -123,7 +123,7 @@
           <ns-form-item label="所属岗位" prop="">
             <ns-select
               v-model="ruleForm.sentryId"
-              :items="sentryOptions"
+              :options="sentryOptions"
               placeholder="请选择"
               :clearable="true"
             ></ns-select>

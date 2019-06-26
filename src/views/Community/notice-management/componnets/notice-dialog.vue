@@ -1,11 +1,14 @@
 <template>
-    <ns-dialog
-      :title="type === 'add'? '新增公告': '编辑公告'"
-      @close="close"
-      size="large"
-      :is-append-to-body="false"
-      :visible.sync="showDialog"
-    >
+  <biz-slip-dialog
+    :title="type === 'add'? '新增公告': '编辑公告'"
+    :visible.sync="showDialog"
+    @close="close">
+    <template slot="slip-btns">
+      <ns-button type="primary" @click="submit('publish')" size="mini" :loading="submitLoading === 'publish'">保 存</ns-button>
+      <ns-button type="primary" @click="submit('tempPublish')" size="mini" :loading="submitLoading === 'tempPublish'">暂 存</ns-button>
+    </template>
+
+    <tempalte slot="main">
       <ns-form ref="noticeForm" :model="model" :rules="rules" label-width="140px">
         <ns-row>
           <ns-col :span="12">
@@ -20,7 +23,7 @@
                 :height="120"
                 :headers="requestHead"
                 @change="itemChanged('fileList')"
-                action="/api/activity/uploadFile"
+                action="/api/o2o/activity/uploadFile"
               ></ns-upload>
             </ns-form-item>
           </ns-col>
@@ -32,16 +35,13 @@
           <ns-editor :height="200" v-model="model.content" model="normal"  @input="itemChanged('content')" v-if="showDialog"/>
         </ns-form-item>
       </ns-form>
-      <span slot="footer" class="dialog-footer">
-        <ns-button type="primary" @click="submit('publish')" size="small" :loading="submitLoading === 'publish'">保 存</ns-button>
-        <ns-button @click="submit('tempPublish')" size="small" :loading="submitLoading === 'tempPublish'">暂 存</ns-button>
-      </span>
-    </ns-dialog>
+    </tempalte>
+  </biz-slip-dialog>
 </template>
 
 <script>
   import bizPrecinct from '../../../../components/biz/biz-form/biz-precinct'
-  import { saveNotice, getNotice } from '../../../../service/Channel/noticeManagement.js'
+  import { saveNotice, getNotice } from '../../../../service/Community/noticeManagement.js'
   import {mapGetters} from 'vuex';
   export default {
     name: 'notice-dialog',
@@ -105,7 +105,6 @@
     methods: {
       close(){
         this.$refs.noticeForm.resetFields();
-        console.log(this.model);
         this.showDialog = false;
         this.$emit('update:visible', this.showDialog)
       },

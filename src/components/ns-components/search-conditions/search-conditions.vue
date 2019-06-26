@@ -84,7 +84,7 @@
                   :multiple="spec.multiple"
                   collapse-tags
                   filterable
-                  :items="spec.items"
+                  :options="spec.items"
                   @change="handleChange(item, spec)"
                 >
                 </ns-select>
@@ -103,7 +103,7 @@
                 v-else-if="item.resourcecolumnXtype === 'select'"
                 :placeholder="item.resourcecolumnName"
                 v-model="conditions[item.resourcecolumnCode]"
-                :items="item.selectList"
+                :options="item.selectList"
                 @change="handleChange(item)"
               >
               </ns-select>

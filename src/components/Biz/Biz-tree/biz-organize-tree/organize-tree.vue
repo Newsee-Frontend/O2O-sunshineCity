@@ -344,11 +344,11 @@ export default {
      */
     fnclick(item, orgType) {
       //新增功能
-      if (orgType == 'department') {
+      if (orgType === 'department') {
         this.departmentDialogObj.type = 'add';
         this.departmentDialogObj.parentNodeInfo = item;
         this.dialogVisible.departmentVisible.visible = true;
-      } else if (orgType == 'company') {
+      } else if (orgType === 'company') {
         this.companyDialogObj.type = 'add';
         this.companyDialogObj.parentNodeInfo = item;
         this.dialogVisible.companyVisible.visible = true;
@@ -437,8 +437,9 @@ export default {
     },
   },
   mounted() {
-    let data = this.$store.state.TreeData.treeTempData[this.funcId];
-    if(data){
+    //缓存中取数据
+    let data = this.$store.state.TreeData.orgnizeTree;
+    if(data.length > 0){
       this.treeData = data;
       this.$refs.organizeTree.setTree(this.treeData);
     }else{

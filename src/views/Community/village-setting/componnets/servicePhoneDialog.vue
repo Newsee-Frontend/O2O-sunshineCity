@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import {getPhoneList, saveServicePhoneList, delServicePhone} from '../../../../service/Channel/villageSetting'
+  import {getPhoneList, saveServicePhoneList, delServicePhone} from '../../../../service/Community/villageSetting'
   export default {
     name: 'servicePhoneDialog',
 

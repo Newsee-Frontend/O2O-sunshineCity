@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import { getNotice } from '../../../../service/Channel/noticeManagement.js'
+  import { getNotice } from '../../../../service/Community/noticeManagement.js'
 
 
   export default {

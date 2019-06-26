@@ -125,16 +125,22 @@
       })
     },
 
-    destroyed(){
-      // removeEventHandler(window,'resize');
+    beforeDestroy(){
+      removeEventHandler(window,'resize');
     },
 
     methods: {
       getHeight(){
-        let containerHeight = $('.ns-container-right').height() || 0;
-        let searchHeight = $('.action-module').height() || 0;
-        let paginationHeight = $('.biz-pagination').height() || 0;
-        this.height = containerHeight - searchHeight - paginationHeight - 10;
+        let containerHeight =  this.getClassDomHeight('ns-container-right');
+        let searchHeight =  this.getClassDomHeight('action-module');
+        let paginationHeight = this.getClassDomHeight('biz-pagination');
+        this.height = containerHeight - searchHeight - paginationHeight;
+      },
+
+
+      getClassDomHeight(className){
+        let domArr = document.getElementsByClassName(className);
+        return domArr.length > 0 ? domArr[0].offsetHeight: 0
       },
 
       /**

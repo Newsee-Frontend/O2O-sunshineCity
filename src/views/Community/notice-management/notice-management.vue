@@ -98,7 +98,7 @@
 <script>
   import noticeDialog from './componnets/notice-dialog';
   import checkNoticeDetail from './componnets/checkNoticeDetail';
-  import { deleteNotice } from '../../../service/Channel/noticeManagement'
+  import { deleteNotice } from '../../../service/Community/noticeManagement'
   import { getVillageOptions } from '../../../service/Form/getOptions';
   import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
   import Mixin from "../../../mixins";

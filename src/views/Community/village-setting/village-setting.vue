@@ -49,13 +49,13 @@
                    @table-action="tableAction"
         ></biz-table>
 
-        <!--<village-info-dialog-->
-          <!--:visible.sync="showVillageDialog"-->
-          <!--:rowData="rowData"-->
-          <!--:companyList="companyList"-->
-          <!--:type="villageDialogType"-->
-          <!--@reloadGrid="searchTable"-->
-        <!--&gt;</village-info-dialog>-->
+        <village-info-dialog
+          :visible.sync="showVillageDialog"
+          :rowData="rowData"
+          :companyList="companyList"
+          :type="villageDialogType"
+          @reloadGrid="searchTable"
+        ></village-info-dialog>
 
       </div>
     </div>
@@ -66,7 +66,7 @@
   // import servicePhoneDialog from './componnets/servicePhoneDialog';
   import Mixin from "../../../mixins";
   import villageInfoDialog from './componnets/villageInfoDialog';
-  import { checkhouse, getCompanyList } from '../../../service/Channel/villageSetting';
+  import { checkhouse, getCompanyList } from '../../../service/Community/villageSetting';
   import { tableDataFetch } from '../../../service/TableFetch/table-fetch'
 
   export default {

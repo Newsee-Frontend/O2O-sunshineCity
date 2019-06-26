@@ -96,7 +96,6 @@
 <script>
 import { gridDataDelete, gridDataOperate } from '../../../service/System/employeeList';
 import OrganizeTree from '../../../components/Biz/Biz-tree/biz-organize-tree/organize-tree.vue'; // 组织树 组件
-import DictionaryTree from '../../../components/Biz/Biz-tree/biz-data-dictionary-tree/data-dictionary-tree.vue'; // 数据字典树 组件
 import employeeStaticData from './employeeStaticData';
 import pickerOptionsMap from '../../../static-data/form/picker-options';
 import employeeForm from './employeeForm/employeeForm.vue';

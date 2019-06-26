@@ -86,7 +86,7 @@
 <script>
   import activityInfoDialog from './components/activityInfoDialog'
   import checkActivityDialog from './components/checkActivityDetail'
-  import { deleteActivity } from '../../../service/Channel/activeManagement'
+  import { deleteActivity } from '../../../service/Community/activeManagement'
   import { getVillageOptions } from '../../../service/Form/getOptions'
   import Mixin from "../../../mixins";
   import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
