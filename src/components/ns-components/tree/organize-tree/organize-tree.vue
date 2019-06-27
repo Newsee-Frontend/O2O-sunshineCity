@@ -35,7 +35,6 @@
               <div class="title-text">
                 {{node.organizationName}}
               </div>
-
               <el-dropdown
                 trigger="click"
                 :hide-on-click="true"

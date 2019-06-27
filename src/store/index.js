@@ -6,7 +6,12 @@ import User from './modules/User/User';
 import Sidebar from './modules/common/Sidebar';
 import PageInfo from './modules/common/PageInfo';
 import PageTabs from './modules/common/PageTabs';
+
 import Form from './modules/Form';
+
+import OrganizeTree from './modules/Tree/Organize-tree';
+import HouseTree from './modules/Tree/House-tree';
+
 import Search from './modules/Search';
 import RoleButton from './modules/common/RoleButton';
 import TreeData from './modules/TreeData';
@@ -26,6 +31,10 @@ const store = new Vuex.Store({
     PageInfo,
     PageTabs,
     Form,
+
+    OrganizeTree,
+    HouseTree,
+
     Search,
     RoleButton,
     TreeData,

@@ -40,8 +40,9 @@
         </div>
 
         <!--表格部分-->
-        <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
-                   :funcId="Mix_funcId"
+        <biz-table ref="biz-table"
+                   :loadState="loadState"
+                   :data="tableData"
                    :searchConditions="searchConditions"
                    :showSummary="false"
                    @reload="getTableData"
@@ -66,8 +67,8 @@
   // import servicePhoneDialog from './componnets/servicePhoneDialog';
   import Mixin from "../../../mixins";
   import villageInfoDialog from './componnets/villageInfoDialog';
-  import { checkhouse, getCompanyList } from '../../../service/Community/villageSetting';
-  import { tableDataFetch } from '../../../service/TableFetch/table-fetch'
+  import {checkhouse, getCompanyList} from '../../../service/Community/villageSetting';
+  import {tableDataFetch} from '../../../service/TableFetch/table-fetch'
 
   export default {
     name: 'village-setting',
@@ -82,7 +83,7 @@
 
     data() {
       return {
-        authStatusOptions: [{ label: '待开通', value: '0' }, { label: '开通中', value: '1' }, { label: '已关闭', value: '2' }],
+        authStatusOptions: [{label: '待开通', value: '0'}, {label: '开通中', value: '1'}, {label: '已关闭', value: '2'}],
         companyList: [],
         tableData: {},
         rowData: {},
@@ -129,7 +130,7 @@
           console.log(this.tableData);
           this.tableData.list.forEach(item => {
             item.fnsclick = [
-              { label: '同步房产', value: 'gridSyncBtn' },
+              {label: '同步房产', value: 'gridSyncBtn'},
             ];
           });
           this.loadState.data = true;
@@ -141,9 +142,9 @@
       /**
        *  表格操作
        */
-      tableAction(info, scope){
+      tableAction(info, scope) {
         this.rowData = scope.row;
-        if(info.value === 'gridSyncBtn'){
+        if (info.value === 'gridSyncBtn') {
           this.syncHouse(scope.row);
         }
       },
@@ -151,7 +152,7 @@
       /**
        * 编辑小区
        */
-      getCellAction(scope){
+      getCellAction(scope) {
         this.rowData = scope.row;
         this.editVillage();
       },
@@ -169,7 +170,7 @@
             customClass: 'fullpage-loading',
             background: 'rgba(0, 0, 0, 0.7)',
           });
-          checkhouse({ precinctId: row.id }).then(() => {
+          checkhouse({precinctId: row.id}).then(() => {
             loading.close();
             this.$message.success('同步成功');
           }, (err) => {
@@ -199,7 +200,7 @@
 
     created() {
       this.searchTable();
-      getCompanyList().then(data=>{
+      getCompanyList().then(data => {
         this.companyList = data.resultData;
       })
     },

@@ -36,7 +36,6 @@
                 <div class="clear fl search-option">
                   <ns-input v-model="searchConditions.keyWord" placeholder="请输入标题公告"></ns-input>
                 </div>
-
                 <div class="clear fl search-option">
                   <ns-select :options="villageOptions" v-model="searchConditions.precinctId"
                              placeholder="请选择小区"></ns-select>
@@ -66,10 +65,8 @@
           </div>
           <!--表格部分-->
           <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
-                     :funcId="Mix_funcId"
                      :searchConditions="searchConditions"
                      :showSummary="false"
-                     :showHeadOperation="false"
                      @reload="getTableData"
                      @table-action="tableAction"
                      @selection-change="selectionChange"
@@ -98,9 +95,9 @@
 <script>
   import noticeDialog from './componnets/notice-dialog';
   import checkNoticeDetail from './componnets/checkNoticeDetail';
-  import { deleteNotice } from '../../../service/Community/noticeManagement'
-  import { getVillageOptions } from '../../../service/Form/getOptions';
-  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
+  import {deleteNotice} from '../../../service/Community/noticeManagement'
+  import {getVillageOptions} from '../../../service/Form/getOptions';
+  import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
   import Mixin from "../../../mixins";
 
   export default {
@@ -129,7 +126,7 @@
           pageSize: 20, //每页显示条目个数
         },
         /**发布或保存*/
-        activestatueOptions: [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }],
+        activestatueOptions: [{label: '暂存', value: 0}, {label: '已发布', value: 1}],
         villageOptions: [],
         noticeTypeOptions: [],
 
@@ -169,9 +166,9 @@
           console.log(this.tableData);
           this.tableData.list.forEach(item => {
             item.fnsclick = [
-              { label: '编辑', value: 'gridEditBtn' },
-              { label: '删除', value: 'gridRemoveBtn'},
-              { label: '查看', value: 'gridCheckBtn'}
+              {label: '编辑', value: 'gridEditBtn'},
+              {label: '删除', value: 'gridRemoveBtn'},
+              {label: '查看', value: 'gridCheckBtn'}
             ];
           });
           this.loadState.data = true;
@@ -200,19 +197,19 @@
       /**
        * 按钮点击
        * */
-      tableAction(info, scope){
+      tableAction(info, scope) {
         this.rowData = scope.row;
-        if(info.value === "gridEditBtn"){
+        if (info.value === "gridEditBtn") {
           this.showNoticeDialog = true;
           this.noticeTpye = 'edit'
-        }else if(info.value === 'gridRemoveBtn'){
-          this.$confirm('确定要删除该活动??', '提示', {type: 'warning'}).then(()=>{
-            deleteNotice({id: this.rowData.id}).then(()=>{
+        } else if (info.value === 'gridRemoveBtn') {
+          this.$confirm('确定要删除该活动??', '提示', {type: 'warning'}).then(() => {
+            deleteNotice({id: this.rowData.id}).then(() => {
               this.$message.success('删除成功');
               this.getTableData();
             });
           })
-        }else if(info.value === 'gridCheckBtn'){
+        } else if (info.value === 'gridCheckBtn') {
           this.checkNoticeVisible = true;
         }
       },
@@ -220,7 +217,7 @@
       /**
        * 获取小区名称的权限
        */
-      getVillageOptions: function() {
+      getVillageOptions: function () {
         getVillageOptions().then((data) => {
           this.villageOptions = data.resultData || [];
         });
@@ -237,14 +234,14 @@
 
     computed: {
       dateRange: {
-        get: function() {
+        get: function () {
           return this.searchConditions.pubBeginTime ? [this.searchConditions.pubBeginTime, this.searchConditions.pubEndTime] : [];
         },
 
-        set: function(arr) {
+        set: function (arr) {
           let range = arr || [];
-          this.searchConditions.pubBeginTime = range.length > 1 ? range[0] + ' 00:00:00' :  '';
-          this.searchConditions.pubEndTime = range.length > 1 ? range[1] + ' 23:59:59': '';
+          this.searchConditions.pubBeginTime = range.length > 1 ? range[0] + ' 00:00:00' : '';
+          this.searchConditions.pubEndTime = range.length > 1 ? range[1] + ' 23:59:59' : '';
         },
       },
     },
