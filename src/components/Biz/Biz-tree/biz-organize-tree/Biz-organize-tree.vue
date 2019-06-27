@@ -403,6 +403,9 @@
           this.treeData = this.organizeTreeData;
           //
           this.$refs.organizeTree.initTree(this.treeData);
+
+          this.$emit('tree-item-click', this.treeData);
+          
         }
         else {
           this.getTreeData(true)

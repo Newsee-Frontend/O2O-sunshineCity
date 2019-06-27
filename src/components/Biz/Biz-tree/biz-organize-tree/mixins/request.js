@@ -70,8 +70,10 @@ export default {
         this.searchConditions.organizationId = res.organizationId;
         this.searchConditions.companyId = res.companyId;
         this.searchConditions.departmentId = res.departmentId;
+
         this.treeloading = false;
-        this.$emit('handle-click', null, true);
+
+        // this.$emit('handle-click', null, true);
         this.$emit('tree-item-click', res);
 
       });

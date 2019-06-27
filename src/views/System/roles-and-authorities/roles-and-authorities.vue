@@ -332,6 +332,8 @@
       },
       //选择组织节点回调
       treeItemClick(org) {
+        console.log('表数据查询-表数据查询');
+        console.log(this.condition)
         this.Mix_treeNodeObj = org;
         this.addRoleCoverData.dynamicQuery.rolecategoryId = this.Mix_treeNodeObj.organizationId;
         this.addPersonToRoleCoverData.dynamicQuery.userIds = this.Mix_treeNodeObj.organizationId;
