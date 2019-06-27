@@ -1,14 +1,14 @@
 <template>
-    <div class="win">
-      <div class="ns-container">
-        <div class="ns-container-right">
-          <div class="action-module">
-            <biz-search-conditions>
-              <template slot="btns">
-                <ns-role-button
-                  mode="icon"
-                  :coerciveShow="true"
-                  :roleInfo="{
+  <div class="win">
+    <div class="ns-container">
+      <div class="ns-container-right">
+        <div class="action-module">
+          <biz-search-conditions>
+            <template slot="btns">
+              <ns-role-button
+                mode="icon"
+                :coerciveShow="true"
+                :roleInfo="{
                   areaType: 'ACTION',
                   code: 'actionAddBtn',
                   name: '新增',
@@ -16,80 +16,79 @@
                   index: 1,
                   btnType: 'single',
                 }"
-                  @click="addActive()"
+                @click="addActive()"
 
-                >
-                  <!--<ns-role-button-->
-                  <!--mode="dp-text"-->
-                  <!--title="更多"-->
-                  <!--@command="handleCommand"-->
-                  <!--&gt;</ns-role-button>-->
-                </ns-role-button>
-              </template>
-              <template slot="main">
-                <div class="clear fl search-option">
-                  <ns-input v-model="searchConditions.keyWord" placeholder="请输入活动名称"></ns-input>
-                </div>
+              >
+                <!--<ns-role-button-->
+                <!--mode="dp-text"-->
+                <!--title="更多"-->
+                <!--@command="handleCommand"-->
+                <!--&gt;</ns-role-button>-->
+              </ns-role-button>
+            </template>
+            <template slot="main">
+              <div class="clear fl search-option">
+                <ns-input v-model="searchConditions.keyWord" placeholder="请输入活动名称"></ns-input>
+              </div>
 
-                <div class="clear fl search-option">
-                  <ns-select :options="villageOptions" v-model="searchConditions.precinctId" placeholder="请选择小区"></ns-select>
-                </div>
+              <div class="clear fl search-option">
+                <ns-select :options="villageOptions" v-model="searchConditions.precinctId" placeholder="请选择小区"></ns-select>
+              </div>
 
-                <div class="clear fl search-option">
-                  <ns-date-picker
-                    v-model="dateRange"
-                    type="daterange"
-                    size="medium"
-                    clearable
-                    startPlaceholder="活动时间起"
-                    endPlaceholder="活动时间止"
-                  ></ns-date-picker>
-                </div>
+              <div class="clear fl search-option">
+                <ns-date-picker
+                  v-model="dateRange"
+                  type="daterange"
+                  size="medium"
+                  clearable
+                  startPlaceholder="活动时间起"
+                  endPlaceholder="活动时间止"
+                ></ns-date-picker>
+              </div>
 
-                <div class="clear fl search-option">
-                  <ns-select v-model="searchConditions.status" :options="activestatueOptions" placeholder="请选择活动状态"></ns-select>
-                </div>
+              <div class="clear fl search-option">
+                <ns-select v-model="searchConditions.status" :options="activestatueOptions" placeholder="请选择活动状态"></ns-select>
+              </div>
 
-                <div class="clear fl search-option">
-                  <ns-button type="primary" @click="searchTable">查询</ns-button>
-                </div>
-              </template>
-            </biz-search-conditions>
-          </div>
-
-          <!--表格部分-->
-          <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
-                     :funcId="Mix_funcId"
-                     :searchConditions="searchConditions"
-                     :showSummary="false"
-                     @reload="getTableData"
-                     @table-action="tableAction"
-          ></biz-table>
+              <div class="clear fl search-option">
+                <ns-button type="primary" @click="searchTable">查询</ns-button>
+              </div>
+            </template>
+          </biz-search-conditions>
         </div>
+        <!--表格部分-->
+        <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
+                   :searchConditions="searchConditions"
+                   :showSummary="false"
+                   @reload="getTableData"
+                   @table-action="tableAction"
+        ></biz-table>
       </div>
-
-      <activity-info-dialog
-        :visible.sync="activityInfoVisible"
-        :type="activityType"
-        :rowData="rowData"
-        @reloadGrid="searchTable"
-      ></activity-info-dialog>
-
-      <check-activity-dialog
-        :visible.sync="checkActivityVisible"
-        :rowData="rowData"
-        :funcId="Mix_funcId"
-      ></check-activity-dialog>
     </div>
+
+    <activity-info-dialog
+      :visible.sync="activityInfoVisible"
+      :type="activityType"
+      :rowData="rowData"
+      @reloadGrid="searchTable"
+    ></activity-info-dialog>
+
+    <check-activity-dialog
+      :visible.sync="checkActivityVisible"
+      :rowData="rowData"
+      :funcId="Mix_funcId"
+    ></check-activity-dialog>
+  </div>
 </template>
 
 <script>
   import activityInfoDialog from './components/activityInfoDialog'
   import checkActivityDialog from './components/checkActivityDetail'
-  import { deleteActivity } from '../../../service/Community/activeManagement'
-  import { getVillageOptions } from '../../../service/Form/getOptions'
+  import {deleteActivity} from '../../../service/Community/activeManagement'
+  import {getVillageOptions} from '../../../service/Form/getOptions'
   import Mixin from "../../../mixins";
-  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
+  import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
+
   export default {
     name: 'active-management',
 
@@ -102,14 +101,14 @@
       checkActivityDialog
     },
 
-    data(){
-      return{
+    data() {
+      return {
         pageID: 'active',
         activityInfoVisible: false,
         checkActivityVisible: false,
         activityType: 'add',
         /**发布或保存*/
-        activestatueOptions: [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }, { label: '已结束', value: 2 }],
+        activestatueOptions: [{label: '暂存', value: 0}, {label: '已发布', value: 1}, {label: '已结束', value: 2}],
         searchConditions: {
           noticeCategory: "",
           precinctId: "",
@@ -135,14 +134,14 @@
 
     computed: {
       dateRange: {
-        get: function(){
+        get: function () {
           return this.searchConditions.activityBeginTime ? [this.searchConditions.activityBeginTime, this.searchConditions.activityEndTime] : []
         },
 
-        set: function(arr){
+        set: function (arr) {
           let range = arr || [];
-          this.searchConditions.activityBeginTime = range.length > 1 ? range[0] + ' 00:00:00' :  '';
-          this.searchConditions.activityEndTime = range.length > 1 ? range[1] + ' 23:59:59': '';
+          this.searchConditions.activityBeginTime = range.length > 1 ? range[0] + ' 00:00:00' : '';
+          this.searchConditions.activityEndTime = range.length > 1 ? range[1] + ' 23:59:59' : '';
         }
       }
     },
@@ -166,9 +165,9 @@
           console.log(this.tableData);
           this.tableData.list.forEach(item => {
             item.fnsclick = [
-              { label: '编辑', value: 'gridEditBtn' },
-              { label: '删除', value: 'gridRemoveBtn'},
-              { label: '查看', value: 'gridCheckBtn'}
+              {label: '编辑', value: 'gridEditBtn'},
+              {label: '删除', value: 'gridRemoveBtn'},
+              {label: '查看', value: 'gridCheckBtn'}
             ];
           });
           this.loadState.data = true;
@@ -188,25 +187,25 @@
       /**
        * 按钮点击
        * */
-      tableAction(info, scope){
+      tableAction(info, scope) {
         this.rowData = scope.row;
-        if(info.value === "gridEditBtn"){
+        if (info.value === "gridEditBtn") {
           this.activityInfoVisible = true;
           this.activityType = 'edit'
-        }else if(info.value === 'gridRemoveBtn'){
-          this.$confirm('确定要删除该活动??', '提示', {type: 'warning'}).then(()=>{
-            deleteActivity({id: this.rowData.id}).then(()=>{
+        } else if (info.value === 'gridRemoveBtn') {
+          this.$confirm('确定要删除该活动??', '提示', {type: 'warning'}).then(() => {
+            deleteActivity({id: this.rowData.id}).then(() => {
               this.$message.success('删除成功');
               this.getTableData();
             });
           })
-        }else if(info.value === 'gridCheckBtn'){
+        } else if (info.value === 'gridCheckBtn') {
           this.checkActivityVisible = true;
         }
       },
 
 
-      addActive: function(){
+      addActive: function () {
         this.activityType = 'add';
         this.activityInfoVisible = true;
       },
@@ -214,14 +213,14 @@
       /**
        * 获取小区名称的权限
        */
-      getVillageOptions: function(){
-        getVillageOptions().then((data)=>{
+      getVillageOptions: function () {
+        getVillageOptions().then((data) => {
           this.villageOptions = data.resultData || [];
         })
       }
     },
 
-    created(){
+    created() {
       this.getVillageOptions();
       this.getTableData();
     }

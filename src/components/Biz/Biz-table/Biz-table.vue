@@ -24,11 +24,13 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import {listColumnService} from '../../../service/TableFetch/table-fetch';
+  import {addEventHandler, removeEventHandler} from '../../../utils/index'
+  import {mapGetters} from 'vuex';
   import columnConfig from './column-template-config';
   import cellFifter from './cell-fifter';
   import keyRefer from './keyRefer';
-  import { addEventHandler, removeEventHandler} from '../../../utils/index'
+
 
   export default {
     name: 'biz-table',
@@ -37,19 +39,16 @@
         keyRefer,
         cellFifter,
         isLoading: true,
+        tableHead: [],
         height: 0
       };
     },
     props: {
       data: {
         type: Object,
-        default: ()=> ({})
+        default: () => ({})
       },
-      funcId: {
-        type: [Number, String],
-      },
-      isLocalHead: { type: Boolean, default: false }, //是否为本地表头数据
-      head: { type: Array }, //表头数据
+      localHead: {type: Array, request: false}, //本地表头数据
       //表格数据加载状态
       loadState: {
         type: Object, default() {
@@ -59,30 +58,31 @@
           };
         },
       },
-      searchConditions: { type: Object },//筛选条件
+      searchConditions: {type: Object},//筛选条件
       //第一列固定列类型（非自动表头配置）
-      firstColType: { type: [String,null], default: 'selection', validator: t => ['index', 'selection', 'radio', null].indexOf(t) > -1 },
-      hasActionCol: { type: Boolean, default: true },//是否有操作列
-      showHeadOperation: { type: Boolean, default: true },//表头设置操作模块开关
-      showAddRowOperation: { type: Boolean, default: false },//表头设置 新增行操作模块开关
-      showSummary: { type: Boolean, default: true },//是否显示合计行
-      localHeight: { type: Number}
+      firstColType: {type: [String, null], default: 'selection', validator: t => ['index', 'selection', 'radio', null].indexOf(t) > -1},
+      hasActionCol: {type: Boolean, default: true},//是否有操作列
+      showHeadOperation: {type: Boolean, default: true},//表头设置操作模块开关
+      showAddRowOperation: {type: Boolean, default: false},//表头设置 新增行操作模块开关
+      showSummary: {type: Boolean, default: true},//是否显示合计行
+      autoResize: {type: Boolean, default: true}, //表格高度是否自适应窗口变化
+      customHeight: {type: Number, default: 300},//自定义表格高度
     },
     computed: {
-      ...mapGetters(['tableHead']),
+      ...mapGetters(['funcId']),
       isRender() {
         return this.loadState.data && this.loadState.head;
       },
       finalHead() {
         return [
           ...(this.firstColType ? [columnConfig[this.firstColType]] : []),
-          ...(this.isLocalHead ? this.head : this.tableHead),
+          ...(this.LocalHead ? this.LocalHead : this.tableHead),
           ...(this.hasActionCol ? [columnConfig['action']] : []),
           ...(this.showAddRowOperation ? [columnConfig['add-row']] : []),
 
         ].map(item => {
           let linkCode = ['precinctName'];
-          if(linkCode.indexOf(item.resourcecolumnCode) > -1){
+          if (linkCode.indexOf(item.resourcecolumnCode) > -1) {
             item[this.keyRefer['head']['cell-Config']] = {
               switchType: true,
               type: 'link',
@@ -95,52 +95,52 @@
               require: false,
               validateRule: null,
             };
-           }
+          }
           item.resourcecolumnHidden = item.resourcecolumnHidden === '1' ? true : false;
           return item;
         });
       },
     },
-    created() {
-      if(this.isLocalHead){
-        this.loadState.head = true;
-        return
-      }
-      this.$store.dispatch('generateTableHead', { funcId:this.funcId }).then(() => {
-        this.loadState.head = true;
-      }).catch(() => {
-        this.loadState.head = true;
-      });
-    },
-
-    mounted (){
-      //是否需要自适应高度
-      if(this.localHeight) {
-        this.height = this.localHeight;
-        return
-      }
-      this.getHeight();
-      addEventHandler(window, 'resize', ()=>{
-        this.getHeight();
-      })
-    },
-
-    beforeDestroy(){
-      removeEventHandler(window,'resize');
-    },
 
     methods: {
-      getHeight(){
-        let containerHeight =  this.getClassDomHeight('ns-container-right');
-        let searchHeight =  this.getClassDomHeight('action-module');
-        let paginationHeight = this.getClassDomHeight('biz-pagination');
-        this.height = containerHeight - searchHeight - paginationHeight;
+      /**
+       * get table head data
+       */
+      getTableHead() {
+        if (this.localHead) {
+          this.tableHead = this.LocalHead;
+          this.loadState.head = true;
+        }
+        else {
+          listColumnService({funcId: this.funcId}).then(res => {
+            this.tableHead = res.resultData.columns || [];
+
+            console.log('请求到的表头数据：');
+            console.log(this.tableHead);
+            this.loadState.head = true;
+          }).catch(() => {
+            this.loadState.head = true;
+          });
+        }
       },
 
+      /**
+       * get auto resize height 获取动态计算高度
+       */
+      getAutoResizeHeight() {
+        let containerHeight = this.getClassDomHeight('ns-container-right');
+        let searchHeight = this.getClassDomHeight('action-module');
+        let paginationHeight = this.getClassDomHeight('biz-pagination');
+        return containerHeight - searchHeight - paginationHeight;
+      },
 
-      getClassDomHeight(className){
+      /**
+       * getClassDomHeight -获取指定 dom 高度
+       * @param className
+       */
+      getClassDomHeight(className) {
         let domArr = document.getElementsByClassName(className);
-        return domArr.length > 0 ? domArr[0].offsetHeight: 0
+        return domArr.length > 0 ? domArr[0].offsetHeight : 0
       },
 
       /**
@@ -194,6 +194,28 @@
       resetCheck() {
         this.$refs['biz-table'].resetCheck();
       },
+    },
+
+    created() {
+      this.getTableHead()
+    },
+
+    mounted() {
+      //是否需要自适应高度
+      if (this.autoResize) {
+        this.height = this.getAutoResizeHeight();
+        addEventHandler(window, 'resize', () => {
+          this.getAutoResizeHeight();
+        })
+      }
+      else {
+        //需要使用者自行定义高度
+        this.height = this.customHeight;
+      }
+    },
+
+    beforeDestroy() {
+      removeEventHandler(window, 'resize');
     },
   };
 </script>

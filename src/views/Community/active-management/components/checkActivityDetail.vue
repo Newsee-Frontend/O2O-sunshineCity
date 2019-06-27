@@ -1,9 +1,8 @@
 <template>
-  <ns-dialog
-    title="报名情况"
-    :visible.sync="showDialog"
-    size="large"
-    @close="close"
+  <ns-dialog title="报名情况"
+             :visible.sync="showDialog"
+             size="large"
+             @close="close"
   >
     <div class="action-module">
       <div class="search-container">
@@ -36,12 +35,11 @@
         </biz-search-conditions>
       </div>
     </div>
-
     <!--表格部分-->
     <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
-               isLocalHead
-               :localHeight="340"
-               :head="head"
+               :autoResize="false"
+               :customHeight="340"
+               :LocalHead="head"
                :searchConditions="searchConditions"
                :showSummary="false"
                :hasActionCol="false"
@@ -57,15 +55,15 @@
 </template>
 
 <script>
-  import head  from './tableHead.js'
-  import { tableDataFetch } from '../../../../service/TableFetch/table-fetch';
-  import { downloadExcel } from '../../../../service/Download/download';
+  import head from './tableHead.js'
+  import {tableDataFetch} from '../../../../service/TableFetch/table-fetch';
+  import {downloadExcel} from '../../../../service/Download/download';
 
   export default {
     name: 'checkActivityDetail',
 
-    data(){
-      return{
+    data() {
+      return {
         showDialog: false,
         keyWord: '',
         head: head,
@@ -92,9 +90,9 @@
     },
 
     watch: {
-      visible(val){
+      visible(val) {
         this.showDialog = val;
-        if(val){
+        if (val) {
           this.searchConditions = {
             applyUserName: '',
             noticeId: this.rowData.id,
@@ -107,11 +105,10 @@
     },
 
     methods: {
-      close(){
+      close() {
         this.showDialog = false;
-        this.$emit('update:visible',  this.showDialog);
+        this.$emit('update:visible', this.showDialog);
       },
-
 
       /**
        * 获取表格数据
@@ -147,16 +144,14 @@
       /**
        * 下载
        */
-      download(){
+      download() {
         //导出
-        downloadExcel('/o2o/activity/export',{id: this.rowData.id});
+        downloadExcel('/o2o/activity/export', {id: this.rowData.id});
       }
     }
   };
 </script>
 
-<style scoped>
-  .search-container{
+<style rel="stylesheet/scss" lang="scss">
 
-  }
 </style>
