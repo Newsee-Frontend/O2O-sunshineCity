@@ -4,9 +4,9 @@
     :visible.sync="showDialog"
     @close="close">
     <template slot="slip-btns">
-      <ns-button type="primary" @click="publish('publish')" size="mini" :loading="submitLoadingBtn === 'publish'">发布
+      <ns-button type="primary" @click="publish('publish')" :loading="submitLoadingBtn === 'publish'">发布
       </ns-button>
-      <ns-button type="primary" @click="publish('tempPublish')" size="mini" :loading="submitLoadingBtn === 'tempPublish'">暂 存
+      <ns-button type="primary" @click="publish('tempPublish')" :loading="submitLoadingBtn === 'tempPublish'">暂 存
       </ns-button>
     </template>
     <template slot="main">
@@ -20,7 +20,7 @@
             </ns-form-item>
 
             <ns-form-item label="活动名称" prop="title">
-              <ns-input v-model="model.title" placeholder="请填写活动名称" clearable></ns-input>
+              <ns-input v-model.trim="model.title" placeholder="请填写活动名称" clearable></ns-input>
             </ns-form-item>
 
             <ns-form-item label="是否可报名" prop="enableApply">
@@ -74,11 +74,11 @@
             </ns-form-item>
 
             <ns-form-item label=" 活动地点" prop="activitySpace">
-              <ns-input v-model="model.activitySpace" placeholder="请填写活动地点" clearable></ns-input>
+              <ns-input v-model.trim="model.activitySpace" placeholder="请填写活动地点" clearable></ns-input>
             </ns-form-item>
 
             <ns-form-item label=" 主办方" prop="sponsor">
-              <ns-input v-model="model.sponsor" placeholder="请填写主办方" clearable></ns-input>
+              <ns-input v-model.trim="model.sponsor" placeholder="请填写主办方" clearable></ns-input>
             </ns-form-item>
 
             <ns-form-item label=" 列表缩略图" prop="fileList">
@@ -129,8 +129,9 @@
 
     data() {
       var validActivityLimitNum = (rule, value, callback) => {
-        let reg = /^\d+$/;
-        if (value && !reg.test(value)) {
+        let reg = /^[1-9][0-9]*$/;
+        let newV = '' + value;
+        if (newV && !reg.test(newV)) {
           callback(new Error('请输入正整数'));
         } else {
           callback();

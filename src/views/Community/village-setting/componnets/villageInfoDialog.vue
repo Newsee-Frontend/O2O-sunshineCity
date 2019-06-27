@@ -4,7 +4,7 @@
     :visible.sync="showDialog"
     @close="close">
     <template slot="slip-btns">
-      <ns-button type="primary" @click="submit" size="mini" :loading="submitLoading">保  存</ns-button>
+      <ns-button type="primary" @click="submit" :loading="submitLoading">保  存</ns-button>
     </template>
     <template slot="main">
       <ns-form ref="villageForm" :model="villageModel"  :rules="villageRules" label-width="120px">
@@ -48,7 +48,7 @@
         <ns-form-item label="详细地址" prop="address">
           <ns-input
             size="medium"
-            v-model="villageModel.address"
+            v-model.trim="villageModel.address"
             placeholder="请填写详细地址"
             @input="addressChange"
           ></ns-input>
@@ -67,13 +67,13 @@
           </ns-select>
         </ns-form-item>
         <ns-form-item label="联系人" prop="contact">
-          <ns-input size="medium" v-model="villageModel.contact" placeholder="请填写联系人"></ns-input>
+          <ns-input size="medium" v-model.trim="villageModel.contact" placeholder="请填写联系人"></ns-input>
         </ns-form-item>
         <ns-form-item label="联系电话" prop="contactPhone">
-          <ns-input size="medium" v-model="villageModel.contactPhone" placeholder="请填写联系电话"></ns-input>
+          <ns-input size="medium" v-model.trim="villageModel.contactPhone" placeholder="请填写联系电话"></ns-input>
         </ns-form-item>
         <ns-form-item label="园区服务电话" prop="serviceCall">
-          <ns-input size="medium" v-model="villageModel.serviceCall" placeholder="请填写服务电话,多个号码用/隔开"></ns-input>
+          <ns-input size="medium" v-model.trim="villageModel.serviceCall" placeholder="请填写服务电话,多个号码用/隔开"></ns-input>
         </ns-form-item>
       </ns-form>
     </template>

@@ -4,8 +4,8 @@
     :visible.sync="showDialog"
     @close="close">
     <template slot="slip-btns">
-      <ns-button type="primary" @click="submit('publish')" size="mini" :loading="submitLoading === 'publish'">保 存</ns-button>
-      <ns-button type="primary" @click="submit('tempPublish')" size="mini" :loading="submitLoading === 'tempPublish'">暂 存</ns-button>
+      <ns-button type="primary" @click="submit('publish')" :loading="submitLoading === 'publish'">保 存</ns-button>
+      <ns-button type="primary" @click="submit('tempPublish')"  :loading="submitLoading === 'tempPublish'">暂 存</ns-button>
     </template>
 
     <tempalte slot="main">
@@ -29,7 +29,7 @@
           </ns-col>
         </ns-row>
         <ns-form-item label="公告标题" prop="title">
-          <ns-input v-model="model.title" placeholder="请输入公告标题" width="100%"></ns-input>
+          <ns-input v-model.trim="model.title" placeholder="请输入公告标题" width="100%"></ns-input>
         </ns-form-item>
         <ns-form-item label="公告内容" prop="content">
           <ns-editor :height="200" v-model="model.content" model="normal"  @input="itemChanged('content')" v-if="showDialog"/>

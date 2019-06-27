@@ -13,7 +13,7 @@
     <div class="slip-title">{{title}}</div>
     <div class="slip-btns">
       <slot name="slip-btns"></slot>
-      <ns-button size="mini" @click="showSlipDialog = false">返    回</ns-button>
+      <ns-button @click="showSlipDialog = false">返    回</ns-button>
     </div>
     <div class="silp-container">
       <slot name="main"></slot>
