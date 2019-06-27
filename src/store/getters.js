@@ -23,6 +23,10 @@ const getters = {
   optionsDataTemplate: state => state.Form.optionsDataTemplate,
   roleButtonList: state => state.RoleButton.roleButtonList,
 
+  //tree
+  organizeTreeData: state => state.OrganizeTree.organizeTreeData,
+  houseTreeData: state => state.HouseTree.houseTreeData,
+
 
   //table
   tableHead: state => state.Table.tableHead,

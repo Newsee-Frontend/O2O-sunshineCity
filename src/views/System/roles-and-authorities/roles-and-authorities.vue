@@ -108,7 +108,7 @@
 </template>
 <script>
   import {gridDataDelete } from '../../../service/System/roles-and-authorities';
-  import OrganizeTree from '../../../components/Biz/Biz-tree/biz-organize-tree/organize-tree.vue'; // 组织树 组件
+  import OrganizeTree from '../../../components/Biz/Biz-tree/biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
   import * as store from '../../../utils/nsQuery/nsStore';
   import roleStaticData from './roleStaticData';
   import rolePersonStaticData from './rolePersonStaticData';

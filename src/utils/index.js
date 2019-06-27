@@ -69,3 +69,14 @@ export const stopPropagation = e => {
     window.event.cancelBubble = true; //IE stop propagation
   }
 };
+
+
+/**
+ * judge object is empty
+ * @param obj
+ * @returns {boolean}
+ */
+export const isEmptyObject = obj => {
+  return Object.keys(obj).length === 0;
+};
+
