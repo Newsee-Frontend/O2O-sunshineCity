@@ -12,10 +12,10 @@
           <ns-select size="medium" :options="companyList" v-model="villageModel.companyId" placeholder="请选择公司"></ns-select>
         </ns-form-item>
         <ns-form-item label="小区名称"   prop="precinctName">
-          <ns-input size="medium" v-model="villageModel.precinctName" placeholder="请填写小区名称"></ns-input>
+          <ns-input size="medium" v-model.trim="villageModel.precinctName" placeholder="请填写小区名称"></ns-input>
         </ns-form-item>
         <ns-form-item label="小区简称"  prop="precinctShortName">
-          <ns-input size="medium" v-model="villageModel.precinctShortName" placeholder="请填写小区简称"></ns-input>
+          <ns-input size="medium" v-model.trim="villageModel.precinctShortName" placeholder="请填写小区简称"></ns-input>
         </ns-form-item>
         <ns-row style="display: flex;">
           <ns-form-item label="所属城市" prop="provinceId" >

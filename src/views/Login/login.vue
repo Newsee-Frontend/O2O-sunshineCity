@@ -1,21 +1,9 @@
 <!--login-->
 <template>
   <div class="login-wrap">
-    <div class="login-header">
-      <div class="login-logo"><img :src="operator.operatorLogo" /></div>
-    </div>
-    {{operator.operatorPicture}}
-    <div class="login-body" :style="{'background-image': 'url(' + operator.operatorBackgroudPic + ')'}">
-      <div class="ms-login">
-        <img :src="operator.operatorPicture" class="banner" />
-        <sign-in-box></sign-in-box>
-      </div>
-    </div>
-    <div class="login-footer">
-      <div class="information">
-        <span>Copyright © {{operator.operatorDesc}}</span>
-      </div>
-    </div>
+    <div class="login-header"></div>
+    <sign-in-box></sign-in-box>
+    <div class="login-footer"></div>
   </div>
 </template>
 <script>
