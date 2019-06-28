@@ -1,5 +1,5 @@
 const Layout = resolve => require(['../../layout/Layout.vue'], resolve);
-export const systemRouter = [
+export default [
   {
     path: '/system',
     component: Layout,
