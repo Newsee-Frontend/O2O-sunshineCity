@@ -8,20 +8,20 @@
     <div v-show="showTree" class="tree-width">
       <!--树搜索框-->
       <el-autocomplete
-        v-model="treeInput"
+        v-model="treeSearchInput"
         :fetch-suggestions="remoteSearch"
         value-key="organizationName"
         placeholder="快速查询"
         suffix-icon="el-icon-search"
         clearable
         size="small"
-        @select="origanizeTreeSearch"
-        @clear="origanizeTreeSearch"
+        @select="origanizeTreeChange"
+        @clear="origanizeTreeChange"
       ></el-autocomplete>
       <!--树主体-->
       <div class="tree-body">
         <p class="treeTitle" ref="title">{{ title }}</p>
-        <h1>{{organizeTreeData.length>0?organizeTreeData[0].expanded:''}}</h1>
+        <h1>{{$store__orgTreeData.length>0?$store__orgTreeData[0].expanded:''}}</h1>
         <ns-tree
           ref="organizeTree"
           v-loading="treeloading"
@@ -128,7 +128,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex';
-  import {changeData, getInputData, companyDelete, departmentDelete,} from '../../../../service/Tree/organize-tree';
+  import {companyDelete, departmentDelete,} from '../../../../service/Tree/organize-tree';
   import {addOrEditCompany, addOrEditDepartment, groupDialog} from './Biz-organize-dialogs'
   import request from './mixins/request';
   import keyRefer from './keyRefer';
@@ -143,6 +143,9 @@
       return {
         treeData: [],//origanize tree data use to render
         treeModel: {}, //节点树选中的节点对象
+
+        treeSearchInput: '',//搜索
+        searchTip: '搜索数据中...',
 
         showTree: true,  //树是否展示
 
@@ -178,9 +181,8 @@
           },
           nodeInfo: {},
         },
-        searchTip: '搜索数据中...',
-        //树显示
-        treeInput: '',
+
+
         treeloading: false,
         //树节点对应的字段
         keyRefer
@@ -220,10 +222,10 @@
       },
     },
     computed: {
-      ...mapGetters(['organizeTreeData']),
+      ...mapGetters(['$store__orgTreeData']),
     },
     watch: {
-      organizeTreeData: {
+      $store__orgTreeData: {
         handler(newVal, oldVal) {
           this.treeData = newVal;
         },
@@ -238,7 +240,7 @@
       },
       treeModel: {
         handler(newVal, oldVal) {
-          this.$store.dispatch('getCurrentTreeNode', newVal);
+          this.$store.dispatch('setCurrentTreeNode', newVal);
         },
         deep: true
       },
@@ -257,43 +259,6 @@
        */
       refreshTreeData() {
         this.getTreeData(true);
-      },
-
-      /**
-       * origanizeTreeSearch
-       * @param item 搜索输入内容
-       */
-      origanizeTreeSearch(item) {
-        if (item) {
-          changeData({
-            organizationId: item.organizationId,
-          }).then(r => {
-            this.treeData = [r.resultData];
-            // this.$refs.organizeTree.initTree(this.treeData);
-            // this.treeModel && (this.$refs.organizeTree.nodeSelectedByKey([this.treeModel]));
-          });
-
-        } else {
-          this.getSearchTreeData()
-        }
-      },
-
-      //树搜索输入触发查询
-      remoteSearch(query, cb) {
-        if (query !== '') {
-          this.searchTip = '搜索数据中...';
-          getInputData({
-            organizationName: query,
-          })
-            .then(r => {
-              cb(r.resultData);
-            })
-            .catch(err => {
-              this.searchTip = '服务器出错';
-            });
-        } else {
-          cb([]);
-        }
       },
 
       //拖放判断，暂时不支持
@@ -400,13 +365,18 @@
        */
       initRender() {
 
-        console.log('organizeTreeData - 数据是否存在：');
-        console.log(!isEmptyObject(this.organizeTreeData));
+        console.log('$store__orgTreeData - 数据是否存在：');
+        console.log(this.$store__orgTreeData);
+        console.log(!isEmptyObject(this.$store__orgTreeData));
 
-        //判断 organizeTreeData store 数据是否存在，存在则无需请求数据，直接获取
-        if (!isEmptyObject(this.organizeTreeData)) {
 
-          this.treeData = this.organizeTreeData;
+        //判断 $store__orgTreeData 数据是否存在，存在则无需请求数据，直接获取
+        if (!isEmptyObject(this.$store__orgTreeData)) {
+
+          this.treeData = this.$store__orgTreeData;
+
+          this.treeSearchInput = this.$store.state.OrganizeTree.$store_searchQuery;
+
           console.log('nodeClick-nodeClick-nodeClick');
           this.nodeClick(this.treeData[0]);
 
@@ -426,7 +396,7 @@
 
     beforeDestroy() {
       this.$store.dispatch('asyncOrganizeTreeData', this.treeData);
-      this.$store.dispatch('getCurrentTreeNode', this.treeModel);
+      this.$store.dispatch('setCurrentTreeNode', this.treeModel);
     }
   };
 </script>

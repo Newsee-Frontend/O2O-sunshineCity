@@ -131,7 +131,7 @@ export function treeDrag(query) {
   });
 }
 
-export function getInputData(query) {
+export function getSearchData(query) {
   //树数据-模糊查询
   dataFilter(query);
   return fetch({
@@ -141,7 +141,7 @@ export function getInputData(query) {
   });
 }
 
-export function changeData(query) {
+export function changeTreeData(query) {
   //树数据-模糊查询后树数据变化
   dataFilter(query);
   return fetch({

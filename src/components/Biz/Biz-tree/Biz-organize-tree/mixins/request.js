@@ -1,3 +1,5 @@
+import {getSearchData} from '../../../../../service/Tree/organize-tree';
+
 export default {
   methods: {
     /**
@@ -10,27 +12,6 @@ export default {
         Object.assign(query, {orgType: this.orgTypeFilter});
       }
       return query;
-    },
-
-
-    /**
-     * 获取树 搜索 数据
-     */
-    getSearchTreeData() {
-      this.treeloading = true;//loading
-
-      //search organize tree data
-      this.$store.dispatch('getOrganizeTreeData', this.createRequestQuery()).then(res => {
-
-        this.treeData = res;
-
-        //树数据--更新数据
-        this.$refs.organizeTree.initTree(this.treeData);
-
-        this.treeModel && (this.$refs.organizeTree.nodeSelectedByKey([this.treeModel]));
-
-        this.treeloading = false;
-      });
     },
 
 
@@ -57,7 +38,7 @@ export default {
       //request organize tree data
       this.$store.dispatch('getOrganizeTreeData', this.createRequestQuery()).then(res => {
 
-        this.treeData = this.organizeTreeData;
+        this.treeData = this.$store__orgTreeData;
 
         //设定默认选中项
         this.treeModel = this.$store.state.OrganizeTree.currentTreeNode;
@@ -75,5 +56,54 @@ export default {
       });
     },
 
+
+    /**
+     * Get origanize tree data by search
+     * @param item 搜索输入内容
+     */
+    origanizeTreeChange(item) {
+      console.log(item)
+      //存储 搜索输入的值
+      this.$store.dispatch('setSearchQuery', item ? item.organizationName : '');
+      if (item || item === 0) {
+        this.$store.dispatch('origanizeTreeChange', {organizationId: item.organizationId})
+      }
+      else {
+        this.treeloading = true;
+
+        //search organize tree data
+        this.$store.dispatch('getOrganizeTreeData', this.createRequestQuery()).then(res => {
+          console.log(6666666666666666)
+          this.treeData = this.$store__orgTreeData;
+          console.log(this.$store.state.OrganizeTree.currentTreeNode);
+
+          //设定默认选中项
+          this.treeModel = this.$store.state.OrganizeTree.currentTreeNode;
+
+          this.treeloading = false;
+        });
+
+      }
+    },
+
+
+    /**
+     * 树 输入触发 搜索查询
+     * @param query
+     * @param cb
+     */
+    remoteSearch(query, cb) {
+      if (query !== '') {
+        this.searchTip = '搜索数据中...';
+        getSearchData({organizationName: query}).then(r => {
+          cb(r.resultData);
+        }).catch(err => {
+          this.searchTip = '服务器出错';
+        });
+      } else {
+        cb([]);
+      }
+    }
   }
+
 }

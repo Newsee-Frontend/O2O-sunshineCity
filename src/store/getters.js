@@ -24,7 +24,7 @@ const getters = {
   roleButtonList: state => state.RoleButton.roleButtonList,
 
   //tree
-  organizeTreeData: state => state.OrganizeTree.organizeTreeData,
+  $store__orgTreeData: state => state.OrganizeTree.$store__orgTreeData,
   houseTreeData: state => state.HouseTree.houseTreeData,
 
 
