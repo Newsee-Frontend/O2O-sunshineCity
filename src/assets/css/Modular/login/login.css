@@ -1,82 +1,3 @@
-.login-wrap {
-  width: 100%;
-  height: 100%;
-}
-
-.ms-login {
-  position: absolute;
-  width: 80%;
-  height: 80%;
-  margin: auto;
-  top: 0px;
-  bottom: 0px;
-  right: 0;
-  left: 0;
-  border-radius: 5px;
-  display: flex;
-}
-
-@media screen and (max-width: 780px) {
-  .ms-login {
-    width: 100% !important;
-  }
-
-  .banner {
-    width: 60%;
-    align-content: center;
-  }
-
-  .signIn {
-    left: 40% !important;
-  }
-
-  .information {
-    margin-left: 69px;
-  }
-}
-
-@media screen and (max-width: 1025px) {
-  .ms-login {
-    width: 90% !important;
-  }
-}
-
-.login-logo {
-  margin-left: 209px;
-}
-
-.login-logo img {
-  height: 41px;
-  margin-top: 20px;
-}
-
-.login-btn button {
-  width: 100%;
-  height: 36px;
-}
-
-/*表单部分*/
-.signIn {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  left: 55%;
-  background: #ffffff;
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  width: 430px;
-  height: 412px;
-  z-index: 999999;
-}
-
-.signIn p {
-  font-size: 32px;
-  color: #333333;
-  letter-spacing: 0;
-  text-align: center;
-  margin-top: 33px;
-}
 
 .signIn input {
   border: 1px solid #d6d6d6;
@@ -131,16 +52,6 @@
   margin-left: 46px !important;
 }
 
-/*头部*/
-.login-header {
-  background: #ffffff;
-  height: 78px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
 .helpOrOperation {
   position: absolute;
   right: 184px;
@@ -168,17 +79,6 @@
   /*background: url(../../../assets/img/logo/loginback.png);*/
   background-size: 100% 100%;
 }
-
-/*尾部*/
-.login-footer {
-  background: #ffffff;
-  height: 49px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
 .information {
   /*margin-left: 169px;*/
   text-align: center;
@@ -205,4 +105,70 @@
 
 .login-wrap .el-form-item {
   margin-bottom: 0px !important;
+}
+
+
+/*新样式*/
+
+
+.login-wrap{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url("../../../img/login/bg.png") 0 0 no-repeat;
+  background-size:100% 100%;
+}
+
+/*头部*/
+.login-header {
+  height: 78px;
+}
+
+/*尾部*/
+.login-footer {
+  height: 49px;
+}
+
+
+.sign-in-box{
+  background: #ffffff;
+  margin: auto;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  width: 52%;
+  height: 58%;
+  min-width: 758px;
+  min-height: 438px;
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.sign-in-box .sign-in-left{
+  width: 44%;
+  height: 100%;
+  background: url("../../../img/login/loginBoxLeft.png")  0 0 no-repeat;
+  background-size: 100% 100%;
+}
+
+.sign-in-box  .sign-in-right{
+  flex: 1;
+}
+
+ .sign-in-right .signIn{
+  width: 430px;
+   margin: auto;
+}
+
+ .sign-in-right .signIn p {
+  font-size: 32px;
+  color: #333333;
+  letter-spacing: 0;
+  text-align: center;
+  padding: 30px 0;
 }

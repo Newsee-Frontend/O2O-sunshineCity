@@ -1,39 +1,44 @@
 <template>
   <div class="sign-in-box">
     <!--用户名账号登录窗口-->
-    <div class="signIn step-one" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">
-      <p>登录</p>
-      <el-form
-        :model="loginForm"
-        ref="loginForm"
-        :rules="rules_login"
-        label-width="100px"
-        class="demo-dynamic"
-      >
-        <el-form-item prop="username" class="username" :show-message="false">
-          <el-input
-            v-model="loginForm.username"
-            placeholder="用户名或者手机号"
-            autofocus="autofocus"
-          ></el-input>
-        </el-form-item>
-        <el-form-item prop="password" class="pwd" :show-message="false">
-          <el-input type="password" v-model="loginForm.password" placeholder="登录密码"></el-input>
-        </el-form-item>
-      </el-form>
 
-      <el-button type="primary" class="btnCss" @click="submitForm('loginForm')">登录</el-button>
+    <div class="sign-in-left"></div>
+    <div class="sign-in-right">
+      <div class="signIn step-one" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">
+        <p>登录</p>
+        <el-form
+          :model="loginForm"
+          ref="loginForm"
+          :rules="rules_login"
+          label-width="100px"
+          class="demo-dynamic"
+        >
+          <el-form-item prop="username" class="username" :show-message="false">
+            <el-input
+              v-model="loginForm.username"
+              placeholder="用户名或者手机号"
+              autofocus="autofocus"
+            ></el-input>
+          </el-form-item>
+          <el-form-item prop="password" class="pwd" :show-message="false">
+            <el-input type="password" v-model="loginForm.password" placeholder="登录密码"></el-input>
+          </el-form-item>
+        </el-form>
+
+        <el-button type="primary" class="btnCss" :loading="submitLoading" @click="submitForm('loginForm')">登录</el-button>
+      </div>
+
+      <!--多企业账号，选择登录-->
+      <multi-enterprise
+        v-if="hasMultiEnterprise"
+        :cryptoKey="cryptoKey"
+        :loginForm="loginForm"
+        :enterprise="enterprise"
+        @jump="jumpToPage"
+        @back="goPrevStep"
+      ></multi-enterprise>
     </div>
 
-    <!--多企业账号，选择登录-->
-    <multi-enterprise
-      v-if="hasMultiEnterprise"
-      :cryptoKey="cryptoKey"
-      :loginForm="loginForm"
-      :enterprise="enterprise"
-      @jump="jumpToPage"
-      @back="goPrevStep"
-    ></multi-enterprise>
   </div>
 </template>
 
@@ -50,6 +55,7 @@
       return {
         validateError: '你输入的密码和账户名不匹配,请重新输入',
         hasMultiEnterprise: false,
+        submitLoading: false,
         loginForm: {
           username: 'superAdmin',
           password: 'newsee888',
