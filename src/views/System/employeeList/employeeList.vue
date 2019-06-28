@@ -105,7 +105,7 @@
 <script>
   import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
   import {gridDataDelete, gridDataOperate} from '../../../service/System/employeeList';
-  import OrganizeTree from '../../../components/Biz/Biz-tree/biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
+  import OrganizeTree from '../../../components/Biz/Biz-tree/Biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
   import employeeStaticData from './employeeStaticData';
   import pickerOptionsMap from '../../../static-data/form/picker-options';
   import employeeForm from './employeeForm/employeeForm.vue';
@@ -381,7 +381,7 @@
       //表数据查询
       getTableData(condition) {
         console.log('表数据查询-表数据查询');
-        console.log(this.condition)
+        console.log(this.condition);
         if (condition) {
           this.Mix_searchConditions.filterList = condition;
         }

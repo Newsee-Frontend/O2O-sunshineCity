@@ -27,7 +27,7 @@ export default {
         //树数据--更新数据
         this.$refs.organizeTree.initTree(this.treeData);
 
-        this.childKey && (this.$refs.organizeTree.nodeSelectedByKey([this.childKey]));
+        this.treeModel && (this.$refs.organizeTree.nodeSelectedByKey([this.treeModel]));
 
         this.treeloading = false;
       });
@@ -59,12 +59,8 @@ export default {
 
         this.treeData = this.organizeTreeData;
 
-        this.$refs.organizeTree.initTree(this.treeData);
-
-        //默认选中第一项
-        this.childKey = res.organizationId;
-        this.$refs.organizeTree.nodeSelectedByKey([this.childKey]);
-
+        //设定默认选中项
+        this.treeModel = this.$store.state.OrganizeTree.currentTreeNode;
 
         // searchConditions state change
         this.searchConditions.organizationId = res.organizationId;
