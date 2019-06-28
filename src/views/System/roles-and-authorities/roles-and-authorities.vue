@@ -6,6 +6,8 @@
         <organize-tree
           :funcId="Mix_funcId"
           title="组织架构"
+          draggable
+          showFunction
           :searchConditions="Mix_searchConditions"
           @tree-item-click="treeItemClick"
           :changeStatus="changeStatus"
@@ -19,7 +21,7 @@
             :funcId="Mix_funcId"
             :thlist="Mix_thlist"
             :searchConditions="Mix_searchConditions"
-            @query="getGridData"
+            @query="getTableData"
             :changeStatus="changeStatus"
           >
             <!--fnbutton module / slot for secrch conditions ---->
@@ -46,19 +48,27 @@
           </ns-search-conditions>
         </div>
         <!--grid module-->
-        <ns-grids
-          :gridID="pageID + '-grid'"
-          :gridData="gridData"
-          :thlist="Mix_thlist"
-          :loadState="Mix_loadState"
-          :searchConditions="Mix_searchConditions"
-          :holderInfo="Mix_holderInfo"
-          :funcId="Mix_funcId"
-          @refreshGrid="getGridData"
-          @grid-ation="gridAtion"
-          @selection-change="selectionChange"
-          :ationColConfig="{ width: 200 }"
-        ></ns-grids>
+        <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
+                   :searchConditions="Mix_searchConditions"
+                   :showSummary="false"
+                   @reload="getTableData"
+                   @table-action="tableAction"
+                   @selection-change="selectionChange"
+        ></biz-table>
+
+        <!--<ns-grids-->
+          <!--:gridID="pageID + '-grid'"-->
+          <!--:gridData="gridData"-->
+          <!--:thlist="Mix_thlist"-->
+          <!--:loadState="Mix_loadState"-->
+          <!--:searchConditions="Mix_searchConditions"-->
+          <!--:holderInfo="Mix_holderInfo"-->
+          <!--:funcId="Mix_funcId"-->
+          <!--@refreshGrid="getGridData"-->
+          <!--@grid-ation="gridAtion"-->
+          <!--@selection-change="selectionChange"-->
+          <!--:ationColConfig="{ width: 200 }"-->
+        <!--&gt;</ns-grids>-->
         <!--dialog - auto form submit infomation-->
         <ns-dialog
           :id="nsDialogName"
@@ -107,6 +117,7 @@
   </div>
 </template>
 <script>
+  import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
   import {gridDataDelete } from '../../../service/System/roles-and-authorities';
   import OrganizeTree from '../../../components/Biz/Biz-tree/biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
   import * as store from '../../../utils/nsQuery/nsStore';
@@ -123,6 +134,15 @@
     components: {
       OrganizeTree
     },
+
+    computed: {
+      thlist() {
+        return {
+          thlistDefault: this.Mix_searchConditions.header || [] //为筛选器需要的表头数据赋值
+        }
+      }
+    },
+
     data() {
       return {
         //========== 基本 base =========
@@ -132,9 +152,15 @@
         changeStatus: { status: true }, // 左侧树的状态
 
         //========== 表格 grid =========
-        gridData: {}, //列表数据
+        tableData: {}, //列表数据
         multipleSelection: [], //grid selected list
         selectedGridNodeObj: {}, //选中的表格当前行数据
+
+        //表格数据加载状态
+        loadState: {
+          data: false,
+          head: false,
+        },
 
         //========== dialog auto form  =========
         dialogVisible: { visible: false }, //dialog switch
@@ -236,6 +262,7 @@
           vm.$set(data, 'fields', formStaticData.fields.concat(data.fields));
         }
       },
+
       //新增-初始化动态表单
       addRole() {
         if (!this.Mix_treeNodeObj.organizationId || this.Mix_treeNodeObj.organizationId == 0) {
@@ -253,12 +280,72 @@
           this.$set(this.dialogVisible, 'visible', true);
         }
       },
+
+
+      //选择组织节点回调
+      treeItemClick(org) {
+        console.log('表数据查询-表数据查询');
+        console.log(this.condition)
+        this.Mix_treeNodeObj = org;
+        this.addRoleCoverData.dynamicQuery.rolecategoryId = this.Mix_treeNodeObj.organizationId;
+        this.addPersonToRoleCoverData.dynamicQuery.userIds = this.Mix_treeNodeObj.organizationId;
+        this.getTableData();
+      },
+
+      /**
+       * dialog close
+       * @param formName1
+       * @param formName2
+       */
+      dialogClose(formName1, formName2) {
+        //销毁表单
+        this.showMessage = false;
+        store.formController.delete(formName1);
+        store.formController.delete(formName2);
+        this.nsDialogName = 'roles-and-authorities_addRoleForm';
+      },
+
+      //获取表格数据
+      getTableData(condition){
+        console.log('表数据查询-表数据查询');
+        console.log(this.condition);
+        if (condition) {
+          this.Mix_searchConditions.filterList = condition;
+        }
+
+        this.loadState.data = false;
+
+        tableDataFetch(
+          {
+            url: '/system/role/list-role',
+            query: this.Mix_searchConditions,
+            funcId: this.Mix_funcId,
+          }
+        ).then( res =>{
+          this.tableData = res.resultData;
+
+          //增加 固定操作列 - 按钮数据
+          this.tableData.list.forEach(item => {
+            item.fnsclick = [
+              { label: '新增授权人', value: 'gridAuthorizerBtn' },
+              { label: '编辑', value: 'gridEditBtn' },
+              { label: '删除', value: 'gridRemoveBtn' },
+            ];
+          });
+
+          this.loadState.data = true;
+        }, ()=> {
+          this.tableData = {};
+          this.loadState.data = true;
+        } )
+      },
+
       /**
        * grid ation event （操作列操作回调事件）
        * @param params
        * @param scope
        */
-      gridAtion(params, scope) {
+      tableAction(params, scope) {
         this.selectedGridNodeObj = scope.row;
         switch (params.value) {
           case 'gridEditBtn': //编辑
@@ -291,7 +378,7 @@
                 )
                   .then(() => {
                     this.$message({ message: '删除成功', type: 'success' });
-                    this.getGridData();
+                    this.getTableData();
                   })
                   .catch(r => {
                     this.$message({
@@ -324,63 +411,14 @@
             break;
         }
       },
+
       //grid选择项发生变化时
       selectionChange(selection) {
         let arry = [];
         for (let i = 0; i < selection.length; i++) {}
         this.multipleSelection = arry;
       },
-      //选择组织节点回调
-      treeItemClick(org) {
-        console.log('表数据查询-表数据查询');
-        console.log(this.condition)
-        this.Mix_treeNodeObj = org;
-        this.addRoleCoverData.dynamicQuery.rolecategoryId = this.Mix_treeNodeObj.organizationId;
-        this.addPersonToRoleCoverData.dynamicQuery.userIds = this.Mix_treeNodeObj.organizationId;
-        this.getGridData();
-      },
-      //表数据查询
-      getGridData(condition) {
-        if (condition) {
-          this.Mix_searchConditions.filterList = condition;
-        }
-        this.Mix_loadState.data = false;
-        this.grid.fetch(
-          {
-            url: '/system/role/list-role',
-            query: this.Mix_searchConditions,
-            funcId: this.Mix_funcId,
-          },
-          res => {
-            this.gridData = res;
-            //增加 固定操作列 - 按钮数据
-            this.gridData.list.forEach(item => {
-              item.fnsclick = [
-                { label: '新增授权人', value: 'gridAuthorizerBtn' },
-                { label: '编辑', value: 'gridEditBtn' },
-                { label: '删除', value: 'gridRemoveBtn' },
-              ];
-            });
-            this.Mix_loadState.data = true;
-          },
-          () => {
-            this.gridData = {};
-            this.Mix_loadState.data = true;
-          }
-        );
-      },
-      /**
-       * dialog close
-       * @param formName1
-       * @param formName2
-       */
-      dialogClose(formName1, formName2) {
-        //销毁表单
-        this.showMessage = false;
-        store.formController.delete(formName1);
-        store.formController.delete(formName2);
-        this.nsDialogName = 'roles-and-authorities_addRoleForm';
-      },
+
       //更多功能
       handleCommand(command) {
         if (command === 'actionExportBtn') {
@@ -392,11 +430,7 @@
           })
         }
       },
-    },
-    //初始化获取数据
-    created() {
-      this.getGridData();
-    },
+    }
   };
 </script>
 <style rel="stylesheet/scss" lang="scss">
@@ -407,5 +441,9 @@
     .el-input__inner {
       border-color: #cecece;
     }
+  }
+
+  .table-head-action .cell{
+    width: 200px;
   }
 </style>

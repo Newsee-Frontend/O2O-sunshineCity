@@ -207,7 +207,7 @@
       if (this.autoResize) {
         this.height = this.getAutoResizeHeight();
         addEventHandler(window, 'resize', () => {
-          this.getAutoResizeHeight();
+          this.height = this.getAutoResizeHeight();
         })
       }
       else {
