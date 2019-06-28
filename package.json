@@ -33,7 +33,7 @@
     "xlsx": "^0.11.0"
   },
   "devDependencies": {
-    "cx-builder": "0.0.44",
+    "cx-builder": "0.0.47",
     "mockjs": "^1.0.1-beta3",
     "vue-template-compiler": "2.5.21"
   },

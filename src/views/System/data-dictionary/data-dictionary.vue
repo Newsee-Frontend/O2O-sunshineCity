@@ -108,7 +108,7 @@ import { gridDataDelete } from '../../../service/System/data-dictionary';
 import * as store from '../../../utils/nsQuery/nsStore';
 import Mixin from "../../../mixins";
 import { downloadExcel } from '../../../service/Download/download';
-import OrganizeTree from '../../../components/Biz/Biz-tree/biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
+import OrganizeTree from '../../../components/Biz/Biz-tree/Biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
 import DictionaryTree from '../../../components/Biz/Biz-tree/biz-data-dictionary-tree/data-dictionary-tree.vue'; // 数据字典树 组件
 
 export default {

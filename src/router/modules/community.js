@@ -1,5 +1,5 @@
 const Layout = resolve => require(['../../layout/Layout.vue'], resolve);
-export const communityRouter = [
+export default [
   {
     path: '/community',
     component: Layout,

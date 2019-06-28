@@ -1,14 +1,20 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-
-import routes from './routes';
 import hook from './hook';
+
+
+import Public from './modules/public';
+import System from './modules/system';
+import Community from './modules/community';
+
+const routes = [...Public, ...System, ...Community];
+
 
 Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes,
 });
 

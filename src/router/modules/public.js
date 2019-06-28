@@ -3,7 +3,7 @@ import Front from '../../views/Front/index.vue'
 
 const Layout = resolve => require(['../../layout/Layout.vue'], resolve);
 
-export const publicRouter = [
+export default  [
   {path: '/', redirect: iniView},
   {path: '*', redirect: iniView},
 

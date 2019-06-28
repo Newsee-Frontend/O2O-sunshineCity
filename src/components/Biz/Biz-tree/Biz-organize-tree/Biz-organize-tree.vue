@@ -24,8 +24,10 @@
         <h1>{{organizeTreeData.length>0?organizeTreeData[0].expanded:''}}</h1>
         <ns-tree
           ref="organizeTree"
-
           v-loading="treeloading"
+          v-model="treeModel"
+          :data="treeData"
+          isObjectData
           :draggable="draggable"
           expandAllNodes
           :dropJudge="dropJudge"
@@ -140,19 +142,15 @@
     data() {
       return {
         treeData: [],//origanize tree data use to render
+        treeModel: {}, //节点树选中的节点对象
+
         showTree: true,  //树是否展示
-        childKey: '',    //节点树选中的值
+
         //部门节点信息
         departmentOptions: [
-          {
-            //部门类型
-            label: '服务中心',
-            value: 0,
-          },
-          {
-            label: '职能中心',
-            value: 1,
-          },
+          //部门类型
+          {label: '服务中心', value: 0},
+          {label: '职能中心', value: 1},
         ],
         dialogVisible: {
           groupVisible: {visible: false},
@@ -237,7 +235,13 @@
           // this.$store.dispatch('asyncOrganizeTreeData', newVal);
         },
         deep: true
-      }
+      },
+      treeModel: {
+        handler(newVal, oldVal) {
+          this.$store.dispatch('getCurrentTreeNode', newVal);
+        },
+        deep: true
+      },
     },
     methods: {
       /**
@@ -265,8 +269,8 @@
             organizationId: item.organizationId,
           }).then(r => {
             this.treeData = [r.resultData];
-            this.$refs.organizeTree.initTree(this.treeData);
-            this.childKey && (this.$refs.organizeTree.nodeSelectedByKey([this.childKey]));
+            // this.$refs.organizeTree.initTree(this.treeData);
+            // this.treeModel && (this.$refs.organizeTree.nodeSelectedByKey([this.treeModel]));
           });
 
         } else {
@@ -377,14 +381,16 @@
        *  节点点击事件
        * */
       nodeClick: function (node) {
+        console.log(node);
         //同一个节点多次点击
-        if (node.organizationId === this.childKey) return;
-        this.childKey = node.organizationId;
+        if (node.organizationId === this.treeModel.organizationId) return;
+        this.treeModel = node;
         this.searchConditions.organizationId = node.organizationId;
         this.searchConditions.companyId = node.companyId;
         this.searchConditions.departmentId = node.departmentId;
         this.searchConditions.mainSearch = '';
         this.searchConditions.pageNum = 1;
+
         this.$emit('tree-item-click', node);
       },
 
@@ -401,11 +407,10 @@
         if (!isEmptyObject(this.organizeTreeData)) {
 
           this.treeData = this.organizeTreeData;
-          //
-          this.$refs.organizeTree.initTree(this.treeData);
+          console.log('nodeClick-nodeClick-nodeClick');
+          this.nodeClick(this.treeData[0]);
 
-          this.$emit('tree-item-click', this.treeData);
-          
+
         }
         else {
           this.getTreeData(true)
@@ -413,14 +418,15 @@
       }
     },
     created() {
-
+      this.initRender();
     },
     mounted() {
-      this.initRender();
+
     },
 
     beforeDestroy() {
       this.$store.dispatch('asyncOrganizeTreeData', this.treeData);
+      this.$store.dispatch('getCurrentTreeNode', this.treeModel);
     }
   };
 </script>
