@@ -74,12 +74,12 @@
         </div>
       </div>
 
-      <notice-dialog
+      <noticeDialog
         :type="noticeTpye"
         :rowData="rowData"
         :visible.sync="showNoticeDialog"
         @reloadGrid="searchTable"
-      ></notice-dialog>
+      ></noticeDialog>
 
       <check-notice-detail
         :visible.sync="checkNoticeVisible"
@@ -107,10 +107,7 @@
 
     mixins: [Mixin],
 
-    components: {
-      noticeDialog,
-      checkNoticeDetail
-    },
+    components: {noticeDialog, checkNoticeDetail},
 
     data() {
       return {

@@ -11,12 +11,13 @@
 
 <script>
   import {mapGetters} from 'vuex';
-  import { updateThemeColor } from '../../../service/User/index'
+  import {updateThemeColor} from '../../../service/User/index'
+
   export default {
     name: 'Biz-skiner',
     data() {
       return {
-        skinerModel: '#252836',
+        skinerModel: '#b8000c',
         colorFormat: 'hax',
       };
     },
@@ -32,10 +33,10 @@
     },
     methods: {
       changeTheme() {
-        console.log('换肤改变',  this.skinerModel);
-        updateThemeColor({themeColor: this.skinerModel}).then(()=>{
+        console.log('换肤改变', this.skinerModel);
+        updateThemeColor({themeColor: this.skinerModel}).then(() => {
           let userInfo = this.$store.state.User.userinfo;
-          this.$store.dispatch('updateLoginData',userInfo )
+          this.$store.dispatch('updateLoginData', userInfo)
         })
       },
 

@@ -25,24 +25,24 @@
       };
     },
     created() {
-      this.getInfo();
+      // this.getInfo();
     },
     methods: {
-      getInfo() {
-        getOperatorInfo({isDefault: this.isDefault}).then(res => {
-          this.afterRequset = true;
-          for (let key in this.operator) {
-            if (this.operator.hasOwnProperty(key)) {
-              if (key === 'operatorDesc') {
-                this.operator[key] = res.resultData[key];
-              } else {
-                this.operator[key] = 'data:image/jpeg;base64,' + res.resultData[key];
-              }
-            }
-          }
-          localStorage.setItem('operatorInfo', JSON.stringify(this.operator));
-        })
-      }
+      // getInfo() {
+      //   getOperatorInfo({isDefault: this.isDefault}).then(res => {
+      //     this.afterRequset = true;
+      //     for (let key in this.operator) {
+      //       if (this.operator.hasOwnProperty(key)) {
+      //         if (key === 'operatorDesc') {
+      //           this.operator[key] = res.resultData[key];
+      //         } else {
+      //           this.operator[key] = 'data:image/jpeg;base64,' + res.resultData[key];
+      //         }
+      //       }
+      //     }
+      //     localStorage.setItem('operatorInfo', JSON.stringify(this.operator));
+      //   })
+      // }
     },
   };
 </script>
