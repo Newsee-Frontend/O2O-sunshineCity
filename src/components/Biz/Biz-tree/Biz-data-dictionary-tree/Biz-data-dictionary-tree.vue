@@ -6,6 +6,9 @@
         ref="dictionaryTree"
         :keyRefer="keyRefer"
         v-loading="treeloading"
+        v-model="treeModel"
+        :data="treeData"
+        isObjectData
         @nodeClick="nodeClick"
       >
 
@@ -67,20 +70,26 @@
 </template>
 <script>
 import {
-  treeDataFetch,
   dicGroupDetailFetch,
   dicDictionaryFetch,
   deleteDictionaryFetch,
   deleteDictionaryGroupFetch,
 } from '../../../../service/Tree/dictionary-tree';
 import TreeDialog from './tree-dialog.vue';
+import keyRefer from './keyRefer';
+import request from './mixins/request';
 
 export default {
+  name: 'dictionary-tree',
+  mixins: [request],
   components: {
     TreeDialog,
   },
   data() {
     return {
+      treeData: [],//origanize tree data use to render
+      treeModel: '', //节点树选中的节点对象
+
       childKey: '', //选中的节点
       initIndex: 0,
       objActive: '', //是否选中
@@ -96,14 +105,7 @@ export default {
         itemInfo: {},
         detailInfo: {},
       },
-      keyRefer: {
-        id: 'nodeValue',
-        title: 'nodeName',
-        children: 'children',
-        isHasChild: 'isHasChild',
-        disabled: 'disabled',
-        expanded: '$foldClose'
-      }
+      keyRefer
     };
   },
   props: {
@@ -236,8 +238,6 @@ export default {
 
     //树节点点击
     nodeClick(item, selected, position, parent) {
-      if(this.childKey === item.nodeValue) return
-      this.childKey = item.nodeValue;
       if (item.nodeType === 'dic') {
         this.searchConditions.organizationId = this.organizationId;
         this.searchConditions.dictionaryitemDictionaryId = item.nodeValue;
@@ -256,30 +256,6 @@ export default {
       this.$emit('tree-item-click', item,parent);
     },
 
-    getTreeData() {
-      //获取树数据
-      this.treeloading = true;
-      treeDataFetch({
-        organizationId: this.organizationId,
-      }).then(r => {
-        this.$refs.dictionaryTree.initTree([r.resultData], 1);
-        this.defaultSelected(r);
-        this.treeloading = false;
-      });
-    },
-    /*
-     * 默认选中第一项
-     * @params data object
-     * */
-    defaultSelected(data) {
-      let idata = data.resultData;
-      this.childKey = idata.nodeValue;
-      this.childKey && (this.$refs.dictionaryTree.nodeSelectedByKey([this.childKey]));
-      this.searchConditions.organizationId = this.organizationId;
-      this.searchConditions.dictionaryitemDictionaryId = '';
-      this.searchConditions.dictionaryGroupId = '';
-      this.$emit('tree-item-click', idata);
-    },
   },
   watch: {
     organizationId() {
@@ -287,7 +263,7 @@ export default {
     },
   },
   created() {
-    if (this.organizationId != '') {
+    if (this.organizationId && this.organizationId !== '') {
       //树数据初始化
       this.getTreeData(true);
     }
