@@ -75,8 +75,6 @@ export default {
         this.$store.dispatch('getOrganizeTreeData', this.createRequestQuery()).then(res => {
           console.log(6666666666666666)
           this.treeData = this.$store__orgTreeData;
-          console.log(this.$store.state.OrganizeTree.currentTreeNode);
-
           //设定默认选中项
           this.treeModel = this.$store.state.OrganizeTree.currentTreeNode;
 

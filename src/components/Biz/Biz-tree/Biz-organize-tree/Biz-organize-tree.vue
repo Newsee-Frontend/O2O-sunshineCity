@@ -142,6 +142,7 @@
       return {
         treeData: [],//origanize tree data use to render
         treeModel: {}, //节点树选中的节点对象
+        historyTreeModel: {},//历史（上一次) - 节点树选中的节点对象
 
         treeSearchInput: '',//搜索
         searchTip: '搜索数据中...',
@@ -264,6 +265,25 @@
       dropJudge() {
       },
 
+      /**
+       * 树节点点击事件
+       * @param node  -  节点信息
+       */
+      nodeClick: function (node) {
+        console.log(node);
+        //同一个节点多次点击则直接跳出
+        if (node.organizationId === this.historyTreeModel.organizationId) return;
+
+        this.treeModel = node;
+        this.searchConditions.organizationId = node.organizationId;
+        this.searchConditions.companyId = node.companyId;
+        this.searchConditions.departmentId = node.departmentId;
+        this.searchConditions.mainSearch = '';
+        this.searchConditions.pageNum = 1;
+
+        this.historyTreeModel = node;
+        this.$emit('tree-item-click', node);
+      },
 
       /**
        * 树删除操作
@@ -341,23 +361,6 @@
         }
       },
 
-      /**
-       *  节点点击事件
-       * */
-      nodeClick: function (node) {
-        console.log(node);
-        //同一个节点多次点击
-        if (node.organizationId === this.treeModel.organizationId) return;
-        this.treeModel = node;
-        this.searchConditions.organizationId = node.organizationId;
-        this.searchConditions.companyId = node.companyId;
-        this.searchConditions.departmentId = node.departmentId;
-        this.searchConditions.mainSearch = '';
-        this.searchConditions.pageNum = 1;
-
-        this.$emit('tree-item-click', node);
-      },
-
 
       /**
        * init render tree
@@ -384,7 +387,9 @@
         else {
           this.getTreeData(true)
         }
-      }
+      },
+
+
     },
     created() {
       this.initRender();

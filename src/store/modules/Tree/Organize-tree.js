@@ -70,6 +70,7 @@ const OrganizeTree = {
       );
     },
 
+
     setCurrentTreeNode({commit}, data) {
       commit('SET_CURRENT_TREE_NODE', data);
     },
