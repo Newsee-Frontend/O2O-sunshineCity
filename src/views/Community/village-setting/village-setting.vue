@@ -83,6 +83,7 @@
 
     data() {
       return {
+        pageID: 'village',
         authStatusOptions: [{label: '待开通', value: '0'}, {label: '开通中', value: '1'}, {label: '已关闭', value: '2'}],
         companyList: [],
         tableData: {},
@@ -109,7 +110,7 @@
 
     methods: {
       searchTable() {
-        this.searchConditions.pageNum = 1;
+        // this.searchConditions.pageNum = 1;
         this.getTableData();
       },
 
@@ -202,7 +203,7 @@
       this.searchTable();
       getCompanyList().then(data => {
         this.companyList = data.resultData;
-      })
+      });
     },
   };
 </script>

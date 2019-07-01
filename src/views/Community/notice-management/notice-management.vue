@@ -111,6 +111,7 @@
 
     data() {
       return {
+        pageID: 'notice',
         searchConditions: {
           keyWord: '',
           precinctId: '',

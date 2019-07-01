@@ -1,12 +1,22 @@
 <template>
-  <biz-slip-dialog
-    :title="type === 'add'? '新增小区': '编辑小区'"
+  <ns-slip-dialog
     :visible.sync="showDialog"
-    @close="close">
-    <template slot="slip-btns">
+    left="50px"
+    right="0px"
+    top="50px"
+    bottom="0px"
+    :appendToBody="false"
+    animation="fade-normal"
+    :beforeClose="close"
+    ref="slipDialog">
+    <div class="slip-title">{{type === 'add'? '新增小区': '编辑小区'}}</div>
+    <div class="slip-btns">
       <ns-button type="primary" @click="submit" :loading="submitLoading">保  存</ns-button>
-    </template>
-    <template slot="main">
+
+      <ns-button @click="showDialog = false">返    回</ns-button>
+    </div>
+
+    <div class="silp-container">
       <ns-form ref="villageForm" :model="villageModel"  :rules="villageRules" label-width="120px">
         <ns-form-item label="所属公司" prop="companyId">
           <ns-select size="medium" :options="companyList" v-model="villageModel.companyId" placeholder="请选择公司"></ns-select>
@@ -76,8 +86,8 @@
           <ns-input size="medium" v-model.trim="villageModel.serviceCall" placeholder="请填写服务电话,多个号码用/隔开"></ns-input>
         </ns-form-item>
       </ns-form>
-    </template>
-  </biz-slip-dialog>
+    </div>
+  </ns-slip-dialog>
 </template>
 
 <script>
@@ -323,7 +333,7 @@
 
     mounted(){
      this.getProvince();
-      if(window.BMap) return
+      if(window.BMap) return;
       this.MP();
     }
   };

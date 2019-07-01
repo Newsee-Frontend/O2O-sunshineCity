@@ -1,14 +1,25 @@
 <template>
-  <biz-slip-dialog
-    :title="type === 'add'? '新增公告': '编辑公告'"
+  <ns-slip-dialog
     :visible.sync="showDialog"
-    @close="close">
-    <template slot="slip-btns">
-      <ns-button type="primary" @click="submit('publish')" :loading="submitLoading === 'publish'">保 存</ns-button>
-      <ns-button type="primary" @click="submit('tempPublish')" :loading="submitLoading === 'tempPublish'">暂 存</ns-button>
-    </template>
+    left="50px"
+    right="0px"
+    top="50px"
+    bottom="0px"
+    :appendToBody="false"
+    animation="fade-normal"
+    :beforeClose="close"
+    ref="slipDialog">
+    <div class="slip-title">{{type === 'add'? '新增公告': '编辑公告'}}</div>
 
-    <tempalte slot="main">
+    <div class="slip-btns">
+      <ns-button type="primary" @click="submit('publish')" :loading="submitLoading === 'publish'">保 存</ns-button>
+
+      <ns-button type="primary" @click="submit('tempPublish')" :loading="submitLoading === 'tempPublish'">暂 存</ns-button>
+
+      <ns-button @click="showDialog = false">返    回</ns-button>
+    </div>
+
+    <div class="silp-container">
       <ns-form ref="noticeForm" :model="model" :rules="rules" label-width="140px">
         <ns-row>
           <ns-col :span="12">
@@ -34,8 +45,8 @@
           <ns-editor :height="200" v-model="model.content" model="normal" @input="itemChanged('content')" v-if="showDialog"/>
         </ns-form-item>
       </ns-form>
-    </tempalte>
-  </biz-slip-dialog>
+    </div>
+  </ns-slip-dialog>
 </template>
 
 <script>
@@ -148,6 +159,16 @@
   };
 </script>
 
-<style scoped>
+<style>
+  .slip-title {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 14px 0;
+  }
+
+  .silp-container{
+    margin: 20px auto;
+    width: 1000px;
+  }
 
 </style>
