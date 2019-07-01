@@ -21,7 +21,8 @@
             ></el-input>
           </el-form-item>
           <el-form-item prop="password" class="pwd" :show-message="false">
-            <el-input type="password" v-model="loginForm.password" placeholder="登录密码"></el-input>
+            <!--记住密码-->
+            <el-input type="password"  autocomplete="on"  v-model="loginForm.password" placeholder="登录密码"></el-input>
           </el-form-item>
         </el-form>
 

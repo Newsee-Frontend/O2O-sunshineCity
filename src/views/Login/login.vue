@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-  import {getOperatorInfo} from '../../service/User';
+  // import {getOperatorInfo} from '../../service/User';
   import signInBox from './sign-in-box/sign-in-box';
   export default {
     components: { signInBox },
