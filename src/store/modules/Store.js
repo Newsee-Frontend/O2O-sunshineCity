@@ -50,8 +50,8 @@ const Stroe = {
     // some core data on pages, side sidebar, and permissions
     core: {
       websocketUrl: '',
-      sideBarList: JSON.parse(sessionStorage.getItem('nav')) || [],
-      pageInfoList: JSON.parse(sessionStorage.getItem('PI')) || [],
+      sideBarList: JSON.parse(localStorage.getItem('nav')) || [],
+      pageInfoList: JSON.parse(localStorage.getItem('PI')) || [],
       currentPageInfo: {},
       roleButtonList: [],
       funcId: '1233', //funcId  todo
@@ -92,7 +92,7 @@ const Stroe = {
     //set side-bar data
     SETSIDEBARDATA: (state, data) => {
       state.core.sideBarList = data;
-      sessionStorage.setItem('nav', JSON.stringify(data));
+      localStorage.setItem('nav', JSON.stringify(data));
     },
     SETWEBSOCKETURL: (state, data) => {
       state.core.websocketUrl = data;
@@ -100,7 +100,7 @@ const Stroe = {
     //set page info list
     SETPAGEINFOLIST: (state, data) => {
       state.core.pageInfoList = data;
-      sessionStorage.setItem('PI', JSON.stringify(data));
+      localStorage.setItem('PI', JSON.stringify(data));
       // console.log(JSON.stringify(state.store.pageInfoList, null, 4))
     },
     //set current page info

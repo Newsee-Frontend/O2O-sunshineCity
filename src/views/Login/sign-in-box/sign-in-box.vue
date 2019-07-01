@@ -57,8 +57,8 @@
         hasMultiEnterprise: false,
         submitLoading: false,
         loginForm: {
-          username: 'superAdmin',
-          password: 'newsee888',
+          username: '',
+          password: '',
           remember: false,
         },
         rules_login: {

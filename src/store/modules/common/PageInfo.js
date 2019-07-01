@@ -2,13 +2,13 @@ import keyRefer from '../../../components/Biz/Biz-sidebar/sidebar-keyRefer';
 
 const PageInfo = {
   state: {
-    pageinfoList: JSON.parse(sessionStorage.getItem('pi')) || [],
+    pageinfoList: JSON.parse(localStorage.getItem('pi')) || [],
     currentPageInfo: {},
   },
   mutations: {
     SET_PAGE_INFO_LIST: (state, data) => {
       state.pageinfoList = data;
-      sessionStorage.setItem('pi', JSON.stringify(data));
+      localStorage.setItem('pi', JSON.stringify(data));
     },
 
     SET_CURRENT_PAGE: (state, data) => {

@@ -3,7 +3,7 @@ import Front from '../../views/Front/index.vue'
 
 const Layout = resolve => require(['../../layout/Layout.vue'], resolve);
 
-export default  [
+export default [
   {path: '/', redirect: iniView},
   {path: '*', redirect: iniView},
 
@@ -25,7 +25,7 @@ export default  [
         path: 'login',
         component: () => import('../../views/Login/login'),
         name: '登录',
-        meta: {type: 'Front'},
+        meta: {auth: false, type: 'Front'},
       }]
   },
 

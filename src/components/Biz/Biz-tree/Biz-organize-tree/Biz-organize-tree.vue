@@ -21,7 +21,6 @@
       <!--树主体-->
       <div class="tree-body">
         <p class="treeTitle" ref="title">{{ title }}</p>
-        <h1>{{$store__orgTreeData.length>0?$store__orgTreeData[0].expanded:''}}</h1>
         <ns-tree
           ref="organizeTree"
           v-loading="treeloading"

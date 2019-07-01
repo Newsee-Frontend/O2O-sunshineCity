@@ -1,5 +1,5 @@
 import $store from '../store/index';
-import { logStyle } from '../utils/log';
+import {logStyle} from '../utils/log';
 
 /**
  * judge role and jump
@@ -16,17 +16,9 @@ export function judgeRoleAndJump(to, from, next) {
     $store.dispatch('setFuncId', info.funcId);//store current funcId from current page info
 
     _routerAndpageInfo(to);
+
     next();
   });
-
-  // if (func && token) {
-  // if (currentPage.funcId) {
-  //   console.log('跳转地址：');
-  //   console.log(to.path);
-  //   next();
-  // } else {
-  //   next('/Front/login');
-  // }
 }
 
 

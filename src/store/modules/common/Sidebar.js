@@ -21,14 +21,14 @@ let _filtersidelist = (list) => {
 
 const SideBar = {
   state: {
-    sideBarList: JSON.parse(sessionStorage.getItem('nav')),
+    sideBarList: JSON.parse(localStorage.getItem('nav')),
     firstpath: null,
   },
   mutations: {
     SET_SIDEBAR_DATA: (state, data) => {
       state.sideBarList = data.side;
       state.firstpath = data.entry;
-      sessionStorage.setItem('nav', JSON.stringify(data.side));
+      localStorage.setItem('nav', JSON.stringify(data.side));
     },
   },
   actions: {

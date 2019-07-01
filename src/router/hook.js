@@ -1,5 +1,6 @@
-import { addPageTabs } from './pageTabsData';
-import { judgeRoleAndJump } from './auxiliary';
+import {addPageTabs} from './pageTabsData';
+import {judgeRoleAndJump} from './auxiliary';
+import Cookies from "js-cookie";
 
 
 /**
@@ -7,8 +8,14 @@ import { judgeRoleAndJump } from './auxiliary';
  */
 export default {
   beforeEach: (to, from, next) => {
+    console.log(555555555);
+    console.log(to);
+    console.log(to.meta);
+    console.log(to.meta.auth);
     if (to.meta.auth) {
-      if (2) {
+      const token = Cookies.get('token');
+      console.log(token);
+      if (token) {
         judgeRoleAndJump(to, from, next)
       }
       else {
