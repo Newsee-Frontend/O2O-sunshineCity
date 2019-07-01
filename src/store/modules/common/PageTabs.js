@@ -1,6 +1,6 @@
 const PageTabs = {
   state: {
-    visitedPages: JSON.parse(sessionStorage.getItem('visitedPages')) || [],
+    visitedPages: JSON.parse(localStorage.getItem('visitedPages')) || [],
   },
   mutations: {
     /**
@@ -16,7 +16,7 @@ const PageTabs = {
         state.visitedPages = state.visitedPages.filter(item => item.path !== view.path);
         state.visitedPages.push({ name: view.name, path: view.path, meta: view.meta });
       }
-      sessionStorage.setItem('visitedPages', JSON.stringify(state.visitedPages));
+      localStorage.setItem('visitedPages', JSON.stringify(state.visitedPages));
     },
     /**
      * delete visited views
@@ -33,11 +33,11 @@ const PageTabs = {
         }
       }
       state.visitedPages.splice(index, 1);
-      sessionStorage.setItem('visitedPages', JSON.stringify(state.visitedPages));
+      localStorage.setItem('visitedPages', JSON.stringify(state.visitedPages));
     },
     DEL_ALL_VISITED_VIEWS: state => {
       state.visitedPages = [];
-      sessionStorage.removeItem('visitedPages');
+      localStorage.removeItem('visitedPages');
     },
   },
   actions: {

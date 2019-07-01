@@ -24,6 +24,7 @@ function _deCryptoUserInfo() {
     : {};
 }
 
+
 const User = {
   state: {
     userinfo: {
@@ -40,8 +41,12 @@ const User = {
   mutations: {
     //login and set/store - token info
     SET_LOGIN_DATA: (state, data) => {
-      Cookies.set('token', data.token, lifetime);
+      console.log('SET_LOGIN_DATA');
+      console.log(data);
 
+
+      Cookies.set('token', data.token, lifetime);
+      console.log(Cookies.get('token'))
       //user information by login
       state.userinfo.userId = data.userId;
       state.userinfo.userName = data.userName;
@@ -62,17 +67,23 @@ const User = {
     LOGOUT: () => {
       Cookies.remove('token');
       $store.dispatch('delAllVisitedPages');
-      sessionStorage.clear();
+      localStorage.clear();
       // Cookies.clear();
     },
   },
 
   actions: {
     oauthlogin({commit}, query) {
-      oauthlogin(query).then(res => {
-        const userinfo = res.resultData || {};
-        commit('SET_LOGIN_DATA', userinfo);
-      });
+      return new Promise((resolve, reject) => {
+        oauthlogin(query).then(res => {
+          const userinfo = res.resultData || {};
+          commit('SET_LOGIN_DATA', userinfo);
+          resolve(res.resultData);
+        }).catch(err => {
+          reject(err)
+        });
+      })
+
     },
 
     updateLoginData({commit}, query) {
@@ -89,7 +100,7 @@ const User = {
 
     //退出
     logOut({commit}) {
-     return commit('LOGOUT');
+      return commit('LOGOUT');
     },
 
   },
