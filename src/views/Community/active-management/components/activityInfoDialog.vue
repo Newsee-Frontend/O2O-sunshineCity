@@ -1,15 +1,28 @@
 <template>
-  <biz-slip-dialog
-    :title="type === 'add'? '新增活动': '编辑活动'"
+  <ns-slip-dialog
     :visible.sync="showDialog"
-    @close="close">
-    <template slot="slip-btns">
-      <ns-button type="primary" @click="publish('publish')" :loading="submitLoadingBtn === 'publish'">发布
+    left="50px"
+    right="0px"
+    top="50px"
+    bottom="0px"
+    :appendToBody="false"
+    animation="fade-normal"
+    :beforeClose="close"
+    ref="slipDialog">
+
+    <div class="slip-title">{{type === 'add'? '新增活动': '编辑活动'}}</div>
+
+    <div class="slip-btns">
+      <ns-button type="primary" @click="publish('publish')" :loading="submitLoadingBtn === 'publish'">发  布
       </ns-button>
+
       <ns-button type="primary" @click="publish('tempPublish')" :loading="submitLoadingBtn === 'tempPublish'">暂 存
       </ns-button>
-    </template>
-    <template slot="main">
+
+      <ns-button @click="showDialog = false">返    回</ns-button>
+    </div>
+
+    <div class="silp-container">
       <ns-form ref="activityForm" :model="model" :rules="rules" label-width="140px">
         <ns-row>
           <ns-col :span="12">
@@ -35,7 +48,7 @@
             <ns-form-item label="最大报名人数" prop="activityLimitNum">
               <ns-input
                 :disabled="model.enableApply === 0"
-                v-model="model.activityLimitNum"
+                v-model.trim="model.activityLimitNum"
                 placeholder="请输入报名人数"
               ></ns-input>
             </ns-form-item>
@@ -100,9 +113,8 @@
                      v-if="showDialog"/>
         </ns-form-item>
       </ns-form>
-
-    </template>
-  </biz-slip-dialog>
+    </div>
+  </ns-slip-dialog>
 </template>
 
 <script>
@@ -131,6 +143,7 @@
       var validActivityLimitNum = (rule, value, callback) => {
         let reg = /^[1-9][0-9]*$/;
         let newV = '' + value;
+        console.log(newV);
         if (newV && !reg.test(newV)) {
           callback(new Error('请输入正整数'));
         } else {
@@ -285,6 +298,17 @@
   };
 </script>
 
-<style scoped>
+
+<style>
+  .slip-title {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 14px 0;
+  }
+
+  .silp-container{
+    margin: 20px auto;
+    width: 1000px;
+  }
 
 </style>

@@ -3,7 +3,7 @@
     :visible.sync="showSlipDialog"
     left="50px"
     right="0px"
-    top="88px"
+    top="50px"
     bottom="0px"
     :appendToBody="false"
     animation="fade-normal"
