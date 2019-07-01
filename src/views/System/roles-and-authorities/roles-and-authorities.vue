@@ -57,17 +57,17 @@
         ></biz-table>
 
         <!--<ns-grids-->
-          <!--:gridID="pageID + '-grid'"-->
-          <!--:gridData="gridData"-->
-          <!--:thlist="Mix_thlist"-->
-          <!--:loadState="Mix_loadState"-->
-          <!--:searchConditions="Mix_searchConditions"-->
-          <!--:holderInfo="Mix_holderInfo"-->
-          <!--:funcId="Mix_funcId"-->
-          <!--@refreshGrid="getGridData"-->
-          <!--@grid-ation="gridAtion"-->
-          <!--@selection-change="selectionChange"-->
-          <!--:ationColConfig="{ width: 200 }"-->
+        <!--:gridID="pageID + '-grid'"-->
+        <!--:gridData="gridData"-->
+        <!--:thlist="Mix_thlist"-->
+        <!--:loadState="Mix_loadState"-->
+        <!--:searchConditions="Mix_searchConditions"-->
+        <!--:holderInfo="Mix_holderInfo"-->
+        <!--:funcId="Mix_funcId"-->
+        <!--@refreshGrid="getGridData"-->
+        <!--@grid-ation="gridAtion"-->
+        <!--@selection-change="selectionChange"-->
+        <!--:ationColConfig="{ width: 200 }"-->
         <!--&gt;</ns-grids>-->
         <!--dialog - auto form submit infomation-->
         <ns-dialog
@@ -118,13 +118,13 @@
 </template>
 <script>
   import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
-  import {gridDataDelete } from '../../../service/System/roles-and-authorities';
+  import {gridDataDelete} from '../../../service/System/roles-and-authorities';
   import OrganizeTree from '../../../components/Biz/Biz-tree/Biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
   import * as store from '../../../utils/nsQuery/nsStore';
   import roleStaticData from './roleStaticData';
   import rolePersonStaticData from './rolePersonStaticData';
   import Mixin from "../../../mixins";
-  import { downloadExcel } from '../../../service/Download/download';
+  import {downloadExcel} from '../../../service/Download/download';
 
 
   export default {
@@ -135,13 +135,7 @@
       OrganizeTree
     },
 
-    computed: {
-      thlist() {
-        return {
-          thlistDefault: this.Mix_searchConditions.header || [] //为筛选器需要的表头数据赋值
-        }
-      }
-    },
+    computed: {},
 
     data() {
       return {
@@ -149,7 +143,7 @@
         pageID: 'roles-and-authorities', //页面、表格、自动表单 ID值（必须）
         nsDialogName: 'roles-and-authorities_addRoleForm',
         //========== 筛选器 search =========
-        changeStatus: { status: true }, // 左侧树的状态
+        changeStatus: {status: true}, // 左侧树的状态
 
         //========== 表格 grid =========
         tableData: {}, //列表数据
@@ -163,7 +157,7 @@
         },
 
         //========== dialog auto form  =========
-        dialogVisible: { visible: false }, //dialog switch
+        dialogVisible: {visible: false}, //dialog switch
         dialogTit: '', //dialog title
         submitType: 'add', //判断当前表单的类型（add / edit）
         requestUrl: '', //自动表单提交地址
@@ -213,8 +207,8 @@
       autoFormSubmit(formName) {
         this.showMessage = true;
         this.nsDialogName = '';
-        this.$refs[formName].submitForm(formName).then(()=>{
-          this.$message({ message: '保存成功', type: 'success' });
+        this.$refs[formName].submitForm(formName).then(() => {
+          this.$message({message: '保存成功', type: 'success'});
           this.showMessage = false;
           this.$set(this.dialogVisible, 'visible', false);
           store.formController.delete('addRoleForm');
@@ -266,7 +260,7 @@
       //新增-初始化动态表单
       addRole() {
         if (!this.Mix_treeNodeObj.organizationId || this.Mix_treeNodeObj.organizationId == 0) {
-          this.$message({ message: '请先选择组织', type: 'warning' });
+          this.$message({message: '请先选择组织', type: 'warning'});
         } else {
           this.dialogWidth = '900px';
           this.dialogTit = '新增角色';
@@ -306,7 +300,7 @@
       },
 
       //获取表格数据
-      getTableData(condition){
+      getTableData(condition) {
         console.log('表数据查询-表数据查询');
         console.log(this.condition);
         if (condition) {
@@ -321,23 +315,23 @@
             query: this.Mix_searchConditions,
             funcId: this.Mix_funcId,
           }
-        ).then( res =>{
+        ).then(res => {
           this.tableData = res.resultData;
 
           //增加 固定操作列 - 按钮数据
           this.tableData.list.forEach(item => {
             item.fnsclick = [
-              { label: '新增授权人', value: 'gridAuthorizerBtn' },
-              { label: '编辑', value: 'gridEditBtn' },
-              { label: '删除', value: 'gridRemoveBtn' },
+              {label: '新增授权人', value: 'gridAuthorizerBtn'},
+              {label: '编辑', value: 'gridEditBtn'},
+              {label: '删除', value: 'gridRemoveBtn'},
             ];
           });
 
           this.loadState.data = true;
-        }, ()=> {
+        }, () => {
           this.tableData = {};
           this.loadState.data = true;
-        } )
+        })
       },
 
       /**
@@ -351,7 +345,7 @@
           case 'gridEditBtn': //编辑
             this.dialogWidth = '900px';
             this.dialogTit = '编辑角色';
-            this.requestUrl = "/system/role/detail-role?enterpriseId="+scope.row.enterpriseId+"&organizationId="+scope.row.organizationId;
+            this.requestUrl = "/system/role/detail-role?enterpriseId=" + scope.row.enterpriseId + "&organizationId=" + scope.row.organizationId;
             this.submitUrl = '/system/role/edit-role';
             this.autoFormID = 'addRoleForm';
             store.formController.delete('addPersonToRoleForm');
@@ -377,7 +371,7 @@
                   {}
                 )
                   .then(() => {
-                    this.$message({ message: '删除成功', type: 'success' });
+                    this.$message({message: '删除成功', type: 'success'});
                     this.getTableData();
                   })
                   .catch(r => {
@@ -415,7 +409,8 @@
       //grid选择项发生变化时
       selectionChange(selection) {
         let arry = [];
-        for (let i = 0; i < selection.length; i++) {}
+        for (let i = 0; i < selection.length; i++) {
+        }
         this.multipleSelection = arry;
       },
 
@@ -423,7 +418,7 @@
       handleCommand(command) {
         if (command === 'actionExportBtn') {
           //导出
-          downloadExcel('/system/role/export-excel', this.Mix_searchConditions).then(d =>{
+          downloadExcel('/system/role/export-excel', this.Mix_searchConditions).then(d => {
             console.log(d)
           }, e => {
             console.log(d)
@@ -443,7 +438,7 @@
     }
   }
 
-  .table-head-action .cell{
+  .table-head-action .cell {
     width: 200px;
   }
 </style>
