@@ -14,7 +14,7 @@ const baseConditions = {
   size: '',
 };
 
-const Search = {
+const SearchConditions = {
   state: {
     //search criteria
     conditions: {},
@@ -47,4 +47,4 @@ const Search = {
   },
 };
 
-export default Search;
+export default SearchConditions;

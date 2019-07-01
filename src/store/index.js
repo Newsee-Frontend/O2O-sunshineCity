@@ -12,7 +12,7 @@ import Form from './modules/Form';
 import OrganizeTree from './modules/Tree/Organize-tree';
 import HouseTree from './modules/Tree/House-tree';
 
-import Search from './modules/Search';
+import SearchConditions from './modules/common/SearchConditions';
 import RoleButton from './modules/common/RoleButton';
 import TreeData from './modules/TreeData';
 import Table from './modules/System/Table/Table';
@@ -35,7 +35,7 @@ const store = new Vuex.Store({
     OrganizeTree,
     HouseTree,
 
-    Search,
+    Search: SearchConditions,
     RoleButton,
     TreeData,
     Table,

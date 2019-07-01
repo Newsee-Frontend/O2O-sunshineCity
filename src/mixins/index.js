@@ -1,7 +1,7 @@
 import funcId from './Common/FuncId';
 import other from './other';
 import roleButton from './system/Role-button/index';
-import searchConditions from './search-conditions';
+import searchConditions from './Common/Search-conditions';
 
 
 import table from './system/Table';

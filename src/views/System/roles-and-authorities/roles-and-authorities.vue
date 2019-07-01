@@ -3,7 +3,7 @@
   <div class="win" :id="pageID">
     <div class="ns-container">
       <div class="ns-container-left" :class="{ 'ns-container-left-border': changeStatus.status }">
-        <organize-tree
+        <biz-organize-tree
           :funcId="Mix_funcId"
           title="组织架构"
           draggable
@@ -11,7 +11,7 @@
           :searchConditions="Mix_searchConditions"
           @tree-item-click="treeItemClick"
           :changeStatus="changeStatus"
-        ></organize-tree>
+        ></biz-organize-tree>
       </div>
       <div class="ns-container-right" :id="pageID + '-holder'">
         <!--action-module (search / button)-->
@@ -119,7 +119,6 @@
 <script>
   import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
   import {gridDataDelete} from '../../../service/System/roles-and-authorities';
-  import OrganizeTree from '../../../components/Biz/Biz-tree/Biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
   import * as store from '../../../utils/nsQuery/nsStore';
   import roleStaticData from './roleStaticData';
   import rolePersonStaticData from './rolePersonStaticData';
@@ -129,12 +128,7 @@
 
   export default {
     name: 'roles-and-authorities',
-    pageType: 'basic',
     mixins: [Mixin],
-    components: {
-      OrganizeTree
-    },
-
     computed: {},
 
     data() {
