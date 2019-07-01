@@ -8,13 +8,13 @@ export default [
     children: [
       {
         path: 'index',
-        component: () => import('../../views/System/roles-and-authorities/roles-and-authorities'),
-        meta: {auth: true, key: 'System-index', title: '设置'},
+        component: () => import('../../views/system/roles-and-authorities/roles-and-authorities'),
+        meta: {auth: true, key: 'system-index', title: '设置'},
         name: '系统管理主页',
       },
       {
         path: 'systemRolePermission',
-        component: () => import('../../views/System/roles-and-authorities/roles-and-authorities'),
+        component: () => import('../../views/system/roles-and-authorities/roles-and-authorities'),
         meta: {auth: true, key: 'roles-and-authorities', title: '设置'},
         name: '角色与权限',
       },

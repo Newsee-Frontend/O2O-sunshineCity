@@ -1,6 +1,6 @@
 /*==========================================================================================================================*/
 import fetch from '../../utils/fetch/fetch';
-import { dataFilter } from '../../utils/fetch/fetchDataType';
+import {dataFilter} from '../../utils/fetch/fetchDataType';
 
 /*==========================================================================================================================*/
 export function tableDataFetch(query, head) {
@@ -21,7 +21,7 @@ export function gridDataDelete(query, head) {
     url: '/system/role/delete-role',
     method: 'get',
     data: query,
-    params: { roleid: query.roleid },
+    params: {roleid: query.roleid},
     headers: head,
   });
 }

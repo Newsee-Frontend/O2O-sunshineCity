@@ -1,6 +1,6 @@
-import { roleButtonList } from '../../service/Role/role-button';
-import ns from '../../utils/nsQuery/nsQuery';
-import $store from '../../store/index';
+import { roleButtonList } from '../../../service/Role/role-button';
+import ns from '../../../utils/nsQuery/nsQuery';
+import $store from '../../../store/index';
 
 /**
  * get new role button-list

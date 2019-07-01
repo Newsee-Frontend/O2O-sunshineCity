@@ -3,7 +3,7 @@
   <div class="win" :id="pageID">
     <div class="ns-container">
       <div class="ns-container-left" :class="{ 'ns-container-left-border': changeStatus.status }">
-        <organize-tree
+        <biz-organize-tree
           :funcId="Mix_funcId"
           title="组织架构"
           draggable
@@ -11,7 +11,7 @@
           :searchConditions="Mix_searchConditions"
           @tree-item-click="treeItemClick"
           :changeStatus="changeStatus"
-        ></organize-tree>
+        ></biz-organize-tree>
       </div>
       <div class="ns-container-right" :id="pageID + '-holder'">
         <!--action-module (search / button)-->
@@ -19,7 +19,7 @@
           <!--search module-->
           <ns-search-conditions
             :funcId="Mix_funcId"
-            :thlist="thlist"
+            :thlist="Mix_thlist"
             :searchConditions="Mix_searchConditions"
             @query="getTableData"
             :changeStatus="changeStatus"
@@ -105,27 +105,16 @@
 <script>
   import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
   import {gridDataDelete, gridDataOperate} from '../../../service/System/employeeList';
-  import OrganizeTree from '../../../components/Biz/Biz-tree/Biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
   import employeeStaticData from './employeeStaticData';
   import pickerOptionsMap from '../../../static-data/form/picker-options';
   import employeeForm from './employeeForm/employeeForm.vue';
   import {downloadExcel} from '../../../service/Download/download';
   import Mixin from "../../../mixins";
 
-
   export default {
     name: 'employeeList',
-    pageType: 'basic',
     mixins: [Mixin],
-
-    components: {OrganizeTree, employeeForm},
-    computed: {
-      thlist() {
-        return {
-          thlistDefault: this.Mix_searchConditions.header || [] //为筛选器需要的表头数据赋值
-        }
-      }
-    },
+    components: { employeeForm},
     data() {
       return {
         //========== 基本 base =========

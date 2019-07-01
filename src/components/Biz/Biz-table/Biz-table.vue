@@ -115,7 +115,8 @@
           listColumnService({funcId: this.funcId}).then(res => {
             this.tableHead = res.resultData.columns || [];
 
-            this.searchConditions.header =  this.tableHead;//为筛选器需要的表头数据赋值
+            this.$store.dispatch('setaTableHead', this.tableHead);//store head data
+            // this.searchConditions.header =  this.tableHead;//为筛选器需要的表头数据赋值
 
             console.log('请求到的表头数据：');
             console.log(this.tableHead);

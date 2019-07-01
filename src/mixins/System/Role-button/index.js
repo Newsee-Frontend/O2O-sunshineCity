@@ -1,4 +1,4 @@
-import page_type_config from "../../utils/pageTypeConfig";
+import page_type_config from "../../../utils/pageTypeConfig";
 import {roleButtonListOperation} from "./roleBtnfetch";
 
 export default {
