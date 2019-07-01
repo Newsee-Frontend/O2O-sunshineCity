@@ -19,7 +19,7 @@
           <!--search module-->
           <ns-search-conditions
             :funcId="Mix_funcId"
-            :thlist="thlist"
+            :thlist="Mix_thlist"
             :searchConditions="Mix_searchConditions"
             @query="getTableData"
             :changeStatus="changeStatus"
@@ -112,20 +112,12 @@
   import {downloadExcel} from '../../../service/Download/download';
   import Mixin from "../../../mixins";
 
-
   export default {
     name: 'employeeList',
     pageType: 'basic',
     mixins: [Mixin],
 
     components: {OrganizeTree, employeeForm},
-    computed: {
-      thlist() {
-        return {
-          thlistDefault: this.Mix_searchConditions.header || [] //为筛选器需要的表头数据赋值
-        }
-      }
-    },
     data() {
       return {
         //========== 基本 base =========
