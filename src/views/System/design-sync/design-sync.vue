@@ -67,150 +67,150 @@
   </div>
 </template>
 <script>
-import ns from '../../../utils/nsQuery/nsQuery';
-import { designSync_search, designSync_submit } from '../../../service/System/design-sync';
-import Mixin from "../../../mixins";
-export default {
-  name: 'design-sync',
-  pageType: 'reporting',
-  mixins: [Mixin],
+  import ns from '../../../utils/nsQuery/nsQuery';
+  import { designSync_search, designSync_submit } from '../../../service/System/design-sync';
+  import Mixin from "../../../mixins";
+  export default {
+    name: 'design-sync',
+    pageType: 'reporting',
+    mixins: [Mixin],
 
-  data() {
-    return {
-      pageID: 'design-sync',
-      tableLoading: false,
-      searchVal: '', //select v-model
-      specialCol: ['selection'], //special TableFetch col
-      tableHead: [
-        {
-          type: 'selection',
-          label: '',
-          width: '50',
-          key: null,
-          align: 'left',
-          fixed: 'left',
-        },
-        {
-          type: 'normal',
-          label: '公司名称',
-          width: '400',
-          key: 'organizationName',
-          align: 'left',
-          fixed: null,
-        },
-      ], //table head
-      tableData: [], //table data
-      multipleSelection: [],
-    };
-  },
-  created() {
-    this.search({ orgName: '' });
-  },
-  computed: {},
-  methods: {
-    //click input icon function
-    search() {
-      let query = { orgName: this.searchVal };
-      this.tableLoading = true;
-      designSync_search(query)
-        .then(response => {
-          this.message('success', '加载成功');
-          this.tableData = response.resultData || [];
-          this.tableLoading = false;
-        })
-        .catch(response => {
-          this.message('error', '加载失败');
-          this.tableLoading = false;
+    data() {
+      return {
+        pageID: 'design-sync',
+        tableLoading: false,
+        searchVal: '', //select v-model
+        specialCol: ['selection'], //special TableFetch col
+        tableHead: [
+          {
+            type: 'selection',
+            label: '',
+            width: '50',
+            key: null,
+            align: 'left',
+            fixed: 'left',
+          },
+          {
+            type: 'normal',
+            label: '公司名称',
+            width: '400',
+            key: 'organizationName',
+            align: 'left',
+            fixed: null,
+          },
+        ], //table head
+        tableData: [{ organizationName: '' }], //table data
+        multipleSelection: [],
+      };
+    },
+    created() {
+      this.search({ orgName: '' });
+    },
+    computed: {},
+    methods: {
+      //click input icon function
+      search() {
+        let query = { orgName: this.searchVal };
+        this.tableLoading = true;
+        designSync_search(query)
+          .then(response => {
+            this.message('success', '加载成功');
+            this.tableData = response.resultData;
+            this.tableLoading = false;
+          })
+          .catch(response => {
+            this.message('error', '加载失败');
+            return Promise.reject(response);
+          });
+      },
+      //select all
+      selectAll(rows) {
+        //显示选中
+        this.$refs['multipleTable'].clearSelection();
+        rows.forEach(row => {
+          this.$refs['multipleTable'].toggleRowSelection(row);
         });
-    },
-    //select all
-    selectAll(rows) {
-      //显示选中
-      this.$refs['multipleTable'].clearSelection();
-      rows.forEach(row => {
-        this.$refs['multipleTable'].toggleRowSelection(row);
-      });
-      //操作同步
-      const query = { orgName: '', syncType: 20 };
-      this.uploadData(query);
-    },
-    //select some
-    selectSome(rows) {
-      if (!this.multipleSelection.length) {
-        return this.$message({ message: '请至少选择一条数据', type: 'error' });
-      }
-      //操作同步
-      const orgList = [];
-      this.multipleSelection.forEach(item => {
-        orgList.push({
-          enterpriseId: item.enterpriseId,
-          organizationId: item.organizationId,
-          userId: item.createUserId,
+        //操作同步
+        const query = { orgName: '', syncType: 20 };
+        this.uploadData(query);
+      },
+      //select some
+      selectSome(rows) {
+        if (!this.multipleSelection.length) {
+          return this.$message({ message: '请至少选择一条数据', type: 'error' });
+        }
+        //操作同步
+        const orgList = [];
+        this.multipleSelection.forEach(item => {
+          orgList.push({
+            enterpriseId: item.enterpriseId,
+            organizationId: item.organizationId,
+            userId: item.createUserId,
+          });
         });
-      });
-      const query = { orgList: orgList, orgName: '', syncType: 10 };
-      this.uploadData(query);
-    },
-    //upload table data
-    uploadData(data) {
-      this.tableLoading = true;
-      designSync_submit(data)
-        .then(response => {
-          this.tableLoading = false;
-          this.message('success', '同步成功');
-        })
-        .catch(error => {
-          this.tableLoading = false;
-          this.message('error', error.resultMsg);
+        const query = { orgList: orgList, orgName: '', syncType: 10 };
+        this.uploadData(query);
+      },
+      //upload table data
+      uploadData(data) {
+        this.tableLoading = true;
+        designSync_submit(data)
+          .then(response => {
+            this.tableLoading = false;
+            this.message('success', '同步成功');
+          })
+          .catch(error => {
+            this.tableLoading = false;
+            this.message('error', error.resultMsg);
+          });
+      },
+      //judge array contain another Obj
+      arrContainObj(arr, str) {
+        return ns.base.arrContainObj(arr, str);
+      },
+      //selectionChange (当选择项发生变化时)
+      selectionChange(val) {
+        this.multipleSelection = val;
+      },
+      //message
+      message(type, msg) {
+        this.$message({
+          showClose: true,
+          message: msg,
+          type: type,
+          onClose: () => {
+            this.tableLoading = false;
+          },
         });
+      },
     },
-    //judge array contain another Obj
-    arrContainObj(arr, str) {
-      return ns.base.arrContainObj(arr, str);
-    },
-    //selectionChange (当选择项发生变化时)
-    selectionChange(val) {
-      this.multipleSelection = val;
-    },
-    //message
-    message(type, msg) {
-      this.$message({
-        showClose: true,
-        message: msg,
-        type: type,
-        onClose: () => {
-          this.tableLoading = false;
-        },
-      });
-    },
-  },
-};
+  };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-#design-sync.win {
-  .ns-container {
-    padding: 10px 30px;
-    .handle {
-      padding: 20px 0 10px;
-      clear: both;
+  #design-sync.win {
+    .ns-container {
+      padding: 10px 30px;
+      .handle {
+        padding: 20px 0 10px;
+        clear: both;
+        overflow: hidden;
+        .remoteHandle {
+          margin-right: 10px;
+        }
+        .btn-handle {
+        }
+      }
+      .table-content {
+        padding: 10px 0 20px;
+      }
+    }
+    .el-table .cell,
+    .el-table__row .cell .td-txt {
+      word-break: normal;
+      text-overflow: ellipsis;
       overflow: hidden;
-      .remoteHandle {
-        margin-right: 10px;
-      }
-      .btn-handle {
-      }
-    }
-    .table-content {
-      padding: 10px 0 20px;
+      white-space: nowrap;
+      line-height: 40px;
     }
   }
-  .el-table .cell,
-  .el-table__row .cell .td-txt {
-    word-break: normal;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    line-height: 40px;
-  }
-}
 </style>
