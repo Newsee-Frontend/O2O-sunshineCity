@@ -142,9 +142,7 @@
     data() {
       var validActivityLimitNum = (rule, value, callback) => {
         let reg = /^[1-9][0-9]*$/;
-        let newV = '' + value;
-        console.log(newV);
-        if (newV && !reg.test(newV)) {
+        if (value && !reg.test(value)) {
           callback(new Error('请输入正整数'));
         } else {
           callback();
@@ -214,7 +212,7 @@
     methods: {
       close() {
         this.showDialog = false;
-        // this.$refs.activityForm.resetFields();
+        this.$refs.activityForm.resetFields();
         this.$emit('update:visible', this.showDialog);
       },
 
