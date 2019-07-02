@@ -5,7 +5,7 @@
     <div class="sign-in-left"></div>
     <div class="sign-in-right">
       <div class="signIn step-one" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">
-        <p>登录</p>
+        <p>登123录</p>
         <el-form
           :model="loginForm"
           ref="loginForm"

@@ -2,8 +2,7 @@ import Vue from "vue";
 import ElementUI from 'element-ui';
 import 'cx-theme/dist/cx-theme.min.css';
 import '@/assets/css/public.scss';
-import '../style/element-cover/theme-cover.scss';
-import '../style/element-cover/cover.scss';
+import '../style/element-cover/index.scss';//cover
 import '@/assets/css/common.scss';
 import '../static-data/iconfont/iconfont';
 
@@ -21,8 +20,6 @@ import rulesInfo from '../utils/validate/rulesInfo';
 
 import nsui from 'ns-form-components/lib/ns-ui.min.js';
 import 'ns-form-components/lib/index.css';
-
-
 
 
 Vue.use(ElementUI);
