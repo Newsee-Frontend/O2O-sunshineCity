@@ -5,6 +5,8 @@
  * @returns {*}
  */
 const activestatueOptions = [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }, { label: '已结束', value: 2 }];
+const syFlagOptions = [{ label: '停用', value: 0 }, { label: '启用', value: 1 }];
+
 export default (val, key) => {
   if (key === 'sex') {
     if (val === '1') {
@@ -24,6 +26,14 @@ export default (val, key) => {
     });
     return activestatue? activestatue.label : ''
   }
+
+  if(key === 'syFlag'){
+    let syFlag = syFlagOptions.find((item) => {
+      return item.value === val
+    });
+    return syFlag? syFlag.label : ''
+  }
+
 
   return val;
 }
