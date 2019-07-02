@@ -1,7 +1,6 @@
 import {addPageTabs} from './pageTabsData';
 import {judgeRoleAndJump} from './auxiliary';
-import Cookies from "js-cookie";
-
+import {getToken} from "../utils/auth";
 
 /**
  * hook Fn for router
@@ -13,9 +12,8 @@ export default {
     console.log(to.meta);
     console.log(to.meta.auth);
     if (to.meta.auth) {
-      const token = Cookies.get('token');
-      console.log(token);
-      if (token) {
+      console.log(getToken());
+      if (getToken()) {
         judgeRoleAndJump(to, from, next)
       }
       else {
