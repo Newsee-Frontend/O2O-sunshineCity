@@ -44,9 +44,6 @@ const User = {
       console.log('SET_LOGIN_DATA');
       console.log(data);
 
-      setToken(data.token);
-      console.log(getToken());
-
       //user information by login
       state.userinfo.userId = data.userId;
       state.userinfo.userName = data.userName;
@@ -56,7 +53,6 @@ const User = {
       state.userinfo.userSex = data.userSex;
       state.userinfo.themeColor = data.themeColor;
 
-      //cookie store - token info
       cryptoCookie(
         cookieName,
         state.userinfo,
@@ -70,6 +66,13 @@ const User = {
       localStorage.clear();
       // Cookies.clear();
     },
+
+    SET_TOKEN: (state, data) => {
+      console.log('正在存token...');
+      setToken(data);
+      console.log('存token..好了，现在取值：');
+      console.log(getToken());
+    }
   },
 
   actions: {
@@ -78,7 +81,10 @@ const User = {
       return new Promise((resolve, reject) => {
         oauthlogin(query).then(res => {
           const userinfo = res.resultData || {};
+
+          commit('SET_TOKEN', userinfo.token);
           commit('SET_LOGIN_DATA', userinfo);
+
           resolve(res.resultData);
         }).catch(err => {
           reject(err)
@@ -90,10 +96,11 @@ const User = {
     multipleEnterpriseLogin({commit}, query) {
       multipleEnterpriseLogin(query).then(res => {
         const userinfo = res.resultData || {};
+
+        commit('SET_TOKEN', userinfo.token);
         commit('SET_LOGIN_DATA', userinfo);
       })
     },
-
 
     //退出
     logOut({commit}) {
@@ -103,6 +110,11 @@ const User = {
     updateLoginData({commit}, query) {
       commit('SET_LOGIN_DATA', query);
     },
+
+    setToken({commit}, query) {
+      commit('SET_TOKEN', query);
+    },
+
   },
 };
 

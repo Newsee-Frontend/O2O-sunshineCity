@@ -1,5 +1,5 @@
 <template>
-  <ns-layout>
+  <ns-layout :class="{'is-simple':isSimple}">
     <template slot="header">
       <!--左logo 插槽 - 根据实际情况插入业务组图片 -->
       <div class="fl">
@@ -41,23 +41,17 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import { bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom } from './index';
+  import {mapGetters} from 'vuex';
+  import {bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom} from './index';
+  import transform from './transform'
 
   export default {
     name: 'layout',
-    components: { bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom },
+    mixins: [transform],
+    components: {bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom},
     data() {
       return {
-        options: [
-          { label: '修改密码', value: 'editPassword' },
-          { label: '退出登录', value: 'logout' },
-        ],
-        dialogTit: '',
-        dialogVisible: {
-          editPasswordVisible: { visible: false },
-        },
-        operatorInfo: {},
+        isSimple: true,//是否为iframe模式
       };
     },
     computed: {
@@ -69,7 +63,6 @@
       },
     },
     created() {
-
     },
     methods: {
       changeTheme(key) {
@@ -79,8 +72,26 @@
     },
   };
 </script>
-<style rel="stylesheet/scss" lang="scss" scoped>
-  .slipDialog-side {
-    z-index: 1;
+<style rel="stylesheet/scss" lang="scss">
+  #layout {
+    //在嵌套模式下，去掉头，侧边栏，tab页面，内容部分全屏撑开
+    &.is-simple {
+      .header-wrapper, .sidebar-wrapper {
+        display: none;
+      }
+      .main-container {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        .ns-page-tabs {
+          display: none;
+        }
+        .app-main, .win, .ns-container, .ns-container-right, .ns-container-left {
+          height: 100%;
+          min-height: 100%;
+        }
+      }
+    }
   }
 </style>

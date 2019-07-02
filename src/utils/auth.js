@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'token';
+const TokenKey = 'app-token';
 
 export const getToken = () => {
   return Cookies.get(TokenKey)

@@ -25,7 +25,7 @@
 
 <script>
   import {listColumnService} from '../../../service/TableFetch/table-fetch';
-  import {addEventHandler, removeEventHandler} from '../../../utils/index'
+  import {addEventHandler, removeEventHandler} from '../../../utils/event'
   import {mapGetters} from 'vuex';
   import columnConfig from './column-template-config';
   import cellFifter from './cell-fifter';
