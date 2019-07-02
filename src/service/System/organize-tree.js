@@ -1,10 +1,5 @@
-/*==========================================================================================================================*/
-import qs from 'querystring';
-import Cookies from 'js-cookie';
 import fetch from '@/utils/fetch/fetch';
 import { dataFilter } from '@/utils/fetch/fetchDataType';
-
-/*==========================================================================================================================*/
 
 export function companyAdd(query) {
   //公司-新增
