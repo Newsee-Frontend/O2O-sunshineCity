@@ -109,7 +109,11 @@
           </ns-col>
         </ns-row>
         <ns-form-item label=" 活动内容:" prop="content">
-          <ns-editor :height="200" @input="itemChanged('content')" model="normal" v-model="model.content"
+          <ns-editor :height="200"
+                     @input="itemChanged('content')"
+                     model="normal"
+                     :plugins-config="pluginsConfig"
+                     v-model="model.content"
                      v-if="showDialog"/>
         </ns-form-item>
       </ns-form>
@@ -292,6 +296,14 @@
     },
     computed: {
       ...mapGetters(['requestHead']),
+      pluginsConfig() {
+        return {
+          'editor-image': {
+            action: '/api/o2o/activity/fileUploadBase64',//图片请求地址
+            headers: this.requestHead,//请求头
+          },
+        };
+      }
     },
   };
 </script>

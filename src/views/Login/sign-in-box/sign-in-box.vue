@@ -5,11 +5,7 @@
     <div class="sign-in-left"></div>
     <div class="sign-in-right">
       <div class="signIn step-one" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">
-<<<<<<< HEAD
-        <p>登录123</p>
-=======
-        <p>登123录</p>
->>>>>>> 054a402d3f3d6e9a04c50eca9918e9c6ad516f7c
+        <p>登录</p>
         <el-form
           :model="loginForm"
           ref="loginForm"
@@ -158,6 +154,7 @@
 
       //选中企业跳转
       jumpToPage() {
+        console.log('jump jump')
         this.$store.dispatch('generateSideBar').then(list => {
           this.$router.push({path: list.length > 0 ? '/dashboard' : '/404'});
         });

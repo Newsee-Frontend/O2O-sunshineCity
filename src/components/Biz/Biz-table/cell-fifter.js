@@ -4,36 +4,44 @@
  * @param key
  * @returns {*}
  */
-const activestatueOptions = [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }, { label: '已结束', value: 2 }];
-const syFlagOptions = [{ label: '停用', value: 0 }, { label: '启用', value: 1 }];
+
+const contrastive = {
+  sex: [
+    { label: '男', value: '1' },
+    { label: '女', value: '2' },
+  ],
+
+  status:
+    [
+      { label: '暂存', value: 0 },
+      { label: '已发布', value: 1 },
+      { label: '已结束', value: 2}
+    ],
+
+  syFlag: [
+    { label: '停用', value: '0' },
+    { label: '启用', value: '1' }
+  ],
+
+  userState: [
+    {label: "离职", value: "0"},
+    {label: "在职", value: "1"}
+  ],
+
+  isActived: [
+    { label: '停用', value: '0' },
+    { label: '启用', value: '1' }
+  ]
+};
 
 export default (val, key) => {
-  if (key === 'sex') {
-    if (val === '1') {
-      return '男';
-    }
-    else if (val === '2') {
-      return '女';
-    }
-    else {
-      return val;
-    }
-  }
-
-  if(key === 'status'){
-    let activestatue = activestatueOptions.find((item) => {
+  if(contrastive[key]){
+    let options = contrastive[key];
+    let item = options.find((item) => {
       return item.value === val
     });
-    return activestatue? activestatue.label : ''
+    return item? item.label : val
   }
-
-  if(key === 'syFlag'){
-    let syFlag = syFlagOptions.find((item) => {
-      return item.value === val
-    });
-    return syFlag? syFlag.label : ''
-  }
-
 
   return val;
 }

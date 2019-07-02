@@ -12,7 +12,6 @@ export default {
     console.log(to.meta);
     console.log(to.meta.auth);
     if (to.meta.auth) {
-      console.log(getToken());
       if (getToken()) {
         judgeRoleAndJump(to, from, next)
       }
