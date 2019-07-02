@@ -42,7 +42,7 @@
           style="width: 100%"
           @selection-change="selectionChange"
         >
-          <div v-for="(item, index) in tableHead" :index="index" :key="index">
+          <div v-for="(item, index) in tableHeadSync" :index="index" :key="index">
             <el-table-column
               v-if="arrContainObj(specialCol, item.type)"
               :type="item.type"
@@ -81,7 +81,7 @@
         tableLoading: false,
         searchVal: '', //select v-model
         specialCol: ['selection'], //special TableFetch col
-        tableHead: [
+        tableHeadSync: [
           {
             type: 'selection',
             label: '',

@@ -2,7 +2,7 @@ import Vue from "vue";
 import ElementUI from 'element-ui';
 import 'cx-theme/dist/cx-theme.min.css';
 import '@/assets/css/public.scss';
-import '../style/element-cover123/index.scss';//cover
+import '../style/element-cover/index.scss';//cover
 import '@/assets/css/common.scss';
 import '../static-data/iconfont/iconfont';
 

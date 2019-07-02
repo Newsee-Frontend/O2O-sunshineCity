@@ -54,21 +54,6 @@
                    @table-action="tableAction"
                    @selection-change="selectionChange"
         ></biz-table>
-
-        <!--<ns-grids-->
-        <!--:gridID="pageID + '-grid'"-->
-        <!--:tableData="tableData"-->
-        <!--:thlist="Mix_thlist"-->
-        <!--:loadState="Mix_loadState"-->
-        <!--:searchConditions="Mix_searchConditions"-->
-        <!--:funcId="Mix_funcId"-->
-        <!--:holderInfo="Mix_holderInfo"-->
-        <!--@refreshGrid="getTableData"-->
-        <!--@grid-ation="tableAction"-->
-        <!--@selection-change="selectionChange"-->
-        <!--&gt;</ns-grids>-->
-
-
         <employee-form
           :funcId="Mix_funcId"
           :dialogTit="dialogTit"

@@ -13,7 +13,6 @@ export default {
     getTreeData(isFirst = false) {
       //获取树数据
       this.treeloading = true;
-      this.treeData = [];
       this.treeModel = {};
       treeDataFetch({
         organizationId: this.organizationId,

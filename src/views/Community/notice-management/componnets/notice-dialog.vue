@@ -33,7 +33,7 @@
                 :height="120"
                 :headers="requestHead"
                 @change="itemChanged('fileList')"
-                action="/api/o2o/activity/uploadFile"
+                action="http://192.168.1.20:7777/o2o/activity/uploadFile"
               ></ns-upload>
             </ns-form-item>
           </ns-col>
@@ -42,7 +42,13 @@
           <ns-input v-model.trim="model.title" placeholder="请输入公告标题" width="100%"></ns-input>
         </ns-form-item>
         <ns-form-item label="公告内容" prop="content">
-          <ns-editor :height="200" v-model="model.content" model="normal" @input="itemChanged('content')" v-if="showDialog"/>
+          <ns-editor
+            :plugins-config="pluginsConfig"
+            :height="200"
+            v-model="model.content"
+            model="normal"
+            @input="itemChanged('content')"
+            v-if="showDialog"/>
         </ns-form-item>
       </ns-form>
     </div>
@@ -110,7 +116,15 @@
     },
 
     computed: {
-      ...mapGetters(['requestHead'])
+      ...mapGetters(['requestHead']),
+      pluginsConfig() {
+        return {
+          'editor-image': {
+            action: 'http://192.168.1.20:7777/o2o/activity/fileUploadBase64',//图片请求地址
+            headers: this.requestHead,//请求头
+          },
+        };
+      }
     },
 
     methods: {
