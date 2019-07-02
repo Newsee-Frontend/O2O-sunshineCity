@@ -13,6 +13,7 @@ const dev_env = {
   ENV_CONFIG: '"dev"',
   // BASE_API: '"http://192.168.1.75/api"',
   BASE_API: '"http://192.168.1.20:7777"',
+  // BASE_API: '"http://192.168.1.20/api"',
   // BASE_API: '"http://192.168.1.78/api"',
   // BASE_API: '"http://saas.zjlcwg.com/api"',
 };

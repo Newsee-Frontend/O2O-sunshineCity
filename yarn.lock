@@ -5150,6 +5150,11 @@ js-cookie@^2.1.4:
   resolved "https://registry.npm.taobao.org/js-cookie/download/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
   integrity sha1-Gywnmm7s44ChIWi5JIUmWzWx7/s=
 
+js-cookie@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
+  integrity sha1-Gywnmm7s44ChIWi5JIUmWzWx7/s=
+
 js-levenshtein@^1.1.3:
   version "1.1.6"
   resolved "https://registry.npm.taobao.org/js-levenshtein/download/js-levenshtein-1.1.6.tgz#c6cee58eb3550372df8deb85fad5ce66ce01d59d"
@@ -6310,10 +6315,10 @@ ns-form-components@0.0.18:
     vue-videobg "^2.0.0"
     watch-size "^2.0.0"
 
-ns-form-components@0.0.37:
-  version "0.0.37"
-  resolved "https://registry.npmjs.org/ns-form-components/-/ns-form-components-0.0.37.tgz#8bbb81358fc485dfcdc26149db2680177f9e7028"
-  integrity sha512-VIaGuPsxTQASNofqGv/APuJC8uRdi2FHetXVuTUhJlolyIo7/SM95cIC28pB2v4tNxrd4GiAd9nUg5hIpDq60A==
+ns-form-components@0.0.40:
+  version "0.0.40"
+  resolved "https://registry.npmjs.org/ns-form-components/-/ns-form-components-0.0.40.tgz#3af57cae5ac7442498c40f7752d29d1e7f5e1974"
+  integrity sha512-ejkTxYRwU5C+pmi0ypyLQTw6XwE0/85zMcgkTuo+JQEB+rpPaVFijIe6SEfykgUWPJOtPLzvlDmVn6jLckSj/w==
   dependencies:
     "@riophae/vue-treeselect" "^0.0.38"
     "@tinymce/tinymce-vue" "^2.0.0"
