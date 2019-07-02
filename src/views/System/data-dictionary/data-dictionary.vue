@@ -3,14 +3,14 @@
   <div class="win" :id="pageID">
     <div class="ns-container">
       <div class="ns-container-left" :class="{ 'ns-container-left-border': changeStatus.status }">
-        <organize-tree
+        <biz-organize-tree
           title="组织架构"
           :funcId="Mix_funcId"
           @tree-item-click="organizeTreeItemClick"
           orgTypeFilter="1"
           :searchConditions="Mix_searchConditions"
           :changeStatus="changeStatus"
-        ></organize-tree>
+        ></biz-organize-tree>
       </div>
       <div class="ns-container-left" :class="{ 'ns-container-left-border': true }">
         <dictionary-tree
@@ -31,7 +31,7 @@
             :funcId="Mix_funcId"
             :thlist="Mix_thlist"
             :searchConditions="Mix_searchConditions"
-            @query="getGridData"
+            @query="getTableData"
             :changeStatus="changeStatus"
           >
             <!--fnbutton module / slot for secrch conditions ---->
@@ -57,19 +57,28 @@
             </div>
           </ns-search-conditions>
         </div>
+
         <!--grid module-->
-        <ns-grids
-          :gridID="pageID + '-grid'"
-          :gridData="gridData"
-          :thlist="Mix_thlist"
-          :loadState="Mix_loadState"
-          :searchConditions="Mix_searchConditions"
-          :holderInfo="Mix_holderInfo"
-          :funcId="Mix_funcId"
-          @refreshGrid="getGridData"
-          @grid-ation="gridAtion"
-          @selection-change="selectionChange"
-        ></ns-grids>
+        <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
+                   :searchConditions="Mix_searchConditions"
+                   :showSummary="false"
+                   @reload="getTableData"
+                   @table-action="tableAction"
+                   @selection-change="selectionChange"
+        ></biz-table>
+        <!--grid module-->
+        <!--<ns-grids-->
+          <!--:gridID="pageID + '-grid'"-->
+          <!--:gridData="gridData"-->
+          <!--:thlist="Mix_thlist"-->
+          <!--:loadState="Mix_loadState"-->
+          <!--:searchConditions="Mix_searchConditions"-->
+          <!--:holderInfo="Mix_holderInfo"-->
+          <!--:funcId="Mix_funcId"-->
+          <!--@refreshGrid="getGridData"-->
+          <!--@grid-ation="gridAtion"-->
+          <!--@selection-change="selectionChange"-->
+        <!--&gt;</ns-grids>-->
 
         <!--dialog - auto form submit infomation-->
         <ns-dialog
@@ -108,6 +117,7 @@ import { gridDataDelete } from '../../../service/System/data-dictionary';
 import * as store from '../../../utils/nsQuery/nsStore';
 import Mixin from "../../../mixins";
 import { downloadExcel } from '../../../service/Download/download';
+import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
 import OrganizeTree from '../../../components/Biz/Biz-tree/Biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
 import DictionaryTree from '../../../components/Biz/Biz-tree/Biz-data-dictionary-tree/Biz-data-dictionary-tree.vue'; // 数据字典树 组件
 
@@ -171,6 +181,54 @@ export default {
     };
   },
   methods: {
+    //表数据查询
+    getTableData(condition) {
+      console.log('表数据查询-表数据查询');
+      console.log(this.condition);
+      if (condition) {
+        this.Mix_searchConditions.filterList = condition;
+      }
+
+      this.loadState.data = false;
+      tableDataFetch(
+        {
+          url: '/system/user/list-user',
+          query: this.Mix_searchConditions,
+          funcId: this.Mix_funcId,
+        },
+      ).then(res => {
+        this.tableData = res.resultData;
+
+        console.log(33333333);
+        console.log(this.Mix_searchConditions);
+        console.log(this.tableData);
+        //增加 固定操作列 - 按钮数据
+        this.tableData.list.forEach(item => {
+          if (item.isActived === '1') {
+            item.fnsclick = [
+              {label: '编辑', value: 'gridEditBtn'},
+              {label: '删除', value: 'gridRemoveBtn'},
+              {label: '停用', value: 'gridStopBtn'},
+            ];
+          } else if (item.isActived === '0') {
+            item.fnsclick = [
+              {label: '编辑', value: 'gridEditBtn'},
+              {label: '删除', value: 'gridRemoveBtn'},
+              {label: '启用', value: 'gridEnableBtn'},
+            ];
+          }
+        });
+
+        this.loadState.data = true;
+
+      }).catch(() => {
+
+        this.tableData = {};
+        this.loadState.data = true;
+
+      });
+    },
+
     /**
      * auto-form submit  ( 提交按钮事件操作 )
      * @param formName       button-info
@@ -311,7 +369,7 @@ export default {
       if (condition) {
         this.Mix_searchConditions.filterList = condition;
       }
-      this.Mix_loadState.data = false;
+      this.loadState.data = false;
       this.grid.fetch(
         {
           url: '/system/dictionary/list-dictionaryItem',
@@ -332,11 +390,11 @@ export default {
               { label: '删除', value: 'gridRemoveBtn' },
             ];
           });
-          this.Mix_loadState.data = true;
+          this.loadState.data = true;
         },
         () => {
           this.gridData = {};
-          this.Mix_loadState.data = true;
+          this.loadState.data = true;
         }
       );
     },

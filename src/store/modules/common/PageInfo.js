@@ -37,7 +37,7 @@ const PageInfo = {
             pageInfoList.push({
               name: firstItem[keyRefer['menuLabel']],
               path: '/' + firstItem[keyRefer['menuRouter']],
-              funcId: 'normalFunic',
+              funcId: firstItem[keyRefer['funcId']] ||  'normalFunic',
             });
           }
         });
