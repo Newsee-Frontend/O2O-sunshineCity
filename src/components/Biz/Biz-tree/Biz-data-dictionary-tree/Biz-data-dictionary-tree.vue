@@ -88,7 +88,7 @@ export default {
   data() {
     return {
       treeData: [],//origanize tree data use to render
-      treeModel: '', //节点树选中的节点对象
+      treeModel: {}, //节点树选中的节点对象
 
       childKey: '', //选中的节点
       initIndex: 0,
