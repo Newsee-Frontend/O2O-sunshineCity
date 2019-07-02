@@ -75,7 +75,7 @@
           <!--:searchConditions="Mix_searchConditions"-->
           <!--:holderInfo="Mix_holderInfo"-->
           <!--:funcId="Mix_funcId"-->
-          <!--@refreshGrid="getGridData"-->
+          <!--@refreshGrid="getTableData"-->
           <!--@grid-ation="gridAtion"-->
           <!--@selection-change="selectionChange"-->
         <!--&gt;</ns-grids>-->
@@ -137,8 +137,14 @@ export default {
       //========== 筛选器 search =========
       changeStatus: { status: true }, // 左侧树的状态
 
+      //表格数据加载状态
+      loadState: {
+        data: false,
+        head: false,
+      },
+
       //========== 表格 grid =========
-      gridData: {}, //列表数据
+      tableData: {}, //列表数据
       multipleSelection: [], //grid selected list
       selectedGridNodeObj: {}, //选中的表格当前行数据
 
@@ -192,33 +198,26 @@ export default {
       this.loadState.data = false;
       tableDataFetch(
         {
-          url: '/system/user/list-user',
+          url: '/system/dictionary/list-dictionaryItem',
           query: this.Mix_searchConditions,
           funcId: this.Mix_funcId,
+          params: {
+            dictionaryitemDictionaryId: this.Mix_searchConditions.dictionaryitemDictionaryId,
+            dictionaryGroupId: this.Mix_searchConditions.dictionaryGroupId,
+          },
         },
       ).then(res => {
         this.tableData = res.resultData;
-
         console.log(33333333);
         console.log(this.Mix_searchConditions);
-        console.log(this.tableData);
+        console.log(this.tableData)
         //增加 固定操作列 - 按钮数据
         this.tableData.list.forEach(item => {
-          if (item.isActived === '1') {
-            item.fnsclick = [
-              {label: '编辑', value: 'gridEditBtn'},
-              {label: '删除', value: 'gridRemoveBtn'},
-              {label: '停用', value: 'gridStopBtn'},
-            ];
-          } else if (item.isActived === '0') {
-            item.fnsclick = [
-              {label: '编辑', value: 'gridEditBtn'},
-              {label: '删除', value: 'gridRemoveBtn'},
-              {label: '启用', value: 'gridEnableBtn'},
-            ];
-          }
+          item.fnsclick = [
+            { label: '编辑', value: 'gridEditBtn' },
+            { label: '删除', value: 'gridRemoveBtn' },
+          ];
         });
-
         this.loadState.data = true;
 
       }).catch(() => {
@@ -227,6 +226,66 @@ export default {
         this.loadState.data = true;
 
       });
+    },
+
+
+    /**
+     * grid ation event （操作列操作回调事件）
+     * @param params
+     * @param scope
+     */
+    tableAction(params, scope) {
+      this.selectedGridNodeObj = scope.row;
+      switch (params.value) {
+        //删除
+        case 'gridRemoveBtn':
+          this.$confirm('确定删除?', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            customClass: 'el-message-box-oppositeBtns',
+            type: 'warning',
+          })
+            .then(() => {
+              gridDataDelete(
+                {
+                  dictionaryItemId: this.selectedGridNodeObj.jeCoreDictionaryitemId,
+                },
+                {}
+              )
+                .then(() => {
+                  this.$message({
+                    message: '删除成功',
+                    type: 'success',
+                  });
+                  this.getTableData();
+                })
+                .catch(() => {
+                  this.$message({
+                    message: '删除失败，请联系开发商',
+                    type: 'error',
+                  });
+                });
+            })
+            .catch(() => {
+              this.$message({
+                type: 'info',
+                message: '删除已取消',
+              });
+            });
+          break;
+        //编辑
+        case 'gridEditBtn':
+          this.dialogTit = '编辑字典项';
+          this.requestUrl = '/system/dictionary/detail-dictionaryItem';
+          this.submitUrl = '/system/dictionary/edit-dictionaryItem';
+          store.formController.set('addDictionaryItemForm', {
+            show: true,
+          });
+          this.$set(this.dialogVisible, 'visible', true);
+          break;
+        default:
+          break;
+      }
     },
 
     /**
@@ -240,7 +299,7 @@ export default {
         this.showMessage = false;
         this.$set(this.dialogVisible, 'visible', false);
         store.formController.delete('addDictionaryItemForm');
-        this.getGridData();
+        this.getTableData();
       });
     },
 
@@ -292,71 +351,13 @@ export default {
     treeItemClick(condition, parent) {
       this.Mix_treeNodeObj = condition;
       this.Mix_treeNodeObj.parent = parent;
-      this.getGridData();
+      this.getTableData();
     },
 
 
     organizeTreeItemClick(org) {
       this.org_nodeName = org.organizationName;
       this.org_nodeId = org.organizationId;
-    },
-    /**
-     * grid ation event （操作列操作回调事件）
-     * @param params
-     * @param scope
-     */
-    gridAtion(params, scope) {
-      this.selectedGridNodeObj = scope.row;
-      switch (params.value) {
-        //删除
-        case 'gridRemoveBtn':
-          this.$confirm('确定删除?', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            customClass: 'el-message-box-oppositeBtns',
-            type: 'warning',
-          })
-            .then(() => {
-              gridDataDelete(
-                {
-                  dictionaryItemId: this.selectedGridNodeObj.jeCoreDictionaryitemId,
-                },
-                {}
-              )
-                .then(() => {
-                  this.$message({
-                    message: '删除成功',
-                    type: 'success',
-                  });
-                  this.getGridData();
-                })
-                .catch(() => {
-                  this.$message({
-                    message: '删除失败，请联系开发商',
-                    type: 'error',
-                  });
-                });
-            })
-            .catch(() => {
-              this.$message({
-                type: 'info',
-                message: '删除已取消',
-              });
-            });
-          break;
-        //编辑
-        case 'gridEditBtn':
-          this.dialogTit = '编辑字典项';
-          this.requestUrl = '/system/dictionary/detail-dictionaryItem';
-          this.submitUrl = '/system/dictionary/edit-dictionaryItem';
-          store.formController.set('addDictionaryItemForm', {
-            show: true,
-          });
-          this.$set(this.dialogVisible, 'visible', true);
-          break;
-        default:
-          break;
-      }
     },
     //grid选择项发生变化时
     selectionChange(selection) {
@@ -365,7 +366,7 @@ export default {
       this.multipleSelection = arry;
     },
     //表数据查询
-    getGridData(condition) {
+    ssss(condition) {
       if (condition) {
         this.Mix_searchConditions.filterList = condition;
       }
@@ -413,10 +414,7 @@ export default {
         downloadExcel('/system/dictionary/export-excel', this.Mix_searchConditions)
       }
     },
-  },
-  created() {
-    this.getGridData()
-  },
+  }
 };
 </script>
 <style rel="stylesheet/scss" lang="scss"></style>
