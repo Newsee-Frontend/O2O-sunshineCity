@@ -150,6 +150,9 @@
           head: false,
         },
 
+        //========== tree =========
+        treeNodeObj:{},
+
         //========== dialog auto form  =========
         dialogVisible: {visible: false}, //dialog switch
         dialogTit: '', //dialog title
@@ -224,9 +227,9 @@
       //自动表单请求获取数据之后 操作
       afterRequest(vm, data) {
         if (vm.autoFormID === 'addRoleForm') {
-          if (this.Mix_treeNodeObj.organizationId && this.Mix_treeNodeObj.organizationName) {
-            data.modelData.organizationName = this.Mix_treeNodeObj.organizationName;
-            data.modelData.organizationId = this.Mix_treeNodeObj.organizationId;
+          if (this.treeNodeInfo.organizationId && this.treeNodeInfo.organizationName) {
+            data.modelData.organizationName = this.treeNodeInfo.organizationName;
+            data.modelData.organizationId = this.treeNodeInfo.organizationId;
           } else {
             data.modelData.organizationName = this.selectedGridNodeObj.organizationName;
             data.modelData.organizationId = this.selectedGridNodeObj.organizationId;
@@ -253,7 +256,7 @@
 
       //新增-初始化动态表单
       addRole() {
-        if (!this.Mix_treeNodeObj.organizationId || this.Mix_treeNodeObj.organizationId == 0) {
+        if (!this.treeNodeInfo.organizationId || this.treeNodeInfo.organizationId == 0) {
           this.$message({message: '请先选择组织', type: 'warning'});
         } else {
           this.dialogWidth = '900px';
@@ -274,9 +277,9 @@
       treeItemClick(org) {
         console.log('表数据查询-表数据查询');
         console.log(this.condition)
-        this.Mix_treeNodeObj = org;
-        this.addRoleCoverData.dynamicQuery.rolecategoryId = this.Mix_treeNodeObj.organizationId;
-        this.addPersonToRoleCoverData.dynamicQuery.userIds = this.Mix_treeNodeObj.organizationId;
+        this.treeNodeInfo = org;
+        this.addRoleCoverData.dynamicQuery.rolecategoryId = this.treeNodeInfo.organizationId;
+        this.addPersonToRoleCoverData.dynamicQuery.userIds = this.treeNodeInfo.organizationId;
         this.getTableData();
       },
 

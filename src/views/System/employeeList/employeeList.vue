@@ -57,7 +57,7 @@
         <employee-form
           :funcId="Mix_funcId"
           :dialogTit="dialogTit"
-          :treeNodeObj="Mix_treeNodeObj"
+          :treeNodeObj="treeNodeInfo"
           :scope="selectedGridNodeObj"
           :dialogVisible="dialogVisible.employeeFormVisible"
           v-if="dialogVisible.employeeFormVisible.visible"
@@ -160,6 +160,9 @@
         localData: employeeStaticData,
         isAdd: false, //是否新增表单
 
+        //========== tree =========
+        treeNodeObj:{},
+
         //========== 其他  =========
         importForm: {},
         importVisible: {
@@ -171,7 +174,7 @@
       //新增员工-初始化动态表单
       addEmployee() {
         this.isAdd = true; //新增开关
-        if (!this.Mix_treeNodeObj.organizationId || this.Mix_treeNodeObj.organizationId === 0) {
+        if (!this.treeNodeInfo.organizationId || this.treeNodeInfo.organizationId === 0) {
           this.$message({message: '请先选择组织', type: 'warning'});
         } else {
           this.dialogTit = '新增员工';
@@ -345,8 +348,8 @@
       treeItemClick(condition) {
         console.log('选择组织节点回调-选择组织节点回调');
         console.log(condition);
-        this.Mix_treeNodeObj = condition;
-        this.addUserCover.dynamicQuery.roleids = this.Mix_treeNodeObj.organizationId;
+        this.treeNodeInfo = condition;
+        this.addUserCover.dynamicQuery.roleids = this.treeNodeInfo.organizationId;
 
         this.getTableData()
       },
