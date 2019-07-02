@@ -44,7 +44,7 @@
 </template>
 
 <script>
-  import {isMultipleEnterprise} from '../../../service/User';
+  import {isMultipleEnterprise} from '../../../service/User/login';
   import ns from '../../../utils/nsQuery/nsQuery';
   import MultiEnterprise from './multi-enterprise';
 

@@ -14,7 +14,7 @@ export default {
     console.log(id);
     console.log(token);
 
-    this.$store.dispatch('setToken', token);
+    // this.$store.dispatch('setToken', token);
 
     console.log(123123812391728398);
     console.log(123123812391728398)

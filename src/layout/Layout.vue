@@ -51,7 +51,7 @@
     components: {bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom},
     data() {
       return {
-        isSimple: true,//是否为iframe模式
+        isSimple: false,//是否为iframe模式
       };
     },
     computed: {
