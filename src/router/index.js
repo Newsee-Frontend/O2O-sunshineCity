@@ -4,10 +4,11 @@ import hook from './hook';
 
 
 import Public from './modules/public';
+import User from './modules/user';
 import System from './modules/system';
 import Community from './modules/community';
 
-const routes = [...Public, ...System, ...Community];
+const routes = [...Public, ...User, ...System, ...Community];
 
 
 Vue.use(Router);

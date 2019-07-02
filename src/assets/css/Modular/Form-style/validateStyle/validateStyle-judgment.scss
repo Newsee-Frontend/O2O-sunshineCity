@@ -22,7 +22,7 @@ $formErrFs: 12px; //font size in error message
   .el-input__inner,
   .el-textarea__inner {
     border-color: $border-color;
-    @include transition(all, 300ms, ease-in);
+    transition: all 300ms ease-in;
   }
 }
 
@@ -75,14 +75,14 @@ $formErrFs: 12px; //font size in error message
       @include border-color-Toggle($--color-danger); //切换为红色边框
       @include validate-icon-Toggle($cueType, none, block); //切换验证图标，错误显示，正确隐藏
     }
-    //非错误情况（处于验证激活状态，且验证正确，这种情况需要区别于表单加载后的初始状态（验证未激活））
+      //非错误情况（处于验证激活状态，且验证正确，这种情况需要区别于表单加载后的初始状态（验证未激活））
     @else {
       @include border-color-Toggle($--color-success); //切换为绿色边框
       @include normal-Icon-Toggle(none); //常规自带图标隐藏
       @include validate-icon-Toggle($cueType, block, none); //切换验证图标，错误隐藏，正确显示
     }
   }
-  //表单验证提示类型二（只有错误的展现）
+    //表单验证提示类型二（只有错误的展现）
   @else if $cueType == 'cue-only-error' {
     @include border-color-Toggle($--color-text-placeholder); //切换默认边框颜色
     @if $state == 'error' {
@@ -92,7 +92,7 @@ $formErrFs: 12px; //font size in error message
       @include normal-Icon-Toggle(none); //常规自带图标隐藏
     }
   }
-  //表单验证提示类型三（只有错误的展现，且鼠标移入展现错误提示）
+    //表单验证提示类型三（只有错误的展现，且鼠标移入展现错误提示）
   @else if $cueType == 'cue-only-error-hover' {
     @include border-color-Toggle($--color-text-placeholder); //切换默认边框颜色
     @if $state == 'error' {
@@ -107,7 +107,7 @@ $formErrFs: 12px; //font size in error message
 //鼠标操作控制显隐（作用引用对象）
 @mixin cue-Modular-hover($initState, $hoverState) {
   .el-form-item__error {
-    @include transition(all, 300ms, ease-in);
+    transition: all 300ms ease-in;
     visibility: $initState;
     &:before {
       visibility: $initState;
@@ -115,7 +115,7 @@ $formErrFs: 12px; //font size in error message
   }
   &:hover {
     .el-form-item__error {
-      @include transition(all, 300ms, ease-in);
+      transition: all 300ms ease-in;
       visibility: $hoverState;
       &:before {
         visibility: $hoverState;
@@ -161,15 +161,15 @@ $formErrFs: 12px; //font size in error message
           .el-input__inner,
           .el-textarea__inner {
             border-color: #ff6600;
-            @include transition(all, 300ms, linear);
+            transition: all 300ms linear;
           }
           .el-form-item__error {
             visibility: visible;
             height: $formErrFs * 2 + $adjust;
-            @include transition(all, 250ms, linear);
+            transition: all 250ms linear;
             &:before {
+              transition: all 350ms ease-in;
               @include pseudoClass;
-              @include transition(all, 350ms, ease-in);
             }
           }
         }
@@ -194,8 +194,8 @@ $formErrFs: 12px; //font size in error message
         padding-top: $adjust;
         padding-left: $baseEdge;
         padding-right: $baseEdge;
-        @include border-radius($adjust/2);
-        @include box-sizing;
+        border-radius: $adjust/2;
+        box-sizing: border-box;
         &:before {
           content: '';
           position: absolute;

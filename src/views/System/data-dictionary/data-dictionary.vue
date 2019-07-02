@@ -178,6 +178,7 @@ export default {
       coverData: {},
 
       //========== 树 tree =========
+      treeNodeObj:{},
       dictionaryTreeVisible: {
         visible: false,
       },
@@ -315,12 +316,12 @@ export default {
 
     //自动表单请求获取数据之后 操作
     afterRequest(vm, data) {
-      data.modelData.dictionaryitemDictionaryId = this.Mix_treeNodeObj.nodeValue;
-      data.modelData.organizationId = this.Mix_treeNodeObj.organizationId;
+      data.modelData.dictionaryitemDictionaryId = this.treeNodeInfo.nodeValue;
+      data.modelData.organizationId = this.treeNodeInfo.organizationId;
       //新增的时候从树上获取节点层级
       if (data.modelData.dictionaryitemDictionaryName === '') {
-        let pName = this.Mix_treeNodeObj.parent? this.Mix_treeNodeObj.parent.nodeName : '';
-        let nodeName =   this.Mix_treeNodeObj.nodeName;
+        let pName = this.treeNodeInfo.parent? this.treeNodeInfo.parent.nodeName : '';
+        let nodeName =   this.treeNodeInfo.nodeName;
         data.modelData.dictionaryitemDictionaryName = `${pName}-${nodeName}`;
       }
       data.modelData.organizationName = this.org_nodeName;
@@ -329,9 +330,9 @@ export default {
     //新增-初始化动态表单
     addDictionaryItem() {
       if (
-        !this.Mix_treeNodeObj.nodeValue ||
-        this.Mix_treeNodeObj.nodeType === 'root' ||
-        this.Mix_treeNodeObj.nodeType === 'dicGroup'
+        !this.treeNodeInfo.nodeValue ||
+        this.treeNodeInfo.nodeType === 'root' ||
+        this.treeNodeInfo.nodeType === 'dicGroup'
       ) {
         this.$message({ message: '请先选择字典', type: 'warning' });
         return false;
@@ -349,8 +350,8 @@ export default {
      * @param condition
      */
     treeItemClick(condition, parent) {
-      this.Mix_treeNodeObj = condition;
-      this.Mix_treeNodeObj.parent = parent;
+      this.treeNodeInfo = condition;
+      this.treeNodeInfo.parent = parent;
       this.getTableData();
     },
 

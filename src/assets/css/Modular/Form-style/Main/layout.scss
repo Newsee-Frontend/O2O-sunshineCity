@@ -10,7 +10,7 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    @include box-sizing;
+    box-sizing: border-box;
     &.e-left {
       //padding-left: $dialog-padding_left;
       padding-left: 0;
