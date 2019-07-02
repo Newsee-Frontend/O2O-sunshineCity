@@ -5,6 +5,8 @@
     v-model="selectModel"
     :options="options"
     @input="emitInput"
+    :defaultExpandLevel="defaultExpandLevel"
+    :placeholder="placeholder"
   ></ns-select-tree>
 </template>
 <script>
@@ -12,7 +14,17 @@
     name: 'biz-organize-select-tree',
 
     props: {
-      size: String
+      size: String,
+
+      placeholder: {
+        type: String,
+        default: '请选择'
+      },
+
+      defaultExpandLevel: {
+        type: Number,
+        default: 2
+      }
     },
 
     data(){
@@ -31,6 +43,7 @@
     methods: {
       emitInput: function(){
         this.$emit('input', this.selectModel);
+        this.$emit('change', this.selectModel)
       }
     }
   }
