@@ -137,7 +137,6 @@
         get: function () {
           return this.searchConditions.activityBeginTime ? [this.searchConditions.activityBeginTime, this.searchConditions.activityEndTime] : []
         },
-
         set: function (arr) {
           let range = arr || [];
           this.searchConditions.activityBeginTime = range.length > 1 ? range[0] + ' 00:00:00' : '';

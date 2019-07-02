@@ -13,13 +13,13 @@
     <div class="slip-title">{{type === 'add'? '新增活动': '编辑活动'}}</div>
 
     <div class="slip-btns">
-      <ns-button type="primary" @click="publish('publish')" :loading="submitLoadingBtn === 'publish'">发  布
+      <ns-button type="primary" @click="publish('publish')" :loading="submitLoadingBtn === 'publish'">发 布
       </ns-button>
 
       <ns-button type="primary" @click="publish('tempPublish')" :loading="submitLoadingBtn === 'tempPublish'">暂 存
       </ns-button>
 
-      <ns-button @click="showDialog = false">返    回</ns-button>
+      <ns-button @click="showDialog = false">返 回</ns-button>
     </div>
 
     <div class="silp-container">
@@ -123,8 +123,8 @@
 
 <script>
   import bizPrecinct from '../../../../components/biz/biz-form/biz-precinct';
-  import { getActiveInfo, publishActivity } from '../../../../service/Community/activeManagement';
-  import { mapGetters } from 'vuex';
+  import {getActiveInfo, publishActivity} from '../../../../service/Community/activeManagement';
+  import {mapGetters} from 'vuex';
 
   export default {
     name: 'activityInfoDialog',
@@ -144,7 +144,7 @@
     },
 
     data() {
-      var validActivityLimitNum = (rule, value, callback) => {
+      const validActivityLimitNum = (rule, value, callback) => {
         let reg = /^[1-9][0-9]*$/;
         if (value && !reg.test(value)) {
           callback(new Error('请输入正整数'));
@@ -196,23 +196,33 @@
         submitLoadingBtn: '',
 
         rules: {
-          precinctIds: [{ required: true, trigger: 'change', message: '请选择范围' }],
-          provinceId: [{ required: true, trigger: 'change', message: '请选择省' }],
-          cityId: [{ required: true, trigger: 'change', message: '请选择市' }],
-          type: [{ required: true, trigger: 'change', message: '请选择活动类型' }],
-          title: [{ required: true, trigger: 'change', message: '请输入活动名称' }],
-          activityLimitNum: [{ validator: validActivityLimitNum, trigger: 'change' }],
-          voteEndTime: [{ required: true, trigger: 'change', message: '请选择报名截止时间' }],
-          activityStartTime: [{ required: true, trigger: 'change', message: '请选择活动开始时间' }],
-          activityEndTime: [{ required: true, trigger: 'change', message: '请选择活动截止时间' }],
-          activitySpace: [{ required: true, trigger: 'change', message: '请输入活动地点' }],
-          sponsor: [{ required: true, trigger: 'change', message: '请输入主办方' }],
-          content: [{ required: true, message: '请输入活动内容' }],
-          fileList: [{ required: true, message: '请选择图片' }],
+          precinctIds: [{required: true, trigger: 'change', message: '请选择范围'}],
+          provinceId: [{required: true, trigger: 'change', message: '请选择省'}],
+          cityId: [{required: true, trigger: 'change', message: '请选择市'}],
+          type: [{required: true, trigger: 'change', message: '请选择活动类型'}],
+          title: [{required: true, trigger: 'change', message: '请输入活动名称'}],
+          activityLimitNum: [{validator: validActivityLimitNum, trigger: 'change'}],
+          voteEndTime: [{required: true, trigger: 'change', message: '请选择报名截止时间'}],
+          activityStartTime: [{required: true, trigger: 'change', message: '请选择活动开始时间'}],
+          activityEndTime: [{required: true, trigger: 'change', message: '请选择活动截止时间'}],
+          activitySpace: [{required: true, trigger: 'change', message: '请输入活动地点'}],
+          sponsor: [{required: true, trigger: 'change', message: '请输入主办方'}],
+          content: [{required: true, message: '请输入活动内容'}],
+          fileList: [{required: true, message: '请选择图片'}],
         },
       };
     },
-
+    computed: {
+      ...mapGetters(['requestHead']),
+      pluginsConfig() {
+        return {
+          'editor-image': {
+            action: '/api/o2o/activity/fileUploadBase64',//图片请求地址
+            headers: this.requestHead,//请求头
+          },
+        };
+      }
+    },
     methods: {
       close() {
         this.showDialog = false;
@@ -294,17 +304,7 @@
         }
       },
     },
-    computed: {
-      ...mapGetters(['requestHead']),
-      pluginsConfig() {
-        return {
-          'editor-image': {
-            action: '/api/o2o/activity/fileUploadBase64',//图片请求地址
-            headers: this.requestHead,//请求头
-          },
-        };
-      }
-    },
+
   };
 </script>
 
@@ -316,7 +316,7 @@
     padding: 14px 0;
   }
 
-  .silp-container{
+  .silp-container {
     margin: 20px auto;
     width: 1000px;
   }
