@@ -1,4 +1,4 @@
-import RequestHead from './modules/RequestHeader';
+import RequestHead from './modules/Common/RequestHeader';
 
 const getters = {
 
