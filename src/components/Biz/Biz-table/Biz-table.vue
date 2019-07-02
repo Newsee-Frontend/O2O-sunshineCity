@@ -76,7 +76,7 @@
       finalHead() {
         return [
           ...(this.firstColType ? [columnConfig[this.firstColType]] : []),
-          ...(this.LocalHead ? this.LocalHead : this.tableHead),
+          ...(this.localHead ? this.localHead : this.tableHead),
           ...(this.hasActionCol ? [columnConfig['action']] : []),
           ...(this.showAddRowOperation ? [columnConfig['add-row']] : []),
 
@@ -108,7 +108,7 @@
        */
       getTableHead() {
         if (this.localHead) {
-          this.tableHead = this.LocalHead;
+          this.tableHead = this.localHead;
           this.loadState.head = true;
         }
         else {

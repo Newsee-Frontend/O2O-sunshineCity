@@ -39,7 +39,7 @@
     <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
                :autoResize="false"
                :customHeight="340"
-               :LocalHead="head"
+               :localHead="head"
                :searchConditions="searchConditions"
                :showSummary="false"
                :hasActionCol="false"

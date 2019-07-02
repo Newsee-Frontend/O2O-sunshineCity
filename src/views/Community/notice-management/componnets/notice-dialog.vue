@@ -33,7 +33,7 @@
                 :height="120"
                 :headers="requestHead"
                 @change="itemChanged('fileList')"
-                action="http://192.168.1.20:7777/o2o/activity/uploadFile"
+                action="/api/o2o/activity/uploadFile"
               ></ns-upload>
             </ns-form-item>
           </ns-col>
@@ -120,7 +120,7 @@
       pluginsConfig() {
         return {
           'editor-image': {
-            action: 'http://192.168.1.20:7777/o2o/activity/fileUploadBase64',//图片请求地址
+            action: '/api/o2o/activity/fileUploadBase64',//图片请求地址
             headers: this.requestHead,//请求头
           },
         };

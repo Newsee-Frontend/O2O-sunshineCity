@@ -9,7 +9,6 @@ import {getToken} from "../utils/auth";
 export default {
   beforeEach: (to, from, next) => {
     if (to.meta.auth) {
-
       if (getToken()) {
         judgeRoleAndJump(to, from, next)
       }

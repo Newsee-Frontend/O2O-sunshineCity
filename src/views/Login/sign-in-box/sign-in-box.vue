@@ -154,6 +154,7 @@
 
       //选中企业跳转
       jumpToPage() {
+        console.log('jump jump')
         this.$store.dispatch('generateSideBar').then(list => {
           this.$router.push({path: list.length > 0 ? '/dashboard' : '/404'});
         });
