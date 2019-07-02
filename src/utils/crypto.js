@@ -9,12 +9,12 @@ import CryptoJS from 'crypto-js';
  */
 export const setCrypto = (val, key) => {
   if (!CryptoJS) {
-    ns.error.throw('CryptoJS is undefined, you need to load it');
+    throw('CryptoJS is undefined, you need to load it');
   }
   if (typeof val === 'string' && typeof key === 'string') {
     return CryptoJS.AES.encrypt(val, key);
   } else {
-    ns.error.throw('The data format of encrypted content and key should be string，find it.');
+    throw('The data format of encrypted content and key should be string，find it.');
   }
 };
 
@@ -26,12 +26,12 @@ export const setCrypto = (val, key) => {
  */
 export const deCrypto = (val, key) => {
   if (!CryptoJS) {
-    ns.error.throw('CryptoJS is undefined, you need to load it');
+    throw('CryptoJS is undefined, you need to load it');
   }
   if (typeof key === 'string') {
     return CryptoJS.AES.decrypt(val, key).toString(CryptoJS.enc.Utf8);
   } else {
-    ns.error.throw('The decrypt-key should be string，find it.');
+    throw('The decrypt-key should be string，find it.');
   }
 };
 
