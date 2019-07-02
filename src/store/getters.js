@@ -1,5 +1,3 @@
-import RequestHead from './modules/Common/RequestHeader';
-
 const getters = {
 
   //core
