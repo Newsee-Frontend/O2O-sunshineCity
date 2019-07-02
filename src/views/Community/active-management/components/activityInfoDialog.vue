@@ -220,7 +220,7 @@
             action: '/api/o2o/activity/fileUploadBase64',//图片请求地址
             headers: this.requestHead,//请求头
             response: res => {
-              return res[0].file;
+              return res.resultData[0].file;
             }
           },
         };

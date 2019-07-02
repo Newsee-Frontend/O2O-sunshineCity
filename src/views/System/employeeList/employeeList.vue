@@ -98,13 +98,13 @@
 
   export default {
     name: 'employeeList',
+    pageType: 'basic',
     mixins: [Mixin],
     components: { employeeForm},
     data() {
       return {
         //========== 基本 base =========
         pageID: 'employeeList', //页面、表格、自动表单 ID值（必须）
-
         //========== 筛选器 search =========
         changeStatus: {status: true}, // 左侧树的状态
 

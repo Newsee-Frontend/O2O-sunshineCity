@@ -5,6 +5,7 @@
       <div class="action-module handle" :id="pageID + '-search'">
         <ns-input class="remoteHandle fl" v-model="searchVal" placeholder="请输入搜索内容">
         </ns-input>
+
         <ns-button type="primary" @click="search">查询</ns-button>
         <div class="action-fnbutton">
           <ns-role-button
