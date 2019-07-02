@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
 import {cryptoCookie} from '../../../utils/crypto';
+import {getToken, setToken, removeToken} from '../../../utils/auth';
 import {oauthlogin, multipleEnterpriseLogin} from '../../../service/User/index';
-
 
 import $store from '@/store/index';
 
@@ -28,7 +28,7 @@ function _deCryptoUserInfo() {
 const User = {
   state: {
     userinfo: {
-      token: +Cookies.get('token'),
+      token: getToken(),
       userId: _deCryptoUserInfo().userId,
       userName: _deCryptoUserInfo().userName,
       avatar: _deCryptoUserInfo().avatar,
@@ -44,9 +44,9 @@ const User = {
       console.log('SET_LOGIN_DATA');
       console.log(data);
 
+      setToken(data.token);
+      console.log(getToken());
 
-      Cookies.set('token', data.token, lifetime);
-      console.log(Cookies.get('token'))
       //user information by login
       state.userinfo.userId = data.userId;
       state.userinfo.userName = data.userName;
@@ -65,7 +65,7 @@ const User = {
       );
     },
     LOGOUT: () => {
-      Cookies.remove('token');
+      removeToken();
       $store.dispatch('delAllVisitedPages');
       localStorage.clear();
       // Cookies.clear();
@@ -73,6 +73,7 @@ const User = {
   },
 
   actions: {
+    //登录
     oauthlogin({commit}, query) {
       return new Promise((resolve, reject) => {
         oauthlogin(query).then(res => {
@@ -83,11 +84,6 @@ const User = {
           reject(err)
         });
       })
-
-    },
-
-    updateLoginData({commit}, query) {
-      commit('SET_LOGIN_DATA', query);
     },
 
     //多户登录
@@ -98,11 +94,15 @@ const User = {
       })
     },
 
+
     //退出
     logOut({commit}) {
       return commit('LOGOUT');
     },
 
+    updateLoginData({commit}, query) {
+      commit('SET_LOGIN_DATA', query);
+    },
   },
 };
 
