@@ -5,11 +5,7 @@
     <div class="sign-in-left"></div>
     <div class="sign-in-right">
       <div class="signIn step-one" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">
-<<<<<<< HEAD
-        <p>登录123</p>
-=======
-        <p>登123录</p>
->>>>>>> 054a402d3f3d6e9a04c50eca9918e9c6ad516f7c
+        <p>登录</p>
         <el-form
           :model="loginForm"
           ref="loginForm"
@@ -26,7 +22,7 @@
           </el-form-item>
           <el-form-item prop="password" class="pwd" :show-message="false">
             <!--记住密码-->
-            <el-input type="password"  autocomplete="on"  v-model="loginForm.password" placeholder="登录密码"></el-input>
+            <el-input type="password" autocomplete="on" v-model="loginForm.password" placeholder="登录密码"></el-input>
           </el-form-item>
         </el-form>
 

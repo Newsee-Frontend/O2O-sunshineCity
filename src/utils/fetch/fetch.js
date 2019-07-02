@@ -7,24 +7,19 @@
  */
 /*==========================================================================================================================*/
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import {Message} from 'element-ui';
 import {fileFlowDistribute, flowTypeList} from './fileFlowDistribute';
-
+import requestHead from '../../store/modules/Common/RequestHeader'
 
 
 console.log('当前运行环境：', process.env);
+console.log(requestHead.state.base);
 
 const service = axios.create({
   baseURL: process.env.BASE_API,
   timeout: 30000,
   withCredentials: true,
-  // headers: newRequestHead(store.requestHead.get()),
-  headers: {
-    appId: '07d8737811434732',
-    appClientType: 'pc',
-    'Set-Cookie': Cookies.get('token'),
-  },
+  headers: requestHead.state.base
 });
 
 service.interceptors.request.use(

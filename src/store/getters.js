@@ -32,6 +32,5 @@ const getters = {
   //requestHead
   requestHead: state => state.RequestHead.base
 
-
 };
 export default getters;
