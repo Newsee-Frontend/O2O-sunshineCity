@@ -16,7 +16,6 @@ export function listColumnService(head) {
  * @param data - url / query / head - funcId
  */
 export const tableDataFetch = data => {
-  dataFilter(data);
   return fetch({
     url: data.url || '',
     method: data.method || 'post',
