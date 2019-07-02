@@ -239,7 +239,7 @@ export default {
     padding-right: 12px !important;
     text-align: right;
     color: #666;
-    @include box-sizing;
+    box-sizing: border-box;
   }
   .customer-info-linkage-item {
     height: 32px;

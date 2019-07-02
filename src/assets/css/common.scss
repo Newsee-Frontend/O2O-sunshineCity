@@ -14,17 +14,16 @@ html, body {
 //右侧  转换 内容窗口
 .win {
   min-height: 100%;
-  @include box-sizing;
   padding: $win_pt $win_pr $win_pb $win_pl;
-  @include box-sizing;
+  box-sizing: border-box;
   //container
   .ns-container {
     min-height: calc(
       100vh - #{$tabs} - #{$win_pt} - #{$win_pb} - #{$navH} - #{$win_gapT} - #{$win_gapB} - 1px
     );
     overflow-x: auto;
+    box-sizing: border-box;
     @include clearFloat;
-    @include box-sizing;
     //left of container (tee)
     .ns-container-left {
       float: left;
@@ -34,7 +33,7 @@ html, body {
       border-bottom: none;
       background: $--color-white;
       overflow: hidden;
-      @include box-sizing;
+      box-sizing: border-box;
     }
     .ns-container-left-border {
       border: 1px solid $container-border_color;
@@ -48,7 +47,7 @@ html, body {
       );
       background: $--color-white;
       overflow: hidden;
-      @include box-sizing;
+      box-sizing: border-box;
     }
   }
 }
