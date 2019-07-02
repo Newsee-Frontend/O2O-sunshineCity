@@ -16,7 +16,7 @@ import SearchConditions from './modules/Common/SearchConditions';
 import RoleButton from './modules/Common/RoleButton';
 import TreeData from './modules/TreeData';
 import Table from './modules/System/Table/Table';
-import RequestHead from './modules/RequestHeader'
+import RequestHead from './modules/Common/RequestHeader'
 
 
 import getters from './getters';
