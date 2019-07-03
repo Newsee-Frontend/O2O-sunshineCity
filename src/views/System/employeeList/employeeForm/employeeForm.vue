@@ -227,11 +227,11 @@ export default {
       submitLoading: false,
       rules: {
         organizationId: [{ required: true, validator: validOrganizationId, trigger: 'blur' }],
-        roleids: [{ required: true, validator: validRoleids, trigger: 'blur' }],
-        userName: [{ required: true, validator: validUserName, trigger: 'blur' }],
+        roleids: [{ validator: validRoleids, trigger: 'change' }],
+        userName: [{ required: true, validator: validUserName, trigger: 'change' }],
         userTelephone: [{ required: true, validator: validUserTelephone, trigger: 'change' }],
-        userAccount: [{ required: true, validator: validUserAccount, trigger: 'blur' }],
-        userPassword: [{ required: true, validator: validUserPassword, trigger: 'blur' }],
+        userAccount: [{ required: true, validator: validUserAccount, trigger: 'change' }],
+        userPassword: [{ required: true, validator: validUserPassword, trigger: 'change' }],
       },
     };
   },

@@ -1,3 +1,4 @@
+import {getUrlParam} from '../../utils'
 export default {
   data() {
     return {
@@ -38,6 +39,7 @@ export default {
       this.$store.dispatch('logOut');
 
       this.$store.dispatch('ssoLogin', query).then((res) => {
+        this.initPath = getUrlParam('referRoute');
         this.getMenuAndJump();
       }).catch((err)=>{
         this.$message.error('登录失败。')
