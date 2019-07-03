@@ -1,7 +1,6 @@
 <template>
   <div class="sign-in-box">
     <!--用户名账号登录窗口-->
-
     <div class="sign-in-left"></div>
     <div class="sign-in-right">
       <p class="sign-in-title">登录</p>
@@ -35,7 +34,7 @@
           </ns-form-item>
           <ns-form-item>
             <ns-button
-              style="width: 100%; height: 40px"
+              style="width: 100%;"
               type="primary"
               :loading="submitLoading"
               @click="submitForm('loginForm')">登录</ns-button>
@@ -46,10 +45,8 @@
       <!--多企业账号，选择登录-->
       <multi-enterprise
         v-if="hasMultiEnterprise"
-        :cryptoKey="cryptoKey"
         :loginForm="loginForm"
         :enterprise="enterprise"
-        @jump="jumpToPage"
         @back="goPrevStep"
       ></multi-enterprise>
     </div>
@@ -59,12 +56,13 @@
 
 <script>
   import {isMultipleEnterprise} from '../../../service/User/login';
-  import ns from '../../../utils/nsQuery/nsQuery';
   import MultiEnterprise from './multi-enterprise';
-
+  import authLogin from '../authLogin';
+  import cryptoPassWord from '../cryptoPassWord';
 
   export default {
     name: 'sign-in-box',
+    mixins: [authLogin, cryptoPassWord],
     components: {MultiEnterprise},
     data() {
       return {
@@ -74,37 +72,13 @@
         loginForm: {
           username: '',
           password: '',
-          remember: false,
         },
         rules_login: {
           username: [{required: true, message: '请输入用户名', trigger: 'change'}],
           password: [{required: true, message: '请输入密码', trigger: 'change'}],
         },
         enterprise: [],
-        cryptoKey: '0123456789012345', //crypto key
       };
-    },
-    computed: {
-      //set crypto by Pass64
-      setCryptoBybase64() {
-        return ns.crypto.encryptBase64(this.loginForm.password, this.cryptoKey);
-      },
-    },
-    created() {
-      /**
-       * loginAutoHandle
-       * @param t
-       * @param user
-       * @param ps
-       * @param bol
-       */
-      const loginAutoHandle = function (t, user, ps, bol) {
-        t.loginForm.username = user;
-        t.loginForm.password = ps;
-        t.loginForm.remember = bol;
-      };
-
-      loginAutoHandle(this, this.loginForm.username, this.loginForm.password, false);
     },
     methods: {
       /**
@@ -112,7 +86,6 @@
        * @param formName
        */
       submitForm(formName) {
-        this.$store.dispatch('logOut');
         this.$refs[formName].validate(valid => {
           if (valid) {
             this.checkMultipleEnterprise(); // 检测是否是多企业账号
@@ -132,7 +105,7 @@
         this.submitLoading = true;
         let registerInfo = {
           userAccount: this.loginForm.username,
-          password: this.setCryptoBybase64,
+          password: this.getCryptoBybase64,
         };
         isMultipleEnterprise(registerInfo)
           .then(res => {
@@ -146,10 +119,8 @@
             else {
               const loginParams = {
                 username: this.loginForm.username,
-                password: this.setCryptoBybase64,
-                remember: this.loginForm.remember,
-              };
-
+                password: this.getCryptoBybase64,
+            };
               this.$store.dispatch('oauthlogin', loginParams).then(() => {
                 this.submitLoading = false;
                 this.jumpToPage();
@@ -162,7 +133,8 @@
           .catch(err => {
             this.submitLoading = false;
             console.log('失败', err);
-          });
+              this.authLogin(loginParams);
+          })
       },
 
       // 返回上一页

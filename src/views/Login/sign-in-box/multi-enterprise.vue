@@ -19,54 +19,43 @@
 </template>
 
 <script>
-import ns from '../../../utils/nsQuery/nsQuery';
+  import authLogin from '../authLogin';
+  import cryptoPassWord from '../cryptoPassWord';
 
-export default {
-  name: 'multiple-enterprise',
-  props: {
-    loginForm: {
-      type: Object,
-      default() {
-        return {};
+  export default {
+    name: 'multiple-enterprise',
+    mixins: [authLogin, cryptoPassWord],
+    props: {
+      loginForm: {
+        type: Object, default() {
+          return {};
+        },
+      },
+      enterprise: {
+        type: Array, default() {
+          return [];
+        },
       },
     },
-    enterprise: {
-      type: Array,
-      default() {
-        return [];
+    methods: {
+      /**
+       * 选择企业登录
+       * @param item
+       */
+      handleSelect(item) {
+        const loginParams = {
+          userAccount: this.loginForm.username,
+          password: this.getCryptoBybase64,
+          enterpriseId: item.enterpriseId,
+        };
+        this.multipleAuthLogin(loginParams);
+      },
+      // 返回上一页
+      goPrevStep() {
+        this.$emit('back');
       },
     },
-    cryptoKey: { type: String },
-  },
-  computed: {
-    //set crypto by Pass64
-    setCryptoBybase64() {
-      return ns.crypto.encryptBase64(this.loginForm.password, this.cryptoKey);
-    },
-  },
-  methods: {
-    /**
-     * 选择企业登录
-     * @param item
-     */
-    handleSelect(item) {
-      const loginParams = {
-        userAccount: this.loginForm.username,
-        password: this.setCryptoBybase64,
-        enterpriseId: item.enterpriseId,
-        remember: this.loginForm.remember,
-      };
-
-      this.$store.dispatch('multipleEnterpriseLogin', loginParams).then(()=>{
-        this.$emit('jump');
-      });
-    },
-    // 返回上一页
-    goPrevStep() {
-      this.$emit('back');
-    },
-  },
-};
+  };
 </script>
 
 <style scoped lang="scss">
