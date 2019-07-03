@@ -1,7 +1,7 @@
 <!--login station 中转跳转页面-->
 <template>
   <div class="login-wrap">
-    <h1>loading......</h1>
+    <!--<h1>loading......</h1>-->
     <img src="../../assets/img/loading/loading.gif" alt="loading"/>
   </div>
 </template>

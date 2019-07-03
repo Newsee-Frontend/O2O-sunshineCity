@@ -1,4 +1,5 @@
 import {getUrlParam} from '../../utils'
+
 export default {
   data() {
     return {
@@ -28,7 +29,7 @@ export default {
       this.$store.dispatch('multipleEnterpriseLogin', query).then((res) => {
 
         this.getMenuAndJump();
-      }).catch((err)=>{
+      }).catch((err) => {
         this.$message.error('登录失败。')
       });
     },
@@ -41,7 +42,7 @@ export default {
       this.$store.dispatch('ssoLogin', query).then((res) => {
         this.initPath = getUrlParam('referRoute');
         this.getMenuAndJump();
-      }).catch((err)=>{
+      }).catch((err) => {
         this.$message.error('登录失败。')
       });
     },
