@@ -6,11 +6,6 @@
   margin-left: 47px !important;
 }
 
-.checked {
-  margin-left: 47px;
-  margin-top: 18px;
-}
-
 .forgotPwd {
   line-height: 17px;
   font-size: 12px;
@@ -65,9 +60,6 @@
   cursor: pointer;
 }
 
-.help {
-  margin-right: 48px;
-}
 
 /*身体*/
 .login-body {
@@ -117,7 +109,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: url("../../../img/login/bg.png") 0 0 no-repeat;
+  /*background: url("../../../img/login/bg.png") 0 0 no-repeat;*/
   background-size:100% 100%;
 }
 

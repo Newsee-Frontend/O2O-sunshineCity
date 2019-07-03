@@ -2,7 +2,7 @@
 <template>
   <div class="login-wrap">
     <h1>loading......</h1>
-    <img src="../../assets/img/logo/loading.gif" alt="loading"/>
+    <img src="../../assets/img/loading/loading.gif" alt="loading"/>
   </div>
 </template>
 <script>

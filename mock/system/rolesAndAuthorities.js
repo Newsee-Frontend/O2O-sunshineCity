@@ -28548,7 +28548,7 @@ const detailRole = (req, res) => {
 
 module.exports = {
   'GET /system/role/init-form': roleForm,
-  'GET /System/role/list-role-category': roleCategpry,
-  'GET /System/permission/list-menu-button': listMenuButton,
+  'GET /system/role/list-role-category': roleCategpry,
+  'GET /system/permission/list-menu-button': listMenuButton,
   'GET /system/role/detail-role': detailRole
 }
