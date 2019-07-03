@@ -7,14 +7,12 @@
 </template>
 <script>
   import {getUrlParam} from '../../utils'
-  import {mutilLogin} from '../../service/User/loginStation';
+  import authLogin from './authLogin';
 
   export default {
+    mixins: [authLogin],
     data() {
-      return {
-        cryptoKey: '0123456789012345', //crypto key
-        timer: null
-      };
+      return {};
     },
     created() {
       this.loginTo(); //login
@@ -24,30 +22,9 @@
         let data = {
           token: getUrlParam('token'),
         };
-        mutilLogin(data)
-          .then(res => {
-
-            // this.$store.dispatch('Login', res.resultData.userId).then((r) => {});
-          })
-          .catch(response => {
-            if (
-              response.resultCode === 604 ||
-              response.resultCode === 601 ||
-              response.resultCode === 500
-            ) {
-              this.timer = setTimeout(() => {
-                // window.location.href = window.location.origin + ':90/sossLogin.html';
-              }, 2000);
-            }
-          });
+        this.multipleAuthLogin(data);
       },
     },
-    beforeDestroy() {
-      if (this.timer) {
-        clearTimeout(this.timer);
-        this.timer = null;
-      }
-    }
   };
 </script>
 <style rel="stylesheet/scss" lang="scss">
