@@ -5,6 +5,7 @@ export default {
     }
   },
   methods: {
+    //登录
     authLogin(query) {
       //clear
       this.$store.dispatch('logOut');
@@ -13,18 +14,34 @@ export default {
         this.getMenuAndJump();
       }, (error) => {
         console.log('登录失败', error);
+        this.$message.error('登录失败。')
+
       });
     },
 
+    //多企业登录
     multipleAuthLogin(query) {
       //clear
       this.$store.dispatch('logOut');
 
-      this.$store.dispatch('multipleEnterpriseLogin', loginParams).then(() => {
-        this.getMenuAndJump();
-      }).catch(
+      this.$store.dispatch('multipleEnterpriseLogin', query).then((res) => {
 
-      );
+        this.getMenuAndJump();
+      }).catch((err)=>{
+        this.$message.error('登录失败。')
+      });
+    },
+
+    //单点登录
+    ssoLogin(query) {
+      //clear
+      this.$store.dispatch('logOut');
+
+      this.$store.dispatch('ssoLogin', query).then((res) => {
+        this.getMenuAndJump();
+      }).catch((err)=>{
+        this.$message.error('登录失败。')
+      });
     },
 
     getMenuAndJump() {

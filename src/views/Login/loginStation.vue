@@ -22,7 +22,7 @@
         let data = {
           token: getUrlParam('token'),
         };
-        this.multipleAuthLogin(data);
+        this.ssoLogin(data);
       },
     },
   };

@@ -69,6 +69,21 @@ export const multipleEnterpriseLogin = (query) => {
   });
 };
 
+/**
+ *  单点登录
+ * @param query
+ */
+export const ssoLogin = (query)=> {
+  dataFilter(query);
+  // fetch out
+  return fetch({
+    url: '/oauth/sso',
+    method: 'post',
+    data: query,
+    params: query,
+  });
+};
+
 
 /**
  * user logout

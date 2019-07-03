@@ -28,6 +28,7 @@
   border-radius: 8px;
   width: 52%;
   height: 60%;
+  min-height: 350px;
   z-index: 10;
   position: absolute;
   top: 50%;

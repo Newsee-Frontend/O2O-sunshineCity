@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
 import {cryptoCookie} from '../../../utils/crypto';
 import {getToken, setToken, removeToken} from '../../../utils/auth';
-import {oauthlogin, multipleEnterpriseLogin} from '../../../service/User/login';
+import {oauthlogin, multipleEnterpriseLogin, ssoLogin} from '../../../service/User/login';
 
 import $store from '@/store/index';
 
@@ -94,7 +94,17 @@ const User = {
 
     //多户登录
     multipleEnterpriseLogin({commit}, query) {
-      multipleEnterpriseLogin(query).then(res => {
+      return multipleEnterpriseLogin(query).then(res => {
+        const userinfo = res.resultData || {};
+
+        commit('SET_TOKEN', userinfo.token);
+        commit('SET_LOGIN_DATA', userinfo);
+      })
+    },
+
+    //单点登录
+    ssoLogin({commit}, query) {
+      return ssoLogin(query).then(res => {
         const userinfo = res.resultData || {};
 
         commit('SET_TOKEN', userinfo.token);
