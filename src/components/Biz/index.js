@@ -2,7 +2,6 @@ import Vue from 'vue';
 
 //table
 import BizTable from './Biz-table/Biz-table';
-import nsGrids from './Biz-grid/ns-grids';
 
 //tree
 import BizOrganizeTree from './Biz-tree/Biz-organize-tree/Biz-organize-tree';
@@ -17,7 +16,6 @@ import SearchConditions from './Biz-search-conditions/Biz-search-conditions';
 
 //table
 Vue.component('biz-table', BizTable);
-Vue.component('ns-grids', nsGrids);
 
 //tree
 Vue.component('biz-organize-tree', BizOrganizeTree);

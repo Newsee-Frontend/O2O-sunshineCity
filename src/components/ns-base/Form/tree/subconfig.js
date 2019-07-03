@@ -44,9 +44,9 @@ export default {
 
   //for organization list tree
   'role-organizationList': {
-    initShowConfig: { url: '/System/organization/get-moreOrgDetail-form' },
-    initTreeConfig: { url: '/System/organization/get-orgtree-form', query: {} },
-    childTreeConfig: { url: '/System/organization/get-child-organization-form' },
+    initShowConfig: { url: '/system/organization/get-moreOrgDetail-form' },
+    initTreeConfig: { url: '/system/organization/get-orgtree-form', query: {} },
+    childTreeConfig: { url: '/system/organization/get-child-organization-form' },
     keyRefer: {
       level: 'level',
       label: 'organizationName',

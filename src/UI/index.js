@@ -13,10 +13,7 @@ import '../components/Biz';
 import nsMount from '../utils/nsQuery/nsMount';
 
 
-import 'cx-grid/dist/cx-grid.min.css';
-import nsGrid from 'cx-grid/dist/cx-grid.min';
-import cellFifter from '../components/Biz/Biz-grid/cell-fifter';
-import rulesInfo from '../utils/validate/rulesInfo';
+
 
 import nsui from 'ns-form-components/lib/ns-ui.min.js';
 import 'ns-form-components/lib/index.css';
@@ -30,5 +27,4 @@ Vue.use(nsui, {
   log: false, //show log information
   type: 'globle',
 });
-Vue.use(nsGrid, {stageName: 'ns', stageNamelink: '-', fifter: cellFifter, validate: rulesInfo});
 Vue.use(nsMount);

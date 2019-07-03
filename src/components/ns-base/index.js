@@ -2,7 +2,6 @@
 import Vue from 'vue';
 
 import roleButton from './Basic/button/role-button/role-button.vue';
-import nsGrids from '../Biz/Biz-grid/ns-grids.vue';
 //select
 import select from './Form/select/select.vue';
 
@@ -20,7 +19,6 @@ import text from './Form/text/text.vue';
 import dropdown from './Navigation/dropdown.vue';
 
 Vue.component('ns-role-button', roleButton);
-Vue.component('ns-grids', nsGrids);
 // Vue.component('ns-select', select);
 Vue.component('ns-checkbox-tree', checkboxTree);
 
