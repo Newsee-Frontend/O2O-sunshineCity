@@ -20,11 +20,12 @@
 </template>
 
 <script>
+  import authLogin from '../authLogin';
   import cryptoPassWord from '../cryptoPassWord';
 
   export default {
     name: 'multiple-enterprise',
-    mixins: [cryptoPassWord],
+    mixins: [authLogin, cryptoPassWord],
     props: {
       loginForm: {
         type: Object, default() {
@@ -47,12 +48,8 @@
           userAccount: this.loginForm.username,
           password: this.getCryptoBybase64,
           enterpriseId: item.enterpriseId,
-          remember: this.loginForm.remember,
         };
-
-        this.$store.dispatch('multipleEnterpriseLogin', loginParams).then(() => {
-          this.$emit('jump');
-        });
+        this.multipleAuthLogin(loginParams);
       },
       // 返回上一页
       goPrevStep() {

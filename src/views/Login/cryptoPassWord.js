@@ -12,4 +12,5 @@ export default {
       return encryptBase64(this.loginForm.password, this.cryptoKey);
     },
   },
+
 }

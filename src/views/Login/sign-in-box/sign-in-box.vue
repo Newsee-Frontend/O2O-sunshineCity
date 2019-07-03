@@ -1,7 +1,6 @@
 <template>
   <div class="sign-in-box">
     <!--用户名账号登录窗口-->
-
     <div class="sign-in-left"></div>
     <div class="sign-in-right">
       <div class="signIn step-one" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">
@@ -32,10 +31,8 @@
       <!--多企业账号，选择登录-->
       <multi-enterprise
         v-if="hasMultiEnterprise"
-        :cryptoKey="cryptoKey"
         :loginForm="loginForm"
         :enterprise="enterprise"
-        @jump="jumpToPage"
         @back="goPrevStep"
       ></multi-enterprise>
     </div>
@@ -46,11 +43,12 @@
 <script>
   import {isMultipleEnterprise} from '../../../service/User/login';
   import MultiEnterprise from './multi-enterprise';
+  import authLogin from '../authLogin';
   import cryptoPassWord from '../cryptoPassWord';
 
   export default {
     name: 'sign-in-box',
-    mixins: [cryptoPassWord],
+    mixins: [authLogin, cryptoPassWord],
     components: {MultiEnterprise},
     data() {
       return {
@@ -60,14 +58,12 @@
         loginForm: {
           username: '',
           password: '',
-          remember: false,
         },
         rules_login: {
           username: [{required: true, message: '请输入用户名', trigger: 'change'}],
           password: [{required: true, message: '请输入密码', trigger: 'change'}],
         },
         enterprise: [],
-        cryptoKey: '0123456789012345', //crypto key
       };
     },
     methods: {
@@ -76,7 +72,6 @@
        * @param formName
        */
       submitForm(formName) {
-        this.$store.dispatch('logOut');
         this.$refs[formName].validate(valid => {
           if (valid) {
             this.checkMultipleEnterprise(); // 检测是否是多企业账号
@@ -109,33 +104,18 @@
               const loginParams = {
                 username: this.loginForm.username,
                 password: this.getCryptoBybase64,
-                remember: this.loginForm.remember,
               };
-
-              this.$store.dispatch('oauthlogin', loginParams).then(() => {
-                this.jumpToPage();
-              }, (error) => {
-                console.log('登录失败', error);
-              });
+              this.authLogin(loginParams);
             }
           })
           .catch(err => {
-            console.log('失败', err);
+            console.log('多企业登录失败', err);
           });
       },
 
       // 返回上一页
       goPrevStep() {
         this.hasMultiEnterprise = !this.hasMultiEnterprise;
-      },
-
-
-      //选中企业跳转
-      jumpToPage() {
-        console.log('jump jump')
-        this.$store.dispatch('generateSideBar').then(list => {
-          this.$router.push({path: list.length > 0 ? '/dashboard' : '/404'});
-        });
       },
     },
   };
