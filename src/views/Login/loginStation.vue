@@ -12,7 +12,8 @@
   export default {
     mixins: [authLogin],
     data() {
-      return {};
+      return {
+      };
     },
     created() {
       this.loginTo(); //login

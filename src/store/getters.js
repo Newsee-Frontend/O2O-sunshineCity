@@ -7,7 +7,7 @@ const getters = {
   token: state => state.User.userinfo.token,
   userName: state => state.User.userinfo.userName,
   avatar: state => state.User.userinfo.avatar,
-  theme: state => state.User.userinfo.theme,
+  themeColor: state => state.User.userinfo.themeColor,
 
   //layout
   visitedPages: state => state.PageTabs.visitedPages,

@@ -29,7 +29,7 @@
       },
     },
     computed: {
-      ...mapGetters(['theme']),
+      ...mapGetters(['themeColor']),
     },
     methods: {
       changeTheme() {
@@ -52,6 +52,9 @@
       afterLeave() {
         console.log('换肤关闭-动画播放完毕后触发');
       },
+    },
+    created() {
+      this.skinerModel = this.themeColor;
     },
   };
 
