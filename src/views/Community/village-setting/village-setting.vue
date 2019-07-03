@@ -29,7 +29,16 @@
               </div>
 
               <div class="clear fl search-option">
-                <ns-select v-model="searchConditions.companyId" :options="companyList" placeholder="请选择公司"></ns-select>
+                <!--simple tree in select （ 请选择所属部门树状数据 /  ） -->
+                <ns-checkbox-tree-select
+                  v-model="searchConditions.organizationId"
+                  bizType="role-organization"
+                  placeholder="请选择组织"
+                  :multiple="false"
+                  clearable
+                >
+                </ns-checkbox-tree-select>
+
               </div>
 
               <div class="clear fl search-option">
@@ -53,7 +62,6 @@
         <village-info-dialog
           :visible.sync="showVillageDialog"
           :rowData="rowData"
-          :companyList="companyList"
           :type="villageDialogType"
           @reloadGrid="searchTable"
         ></village-info-dialog>
@@ -85,7 +93,6 @@
       return {
         pageID: 'village',
         authStatusOptions: [{label: '待开通', value: '0'}, {label: '开通中', value: '1'}, {label: '已关闭', value: '2'}],
-        companyList: [],
         tableData: {},
         rowData: {},
         //表格数据加载状态
@@ -95,7 +102,7 @@
         },
         searchConditions: {
           keyWord: '',
-          companyId: '',
+          organizationId: '',
           status: '',
           pageNum: 1,
           pageSize: 20,
@@ -201,9 +208,6 @@
 
     created() {
       this.searchTable();
-      getCompanyList().then(data => {
-        this.companyList = data.resultData;
-      });
     },
   };
 </script>

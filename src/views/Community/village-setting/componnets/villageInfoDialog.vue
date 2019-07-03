@@ -18,8 +18,17 @@
 
     <div class="silp-container">
       <ns-form ref="villageForm" :model="villageModel"  :rules="villageRules" label-width="120px">
-        <ns-form-item label="所属公司" prop="companyId">
-          <ns-select size="medium" :options="companyList" v-model="villageModel.companyId" placeholder="请选择公司"></ns-select>
+        <ns-form-item label="所属组织" prop="organizationId">
+          <!--simple tree in select （ 请选择所属部门树状数据 /  ） -->
+          <ns-checkbox-tree-select
+            v-model="villageModel.organizationId"
+            bizType="role-organization"
+            placeholder="请选择组织"
+            :multiple="false"
+            clearable
+            width="400px"
+          >
+          </ns-checkbox-tree-select>
         </ns-form-item>
         <ns-form-item label="小区名称"   prop="precinctName">
           <ns-input size="medium" v-model.trim="villageModel.precinctName" placeholder="请填写小区名称"></ns-input>
@@ -115,7 +124,7 @@
         submitLoading: false,
         villageModel: {
           id: "",
-          companyId: "",
+          organizationId: "",
           precinctName: "",
           precinctShortName: "",
           provinceId: "",
@@ -128,7 +137,7 @@
           serviceCall: ""
         },
         villageRules: {
-          companyId: [{ required: true, trigger: 'change',message: '请选择所属公司'}],
+          organizationId: [{ required: true, trigger: 'blur',message: '请选择所属组织'}],
           precinctName: [{ required: true, trigger: 'change',message: '请填写小区名称'}],
           precinctShortName: [{ required: true, trigger: 'change',message: '请填写小区简称'}],
           provinceId: [{ required: true, trigger: 'change',message: '请选择省'}],
@@ -161,6 +170,7 @@
       initForm(){
         if(this.type === 'edit'){
           //get 初始化数据
+          this.villageModel.organizationId = this.rowData.organizationId;
           getPrecinctInfo({precinctId: this.rowData.id}).then((data)=>{
             this.villageModel = data.resultData.PrecinctVo;
             this.villageModel.id = this.rowData.id;
@@ -339,6 +349,16 @@
   };
 </script>
 
-<style scoped>
+<style>
+  .slip-title {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 14px 0;
+  }
+
+  .silp-container {
+    margin: 20px auto;
+    width: 1000px;
+  }
 
 </style>

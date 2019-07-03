@@ -128,6 +128,7 @@
 
   export default {
     name: 'roles-and-authorities',
+    pageType: 'basic',
     mixins: [Mixin],
     computed: {},
 

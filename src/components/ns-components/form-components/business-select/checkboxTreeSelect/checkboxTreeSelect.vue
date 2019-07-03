@@ -17,6 +17,7 @@
       :clearable="clearable"
       @visible-change="visibleChange"
       @change="change"
+      @blur="blur"
       @remove-tag="removeTag"
       @clear="initTreeModel"
     >
@@ -97,7 +98,9 @@ export default {
     //set init tree model
     this.initTreeModel();
     //get select value and tree model data
+    console.log(this.childModel, 'cdscscsdcwecwecc');
     this.getInitShowData({ organizationId: this.childModel });
+
   },
   methods: {
     /**
@@ -194,6 +197,9 @@ export default {
     change(value) {
       this.$emit('change', value);
     },
+    blur(){
+      this.$emit('change');
+    },
     //remove tag
     removeTag() {
       //multiple situation
@@ -244,9 +250,11 @@ export default {
     },
     outputModel() {
       this.$emit('output', this.outputModel);
-    }
-    // fatherModel() {
-    //   this.childModel = this.fatherModel;
+    },
+    // fatherModel(newV, oldV) {
+    //   this.childModel = newV;
+    //   //get select value and tree model data
+    //   this.getInitShowData({ organizationId: this.childModel });
     // },
   },
 };
