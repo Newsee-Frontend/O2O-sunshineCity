@@ -22,7 +22,9 @@ export default {
 
       this.$store.dispatch('multipleEnterpriseLogin', loginParams).then(() => {
         this.getMenuAndJump();
-      });
+      }).catch(
+
+      );
     },
 
     getMenuAndJump() {
