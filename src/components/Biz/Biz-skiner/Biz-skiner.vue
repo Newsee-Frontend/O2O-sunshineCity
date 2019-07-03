@@ -17,7 +17,7 @@
     name: 'Biz-skiner',
     data() {
       return {
-        skinerModel: '#de0011',
+        skinerModel: '#e70012',
         colorFormat: 'hax',
       };
     },

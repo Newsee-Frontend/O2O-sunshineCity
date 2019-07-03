@@ -21,5 +21,4 @@ const userTemplate = (req, res) => {
 
 module.exports = {
   'POST /system/user': userTemplate,
-
 };
