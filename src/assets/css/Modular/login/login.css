@@ -1,116 +1,12 @@
-
-.signIn input {
-  border: 1px solid #d6d6d6;
-  width: 333px;
-  height: 42px;
-  margin-left: 47px !important;
-}
-
-.forgotPwd {
-  line-height: 17px;
-  font-size: 12px;
-  color: #1073ff;
-  letter-spacing: 0;
-  text-align: left;
-  position: absolute;
-  right: 49px;
-  top: 226px;
-  cursor: pointer;
-}
-
-.username {
-  margin-top: 28px;
-}
-
-.pwd {
-  margin-top: 20px;
-}
-
-.banner {
-  float: left;
-  height: 90%;
-}
-
-.demo-ruleForm {
-  background: #ffffff;
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  width: 430px;
-  height: 412px;
-  float: left;
-}
-
-.btnCss {
-  width: 335px;
-  height: 44px;
-  margin-top: 16px;
-  margin-left: 46px !important;
-}
-
-.helpOrOperation {
-  position: absolute;
-  right: 184px;
-  top: 33px;
-  font-size: 12px;
-  color: #666666;
-  text-align: left;
-}
-
-.helpOrOperation span {
-  cursor: pointer;
-}
-
-
-/*身体*/
-.login-body {
-  position: absolute;
-  top: 77px;
-  left: 0;
-  right: 0;
-  bottom: 39px;
-  /*background: url(../../../assets/img/logo/loginback.png);*/
-  background-size: 100% 100%;
-}
-.information {
-  /*margin-left: 169px;*/
-  text-align: center;
-}
-
-.information span {
-  cursor: pointer;
-  margin-right: 48px;
-  font-size: 12px;
-  color: #7a8288;
-  letter-spacing: 0;
-  text-align: left;
-  line-height: 49px;
-}
-
-/*覆盖样式*/
-.login-wrap .el-form-item__content {
-  margin: 0 !important;
-}
-
-.login-wrap .el-form-item__error {
-  margin-left: 47px;
-}
-
-.login-wrap .el-form-item {
-  margin-bottom: 0px !important;
-}
-
-
-/*新样式*/
-
-
 .login-wrap{
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  /*background: url("../../../img/login/bg.png") 0 0 no-repeat;*/
+  background: url("../../../img/login/bg.png") 0 0 no-repeat;
   background-size:100% 100%;
+  overflow: hidden;
 }
 
 /*头部*/
@@ -121,24 +17,24 @@
 /*尾部*/
 .login-footer {
   height: 49px;
+  position: fixed;
+  bottom: 0;
 }
 
 
 .sign-in-box{
   background: #ffffff;
-  margin: auto;
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.5);
   border-radius: 8px;
   width: 52%;
-  height: 58%;
-  min-width: 758px;
-  min-height: 438px;
+  height: 60%;
   z-index: 10;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+
 }
 
 .sign-in-box .sign-in-left{
@@ -152,15 +48,20 @@
   flex: 1;
 }
 
- .sign-in-right .signIn{
-  width: 430px;
-   margin: auto;
-}
-
- .sign-in-right .signIn p {
+ .sign-in-title {
   font-size: 32px;
   color: #333333;
   letter-spacing: 0;
   text-align: center;
   padding: 30px 0;
 }
+
+ .sign-in-main{
+   width: 80%;
+   max-width: 400px;
+   margin: auto;
+ }
+
+
+
+

@@ -4,29 +4,43 @@
 
     <div class="sign-in-left"></div>
     <div class="sign-in-right">
-      <div class="signIn step-one" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">
-        <p>登录</p>
-        <el-form
+      <p class="sign-in-title">登录</p>
+      <div class="sign-in-main" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">
+        <ns-form
           :model="loginForm"
           ref="loginForm"
           :rules="rules_login"
-          label-width="100px"
+          label-width="0px"
           class="demo-dynamic"
+          :show-message="false"
         >
-          <el-form-item prop="username" class="username" :show-message="false">
-            <el-input
+          <ns-form-item prop="username">
+            <ns-input
               v-model="loginForm.username"
               placeholder="用户名或者手机号"
               autofocus="autofocus"
-            ></el-input>
-          </el-form-item>
-          <el-form-item prop="password" class="pwd" :show-message="false">
+              width="100%"
+              height="40px"
+            ></ns-input>
+          </ns-form-item>
+          <ns-form-item prop="password" class="pwd" :show-message="false">
             <!--记住密码-->
-            <el-input type="password" autocomplete="on" v-model="loginForm.password" placeholder="登录密码"></el-input>
-          </el-form-item>
-        </el-form>
-
-        <el-button type="primary" class="btnCss" :loading="submitLoading" @click="submitForm('loginForm')">登录</el-button>
+            <ns-input
+              type="password"
+              autocomplete="on"
+              width="100%"
+              height="40px"
+              v-model="loginForm.password"
+              placeholder="登录密码"></ns-input>
+          </ns-form-item>
+          <ns-form-item>
+            <ns-button
+              style="width: 100%; height: 40px"
+              type="primary"
+              :loading="submitLoading"
+              @click="submitForm('loginForm')">登录</ns-button>
+          </ns-form-item>
+        </ns-form>
       </div>
 
       <!--多企业账号，选择登录-->
@@ -115,6 +129,7 @@
        * 检测是否是多企业账号
        */
       checkMultipleEnterprise() {
+        this.submitLoading = true;
         let registerInfo = {
           userAccount: this.loginForm.username,
           password: this.setCryptoBybase64,
@@ -125,6 +140,7 @@
             // 多企业账号跳转到选择企业界面
             if (this.enterprise.length > 1) {
               this.hasMultiEnterprise = true;
+              this.submitLoading = false;
             }
             // 不是多企业账号，直接登录
             else {
@@ -135,13 +151,16 @@
               };
 
               this.$store.dispatch('oauthlogin', loginParams).then(() => {
+                this.submitLoading = false;
                 this.jumpToPage();
               }, (error) => {
+                this.submitLoading = false;
                 console.log('登录失败', error);
               });
             }
           })
           .catch(err => {
+            this.submitLoading = false;
             console.log('失败', err);
           });
       },
@@ -154,7 +173,6 @@
 
       //选中企业跳转
       jumpToPage() {
-        console.log('jump jump')
         this.$store.dispatch('generateSideBar').then(list => {
           this.$router.push({path: list.length > 0 ? '/dashboard' : '/404'});
         });
@@ -162,11 +180,3 @@
     },
   };
 </script>
-
-<style scoped lang="scss">
-  #findPass {
-    width: 333px;
-    height: 40px;
-    margin-left: 47px;
-  }
-</style>

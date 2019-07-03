@@ -1,6 +1,5 @@
 <template>
-  <div class="signIn step-two">
-    <p>登录</p>
+  <div class="sign-in-main">
     <div class="enterprise">
       <div class="enterprise-height enterprise-border color666">选择企业点击登录</div>
       <div class="enterprise-list">
@@ -14,7 +13,7 @@
           <i class="el-icon-arrow-right fr"></i>
         </div>
       </div>
-      <el-button class="btnCss" @click="goPrevStep">返回上一页</el-button>
+      <el-button style="width: 100%" @click="goPrevStep">返回上一页</el-button>
     </div>
   </div>
 </template>
@@ -72,7 +71,6 @@ export default {
 
 <style scoped lang="scss">
 .enterprise {
-  padding: 0 47px;
   .enterprise-height {
     height: 42px;
     line-height: 42px;
@@ -93,9 +91,6 @@ export default {
       color: #0a7af8;
       font-weight: bold;
     }
-  }
-  .btnCss {
-    margin-left: 0 !important;
   }
 }
 </style>
