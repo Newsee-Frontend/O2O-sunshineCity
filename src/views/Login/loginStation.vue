@@ -28,25 +28,7 @@
         };
         mutilLogin(data)
           .then(res => {
-            if (res.resultData.userId === 145) {
-              //跳转平台概览
-              this.$router.push({
-                path: '/soss/operationHome',
-              });
-            } else {
-              let users = {userId: res.resultData.userId};
-              mutilLoginTwo(users).then(r => {
-                if (r.resultData) {
-                  this.$router.push({
-                    path: '/soss/operationHome',
-                  });
-                } else {
-                  this.$router.push({
-                    path: '/soss/buyProduct',
-                  });
-                }
-              });
-            }
+
             // this.$store.dispatch('Login', res.resultData.userId).then((r) => {});
           })
           .catch(response => {
@@ -56,7 +38,7 @@
               response.resultCode === 500
             ) {
               this.timer = setTimeout(() => {
-                window.location.href = window.location.origin + ':90/sossLogin.html';
+                // window.location.href = window.location.origin + ':90/sossLogin.html';
               }, 2000);
             }
           });
