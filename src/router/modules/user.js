@@ -4,9 +4,9 @@ export default [
 
   // 前台登录
   {
-    path: '/Front',
+    path: '/front',
     component: Front,
-    redirect: '/Front/login',
+    redirect: '/front/login',
     name: '前台',
     children: [
       {

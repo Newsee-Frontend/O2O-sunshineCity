@@ -1,4 +1,4 @@
-const iniView = '/Front/login';
+const iniView = '/front/login';
 import Front from '../../views/Front/index.vue'
 
 const Layout = resolve => require(['../../layout/Layout.vue'], resolve);
@@ -12,21 +12,6 @@ export default [
     name: '404',
     component: () => import('../../views/Public/404'),
     meta: {auth: false},
-  },
-
-  // 前台登录
-  {
-    path: '/Front',
-    component: Front,
-    redirect: '/Front/login',
-    name: '前台',
-    children: [
-      {
-        path: 'login',
-        component: () => import('../../views/Login/login'),
-        name: '登录',
-        meta: {auth: false, type: 'Front'},
-      }]
   },
 
   // 主页

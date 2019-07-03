@@ -71,7 +71,7 @@ service.redirect = message => {
     message &&
     (message.indexOf('没有token') > 0 || message.indexOf('pre:PermissionFilter') > 0)
   ) {
-    window.location.href = window.location.origin + '/Front/login';
+    window.location.href = window.location.origin + '/front/login';
   }
 };
 export default service;

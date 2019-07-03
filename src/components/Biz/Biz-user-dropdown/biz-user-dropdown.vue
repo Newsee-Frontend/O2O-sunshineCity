@@ -44,7 +44,7 @@
       logout() {
         // login out,empty store and cookie by fun of 'loginout'
         this.$store.dispatch('logOut').then(() => {
-          this.$router.push({path: '/Front/login'});
+          this.$router.push({path: '/front/login'});
         });
       },
       editPassword() {

@@ -13,7 +13,7 @@ export default {
         judgeRoleAndJump(to, from, next)
       }
       else {
-        next('/Front/login');
+        next('/front/login');
       }
     } else {
       next();
