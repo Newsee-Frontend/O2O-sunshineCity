@@ -6,7 +6,8 @@
   </div>
 </template>
 <script>
-  import {mutilLogin, mutilLoginTwo} from '../../service/User/loginStation';
+  import {getUrlParam} from '../../utils'
+  import {mutilLogin} from '../../service/User/loginStation';
 
   export default {
     data() {
@@ -21,10 +22,7 @@
     methods: {
       loginTo() {
         let data = {
-          remember: false,
-          userAccount: window.name.split('*')[0],
-          password: window.name.split('*')[1],
-          enterpriseId: window.name.split('*').length > 2 ? window.name.split('*')[2] : null,
+          token: getUrlParam('token'),
         };
         mutilLogin(data)
           .then(res => {

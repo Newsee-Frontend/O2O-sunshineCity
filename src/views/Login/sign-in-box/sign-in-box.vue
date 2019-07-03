@@ -45,12 +45,12 @@
 
 <script>
   import {isMultipleEnterprise} from '../../../service/User/login';
-  import ns from '../../../utils/nsQuery/nsQuery';
   import MultiEnterprise from './multi-enterprise';
-
+  import cryptoPassWord from '../cryptoPassWord';
 
   export default {
     name: 'sign-in-box',
+    mixins: [cryptoPassWord],
     components: {MultiEnterprise},
     data() {
       return {
@@ -69,28 +69,6 @@
         enterprise: [],
         cryptoKey: '0123456789012345', //crypto key
       };
-    },
-    computed: {
-      //set crypto by Pass64
-      setCryptoBybase64() {
-        return ns.crypto.encryptBase64(this.loginForm.password, this.cryptoKey);
-      },
-    },
-    created() {
-      /**
-       * loginAutoHandle
-       * @param t
-       * @param user
-       * @param ps
-       * @param bol
-       */
-      const loginAutoHandle = function (t, user, ps, bol) {
-        t.loginForm.username = user;
-        t.loginForm.password = ps;
-        t.loginForm.remember = bol;
-      };
-
-      loginAutoHandle(this, this.loginForm.username, this.loginForm.password, false);
     },
     methods: {
       /**
@@ -117,7 +95,7 @@
       checkMultipleEnterprise() {
         let registerInfo = {
           userAccount: this.loginForm.username,
-          password: this.setCryptoBybase64,
+          password: this.getCryptoBybase64,
         };
         isMultipleEnterprise(registerInfo)
           .then(res => {
@@ -130,7 +108,7 @@
             else {
               const loginParams = {
                 username: this.loginForm.username,
-                password: this.setCryptoBybase64,
+                password: this.getCryptoBybase64,
                 remember: this.loginForm.remember,
               };
 
