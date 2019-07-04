@@ -8,6 +8,7 @@ html, body {
     height: inherit;
     min-width: $min-window_width;
     min-height: $min-window_height;
+    font-size: 14px;
   }
 }
 
@@ -26,7 +27,7 @@ html, body {
     //left of container (tree)
     .ns-container-left {
       float: left;
-      width: 236px;
+      width: 210px;
       height: calc(
         100vh - #{$tabs} - #{$win_pt} - #{$win_pb} - #{$navH} - #{$win_gapT} - #{$win_gapB} - 1px
       );
