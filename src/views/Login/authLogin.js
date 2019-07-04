@@ -38,15 +38,26 @@ export default {
     ssoLogin(query) {
       //clear
       this.$store.dispatch('logOut');
-
       this.$store.dispatch('ssoLogin', query).then((res) => {
         this.initPath = getUrlParam('referRoute');
         this.getMenuAndJump();
-      }).catch((err) => {
-        this.$message.error('登录失败。')
+      }).catch(() => {
+       this.judgeErrorPath()
       });
     },
 
+    //单点登录跳转失败后的回调
+    judgeErrorPath(){
+      let  referPath = getUrlParam('referPath');
+      if(referPath){
+        location.href = '//' + referPath;
+      }else{
+        this.$router.push({path: '/front/login'});
+      }
+    },
+
+
+    //菜单获取不出来 正常跳转404页面， 单点登录 跳转登录页面
     getMenuAndJump() {
       //get side bar data
       this.$store.dispatch('generateSideBar').then(list => {
