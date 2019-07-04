@@ -1,28 +1,29 @@
+<!--数据字典树-->
 <template>
-  <div class="biz-tree data-dictionary-tree">
-    <div class="tree-body">
-      <p class="treeTitle" ref="title">{{ title }}</p>
-      <ns-tree
-        ref="dictionaryTree"
-        :keyRefer="keyRefer"
-        v-loading="treeloading"
-        v-model="treeModel"
-        :data="treeData"
-        isObjectData
-        @nodeClick="nodeClick"
-      >
+  <div class="biz-tree biz-data-dictionary-tree">
+    <!--树主体-->
+    <ns-tree
+      class="tree-container"
+      ref="dictionaryTree"
+      :keyRefer="keyRefer"
+      v-loading="treeloading"
+      v-model="treeModel"
+      :data="treeData"
+      isObjectData
+      @nodeClick="nodeClick"
+    >
 
-        <template slot-scope="{node, parent,index}">
-          <div class="slot-container">
-            <div class="title-text">
-              {{node.nodeName}}
-            </div>
+      <template slot-scope="{node, parent,index}">
+        <div class="slot-container">
+          <div class="title-text">
+            {{node.nodeName}}
+          </div>
 
-            <el-dropdown
-              trigger="click"
-              :hide-on-click="true"
-              v-if="showFunction"
-            >
+          <el-dropdown
+            trigger="click"
+            :hide-on-click="true"
+            v-if="showFunction"
+          >
               <span
                 class="fnsicon_svg_span"
                 @click.stop
@@ -33,29 +34,29 @@
                   v-if="node.nodeType === 'dicGroup' || node.organizationId !== 0"
                 />
               </span>
-              <el-dropdown-menu slot="dropdown" class="tree-more-dropdown">
-                <template v-if="node.nodeType === 'dic'">
-                  <el-dropdown-item @click.native="treeEdit(node)">
-                    编辑
-                  </el-dropdown-item>
-                  <el-dropdown-item @click.native="treeDelete(node, parent,index)">
-                    删除
-                  </el-dropdown-item>
-                </template>
-                <template v-if="node.nodeType === 'dicGroup'">
-                  <el-dropdown-item @click.native="treeAdd(node)">
-                    新增字典
-                  </el-dropdown-item>
-                </template>
-                <el-dropdown-item v-if="node.nodeType === 'root'" @click.native="treeAdd(node)">
-                  新增字典类型
+            <el-dropdown-menu slot="dropdown" class="tree-more-dropdown">
+              <template v-if="node.nodeType === 'dic'">
+                <el-dropdown-item @click.native="treeEdit(node)">
+                  编辑
                 </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </div>
-        </template>
-      </ns-tree>
-    </div>
+                <el-dropdown-item @click.native="treeDelete(node, parent,index)">
+                  删除
+                </el-dropdown-item>
+              </template>
+              <template v-if="node.nodeType === 'dicGroup'">
+                <el-dropdown-item @click.native="treeAdd(node)">
+                  新增字典
+                </el-dropdown-item>
+              </template>
+              <el-dropdown-item v-if="node.nodeType === 'root'" @click.native="treeAdd(node)">
+                新增字典类型
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </template>
+    </ns-tree>
+    <!--弹窗-->
     <tree-dialog
       :visible="dialogObj.visible"
       :type="dialogObj.type"
@@ -69,12 +70,7 @@
   </div>
 </template>
 <script>
-  import {
-    dicGroupDetailFetch,
-    dicDictionaryFetch,
-    deleteDictionaryFetch,
-    deleteDictionaryGroupFetch,
-  } from '../../../../service/Tree/dictionary-tree';
+  import {dicGroupDetailFetch, dicDictionaryFetch, deleteDictionaryFetch, deleteDictionaryGroupFetch,} from '../../../../service/Tree/dictionary-tree';
   import TreeDialog from './tree-dialog.vue';
   import keyRefer from './keyRefer';
   import request from './mixins/request';
@@ -89,13 +85,10 @@
       return {
         treeData: [],//origanize tree data use to render
         treeModel: {}, //节点树选中的节点对象
-
         childKey: '', //选中的节点
         initIndex: 0,
         objActive: '', //是否选中
-        //树显示
-        treeloading: true,
-
+        treeloading: true,//树显示
         dialogObj: {
           visible: {
             visible: false,
@@ -109,36 +102,21 @@
       };
     },
     props: {
-      title: {
-        type: String,
-      },
-
       searchConditions: {
         type: Object,
         default: function () {
           return {};
         },
       },
-
-      draggable: {
-        type: Boolean,
-        default: false,
-      },
-      showFunction: {
-        type: Boolean,
-        default: false,
-      },
-      'show-checkBox': {
-        type: Boolean,
-      },
-      organizationId: {
-        type: [Number, String],
-      },
+      draggable: {type: Boolean, default: false,},
+      showFunction: {type: Boolean, default: false,},
+      'show-checkBox': {type: Boolean,},
+      organizationId: {type: [Number, String],},
     },
     methods: {
       //树删除操作
       treeDelete(node, parent, index) {
-        if (node.organizationId == 0) {
+        if (node.organizationId === 0) {
           this.$message({
             message: '系统默认的不可删除',
             type: 'warning',
@@ -195,7 +173,7 @@
           dicGroupDetailFetch({
             dictionaryGroupId: item.nodeValue,
           }).then(r => {
-            if (r.resultData.organizationId == 0) {
+            if (r.resultData.organizationId === 0) {
               this.$message({
                 message: '系统默认项不可编辑',
                 type: 'warning',
@@ -211,7 +189,7 @@
           dicDictionaryFetch({
             dictionaryId: item.nodeValue,
           }).then(r => {
-            if (r.resultData.organizationId == 0) {
+            if (r.resultData.organizationId === 0) {
               this.$message({
                 message: '系统默认项不可编辑',
                 type: 'warning',
@@ -234,7 +212,6 @@
           this.dialogObj.visible.visible = true;
         }
       },
-
       //树节点点击
       nodeClick(item, selected, position, parent) {
         if (item.nodeType === 'dic') {
@@ -254,7 +231,6 @@
         this.searchConditions.pageNum = 1;
         this.$emit('tree-item-click', item, parent);
       },
-
     },
     watch: {
       organizationId() {
@@ -279,4 +255,8 @@
 </style>
 <style rel="stylesheet/scss" lang="scss">
   @import '../style/biz-tree-common.scss';
+
+  .biz-tree.biz-data-dictionary-tree {
+    padding-top: 12px;
+  }
 </style>

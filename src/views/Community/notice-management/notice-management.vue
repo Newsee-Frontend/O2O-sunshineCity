@@ -2,9 +2,6 @@
   <div class="win" id="notice">
     <div class="ns-container">
       <div class="ns-container">
-        <!--tree-module-->
-        <div class="ns-container-left">
-        </div>
         <!--temple container-->
         <div class="ns-container-right">
           <!--action-module (search / button)-->
@@ -74,19 +71,8 @@
         </div>
       </div>
 
-      <noticeDialog
-        :type="noticeTpye"
-        :rowData="rowData"
-        :visible.sync="showNoticeDialog"
-        @reloadGrid="searchTable"
-      ></noticeDialog>
-
-      <check-notice-detail
-        :visible.sync="checkNoticeVisible"
-        :rowData="rowData"
-      >
-
-      </check-notice-detail>
+      <noticeDialog :type="noticeTpye" :rowData="rowData" :visible.sync="showNoticeDialog" @reloadGrid="searchTable"></noticeDialog>
+      <check-notice-detail :visible.sync="checkNoticeVisible" :rowData="rowData"></check-notice-detail>
 
     </div>
   </div>

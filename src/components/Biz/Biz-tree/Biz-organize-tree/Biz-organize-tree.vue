@@ -1,6 +1,6 @@
 <!--组织树-->
 <template>
-  <div v-show="showTree" class="biz-tree biz-organize-tree clear">
+  <div class="biz-tree biz-organize-tree clear">
     <!--树搜索框-->
     <el-autocomplete
       class="fl"
@@ -124,8 +124,6 @@
         treeSearchInput: '',//搜索
         searchTip: '搜索数据中...',
 
-        showTree: true,  //树是否展示
-
         //部门节点信息
         departmentOptions: [
           //部门类型
@@ -174,13 +172,7 @@
       draggable: {type: Boolean, default: false},
       showFunction: {type: Boolean, default: false,},
       'show-checkBox': {type: Boolean,},
-      orgTypeFilter: null,
-      // 树的显示隐藏
-      changeStatus: {
-        type: Object, default() {
-          return {};
-        },
-      }
+      orgTypeFilter: null
     },
     computed: {
       ...mapGetters(['$store__orgTreeData']),
@@ -207,14 +199,6 @@
       },
     },
     methods: {
-      /**
-       * 树的显示隐藏
-       * */
-      treeToggle() {
-        this.showTree = !this.showTree;
-        this.changeStatus.status = this.showTree;   //外层根据该值重新计算
-      },
-
       /**
        *  树节点重新渲染
        */
