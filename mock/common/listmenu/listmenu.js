@@ -53,11 +53,19 @@ const navmenu = (req, res) => {
         childMenus: [],//子级菜单
       },
       {
+        menuIconcls: "fangchan", //图标
+        menuMenuname: "房产",//显示名称
+        menuMenusubname: "housemanage",//路径符号
+        syStatus: "1",//隐藏与否
+        syOrderindex: 6,//序号
+        funcId: 'housemanage',//func-ID
+      },
+      {
         menuIconcls: "shezhi", //图标
         menuMenuname: "设置",//显示名称
         menuMenusubname: "system",//路径符号
         syStatus: "1",//隐藏与否
-        syOrderindex: 6,//序号
+        syOrderindex: 7,//序号
         funcId: null,//func-ID
         //子级菜单
         childMenus: [

@@ -23,7 +23,14 @@ export default [
         component: () => import('../../views/Community/village-setting/village-setting.vue'),
         meta: {auth: true, key: 'precinctList', title: '小区'},
         name: '小区设置',
-      }
+      },
+      {
+        path: 'housemanage',
+        component: () => import('../../views/test/houseManagement.vue'),
+        meta: {auth: true, key: 'housemanage', title: '房产管理'},
+        name: '房产管理',
+      },
+
     ],
   },
 

@@ -2,9 +2,6 @@
   <div class="win" id="notice">
     <div class="ns-container">
       <div class="ns-container">
-        <!--tree-module-->
-        <div class="ns-container-left">
-        </div>
         <!--temple container-->
         <div class="ns-container-right">
           <!--action-module (search / button)-->
