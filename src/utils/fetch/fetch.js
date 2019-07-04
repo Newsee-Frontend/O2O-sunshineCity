@@ -7,13 +7,10 @@
  */
 /*==========================================================================================================================*/
 import axios from 'axios';
-import {Message} from 'element-ui';
 import {fileFlowDistribute, flowTypeList} from './fileFlowDistribute';
 import requestHead from '../../store/modules/Common/RequestHeader'
-
-
-console.log('当前运行环境：', process.env);
-console.log(requestHead.state.base);
+import {elMessage} from './fetch-message'
+import router from '../../router/index'
 
 const service = axios.create({
   baseURL: process.env.BASE_API,
@@ -32,8 +29,8 @@ service.interceptors.request.use(
 );
 
 service.interceptors.response.use(
-  // response => response,
   response => {
+
     const headers = response.headers;
     //distribution according to content-type
     if (headers && flowTypeList.some(item => item === headers['content-type'])) {
@@ -47,31 +44,35 @@ service.interceptors.response.use(
         return Promise.resolve(resData);
 
       } else {
-        service.redirect(resData.resultMsg);
-        Message({message: resData.resultMsg, type: 'error', duration: 2000}); //throw message error
+
+        elMessage(resData.resultMsg, () => service.redirect(resData.resultMsg));
+
         return Promise.reject(resData);
       }
     }
   },
   error => {
+
     if (error.resultMsg) {
-      Message({message: error.resultMsg, type: 'error', duration: 2000}); //throw message error
-    } else if (error.response.data.message === 'GENERAL') {
-      Message({message: '服务正在重启', type: 'error', duration: 2000}); //throw message error
+      elMessage(error.resultMsg, () => service.redirect(error.message));
     }
+    else if (error.response.data.message === 'GENERAL') {
+      elMessage('服务正在重启', () => service.redirect(error.message));
+    }
+
     let errorInfo = error.data.error ? error.data.error.message : error.data;
-    service.redirect(error.message);
     return Promise.reject(errorInfo);
   }
 );
 
-//cookie过期重定向登录
-service.redirect = message => {
+//token error break
+service.redirect = msg => {
   if (
-    message &&
-    (message.indexOf('没有token') > 0 || message.indexOf('pre:PermissionFilter') > 0)
+    msg &&
+    ['登陆已过期', '没有token', 'pre:PermissionFilter'].some(err => msg.indexOf(err) > -1)
   ) {
-    window.location.href = window.location.origin + '/front/login';
+    router.push({path: '/front/login'});
   }
 };
+
 export default service;

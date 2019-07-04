@@ -243,7 +243,6 @@ export default {
           this.$confirm('确定删除?', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
-            customClass: 'el-message-box-oppositeBtns',
             type: 'warning',
           })
             .then(() => {

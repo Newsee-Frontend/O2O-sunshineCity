@@ -1,5 +1,5 @@
 <template>
-  <div class="tree-width data-dictionary-tree">
+  <div class="biz-tree data-dictionary-tree">
     <div class="tree-body">
       <p class="treeTitle" ref="title">{{ title }}</p>
       <ns-tree
@@ -69,215 +69,214 @@
   </div>
 </template>
 <script>
-import {
-  dicGroupDetailFetch,
-  dicDictionaryFetch,
-  deleteDictionaryFetch,
-  deleteDictionaryGroupFetch,
-} from '../../../../service/Tree/dictionary-tree';
-import TreeDialog from './tree-dialog.vue';
-import keyRefer from './keyRefer';
-import request from './mixins/request';
+  import {
+    dicGroupDetailFetch,
+    dicDictionaryFetch,
+    deleteDictionaryFetch,
+    deleteDictionaryGroupFetch,
+  } from '../../../../service/Tree/dictionary-tree';
+  import TreeDialog from './tree-dialog.vue';
+  import keyRefer from './keyRefer';
+  import request from './mixins/request';
 
-export default {
-  name: 'dictionary-tree',
-  mixins: [request],
-  components: {
-    TreeDialog,
-  },
-  data() {
-    return {
-      treeData: [],//origanize tree data use to render
-      treeModel: {}, //节点树选中的节点对象
+  export default {
+    name: 'dictionary-tree',
+    mixins: [request],
+    components: {
+      TreeDialog,
+    },
+    data() {
+      return {
+        treeData: [],//origanize tree data use to render
+        treeModel: {}, //节点树选中的节点对象
 
-      childKey: '', //选中的节点
-      initIndex: 0,
-      objActive: '', //是否选中
-      //树显示
-      treeloading: true,
+        childKey: '', //选中的节点
+        initIndex: 0,
+        objActive: '', //是否选中
+        //树显示
+        treeloading: true,
 
-      dialogObj: {
-        visible: {
-          visible: false,
+        dialogObj: {
+          visible: {
+            visible: false,
+          },
+          type: '',
+          organizationId: this.organizationId,
+          itemInfo: {},
+          detailInfo: {},
         },
-        type: '',
-        organizationId: this.organizationId,
-        itemInfo: {},
-        detailInfo: {},
+        keyRefer
+      };
+    },
+    props: {
+      title: {
+        type: String,
       },
-      keyRefer
-    };
-  },
-  props: {
-    title: {
-      type: String,
-    },
 
-    searchConditions: {
-      type: Object,
-      default: function() {
-        return {};
+      searchConditions: {
+        type: Object,
+        default: function () {
+          return {};
+        },
+      },
+
+      draggable: {
+        type: Boolean,
+        default: false,
+      },
+      showFunction: {
+        type: Boolean,
+        default: false,
+      },
+      'show-checkBox': {
+        type: Boolean,
+      },
+      organizationId: {
+        type: [Number, String],
       },
     },
-
-    draggable: {
-      type: Boolean,
-      default: false,
-    },
-    showFunction: {
-      type: Boolean,
-      default: false,
-    },
-    'show-checkBox': {
-      type: Boolean,
-    },
-    organizationId: {
-      type: [Number, String],
-    },
-  },
-  methods: {
-    //树删除操作
-    treeDelete(node, parent,index) {
-      if (node.organizationId == 0) {
-        this.$message({
-          message: '系统默认的不可删除',
-          type: 'warning',
-        });
-        return false;
-      }
-      this.$confirm('确认删除?', {
-        customClass: 'el-message-box-oppositeBtns',
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        if (node.nodeType === 'dicGroup') {
-          deleteDictionaryGroupFetch({
-            dictionaryGroupId: node.nodeValue,
-          })
-            .then(r => {
-              this.$message({
-                message: '删除成功',
-                type: 'success',
-              });
-              this.$refs.dictionaryTree.delNode(node, parent,index);
-            })
-            .catch(r => {
-              this.$message({
-                message: r.data.resultMsg,
-                type: 'warning',
-              });
-            });
-        } else if (node.nodeType === 'dic') {
-          deleteDictionaryFetch({
-            dictionaryId: node.nodeValue,
-          })
-            .then(r => {
-              this.$message({
-                message: '删除成功',
-                type: 'success',
-              });
-              this.$refs.dictionaryTree.delNode(node, parent,index);
-            })
-            .catch(r => {
-              this.$message({
-                message: r.data.resultMsg,
-                type: 'warning',
-              });
-            });
+    methods: {
+      //树删除操作
+      treeDelete(node, parent, index) {
+        if (node.organizationId == 0) {
+          this.$message({
+            message: '系统默认的不可删除',
+            type: 'warning',
+          });
+          return false;
         }
-      });
-    },
-    //树编辑
-    treeEdit(item) {
-      this.dialogObj.itemInfo = item;
-      if (item.nodeType === 'dicGroup') {
-        this.dialogObj.type = 'edit-group';
-        dicGroupDetailFetch({
-          dictionaryGroupId: item.nodeValue,
-        }).then(r => {
-          if (r.resultData.organizationId == 0) {
-            this.$message({
-              message: '系统默认项不可编辑',
-              type: 'warning',
-            });
-          } else {
-            this.dialogObj.detailInfo = r.resultData;
-            this.dialogObj.visible.visible = true;
+        this.$confirm('确认删除?', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          if (node.nodeType === 'dicGroup') {
+            deleteDictionaryGroupFetch({
+              dictionaryGroupId: node.nodeValue,
+            })
+              .then(r => {
+                this.$message({
+                  message: '删除成功',
+                  type: 'success',
+                });
+                this.$refs.dictionaryTree.delNode(node, parent, index);
+              })
+              .catch(r => {
+                this.$message({
+                  message: r.data.resultMsg,
+                  type: 'warning',
+                });
+              });
+          } else if (node.nodeType === 'dic') {
+            deleteDictionaryFetch({
+              dictionaryId: node.nodeValue,
+            })
+              .then(r => {
+                this.$message({
+                  message: '删除成功',
+                  type: 'success',
+                });
+                this.$refs.dictionaryTree.delNode(node, parent, index);
+              })
+              .catch(r => {
+                this.$message({
+                  message: r.data.resultMsg,
+                  type: 'warning',
+                });
+              });
           }
         });
-        this.dialogObj.visible.visible = true;
-      } else if (item.nodeType === 'dic') {
-        this.dialogObj.type = 'edit-dic';
-        dicDictionaryFetch({
-          dictionaryId: item.nodeValue,
-        }).then(r => {
-          if (r.resultData.organizationId == 0) {
-            this.$message({
-              message: '系统默认项不可编辑',
-              type: 'warning',
-            });
-          } else {
-            this.dialogObj.detailInfo = r.resultData;
-            this.dialogObj.visible.visible = true;
-          }
-        });
-      }
-    },
-    //树新增
-    treeAdd(item) {
-      this.dialogObj.itemInfo = item;
-      if (item.nodeType === 'root') {
-        this.dialogObj.type = 'add-group';
-        this.dialogObj.visible.visible = true;
-      } else if (item.nodeType === 'dicGroup') {
-        this.dialogObj.type = 'add-dic';
-        this.dialogObj.visible.visible = true;
-      }
-    },
+      },
+      //树编辑
+      treeEdit(item) {
+        this.dialogObj.itemInfo = item;
+        if (item.nodeType === 'dicGroup') {
+          this.dialogObj.type = 'edit-group';
+          dicGroupDetailFetch({
+            dictionaryGroupId: item.nodeValue,
+          }).then(r => {
+            if (r.resultData.organizationId == 0) {
+              this.$message({
+                message: '系统默认项不可编辑',
+                type: 'warning',
+              });
+            } else {
+              this.dialogObj.detailInfo = r.resultData;
+              this.dialogObj.visible.visible = true;
+            }
+          });
+          this.dialogObj.visible.visible = true;
+        } else if (item.nodeType === 'dic') {
+          this.dialogObj.type = 'edit-dic';
+          dicDictionaryFetch({
+            dictionaryId: item.nodeValue,
+          }).then(r => {
+            if (r.resultData.organizationId == 0) {
+              this.$message({
+                message: '系统默认项不可编辑',
+                type: 'warning',
+              });
+            } else {
+              this.dialogObj.detailInfo = r.resultData;
+              this.dialogObj.visible.visible = true;
+            }
+          });
+        }
+      },
+      //树新增
+      treeAdd(item) {
+        this.dialogObj.itemInfo = item;
+        if (item.nodeType === 'root') {
+          this.dialogObj.type = 'add-group';
+          this.dialogObj.visible.visible = true;
+        } else if (item.nodeType === 'dicGroup') {
+          this.dialogObj.type = 'add-dic';
+          this.dialogObj.visible.visible = true;
+        }
+      },
 
-    //树节点点击
-    nodeClick(item, selected, position, parent) {
-      if (item.nodeType === 'dic') {
-        this.searchConditions.organizationId = this.organizationId;
-        this.searchConditions.dictionaryitemDictionaryId = item.nodeValue;
-        this.searchConditions.dictionaryGroupId = '';
-      } else if (item.nodeType === 'dicGroup') {
-        this.searchConditions.organizationId = this.organizationId;
-        this.searchConditions.dictionaryitemDictionaryId = '';
-        this.searchConditions.dictionaryGroupId = item.nodeValue;
-      } else {
-        this.searchConditions.organizationId = this.organizationId;
-        this.searchConditions.dictionaryitemDictionaryId = '';
-        this.searchConditions.dictionaryGroupId = '';
-      }
-      this.searchConditions.mainSearch = '';
-      this.searchConditions.pageNum = 1;
-      this.$emit('tree-item-click', item,parent);
-    },
+      //树节点点击
+      nodeClick(item, selected, position, parent) {
+        if (item.nodeType === 'dic') {
+          this.searchConditions.organizationId = this.organizationId;
+          this.searchConditions.dictionaryitemDictionaryId = item.nodeValue;
+          this.searchConditions.dictionaryGroupId = '';
+        } else if (item.nodeType === 'dicGroup') {
+          this.searchConditions.organizationId = this.organizationId;
+          this.searchConditions.dictionaryitemDictionaryId = '';
+          this.searchConditions.dictionaryGroupId = item.nodeValue;
+        } else {
+          this.searchConditions.organizationId = this.organizationId;
+          this.searchConditions.dictionaryitemDictionaryId = '';
+          this.searchConditions.dictionaryGroupId = '';
+        }
+        this.searchConditions.mainSearch = '';
+        this.searchConditions.pageNum = 1;
+        this.$emit('tree-item-click', item, parent);
+      },
 
-  },
-  watch: {
-    organizationId() {
-      this.getTreeData(true);
     },
-  },
-  created() {
-    if (this.organizationId && this.organizationId !== '') {
-      //树数据初始化
-      this.getTreeData(true);
-    }
-  },
-};
+    watch: {
+      organizationId() {
+        this.getTreeData(true);
+      },
+    },
+    created() {
+      if (this.organizationId && this.organizationId !== '') {
+        //树数据初始化
+        this.getTreeData(true);
+      }
+    },
+  };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-  .data-dictionary-tree{
-    .ns-tree{
+  .data-dictionary-tree {
+    .ns-tree {
       padding-top: 10px;
       box-sizing: border-box;
     }
   }
 </style>
-<style scoped="">
-@import '../../../../assets/css/Modular/tree/tree.scss';
+<style rel="stylesheet/scss" lang="scss">
+  @import '../style/biz-tree-common.scss';
 </style>

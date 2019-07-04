@@ -1,38 +1,13 @@
-import ns from '../nsQuery/nsQuery';
-
-/**
- * add new head request
- * @type {{}}
- */
-const NewRequestData = {};
-
-/**
- * add new requestHead in old requestHead
- * @param Old
- * @param New
- * @returns {*}
- */
-export function newRequestHead(Old, New = NewRequestData) {
-  if (ns.base.isXType('object', Old) && ns.base.isXType('object', New)) {
-    for (let key in New) {
-      Old[key] = New[key];
-    }
-    return Old;
-  } else {
-    ns.base.error.throw('the format of request head (old / new) data should be Object ,find it');
-  }
-}
-
 /**
  * file flow distribute handle
  * @param response
  * @param callback
  */
-export function fileFlowDistribute(response, callback) {
+export const fileFlowDistribute = (response, callback) => {
   const headers = response.headers;
   console.log(response);
-  const fileName = headers['downloadfilename']? decodeURI(headers['downloadfilename']): '';
-  let blob = new Blob([response.data], { type: headers['content-type'] });
+  const fileName = headers['downloadfilename'] ? decodeURI(headers['downloadfilename']) : '';
+  let blob = new Blob([response.data], {type: headers['content-type']});
   let downloadElement = document.createElement('a');
   let href = window.URL.createObjectURL(blob); //create a
   downloadElement.href = href;
@@ -42,7 +17,7 @@ export function fileFlowDistribute(response, callback) {
   document.body.removeChild(downloadElement); //remove
   window.URL.revokeObjectURL(href);
   callback(response);
-}
+};
 
 /**
  * flow-type List
