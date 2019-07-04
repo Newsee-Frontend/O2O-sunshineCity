@@ -1,6 +1,6 @@
 ﻿<!--部门与员工 -->
 <template>
-  <div class="win" :id="pageID">
+  <div class="win">
     <div class="ns-container">
       <ns-drawer class="ns-container-left" speed="160ms">
         <biz-organize-tree
@@ -11,9 +11,9 @@
           @tree-item-click="treeItemClick"
         ></biz-organize-tree>
       </ns-drawer>
-      <div class="ns-container-right" :id="pageID + '-holder'">
+      <div class="ns-container-right">
         <!--action-module (search / button)-->
-        <div class="action-module" :id="pageID + '-search'">
+        <div class="action-module">
           <!--search module-->
           <ns-search-conditions
             :funcId="Mix_funcId"
@@ -100,10 +100,6 @@
     components: {employeeForm},
     data() {
       return {
-        //========== 基本 base =========
-        pageID: 'employeeList', //页面、表格、自动表单 ID值（必须）
-        //========== 筛选器 search =========
-
         //========== 表格 grid =========
         employeeList: [],
         tableData: {}, //列表数据
@@ -404,12 +400,9 @@
         }
       },
     },
-    //初始化获取数据
+
     created() {
 
     },
-    mounted() {
-
-    }
   };
 </script>

@@ -23,7 +23,7 @@ html, body {
     );
     box-sizing: border-box;
     @include clearFloat;
-    //left of container (tee)
+    //left of container (tree)
     .ns-container-left {
       float: left;
       width: 236px;
@@ -37,10 +37,6 @@ html, body {
       &.hide {
         border: none;
         margin-right: 0;
-      }
-      .ns-drawer__container {
-        padding: 0;
-        overflow: inherit;
       }
     }
 

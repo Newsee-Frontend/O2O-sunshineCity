@@ -227,14 +227,6 @@
   };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-  .data-dictionary-tree {
-    .ns-tree {
-      padding-top: 10px;
-      box-sizing: border-box;
-    }
-  }
-</style>
-<style rel="stylesheet/scss" lang="scss">
   @import '../style/biz-tree-common.scss';
 
   .biz-tree.biz-data-dictionary-tree {

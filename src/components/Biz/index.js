@@ -5,6 +5,7 @@ import BizTable from './Biz-table/Biz-table';
 
 //tree
 import BizOrganizeTree from './Biz-tree/Biz-organize-tree/Biz-organize-tree';
+import BizDataDictionaryTree from './Biz-tree/Biz-data-dictionary-tree/Biz-data-dictionary-tree';
 
 //select-tree
 import BizOrgnizeSelectTree from './Biz-select-tree/Biz-organize-select-tree/Biz-organize-select-tree.vue'
@@ -19,6 +20,8 @@ Vue.component('biz-table', BizTable);
 
 //tree
 Vue.component('biz-organize-tree', BizOrganizeTree);
+Vue.component('biz-data-dictionary-tree', BizDataDictionaryTree);
+
 
 Vue.component('biz-search-conditions', SearchConditions);
 
