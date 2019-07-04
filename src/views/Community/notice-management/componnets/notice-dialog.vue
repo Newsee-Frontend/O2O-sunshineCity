@@ -25,18 +25,18 @@
           <ns-col :span="12">
             <biz-precinct :precinctModel="model" ref="bizPrecinct"></biz-precinct>
           </ns-col>
-          <ns-col :span="12">
-            <ns-form-item label="附件" prop="fileList">
-              <ns-upload
-                v-model="model.fileList"
-                :width="120"
-                :height="120"
-                :headers="requestHead"
-                @change="itemChanged('fileList')"
-                action="/api/o2o/activity/uploadFile"
-              ></ns-upload>
-            </ns-form-item>
-          </ns-col>
+          <!--<ns-col :span="12">-->
+            <!--<ns-form-item label="附件" prop="fileList">-->
+              <!--<ns-upload-->
+                <!--v-model="model.fileList"-->
+                <!--:width="120"-->
+                <!--:height="120"-->
+                <!--:headers="requestHead"-->
+                <!--@change="itemChanged('fileList')"-->
+                <!--action="/api/o2o/activity/uploadFile"-->
+              <!--&gt;</ns-upload>-->
+            <!--</ns-form-item>-->
+          <!--</ns-col>-->
         </ns-row>
         <ns-form-item label="公告标题" prop="title">
           <ns-input v-model.trim="model.title" placeholder="请输入公告标题" width="100%"></ns-input>
