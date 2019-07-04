@@ -2,17 +2,15 @@
 <template>
   <div class="win" :id="pageID">
     <div class="ns-container">
-      <div class="ns-container-left" :class="{ 'ns-container-left-border': changeStatus.status }">
+      <ns-drawer class="ns-container-left" speed="160ms">
         <biz-organize-tree
           :funcId="Mix_funcId"
-          title="组织架构"
           draggable
           showFunction
           :searchConditions="Mix_searchConditions"
           @tree-item-click="treeItemClick"
-          :changeStatus="changeStatus"
         ></biz-organize-tree>
-      </div>
+      </ns-drawer>
       <div class="ns-container-right" :id="pageID + '-holder'">
         <!--action-module (search / button)-->
         <div class="action-module" :id="pageID + '-search'">
@@ -152,7 +150,7 @@
         },
 
         //========== tree =========
-        treeNodeObj:{},
+        treeNodeObj: {},
 
         //========== dialog auto form  =========
         dialogVisible: {visible: false}, //dialog switch

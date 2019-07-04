@@ -71,19 +71,8 @@
         </div>
       </div>
 
-      <noticeDialog
-        :type="noticeTpye"
-        :rowData="rowData"
-        :visible.sync="showNoticeDialog"
-        @reloadGrid="searchTable"
-      ></noticeDialog>
-
-      <check-notice-detail
-        :visible.sync="checkNoticeVisible"
-        :rowData="rowData"
-      >
-
-      </check-notice-detail>
+      <noticeDialog :type="noticeTpye" :rowData="rowData" :visible.sync="showNoticeDialog" @reloadGrid="searchTable"></noticeDialog>
+      <check-notice-detail :visible.sync="checkNoticeVisible" :rowData="rowData"></check-notice-detail>
 
     </div>
   </div>

@@ -47,7 +47,6 @@
             </template>
           </biz-search-conditions>
         </div>
-
         <!--表格部分-->
         <biz-table ref="biz-table"
                    :loadState="loadState"
@@ -58,14 +57,12 @@
                    @cell-action="getCellAction"
                    @table-action="tableAction"
         ></biz-table>
-
         <village-info-dialog
           :visible.sync="showVillageDialog"
           :rowData="rowData"
           :type="villageDialogType"
           @reloadGrid="searchTable"
         ></village-info-dialog>
-
       </div>
     </div>
   </div>
@@ -211,7 +208,3 @@
     },
   };
 </script>
-
-<style scoped>
-
-</style>

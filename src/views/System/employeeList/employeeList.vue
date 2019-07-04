@@ -1,16 +1,14 @@
-﻿<!--部门与员工  2DEJjvjOcDM5caR4bce -->
+﻿<!--部门与员工 -->
 <template>
   <div class="win" :id="pageID">
     <div class="ns-container">
-      <ns-drawer direction="left" class="ns-container-left" :class="{ 'ns-container-left-border': changeStatus.status }"
-      >
+      <ns-drawer class="ns-container-left" speed="160ms">
         <biz-organize-tree
           :funcId="Mix_funcId"
           draggable
           showFunction
           :searchConditions="Mix_searchConditions"
           @tree-item-click="treeItemClick"
-          :changeStatus="changeStatus"
         ></biz-organize-tree>
       </ns-drawer>
       <div class="ns-container-right" :id="pageID + '-holder'">
@@ -22,7 +20,6 @@
             :thlist="Mix_thlist"
             :searchConditions="Mix_searchConditions"
             @query="getTableData"
-            :changeStatus="changeStatus"
           >
             <!--fnbutton module / slot for secrch conditions ---->
             <div class="action-fnbutton">
@@ -106,7 +103,6 @@
         //========== 基本 base =========
         pageID: 'employeeList', //页面、表格、自动表单 ID值（必须）
         //========== 筛选器 search =========
-        changeStatus: {status: true}, // 左侧树的状态
 
         //========== 表格 grid =========
         employeeList: [],
@@ -350,7 +346,6 @@
         this.getTableData()
       },
 
-
       //表数据查询
       getTableData(condition) {
         console.log('表数据查询-表数据查询');
@@ -416,6 +411,5 @@
     mounted() {
 
     }
-
   };
 </script>

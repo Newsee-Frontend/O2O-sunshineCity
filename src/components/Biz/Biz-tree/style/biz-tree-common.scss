@@ -1,3 +1,5 @@
+@import "../../../../assets/css/mixin/mixin";
+
 $tree__base--gap: 12px;
 
 .biz-tree {
@@ -7,6 +9,9 @@ $tree__base--gap: 12px;
   padding-top: $tree__base--gap * 2 + 32px;
   padding-bottom: $tree__base--gap;
   box-sizing: border-box;
+
+  @include scrollbarVisible();
+  @include scrollbarStyle();
 
   //搜索框
   .el-autocomplete {
@@ -46,6 +51,7 @@ $tree__base--gap: 12px;
         white-space: nowrap;
       }
     }
+
 
   }
 }
