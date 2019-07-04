@@ -1,6 +1,6 @@
 <!--组织树-->
 <template>
-  <div class="biz-tree biz-organize-tree clear">
+  <div class="biz-tree biz-organize-tree clear" ref="biz-tree">
     <!--树搜索框-->
     <el-autocomplete
       class="fl"
@@ -33,8 +33,8 @@
             {{node.organizationName}}
           </div>
           <el-dropdown trigger="click" hide-on-click v-if="showFunction">
-             <span @click.stop class="fnsicon_svg_span">
-                  <img class="tree_node_img_more" src="../../../../assets/img/tree/more@2x.png"/>
+             <span @click.stop>
+               <ns-icon-svg icon-class="more" class="tree_node_img_more"></ns-icon-svg>
              </span>
             <el-dropdown-menu slot="dropdown" class="tree-more-dropdown">
               <el-dropdown-item @click.native.stop="treeEdit(node, parent)">编辑</el-dropdown-item>
@@ -43,7 +43,7 @@
                   <p>{{ node.organizationShortName }}&nbsp;删除后不可恢复，确定继续删除吗？</p>
                   <div class="popover-handle">
                     <ns-button type="primary" size="mini" @click.native="treeDelete(node, parent,index)">确 定</ns-button>
-                    <ns-button size="mini">取 消</ns-button>
+                    <ns-button size="mini"  @click.native="cancel">取 消</ns-button>
                   </div>
                   <div slot="reference">删除</div>
                 </ns-popover>
@@ -229,6 +229,7 @@
         this.$emit('tree-item-click', node);
       },
 
+
       /**
        * 树删除操作
        */
@@ -274,6 +275,9 @@
         }
       },
 
+      cancel() {
+        this.$refs['biz-tree'].click();
+      },
       /**
        * 树编辑
        * */

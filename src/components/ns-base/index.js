@@ -2,8 +2,7 @@
 import Vue from 'vue';
 
 import roleButton from './Basic/button/role-button/role-button.vue';
-//select
-import select from './Form/select/select.vue';
+
 
 //tree
 import checkboxTree from './Form/tree/checkbox-tree.vue';

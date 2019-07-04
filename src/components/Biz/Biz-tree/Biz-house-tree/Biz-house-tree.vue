@@ -1,25 +1,22 @@
 <!--房产树-->
 <template>
-  <div class="house-tree-wrapper">
-    <!--树显示按钮-->
-    <ns-icon-svg v-show="!showTree" @click="treeToggle" icon-class="hj" class="zhankai"></ns-icon-svg>
-    <!--树隐藏按钮-->
-    <ns-icon-svg v-show="showTree" @click="treeToggle" icon-class="shouqi1" class="shouqi"></ns-icon-svg>
+  <div class="biz-tree biz-house-tree clear" ref="biz-tree">
+    <div class="house-tree-wrapper">
+      <div v-show="showTree" class="tree-width">
+        <!--树搜索框-->
+        <el-autocomplete
+          v-model="treeSearchInput"
+          :fetch-suggestions="remoteSearch"
+          value-key="houseFullName"
+          placeholder="快速查询"
+          suffix-icon="el-icon-search"
+          clearable
+          size="small"
+          @select="houseTreeChange"
+          @clear="houseTreeChange"
+        ></el-autocomplete>
 
-    <div v-show="showTree" class="tree-width">
-      <!--树搜索框-->
-      <el-autocomplete
-        v-model="treeSearchInput"
-        :fetch-suggestions="remoteSearch"
-        value-key="houseFullName"
-        placeholder="快速查询"
-        suffix-icon="el-icon-search"
-        clearable
-        size="small"
-        @select="houseTreeChange"
-        @clear="houseTreeChange"
-      ></el-autocomplete>
-
+      </div>
     </div>
   </div>
 

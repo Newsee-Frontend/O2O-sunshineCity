@@ -16,13 +16,9 @@
         <div class="slot-container">
           <div class="title-text">{{node.nodeName}}</div>
           <el-dropdown trigger="click" :hide-on-click="true" v-if="showFunction">
-              <span class="fnsicon_svg_span" @click.stop>
-                <img
-                  class="tree_node_img_more"
-                  src="../../../../assets/img/tree/more@2x.png"
-                  v-if="node.nodeType === 'dicGroup' || node.organizationId !== 0"
-                />
-              </span>
+               <span @click.stop>
+               <ns-icon-svg icon-class="more" class="tree_node_img_more"></ns-icon-svg>
+             </span>
             <el-dropdown-menu slot="dropdown" class="tree-more-dropdown">
               <template v-if="node.nodeType === 'dic'">
                 <el-dropdown-item @click.native="treeEdit(node)">编辑</el-dropdown-item>

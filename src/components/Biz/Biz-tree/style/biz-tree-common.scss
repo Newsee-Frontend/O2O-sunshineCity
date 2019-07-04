@@ -30,17 +30,24 @@ $tree__base--gap: 12px;
     //插槽-操作
     .slot-container {
       display: flex;
-      align-content: center;
-
+      align-items: center;
       .tree_node_img_more {
-        width: 20px;
-        height: 14px;
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        line-height: 1;
         display: none;
+        color: #c9cbcd;
+      }
+
+      //让图标居中
+      .el-dropdown{
+        line-height: 1;
       }
 
       &:hover {
         .tree_node_img_more {
-          display: block;
+          display: inline-block;
         }
       }
 
