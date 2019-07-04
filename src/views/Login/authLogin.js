@@ -42,16 +42,16 @@ export default {
         this.initPath = getUrlParam('referRoute');
         this.getMenuAndJump();
       }).catch(() => {
-       this.judgeErrorPath()
+        this.judgeErrorPath()
       });
     },
 
     //单点登录跳转失败后的回调
-    judgeErrorPath(){
-      let  referPath = getUrlParam('referPath');
-      if(referPath){
+    judgeErrorPath() {
+      let referPath = getUrlParam('referPath');
+      if (referPath) {
         location.href = '//' + referPath;
-      }else{
+      } else {
         this.$router.push({path: '/front/login'});
       }
     },

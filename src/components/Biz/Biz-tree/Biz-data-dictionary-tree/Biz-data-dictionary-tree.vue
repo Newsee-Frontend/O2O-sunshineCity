@@ -25,21 +25,13 @@
               </span>
             <el-dropdown-menu slot="dropdown" class="tree-more-dropdown">
               <template v-if="node.nodeType === 'dic'">
-                <el-dropdown-item @click.native="treeEdit(node)">
-                  编辑
-                </el-dropdown-item>
-                <el-dropdown-item @click.native="treeDelete(node, parent,index)">
-                  删除
-                </el-dropdown-item>
+                <el-dropdown-item @click.native="treeEdit(node)">编辑</el-dropdown-item>
+                <el-dropdown-item @click.native="treeDelete(node, parent,index)">删除</el-dropdown-item>
               </template>
               <template v-if="node.nodeType === 'dicGroup'">
-                <el-dropdown-item @click.native="treeAdd(node)">
-                  新增字典
-                </el-dropdown-item>
+                <el-dropdown-item @click.native="treeAdd(node)">新增字典</el-dropdown-item>
               </template>
-              <el-dropdown-item v-if="node.nodeType === 'root'" @click.native="treeAdd(node)">
-                新增字典类型
-              </el-dropdown-item>
+              <el-dropdown-item v-if="node.nodeType === 'root'" @click.native="treeAdd(node)">新增字典类型</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
