@@ -21,24 +21,29 @@ html, body {
     min-height: calc(
       100vh - #{$tabs} - #{$win_pt} - #{$win_pb} - #{$navH} - #{$win_gapT} - #{$win_gapB} - 1px
     );
-    overflow-x: auto;
     box-sizing: border-box;
     @include clearFloat;
     //left of container (tee)
     .ns-container-left {
       float: left;
+      width: 236px;
       height: calc(
         100vh - #{$tabs} - #{$win_pt} - #{$win_pb} - #{$navH} - #{$win_gapT} - #{$win_gapB} - 1px
       );
-      border-bottom: none;
-      background: $--color-white;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
-    .ns-container-left-border {
       border: 1px solid $container-border_color;
+      background: $--color-white;
+      box-sizing: border-box;
       margin-right: 10px;
+      &.hide {
+        border: none;
+        margin-right: 0;
+      }
+      .ns-drawer__container {
+        padding: 0;
+        overflow: inherit;
+      }
     }
+
     //right of container (grid + search)
     .ns-container-right {
       position: relative;
@@ -56,7 +61,6 @@ html, body {
 .ns-holder {
   box-sizing: border-box;
 }
-
 
 //top action module 头部操作模块
 .action-module {
@@ -149,10 +153,10 @@ html, body {
   }
 }
 
-.fullpage-loading{
-  &.el-loading-mask .el-loading-spinner{
-    p{
-      display: block!important;
+.fullpage-loading {
+  &.el-loading-mask .el-loading-spinner {
+    p {
+      display: block !important;
       background: #0a7af8;
       padding: 10px 30px;
       border-radius: 5px;

@@ -211,7 +211,6 @@ export default {
           this.$confirm('确定离职?', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
-            customClass: 'el-message-box-oppositeBtns',
             type: 'warning',
           })
             .then(() => {
@@ -244,7 +243,6 @@ export default {
           this.$confirm('确定启用?', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
-            customClass: 'el-message-box-oppositeBtns',
             type: 'warning',
           })
             .then(() => {
@@ -277,7 +275,6 @@ export default {
           this.$confirm('停用之后该员工将不能登录系统，确定停用?', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
-            customClass: 'el-message-box-oppositeBtns',
             type: 'warning',
           })
             .then(() => {
@@ -310,7 +307,6 @@ export default {
           this.$confirm('确定删除?', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
-            customClass: 'el-message-box-oppositeBtns',
             type: 'warning',
             closeOnClickModal: false,
           })

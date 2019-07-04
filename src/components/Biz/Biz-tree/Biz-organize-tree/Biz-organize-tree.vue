@@ -1,127 +1,104 @@
 <!--组织树-->
 <template>
-  <div class="origanize-tree-wrapper">
-    <!--树显示按钮-->
-    <ns-icon-svg v-show="!showTree" @click="treeToggle" icon-class="hj" class="zhankai"></ns-icon-svg>
-    <!--树隐藏按钮-->
-    <ns-icon-svg v-show="showTree" @click="treeToggle" icon-class="shouqi1" class="shouqi"></ns-icon-svg>
-
-    <div v-show="showTree" class="tree-width">
-      <!--树搜索框-->
-      <el-autocomplete
-        v-model="treeSearchInput"
-        :fetch-suggestions="remoteSearch"
-        value-key="organizationName"
-        placeholder="快速查询"
-        suffix-icon="el-icon-search"
-        clearable
-        size="small"
-        @select="origanizeTreeChange"
-        @clear="origanizeTreeChange"
-      ></el-autocomplete>
-      <!--树主体-->
-      <div class="tree-body">
-        <p class="treeTitle" ref="title" style="display: none;">{{ title }}</p>
-        <ns-tree
-          ref="organizeTree"
-          v-loading="treeloading"
-          v-model="treeModel"
-          :data="treeData"
-          isObjectData
-          :draggable="draggable"
-          :dropJudge="dropJudge"
-          @nodeClick="nodeClick"
-        >
-          <template slot-scope="{node, parent,index}">
-            <div class="slot-container">
-              <div class="title-text">
-                {{node.organizationName}}
-              </div>
-
-              <el-dropdown
-                trigger="click"
-                :hide-on-click="true"
-                v-if="showFunction"
-              >
-                  <span
-                    @click.stop
-                    class="fnsicon_svg_span"
-                  >
-                  <img
-                    class="tree_node_img_more"
-                    src="../../../../assets/img/tree/more@2x.png"
-                  />
-                </span>
-
-                <el-dropdown-menu slot="dropdown" class="tree-more-dropdown">
-                  <el-dropdown-item @click.native.stop="treeEdit(node, parent)">
-                    编辑
+  <div v-show="showTree" class="biz-tree biz-organize-tree clear">
+    <!--树搜索框-->
+    <el-autocomplete
+      class="fl"
+      v-model="treeSearchInput"
+      :fetch-suggestions="remoteSearch"
+      value-key="organizationName"
+      placeholder="快速查询"
+      suffix-icon="el-icon-search"
+      clearable
+      size="small"
+      @select="origanizeTreeChange"
+      @clear="origanizeTreeChange"
+    ></el-autocomplete>
+    <!--树主体-->
+    <ns-tree
+      class="tree-container fl"
+      ref="organizeTree"
+      v-loading="treeloading"
+      v-model="treeModel"
+      :data="treeData"
+      isObjectData
+      :draggable="draggable"
+      expandAllNodes
+      :dropJudge="dropJudge"
+      @nodeClick="nodeClick"
+    >
+      <template slot-scope="{node, parent,index}">
+        <div class="slot-container">
+          <div class="title-text">
+            {{node.organizationName}}
+          </div>
+          <el-dropdown trigger="click" hide-on-click v-if="showFunction">
+             <span @click.stop class="fnsicon_svg_span">
+                  <img class="tree_node_img_more" src="../../../../assets/img/tree/more@2x.png"/>
+             </span>
+            <el-dropdown-menu slot="dropdown" class="tree-more-dropdown">
+              <el-dropdown-item @click.native.stop="treeEdit(node, parent)">编辑</el-dropdown-item>
+              <el-dropdown-item v-if="node.isHasChild === false">
+                <ns-popover placement="top" width="250" trigger="click">
+                  <p>{{ node.organizationShortName }}&nbsp;删除后不可恢复，确定继续删除吗？</p>
+                  <div class="popover-handle">
+                    <ns-button type="primary" size="mini" @click.native="treeDelete(node, parent,index)">确 定</ns-button>
+                    <ns-button size="mini">取 消</ns-button>
+                  </div>
+                  <div slot="reference">删除</div>
+                </ns-popover>
+              </el-dropdown-item>
+              <template>
+                <el-dropdown-item divided disabled>
+                  <p>新增子节点</p>
+                </el-dropdown-item>
+                <template v-if="node.organizationType === 0 || node.organizationType === 1">
+                  <el-dropdown-item @click.native="fnclick(node, 'company')">
+                    <ns-icon-svg icon-class="dian-copy"></ns-icon-svg>
+                    新建子公司
                   </el-dropdown-item>
-                  <el-dropdown-item v-if="node.isHasChild === false">
-                    <ns-popover placement="top" width="280" trigger="click">
-                      <p>
-                        "{{ node.organizationShortName }}"&nbsp;删除后不可恢复，确定继续删除吗？
-                      </p>
-                      <div class="prompt-delete">
-                        <ns-button type="primary" size="mini" @click.native="treeDelete(node, parent,index)">确 定</ns-button>
-                        <ns-button size="mini" @click="cancel">取 消</ns-button>
-                      </div>
-                      <div slot="reference">删除</div>
-                    </ns-popover>
+                  <el-dropdown-item @click.native="fnclick(node, 'department')">
+                    <ns-icon-svg icon-class="dian-copy"></ns-icon-svg>
+                    新建部门
                   </el-dropdown-item>
-                  <template>
-                    <el-dropdown-item divided disabled>
-                      <p class="addChildre">新增子节点</p>
-                    </el-dropdown-item>
-                    <template v-if="node.organizationType === 0 || node.organizationType === 1">
-                      <el-dropdown-item @click.native="fnclick(node, 'company')">
-                        <ns-icon-svg icon-class="dian-copy"></ns-icon-svg>
-                        新建子公司
-                      </el-dropdown-item>
-                      <el-dropdown-item @click.native="fnclick(node, 'department')">
-                        <ns-icon-svg icon-class="dian-copy"></ns-icon-svg>
-                        新建部门
-                      </el-dropdown-item>
-                    </template>
-                    <template v-else>
-                      <el-dropdown-item @click.native="fnclick(node, 'department')">
-                        <ns-icon-svg icon-class="dian-copy"></ns-icon-svg>
-                        新建子部门
-                      </el-dropdown-item>
-                    </template>
-                  </template>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </div>
-          </template>
-        </ns-tree>
-      </div>
-      <!--新建编辑子公司-->
-      <add-or-edit-company
-        v-if="dialogVisible.companyVisible.visible"
-        :companyVisible="dialogVisible.companyVisible"
-        :type="companyDialogObj.type"
-        :nodeInfo="companyDialogObj.nodeInfo"
-        :parentNodeInfo="companyDialogObj.parentNodeInfo"
-        @query="getTreeData"
-      ></add-or-edit-company>
-      <!--部门编辑弹出框-->
-      <add-or-edit-department
-        v-if="dialogVisible.departmentVisible.visible"
-        :visible="dialogVisible.departmentVisible"
-        :type="departmentDialogObj.type"
-        :nodeInfo="departmentDialogObj.nodeInfo"
-        :parentNodeInfo="departmentDialogObj.parentNodeInfo"
-        @query="getTreeData"
-      ></add-or-edit-department>
-      <!-- 集团弹窗 -->
-      <group-Dialog
-        v-if="dialogVisible.groupVisible.visible"
-        :visible="dialogVisible.groupVisible"
-        :nodeInfo="groupDialogObj.nodeInfo"
-        @query="refreshTreeData"
-      />
-    </div>
+                </template>
+                <template v-else>
+                  <el-dropdown-item @click.native="fnclick(node, 'department')">
+                    <ns-icon-svg icon-class="dian-copy"></ns-icon-svg>
+                    新建子部门
+                  </el-dropdown-item>
+                </template>
+              </template>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </template>
+    </ns-tree>
+    <!--新建编辑子公司-->
+    <add-or-edit-company
+      v-if="dialogVisible.companyVisible.visible"
+      :companyVisible="dialogVisible.companyVisible"
+      :type="companyDialogObj.type"
+      :nodeInfo="companyDialogObj.nodeInfo"
+      :parentNodeInfo="companyDialogObj.parentNodeInfo"
+      @query="getTreeData"
+    ></add-or-edit-company>
+    <!--部门编辑弹出框-->
+    <add-or-edit-department
+      v-if="dialogVisible.departmentVisible.visible"
+      :visible="dialogVisible.departmentVisible"
+      :type="departmentDialogObj.type"
+      :nodeInfo="departmentDialogObj.nodeInfo"
+      :parentNodeInfo="departmentDialogObj.parentNodeInfo"
+      @query="getTreeData"
+    ></add-or-edit-department>
+    <!-- 集团弹窗 -->
+    <group-Dialog
+      v-if="dialogVisible.groupVisible.visible"
+      :visible="dialogVisible.groupVisible"
+      :nodeInfo="groupDialogObj.nodeInfo"
+      @query="refreshTreeData"
+    />
   </div>
 </template>
 <script>
@@ -181,44 +158,28 @@
           nodeInfo: {},
         },
 
-
         treeloading: false,
         //树节点对应的字段
         keyRefer
       };
     },
     props: {
-      title: {
-        type: String,
-      },
+      funcId: {type: [Number, String]},
       searchConditions: {
-        type: Object,
-        default() {
+        type: Object, default() {
           return {};
         },
       },
-      draggable: {
-        type: Boolean,
-        default: false,
-      },
-      showFunction: {
-        type: Boolean,
-        default: false,
-      },
-      'show-checkBox': {
-        type: Boolean,
-      },
+      draggable: {type: Boolean, default: false},
+      showFunction: {type: Boolean, default: false,},
+      'show-checkBox': {type: Boolean,},
       orgTypeFilter: null,
       // 树的显示隐藏
       changeStatus: {
-        type: Object,
-        default() {
+        type: Object, default() {
           return {};
         },
-      },
-      funcId: {
-        type: [Number, String],
-      },
+      }
     },
     computed: {
       ...mapGetters(['$store__orgTreeData']),
@@ -330,13 +291,6 @@
       },
 
       /**
-       * popPicker 隐藏
-       */
-      cancel() {
-        this.$refs.title.click();
-      },
-
-      /**
        * 树编辑
        * */
       treeEdit(node, parent) {
@@ -380,6 +334,8 @@
 
           console.log('nodeClick-nodeClick-nodeClick');
           this.nodeClick(this.treeData[0]);
+
+
         }
         else {
           this.getTreeData(true)
@@ -391,9 +347,6 @@
     created() {
       this.initRender();
     },
-    mounted() {
-
-    },
 
     beforeDestroy() {
       this.$store.dispatch('asyncOrganizeTreeData', this.treeData);
@@ -401,8 +354,7 @@
     }
   };
 </script>
-<style>
-</style>
+<style></style>
 <style rel="stylesheet/scss" lang="scss">
-  @import '../../../../assets/css/Modular/tree/tree.scss';
+  @import '../style/biz-tree-common';
 </style>

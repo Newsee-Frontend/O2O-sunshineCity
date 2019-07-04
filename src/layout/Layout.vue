@@ -14,7 +14,7 @@
       <!--右边 - 用户下拉菜单 业务组在插槽内调用组件，传入值，并且调用方法即可  -->
       <div class="fr">
         <ns-screenfull></ns-screenfull>
-        <biz-skiner @change-theme="changeTheme"></biz-skiner>
+        <biz-skiner></biz-skiner>
         <biz-user-dropdown></biz-user-dropdown>
       </div>
     </template>
@@ -65,10 +65,6 @@
     created() {
     },
     methods: {
-      changeTheme(key) {
-        console.log('changeTheme-changeTheme');
-        console.log(key);
-      },
     },
   };
 </script>
