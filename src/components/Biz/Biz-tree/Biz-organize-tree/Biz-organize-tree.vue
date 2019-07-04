@@ -25,7 +25,6 @@
       :draggable="draggable"
       expandAllNodes
       :dropJudge="dropJudge"
-      :keyRefer="keyRefer"
       @nodeClick="nodeClick"
     >
       <template slot-scope="{node, parent,index}">

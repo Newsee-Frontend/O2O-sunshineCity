@@ -143,7 +143,7 @@
        */
       getClassDomHeight(className) {
         let domArr = document.getElementsByClassName(className);
-        return domArr.length > 0 ? domArr[0].offsetHeight : 0
+        return domArr.length > 0 ? domArr[domArr.length -1].offsetHeight : 0
       },
 
       /**

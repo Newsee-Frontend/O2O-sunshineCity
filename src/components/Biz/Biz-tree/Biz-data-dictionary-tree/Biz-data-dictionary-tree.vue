@@ -12,22 +12,11 @@
       isObjectData
       @nodeClick="nodeClick"
     >
-
       <template slot-scope="{node, parent,index}">
         <div class="slot-container">
-          <div class="title-text">
-            {{node.nodeName}}
-          </div>
-
-          <el-dropdown
-            trigger="click"
-            :hide-on-click="true"
-            v-if="showFunction"
-          >
-              <span
-                class="fnsicon_svg_span"
-                @click.stop
-              >
+          <div class="title-text">{{node.nodeName}}</div>
+          <el-dropdown trigger="click" :hide-on-click="true" v-if="showFunction">
+              <span class="fnsicon_svg_span" @click.stop>
                 <img
                   class="tree_node_img_more"
                   src="../../../../assets/img/tree/more@2x.png"

@@ -1,24 +1,30 @@
 /**
- * Organize tree
+ * house tree
  * created: 2019/06/19.
  * author: Broccoli spring( 高仓雄 - gcx )
  * copyright (c) 2019 Broccoli spring( gcx )
  * @type {{state: {funcId: string}, mutations: {SET_FUNCID: Core.mutations.SET_FUNCID}, actions: {setFuncId({commit: *}, *=): void}}}
  */
-import {treeDataFetch} from '../../../service/Tree/organize-tree';
+import {treeDataFetch, changeTreeData, getSearchData} from '../../../service/Tree/house-tree';
 
 
-const OrganizeTree = {
+const HouseTree = {
   state: {
-    houseTreeData: [],
+    $store__houseTreeData: [],
+    currentTreeNode: {},//current tree node information
+    $store_searchQuery: ''
   },
   mutations: {
-    SET_ORGANIZE_TREE_DATA: (state, data) => {
+    SET_HOUSE_TREE_DATA: (state, data) => {
+      state.$store__houseTreeData = data;
+    },
 
-      state.houseTreeData = data;
-      // alert('SET_ORGANIZE_TREE_DATA');
-      // alert(data[0].expanded);
-      // alert(state.houseTreeData[0].expanded);
+    SET_CURRENT_TREE_NODE: (state, data) => {
+      state.currentTreeNode = data;
+    },
+
+    SET_SEARCH_QUERY: (state, data) => {
+      state.$store_searchQuery = data;
     },
 
   },
@@ -35,11 +41,14 @@ const OrganizeTree = {
       );
     },
 
-    asyncHouseTreeData({commit}, data) {
-      console.log('同步 同步 同步 同步- 组织树数据如下');
-      console.log(data);
-      commit('SET_ORGANIZE_TREE_DATA', data);
-    }
+    houseTreeChange({commit}, query) {
+      return changeTreeData(query).then(res => {})
+    },
+
+    getSearchData({commit}, query) {
+      return getSearchData(query).then(res => {})
+    },
+
   },
 };
-export default OrganizeTree;
+export default HouseTree;
