@@ -1,6 +1,6 @@
 <!--组织树-->
 <template>
-  <div class="biz-tree biz-organize-tree clear">
+  <div class="biz-tree biz-organize-tree clear" ref="biz-tree">
     <!--树搜索框-->
     <el-autocomplete
       class="fl"
@@ -43,7 +43,7 @@
                   <p>{{ node.organizationShortName }}&nbsp;删除后不可恢复，确定继续删除吗？</p>
                   <div class="popover-handle">
                     <ns-button type="primary" size="mini" @click.native="treeDelete(node, parent,index)">确 定</ns-button>
-                    <ns-button size="mini">取 消</ns-button>
+                    <ns-button size="mini"  @click.native="cancel">取 消</ns-button>
                   </div>
                   <div slot="reference">删除</div>
                 </ns-popover>
@@ -229,6 +229,7 @@
         this.$emit('tree-item-click', node);
       },
 
+
       /**
        * 树删除操作
        */
@@ -274,6 +275,9 @@
         }
       },
 
+      cancel() {
+        this.$refs['biz-tree'].click();
+      },
       /**
        * 树编辑
        * */

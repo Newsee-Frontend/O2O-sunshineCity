@@ -40,6 +40,11 @@ $tree__base--gap: 12px;
         color: #c9cbcd;
       }
 
+      //让图标居中
+      .el-dropdown{
+        line-height: 1;
+      }
+
       &:hover {
         .tree_node_img_more {
           display: inline-block;
