@@ -33,8 +33,8 @@
             {{node.organizationName}}
           </div>
           <el-dropdown trigger="click" hide-on-click v-if="showFunction">
-             <span @click.stop class="fnsicon_svg_span">
-                  <img class="tree_node_img_more" src="../../../../assets/img/tree/more@2x.png"/>
+             <span @click.stop>
+               <ns-icon-svg icon-class="more" class="tree_node_img_more"></ns-icon-svg>
              </span>
             <el-dropdown-menu slot="dropdown" class="tree-more-dropdown">
               <el-dropdown-item @click.native.stop="treeEdit(node, parent)">编辑</el-dropdown-item>
