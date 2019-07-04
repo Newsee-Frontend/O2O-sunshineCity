@@ -1,6 +1,6 @@
 <!--角色与权限-->
 <template>
-  <div class="win" :id="pageID">
+  <div class="win">
     <div class="ns-container">
       <ns-drawer class="ns-container-left" speed="160ms">
         <biz-organize-tree
@@ -11,9 +11,9 @@
           @tree-item-click="treeItemClick"
         ></biz-organize-tree>
       </ns-drawer>
-      <div class="ns-container-right" :id="pageID + '-holder'">
+      <div class="ns-container-right">
         <!--action-module (search / button)-->
-        <div class="action-module" :id="pageID + '-search'">
+        <div class="action-module">
           <!--search module-->
           <ns-search-conditions
             :funcId="Mix_funcId"
@@ -53,20 +53,6 @@
                    @table-action="tableAction"
                    @selection-change="selectionChange"
         ></biz-table>
-
-        <!--<ns-grids-->
-        <!--:gridID="pageID + '-grid'"-->
-        <!--:gridData="gridData"-->
-        <!--:thlist="Mix_thlist"-->
-        <!--:loadState="Mix_loadState"-->
-        <!--:searchConditions="Mix_searchConditions"-->
-        <!--:holderInfo="Mix_holderInfo"-->
-        <!--:funcId="Mix_funcId"-->
-        <!--@refreshGrid="getGridData"-->
-        <!--@grid-ation="gridAtion"-->
-        <!--@selection-change="selectionChange"-->
-        <!--:ationColConfig="{ width: 200 }"-->
-        <!--&gt;</ns-grids>-->
         <!--dialog - auto form submit infomation-->
         <ns-dialog
           :id="nsDialogName"
@@ -133,7 +119,6 @@
     data() {
       return {
         //========== 基本 base =========
-        pageID: 'roles-and-authorities', //页面、表格、自动表单 ID值（必须）
         nsDialogName: 'roles-and-authorities_addRoleForm',
         //========== 筛选器 search =========
         changeStatus: {status: true}, // 左侧树的状态

@@ -1,10 +1,9 @@
 <!--数据字典-->
 <template>
-  <div class="win" :id="pageID">
+  <div class="win">
     <div class="ns-container">
       <ns-drawer class="ns-container-left" speed="160ms">
         <biz-organize-tree
-          title="组织架构"
           :funcId="Mix_funcId"
           @tree-item-click="organizeTreeItemClick"
           orgTypeFilter="1"
@@ -13,18 +12,17 @@
         ></biz-organize-tree>
       </ns-drawer>
       <ns-drawer class="ns-container-left" speed="160ms">
-        <dictionary-tree
-          title="数据字典"
+        <biz-data-dictionary-tree
           :organizationId="org_nodeId"
           showFunction
           :searchConditions="Mix_searchConditions"
           @tree-item-click="treeItemClick"
         >
-        </dictionary-tree>
+        </biz-data-dictionary-tree>
       </ns-drawer>
-      <div class="ns-container-right" :id="pageID + '-holder'">
+      <div class="ns-container-right">
         <!--action-module (search / button)-->
-        <div class="action-module" :id="pageID + '-search'">
+        <div class="action-module">
           <!--search module-->
           <ns-search-conditions
             :funcId="Mix_funcId"
@@ -65,19 +63,6 @@
                    @table-action="tableAction"
                    @selection-change="selectionChange"
         ></biz-table>
-        <!--grid module-->
-        <!--<ns-grids-->
-        <!--:gridID="pageID + '-grid'"-->
-        <!--:gridData="gridData"-->
-        <!--:thlist="Mix_thlist"-->
-        <!--:loadState="Mix_loadState"-->
-        <!--:searchConditions="Mix_searchConditions"-->
-        <!--:holderInfo="Mix_holderInfo"-->
-        <!--:funcId="Mix_funcId"-->
-        <!--@refreshGrid="getTableData"-->
-        <!--@grid-ation="gridAtion"-->
-        <!--@selection-change="selectionChange"-->
-        <!--&gt;</ns-grids>-->
 
         <!--dialog - auto form submit infomation-->
         <ns-dialog
@@ -117,22 +102,13 @@
   import Mixin from "../../../mixins";
   import {downloadExcel} from '../../../service/Download/download';
   import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
-  import OrganizeTree from '../../../components/Biz/Biz-tree/Biz-organize-tree/Biz-organize-tree.vue'; // 组织树 组件
-  import DictionaryTree from '../../../components/Biz/Biz-tree/Biz-data-dictionary-tree/Biz-data-dictionary-tree.vue'; // 数据字典树 组件
 
   export default {
     name: 'data-dictionary',
     pageType: 'basic',
     mixins: [Mixin],
-    components: {
-      OrganizeTree,
-      DictionaryTree
-    },
     data() {
       return {
-        //========== 基本 base =========
-        pageID: 'data-dictionary', //页面、表格、自动表单 ID值（必须）
-
         //========== 筛选器 search =========
         changeStatus: {status: true}, // 左侧树的状态
 
@@ -419,7 +395,7 @@
 </script>
 <style rel="stylesheet/scss" lang="scss">
   /*.win .ns-container .ns-container-left {*/
-    /*width: 492px;*/
+  /*width: 492px;*/
   /*}*/
 
 </style>

@@ -6310,10 +6310,10 @@ ns-form-components@0.0.18:
     vue-videobg "^2.0.0"
     watch-size "^2.0.0"
 
-ns-form-components@0.0.46:
-  version "0.0.46"
-  resolved "https://registry.npmjs.org/ns-form-components/-/ns-form-components-0.0.46.tgz#955bd5b2ad301c8c009b3914f6fa1b2742de7c03"
-  integrity sha512-5RLbGQk/oSWxf1+4E/ieSgbW5e7UhbRdfukWaoEqRcGvDfq3oxixGKnUUuQwH4zj+e/zoFq6pJg8kPFSsvwsLg==
+ns-form-components@0.0.47:
+  version "0.0.47"
+  resolved "https://registry.npmjs.org/ns-form-components/-/ns-form-components-0.0.47.tgz#66f9f42e6a86c12ff3d13ed84df160fd3b64e201"
+  integrity sha512-nvYNsfcTI8PQ4Yx4ZbzrkGF/Ano/905EGMtx21qwW7o9YFhOQg23R6zNIYm2GiMNOhdmpvxjm6elpXDuv4AOZA==
   dependencies:
     "@riophae/vue-treeselect" "^0.0.38"
     "@tinymce/tinymce-vue" "^2.0.0"
