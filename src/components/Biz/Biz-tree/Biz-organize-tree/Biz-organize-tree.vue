@@ -21,7 +21,7 @@
       ></el-autocomplete>
       <!--树主体-->
       <div class="tree-body">
-        <p class="treeTitle" ref="title">{{ title }}</p>
+        <p class="treeTitle" ref="title" style="display: none;">{{ title }}</p>
         <ns-tree
           ref="organizeTree"
           v-loading="treeloading"
@@ -29,9 +29,7 @@
           :data="treeData"
           isObjectData
           :draggable="draggable"
-          expandAllNodes
           :dropJudge="dropJudge"
-          :keyRefer="keyRefer"
           @nodeClick="nodeClick"
         >
           <template slot-scope="{node, parent,index}">
@@ -382,8 +380,6 @@
 
           console.log('nodeClick-nodeClick-nodeClick');
           this.nodeClick(this.treeData[0]);
-
-
         }
         else {
           this.getTreeData(true)
@@ -405,7 +401,8 @@
     }
   };
 </script>
-<style></style>
+<style>
+</style>
 <style rel="stylesheet/scss" lang="scss">
   @import '../../../../assets/css/Modular/tree/tree.scss';
 </style>

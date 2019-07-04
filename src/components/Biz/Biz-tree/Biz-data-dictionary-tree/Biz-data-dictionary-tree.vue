@@ -1,10 +1,9 @@
 <template>
   <div class="tree-width data-dictionary-tree">
     <div class="tree-body">
-      <p class="treeTitle" ref="title">{{ title }}</p>
+      <p class="treeTitle" ref="title" style="display: none">{{ title }}</p>
       <ns-tree
         ref="dictionaryTree"
-        :keyRefer="keyRefer"
         v-loading="treeloading"
         v-model="treeModel"
         :data="treeData"
