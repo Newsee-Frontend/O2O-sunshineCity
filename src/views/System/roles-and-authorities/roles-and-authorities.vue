@@ -299,9 +299,16 @@
           console.log(this.tableData);
           console.log('表格操作按钮', this.gridBtns);
           //增加 固定操作列 - 按钮数据
+          // this.tableData.list.forEach(item => {
+          //   // item.fnsclick = this.gridBtns;
+          //   this.$set(item,'fnsclick', this.gridBtns)
+          // });
           this.tableData.list.forEach(item => {
-            // item.fnsclick = this.gridBtns;
-            this.$set(item,'fnsclick', this.gridBtns)
+            item.fnsclick = [
+              {label: '新增授权人', value: 'gridAuthorizerBtn'},
+              {label: '编辑', value: 'gridEditBtn'},
+              {label: '删除', value: 'gridRemoveBtn'},
+            ];
           });
 
           this.loadState.data = true;

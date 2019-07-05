@@ -125,7 +125,9 @@
           console.log(this.tableData);
           console.log('表格操作按钮', this.gridBtns);
           this.tableData.list.forEach(item => {
-            item.fnsclick = this.gridBtns;
+            item.fnsclick = [
+              {label: '同步房产', value: 'gridSynchronizeBtn'},
+            ];
           });
           this.loadState.data = true;
         }).catch(() => {
