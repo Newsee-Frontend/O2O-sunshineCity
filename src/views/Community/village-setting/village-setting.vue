@@ -133,10 +133,9 @@
           this.tableData = res.resultData.pageInfo || [];
           console.log('请求到的表格数据：');
           console.log(this.tableData);
+          console.log('表格操作按钮', this.gridBtns);
           this.tableData.list.forEach(item => {
-            item.fnsclick = [
-              {label: '同步房产', value: 'gridSyncBtn'},
-            ];
+            item.fnsclick = this.gridBtns;
           });
           this.loadState.data = true;
         }).catch(() => {
@@ -149,7 +148,7 @@
        */
       tableAction(info, scope) {
         this.rowData = scope.row;
-        if (info.value === 'gridSyncBtn') {
+        if (info.value === 'gridSynchronizeBtn') {
           this.syncHouse(scope.row);
         }
       },

@@ -11,7 +11,6 @@ export default {
     authLogin(query) {
       //clear
       this.$store.dispatch('logOut');
-
       this.$store.dispatch('oauthlogin', query).then(() => {
         this.getMenuAndJump();
       }, (error) => {

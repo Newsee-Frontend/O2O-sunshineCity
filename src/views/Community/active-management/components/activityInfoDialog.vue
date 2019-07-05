@@ -13,13 +13,15 @@
     <div class="slip-title">{{type === 'add'? '新增活动': '编辑活动'}}</div>
 
     <div class="slip-btns">
-      <ns-button type="primary" @click="publish('publish')" :loading="submitLoadingBtn === 'publish'">发 布
-      </ns-button>
-
-      <ns-button type="primary" @click="publish('tempPublish')" :loading="submitLoadingBtn === 'tempPublish'">暂 存
-      </ns-button>
-
-      <ns-button @click="showDialog = false">返 回</ns-button>
+      <ns-role-button
+        mode="button"
+        v-for="item in roleButtonForm"
+        :roleInfo="item"
+        :disabled="submitLoadingBtn === item.code"
+        :btn-type="item.code === 'formReturnBtn'? '' : 'primary'"
+        @click="roleBtnsClick(item)"
+      >
+      </ns-role-button>
     </div>
 
     <div class="silp-container">
@@ -139,7 +141,6 @@
         type: Object,
         default: {},
       },
-
       type: String,
     },
 
@@ -213,7 +214,7 @@
       };
     },
     computed: {
-      ...mapGetters(['requestHead']),
+      ...mapGetters(['requestHead','roleButtonForm']),
       pluginsConfig() {
         return {
           'editor-image': {
@@ -267,6 +268,22 @@
 
       },
 
+      roleBtnsClick(item){
+        switch (item.code) {
+          case 'formSaveBtn':
+           this.publish('formSaveBtn');
+           break;
+
+          case 'formTempsaveBtn':
+            this.publish('formTempsaveBtn');
+            break;
+
+          case 'formReturnBtn':
+           this.showDialog = false;
+           break
+        }
+      },
+
       /***
        * 发布/暂存
        * @param submitType
@@ -278,7 +295,7 @@
               this.$message.error('活动开始时间不能晚于活动结束时间， 请重新选择');
               return;
             }
-            this.model.status = submitType === 'publish' ? 1 : 0;
+            this.model.status = submitType === 'formSaveBtn' ? 1 : 0;
             this.submitLoadingBtn = submitType;
             this.model.id = this.type === 'add' ? '' : this.rowData.id;
             let url = this.type === 'add' ? '/o2o/activity/publish' : '/o2o/activity/editActivity';

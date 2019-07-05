@@ -12,11 +12,15 @@
     <div class="slip-title">{{type === 'add'? '新增公告': '编辑公告'}}</div>
 
     <div class="slip-btns">
-      <ns-button type="primary" @click="submit('publish')" :loading="submitLoading === 'publish'">保 存</ns-button>
-
-      <ns-button type="primary" @click="submit('tempPublish')" :loading="submitLoading === 'tempPublish'">暂 存</ns-button>
-
-      <ns-button @click="showDialog = false">返    回</ns-button>
+      <ns-role-button
+        mode="button"
+        v-for="item in roleButtonForm"
+        :roleInfo="item"
+        :disabled="submitLoading === item.code"
+        :btn-type="item.code === 'formReturnBtn'? '' : 'primary'"
+        @click="roleBtnsClick(item)"
+      >
+      </ns-role-button>
     </div>
 
     <div class="silp-container">
@@ -116,7 +120,7 @@
     },
 
     computed: {
-      ...mapGetters(['requestHead']),
+      ...mapGetters(['requestHead', 'roleButtonForm']),
       pluginsConfig() {
         return {
           'editor-image': {
@@ -152,11 +156,29 @@
       },
 
 
+
+      roleBtnsClick(item){
+        switch (item.code) {
+          case 'formSaveBtn':
+            this.submit('formSaveBtn');
+            break;
+
+          case 'formTempsaveBtn':
+            this.submit('formTempsaveBtn');
+            break;
+
+          case 'formReturnBtn':
+            this.showDialog = false;
+            break
+        }
+      },
+
+
       /**
        *  提交
        */
       submit: function (submitType) {
-        this.model.status = submitType === 'publish' ? 1 : 0;
+        this.model.status = submitType === 'formSaveBtn' ? 1 : 0;
         this.$refs.noticeForm.validate((valid) => {
           if (valid) {
             this.submitLoading = submitType;

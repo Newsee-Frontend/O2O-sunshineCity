@@ -361,28 +361,17 @@
         ).then(res => {
           this.tableData = res.resultData;
           console.log(this.Mix_searchConditions);
-          console.log(this.tableData)
+          console.log(this.tableData);
+          console.log('表格操作按钮', this.gridBtns);
           //增加 固定操作列 - 按钮数据
           this.tableData.list.forEach(item => {
-            if (item.isActived === '1') {
-              item.fnsclick = [
-                {label: '编辑', value: 'gridEditBtn'},
-                {label: '删除', value: 'gridRemoveBtn'},
-                {label: '停用', value: 'gridStopBtn'},
-              ];
-            } else if (item.isActived === '0') {
-              item.fnsclick = [
-                {label: '编辑', value: 'gridEditBtn'},
-                {label: '删除', value: 'gridRemoveBtn'},
-                {label: '启用', value: 'gridEnableBtn'},
-              ];
-            }
+            item.fnsclick = this.gridBtns.filter((btn) => {
+              return btn.value !== ((item.isActived === '1')? 'gridEnableBtn': 'gridStopBtn');
+            });
           });
-
           this.loadState.data = true;
 
         }).catch(() => {
-
           this.tableData = {};
           this.loadState.data = true;
 

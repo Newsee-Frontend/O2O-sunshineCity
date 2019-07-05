@@ -148,12 +148,9 @@
           this.tableData = res.resultData.pageInfo || {};
           console.log('请求到的表格数据：');
           console.log(this.tableData);
+          console.log('表格操作按钮', this.gridBtns,this.roleButtonGrid);
           this.tableData.list.forEach(item => {
-            item.fnsclick = [
-              {label: '编辑', value: 'gridEditBtn'},
-              {label: '删除', value: 'gridRemoveBtn'},
-              {label: '查看', value: 'gridCheckBtn'}
-            ];
+            item.fnsclick = this.gridBtns;
           });
           this.loadState.data = true;
         }).catch(() => {
@@ -193,7 +190,7 @@
               this.getTableData();
             });
           })
-        } else if (info.value === 'gridCheckBtn') {
+        } else if (info.value === 'gridDetailBtn') {
           this.checkNoticeVisible = true;
         }
       },
@@ -231,8 +228,8 @@
     },
 
     created() {
-      this.searchTable();
       this.getVillageOptions();
+      this.searchTable();
     },
   };
 </script>

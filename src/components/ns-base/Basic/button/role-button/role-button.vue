@@ -94,6 +94,7 @@ export default {
     },
 
     status() {
+      console.log(this.roleInfo);
       if (this.roleInfo.code === 'formConfirmBtn') {
         return this.btnStatus;
       } else {

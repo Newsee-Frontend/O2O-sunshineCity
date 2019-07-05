@@ -23,7 +23,7 @@ const getters = {
   //role
   roleButtonList: state => state.RoleButton.roleButtonList,
   roleButtonAction: state => state.RoleButton.roleButton.ACTION,
-  roleButtonForm: state => state.RoleButton.roleButton.FROM,
+  roleButtonForm: state => state.RoleButton.roleButton.FORM,
   roleButtonGrid: state => state.RoleButton.roleButton.GRID,
 
   //tree

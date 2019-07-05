@@ -7,32 +7,25 @@ const RoleButton = {
 
     roleButton: {
       ACTION: [],
-      FROM: [],
+      FORM: [],
       GRID: [],
     },
   },
 
   mutations: {
     SET_ROLE_BUTTON_LIST: (state, data) => {
-
       state.roleButtonList = data;
       state.roleButton.ACTION = data.filter(item => item.areaType === 'ACTION');
-      state.roleButton.FROM = data.filter(item => item.areaType === 'FROM');
+      state.roleButton.FORM = data.filter(item => item.areaType === 'FORM');
       state.roleButton.GRID = data.filter(item => item.areaType === 'GRID');
-      console.log(33333333333333);
-      console.log(state.roleButton);
-      console.log(33333333333333);
-
     },
   },
 
   actions: {
     getRoleButtonList: ({ commit }, requestHead) => {
-      console.log(1111111111);
       let btnlist = null;
       roleButtonList(requestHead)
         .then(response => {
-          console.log(222222222222);
           try {
             btnlist = response.resultData.map(item => {
               return {
@@ -45,6 +38,7 @@ const RoleButton = {
                 hide: item.resourcebuttonHidden === '1', //是否隐藏
               };
             });
+            console.log('请求的rolebtn数据',btnlist);
           }
           catch (e) {
             btnlist = [];
