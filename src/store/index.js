@@ -13,7 +13,7 @@ import OrganizeTree from './modules/Tree/Organize-tree';
 import HouseTree from './modules/Tree/House-tree';
 
 import SearchConditions from './modules/Common/SearchConditions';
-import RoleButton from './modules/Common/RoleButton';
+import RoleButton from './modules/System/Role/RoleButton';
 import TreeData from './modules/TreeData';
 import Table from './modules/System/Table/Table';
 import RequestHead from './modules/Common/RequestHeader'

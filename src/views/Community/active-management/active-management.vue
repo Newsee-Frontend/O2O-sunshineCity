@@ -190,7 +190,8 @@
         if (info.value === "gridEditBtn") {
           this.activityInfoVisible = true;
           this.activityType = 'edit'
-        } else if (info.value === 'gridRemoveBtn') {
+        }
+        else if (info.value === 'gridRemoveBtn') {
           this.$confirm('确定要删除该活动??', '提示', {type: 'warning'}).then(() => {
             deleteActivity({id: this.rowData.id}).then(() => {
               this.$message.success('删除成功');
