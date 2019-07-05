@@ -10,8 +10,8 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex';
-  import {updateThemeColor} from '../../../service/User/login'
+  import { mapGetters } from 'vuex';
+  import { updateThemeColor } from '../../../service/User/login';
 
   export default {
     name: 'Biz-skiner',
@@ -34,10 +34,10 @@
     methods: {
       changeTheme() {
         console.log('换肤改变', this.skinerModel);
-        updateThemeColor({themeColor: this.skinerModel}).then(() => {
+        updateThemeColor({ themeColor: this.skinerModel }).then(() => {
           let userInfo = this.$store.state.User.userinfo;
-          this.$store.dispatch('updateLoginData', userInfo)
-        })
+          this.$store.dispatch('updateLoginData', userInfo);
+        });
       },
 
       show() {
@@ -54,7 +54,9 @@
       },
     },
     created() {
-      this.skinerModel = this.themeColor;
+      if (this.themeColor) {
+        this.skinerModel = this.themeColor;
+      }
     },
   };
 

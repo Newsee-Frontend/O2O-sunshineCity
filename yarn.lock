@@ -800,11 +800,6 @@
   resolved "https://registry.npm.taobao.org/@types/q/download/@types/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha1-aQoUdbhPKohP0HzXl8APXzE1bqg=
 
-"@types/tapable@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.npm.taobao.org/@types/tapable/download/@types/tapable-1.0.2.tgz#e13182e1b69871a422d7863e11a4a6f5b814a4bd"
-  integrity sha1-4TGC4baYcaQi14Y+EaSm9bgUpL0=
-
 "@types/unist@*", "@types/unist@^2.0.0":
   version "2.0.3"
   resolved "https://registry.npm.taobao.org/@types/unist/download/@types/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
@@ -4457,19 +4452,6 @@ html-tags@^3.0.0:
   resolved "https://registry.npm.taobao.org/html-tags/download/html-tags-3.0.0.tgz#41f57708c9e6b7b46a00a22317d614c4a2bab166"
   integrity sha1-QfV3CMnmt7RqAKIjF9YUxKK6sWY=
 
-html-webpack-plugin@4.0.0-alpha:
-  version "4.0.0-alpha"
-  resolved "https://registry.npm.taobao.org/html-webpack-plugin/download/html-webpack-plugin-4.0.0-alpha.tgz#b2c7b6d4885a209c999dfce3ffb9866e2c8c0eaa"
-  integrity sha1-sse21IhaIJyZnfzj/7mGbiyMDqo=
-  dependencies:
-    "@types/tapable" "1.0.2"
-    html-minifier "^3.2.3"
-    loader-utils "^1.1.0"
-    lodash "^4.17.10"
-    pretty-error "^2.0.2"
-    tapable "^1.0.0"
-    util.promisify "1.0.0"
-
 html-webpack-plugin@4.0.0-beta.5:
   version "4.0.0-beta.5"
   resolved "https://registry.npm.taobao.org/html-webpack-plugin/download/html-webpack-plugin-4.0.0-beta.5.tgz#2c53083c1151bfec20479b1f8aaf0039e77b5513"
@@ -6399,10 +6381,10 @@ ns-form-components@0.0.18:
     vue-videobg "^2.0.0"
     watch-size "^2.0.0"
 
-ns-form-components@0.0.48:
-  version "0.0.48"
-  resolved "https://registry.npm.taobao.org/ns-form-components/download/ns-form-components-0.0.48.tgz#e02d71f608eb5e5184d551eecb3401c8bf467e03"
-  integrity sha1-4C1x9gjrXlGE1VHuyzQByL9GfgM=
+ns-form-components@0.0.49:
+  version "0.0.49"
+  resolved "https://registry.npmjs.org/ns-form-components/-/ns-form-components-0.0.49.tgz#0ccc6fc97b4b69db36019d4268b54b12104b26d7"
+  integrity sha512-8iyvJkhaiO5BTZr3KPVBglIvFHeq+oNJjBmdsQs2bm4nHRzRsxaKO5wy9fTcCT5SWFQi4+G/QFu2VcsADHN6Ew==
   dependencies:
     "@riophae/vue-treeselect" "^0.0.38"
     "@tinymce/tinymce-vue" "^2.0.0"

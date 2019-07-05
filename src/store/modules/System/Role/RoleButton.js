@@ -48,7 +48,6 @@ const RoleButton = {
                 icon: item.resourcebuttonIconcls,//按钮图标
               };
             });
-            console.log('请求的rolebtn数据',btnlist);
           }
           catch (e) {
             btnlist = [];

@@ -6,9 +6,10 @@
         :key="index"
         class="role-button-area__part fl"
         v-if="singleBtnList && singleBtnList.length>0"
+        v-show="!item.hide"
     >
       <ns-button type="text" size="medium" :disabled="item.disabled" @click="singleClick(item)">
-        <ns-icon-svg :icon-class="iconTransform(item)"></ns-icon-svg>
+        <ns-icon-svg :icon-class="item.icon"></ns-icon-svg>
         {{item.name}}
       </ns-button>
     </li>
@@ -30,6 +31,7 @@
             :index="index"
             :command="item.code"
             :disabled="item.disabled"
+            v-show="!item.hide"
           >
             {{ item.name }}
           </el-dropdown-item>
