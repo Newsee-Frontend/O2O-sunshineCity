@@ -133,7 +133,6 @@
           .catch(err => {
             this.submitLoading = false;
             console.log('失败', err);
-              this.authLogin(loginParams);
           })
       },
 

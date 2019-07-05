@@ -7,32 +7,9 @@
         </ns-input>
 
         <ns-button type="primary" @click="search">查询</ns-button>
-        <div class="action-fnbutton">
-          <ns-role-button
-            mode="icon"
-            :roleInfo="{
-              code: 'actionSyncAllBtn',
-              name: '同步全部',
-              nameEn: '',
-              areaType: 'ACTION',
-              index: '',
-              btnType: 'single',
-            }"
-            @click="selectAll(tableData)"
-          ></ns-role-button>
-          <ns-role-button
-            mode="icon"
-            :roleInfo="{
-              code: 'actionSyncSelectedBtn',
-              name: '同步所选',
-              nameEn: '',
-              areaType: 'ACTION',
-              index: '',
-              btnType: 'single',
-            }"
-            @click="selectSome(tableData)"
-          ></ns-role-button>
-        </div>
+        <!--action - 权限按钮操作区域-->
+        <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
+
       </div>
       <!--TableFetch content-->
       <div class="table-content" v-loading="tableLoading" element-loading-text="拼命加载中">
@@ -124,6 +101,20 @@
             return Promise.reject(response);
           });
       },
+
+      /**
+       * action btn 点击
+       */
+      roleButtonCommand: function(command){
+        if (command.code === 'actionSyncAllBtn') {
+          this.selectAll(this.tableData);
+        }
+        if (command.code === 'actionSyncSelectedBtn') {
+          //导出
+         this.selectSome();
+        }
+      },
+
       //select all
       selectAll(rows) {
         //显示选中
@@ -135,8 +126,9 @@
         const query = { orgName: '', syncType: 20 };
         this.uploadData(query);
       },
+
       //select some
-      selectSome(rows) {
+      selectSome() {
         if (!this.multipleSelection.length) {
           return this.$message({ message: '请至少选择一条数据', type: 'error' });
         }
@@ -152,6 +144,7 @@
         const query = { orgList: orgList, orgName: '', syncType: 10 };
         this.uploadData(query);
       },
+
       //upload table data
       uploadData(data) {
         this.tableLoading = true;

@@ -4,19 +4,9 @@
       <div class="ns-container-right">
         <div class="action-module">
           <biz-search-conditions>
+            <!--action - 权限按钮操作区域-->
             <template slot="btns">
-              <ns-role-button
-                mode="icon"
-                :coerciveShow="true"
-                @click="addVillage"
-                :roleInfo="{
-                  areaType: 'ACTION',
-                  code: 'actionAddBtn',
-                  name: '新增',
-                  nameEn: '',
-                  index: 1,
-                  btnType: 'single',
-                }"></ns-role-button>
+              <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
             </template>
             <template slot="main">
               <div class="clear fl search-option">
@@ -133,10 +123,9 @@
           this.tableData = res.resultData.pageInfo || [];
           console.log('请求到的表格数据：');
           console.log(this.tableData);
+          console.log('表格操作按钮', this.gridBtns);
           this.tableData.list.forEach(item => {
-            item.fnsclick = [
-              {label: '同步房产', value: 'gridSyncBtn'},
-            ];
+            item.fnsclick = this.gridBtns;
           });
           this.loadState.data = true;
         }).catch(() => {
@@ -149,7 +138,7 @@
        */
       tableAction(info, scope) {
         this.rowData = scope.row;
-        if (info.value === 'gridSyncBtn') {
+        if (info.value === 'gridSynchronizeBtn') {
           this.syncHouse(scope.row);
         }
       },
@@ -179,19 +168,19 @@
             loading.close();
             this.$message.success('同步成功');
           }, (err) => {
-            this.$message.error(err.resultMsg);
             loading.close();
           });
         });
       },
 
-
       /**
-       * 增加小区
+       * action btn 点击
        */
-      addVillage() {
-        this.showVillageDialog = true;
-        this.villageDialogType = 'add';
+      roleButtonCommand: function(command){
+        if (command.code === 'actionAddBtn') {
+          this.showVillageDialog = true;
+          this.villageDialogType = 'add';
+        }
       },
 
       /**

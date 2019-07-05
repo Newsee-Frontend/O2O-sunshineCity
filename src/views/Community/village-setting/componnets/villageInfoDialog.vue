@@ -10,11 +10,19 @@
     :beforeClose="close"
     ref="slipDialog">
     <div class="slip-title">{{type === 'add'? '新增小区': '编辑小区'}}</div>
-    <div class="slip-btns">
-      <ns-button type="primary" @click="submit" :loading="submitLoading">保  存</ns-button>
 
-      <ns-button @click="showDialog = false">返    回</ns-button>
+    <div class="slip-btns">
+      <ns-role-button
+        mode="button"
+        v-for="item in roleButtonForm"
+        :roleInfo="item"
+        :disabled="submitLoading === item.code"
+        :btn-type="item.code === 'formReturnBtn'? '' : 'primary'"
+        @click="roleBtnsClick(item)"
+      >
+      </ns-role-button>
     </div>
+
 
     <div class="silp-container">
       <ns-form ref="villageForm" :model="villageModel"  :rules="villageRules" label-width="120px">
@@ -102,6 +110,8 @@
 <script>
   import { getAreaList} from '../../../../service/Form/getOptions'
   import { getPrecinctInfo, savePrecinctInfo } from '../../../../service/Community/villageSetting'
+  import {mapGetters} from 'vuex';
+
   export default {
     name: 'villageDialog',
 
@@ -161,6 +171,10 @@
           this.initForm()
         }
       }
+    },
+
+    computed: {
+      ...mapGetters(['roleButtonForm']),
     },
 
     methods: {
@@ -282,21 +296,34 @@
         }
       },
 
+
+      roleBtnsClick(item){
+        switch (item.code) {
+          case 'formSaveBtn':
+            this.submit('formSaveBtn');
+            break;
+
+          case 'formReturnBtn':
+            this.showDialog = false;
+            break
+        }
+      },
+
       /**
        *  表单提交
        */
-      submit(){
+      submit(str){
         this.$refs.villageForm.validate((valid)=>{
           if(valid){
-            this.submitLoading = true
+            this.submitLoading = str
             savePrecinctInfo(this.villageModel).then((data)=>{
-              this.submitLoading = false;
+              this.submitLoading = '';
               this.showDialog = false;
               this.$message.success('保存成功');
               this.$emit('reloadGrid')
 
             }, ()=>{
-              this.submitLoading = false;
+              this.submitLoading = '';
             })
           }
         })

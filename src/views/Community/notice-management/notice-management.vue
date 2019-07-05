@@ -8,26 +8,7 @@
           <div class="action-module" style="overflow: hidden">
             <biz-search-conditions>
               <template slot="btns">
-                <ns-role-button
-                  mode="icon"
-                  :coerciveShow="true"
-                  :roleInfo="{
-                      areaType: 'ACTION',
-                      code: 'actionAddBtn',
-                      name: '新增',
-                      nameEn: '',
-                      index: 1,
-                      btnType: 'single',
-                }"
-                  @click="addNotice()"
-
-                >
-                  <!--<ns-role-button-->
-                  <!--mode="dp-text"-->
-                  <!--title="更多"-->
-                  <!--@command="handleCommand"-->
-                  <!--&gt;</ns-role-button>-->
-                </ns-role-button>
+                <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
               </template>
               <template slot="main">
                 <div class="clear fl search-option">
@@ -148,12 +129,9 @@
           this.tableData = res.resultData.pageInfo || {};
           console.log('请求到的表格数据：');
           console.log(this.tableData);
+          console.log('表格操作按钮', this.gridBtns,this.roleButtonGrid);
           this.tableData.list.forEach(item => {
-            item.fnsclick = [
-              {label: '编辑', value: 'gridEditBtn'},
-              {label: '删除', value: 'gridRemoveBtn'},
-              {label: '查看', value: 'gridCheckBtn'}
-            ];
+            item.fnsclick = this.gridBtns;
           });
           this.loadState.data = true;
         }).catch(() => {
@@ -193,7 +171,7 @@
               this.getTableData();
             });
           })
-        } else if (info.value === 'gridCheckBtn') {
+        } else if (info.value === 'gridDetailBtn') {
           this.checkNoticeVisible = true;
         }
       },
@@ -207,12 +185,15 @@
         });
       },
 
+
       /**
-       * 新增公告
+       * action btn 点击
        */
-      addNotice() {
-        this.noticeTpye = 'add';
-        this.showNoticeDialog = true;
+      roleButtonCommand: function(command){
+        if (command.code === 'actionAddBtn') {
+          this.noticeTpye = 'add';
+          this.showNoticeDialog = true;
+        }
       },
     },
 
@@ -231,8 +212,8 @@
     },
 
     created() {
-      this.searchTable();
       this.getVillageOptions();
+      this.searchTable();
     },
   };
 </script>

@@ -22,27 +22,8 @@
             @query="getTableData"
             :changeStatus="changeStatus"
           >
-            <!--fnbutton module / slot for secrch conditions ---->
-            <div class="action-fnbutton">
-              <ns-role-button
-                mode="icon"
-                :roleInfo="{
-                  code: 'actionAddRoleBtn',
-                  name: '新增角色',
-                  nameEn: '',
-                  areaType: 'ACTION',
-                  index: '',
-                  btnType: 'single',
-                }"
-                @click="addRole()"
-              ></ns-role-button>
-              <ns-role-button
-                mode="dp-text"
-                title="更多"
-                @command="handleCommand"
-                :searchConditions="Mix_searchConditions"
-              ></ns-role-button>
-            </div>
+            <!--action - 权限按钮操作区域-->
+            <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
           </ns-search-conditions>
         </div>
         <!--grid module-->
@@ -194,7 +175,7 @@
           this.$set(this.dialogVisible, 'visible', false);
           store.formController.delete('addRoleForm');
           store.formController.delete('addPersonToRoleForm');
-          this.getGridData();
+          this.getTableData();
         });
       },
 
@@ -236,6 +217,22 @@
           //将本地数据的fields和请求的数据的fields混合
           vm.$set(data, 'fields', formStaticData.fields.concat(data.fields));
         }
+      },
+
+      /**
+       * 权限按钮区域操作
+       * @param command
+       */
+      roleButtonCommand(command) {
+        //新增员工-初始化动态表单
+        if (command.code === 'actionAddRoleBtn') {
+          this.addRole();
+        }
+        if (command.code === 'actionExportBtn') {
+          //导出
+          downloadExcel('/system/role/export-excel');
+        }
+
       },
 
       //新增-初始化动态表单
@@ -298,14 +295,13 @@
           }
         ).then(res => {
           this.tableData = res.resultData;
-
+          console.log(this.Mix_searchConditions);
+          console.log(this.tableData);
+          console.log('表格操作按钮', this.gridBtns);
           //增加 固定操作列 - 按钮数据
           this.tableData.list.forEach(item => {
-            item.fnsclick = [
-              {label: '新增授权人', value: 'gridAuthorizerBtn'},
-              {label: '编辑', value: 'gridEditBtn'},
-              {label: '删除', value: 'gridRemoveBtn'},
-            ];
+            // item.fnsclick = this.gridBtns;
+            this.$set(item,'fnsclick', this.gridBtns)
           });
 
           this.loadState.data = true;
@@ -392,18 +388,6 @@
         for (let i = 0; i < selection.length; i++) {
         }
         this.multipleSelection = arry;
-      },
-
-      //更多功能
-      handleCommand(command) {
-        if (command === 'actionExportBtn') {
-          //导出
-          downloadExcel('/system/role/export-excel', this.Mix_searchConditions).then(d => {
-            console.log(d)
-          }, e => {
-            console.log(d)
-          })
-        }
       },
     }
   };

@@ -7,7 +7,7 @@ const RoleButton = {
 
     roleButton: {
       ACTION: [],
-      FROM: [],
+      FORM: [],
       GRID: [],
     },
   },
@@ -16,14 +16,22 @@ const RoleButton = {
     SET_ROLE_BUTTON_LIST: (state, data) => {
       state.roleButtonList = data;
       state.roleButton.ACTION = data.filter(item => item.areaType === 'ACTION');
-      state.roleButton.FROM = data.filter(item => item.areaType === 'FROM');
+      state.roleButton.FORM = data.filter(item => item.areaType === 'FORM');
       state.roleButton.GRID = data.filter(item => item.areaType === 'GRID');
+    },
+
+    CLEAR_ROLE_BUTTON_LIST:  (state) => {
+      state.roleButtonList = [];
+      state.roleButton.ACTION = [];
+      state.roleButton.FORM = [];
+      state.roleButton.GRID = [];
     },
   },
 
   actions: {
     getRoleButtonList: ({ commit }, requestHead) => {
       let btnlist = null;
+      commit('CLEAR_ROLE_BUTTON_LIST');
       roleButtonList(requestHead)
         .then(response => {
           try {
@@ -40,6 +48,7 @@ const RoleButton = {
                 icon: item.resourcebuttonIconcls,//按钮图标
               };
             });
+            console.log('请求的rolebtn数据',btnlist);
           }
           catch (e) {
             btnlist = [];
