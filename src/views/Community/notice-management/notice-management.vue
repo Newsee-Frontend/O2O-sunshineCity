@@ -8,26 +8,7 @@
           <div class="action-module" style="overflow: hidden">
             <biz-search-conditions>
               <template slot="btns">
-                <ns-role-button
-                  mode="icon"
-                  :coerciveShow="true"
-                  :roleInfo="{
-                      areaType: 'ACTION',
-                      code: 'actionAddBtn',
-                      name: '新增',
-                      nameEn: '',
-                      index: 1,
-                      btnType: 'single',
-                }"
-                  @click="addNotice()"
-
-                >
-                  <!--<ns-role-button-->
-                  <!--mode="dp-text"-->
-                  <!--title="更多"-->
-                  <!--@command="handleCommand"-->
-                  <!--&gt;</ns-role-button>-->
-                </ns-role-button>
+                <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
               </template>
               <template slot="main">
                 <div class="clear fl search-option">
@@ -204,12 +185,15 @@
         });
       },
 
+
       /**
-       * 新增公告
+       * action btn 点击
        */
-      addNotice() {
-        this.noticeTpye = 'add';
-        this.showNoticeDialog = true;
+      roleButtonCommand: function(command){
+        if (command.code === 'actionAddBtn') {
+          this.noticeTpye = 'add';
+          this.showNoticeDialog = true;
+        }
       },
     },
 

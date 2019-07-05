@@ -4,19 +4,9 @@
       <div class="ns-container-right">
         <div class="action-module">
           <biz-search-conditions>
+            <!--action - 权限按钮操作区域-->
             <template slot="btns">
-              <ns-role-button
-                mode="icon"
-                :coerciveShow="true"
-                @click="addVillage"
-                :roleInfo="{
-                  areaType: 'ACTION',
-                  code: 'actionAddBtn',
-                  name: '新增',
-                  nameEn: '',
-                  index: 1,
-                  btnType: 'single',
-                }"></ns-role-button>
+              <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
             </template>
             <template slot="main">
               <div class="clear fl search-option">
@@ -178,19 +168,19 @@
             loading.close();
             this.$message.success('同步成功');
           }, (err) => {
-            this.$message.error(err.resultMsg);
             loading.close();
           });
         });
       },
 
-
       /**
-       * 增加小区
+       * action btn 点击
        */
-      addVillage() {
-        this.showVillageDialog = true;
-        this.villageDialogType = 'add';
+      roleButtonCommand: function(command){
+        if (command.code === 'actionAddBtn') {
+          this.showVillageDialog = true;
+          this.villageDialogType = 'add';
+        }
       },
 
       /**

@@ -31,27 +31,8 @@
             @query="getTableData"
             :changeStatus="changeStatus"
           >
-            <!--fnbutton module / slot for secrch conditions ---->
-            <div class="action-fnbutton">
-              <ns-role-button
-                mode="icon"
-                :roleInfo="{
-                  areaType: 'ACTION',
-                  code: 'actionAddBtn',
-                  name: '新增',
-                  nameEn: '',
-                  index: 1,
-                  btnType: 'single',
-                }"
-                @click="addDictionaryItem()"
-              ></ns-role-button>
-              <ns-role-button
-                mode="dp-text"
-                title="更多"
-                @command="handleCommand"
-                :searchConditions="Mix_searchConditions"
-              ></ns-role-button>
-            </div>
+            <!--action - 权限按钮操作区域-->
+            <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
           </ns-search-conditions>
         </div>
 
@@ -299,6 +280,22 @@
         data.modelData.organizationName = this.org_nodeName;
         data.modelData.organizationId = this.org_nodeId;
       },
+
+
+      /**
+       * action btn 点击
+       */
+      roleButtonCommand: function(command){
+        if (command.code === 'actionAddBtn') {
+          this.addDictionaryItem();
+        }
+        if (command.code === 'actionExportBtn') {
+          //导出
+          downloadExcel('/system/dictionary/export-excel', this.Mix_searchConditions)
+        }
+      },
+
+
       //新增-初始化动态表单
       addDictionaryItem() {
         if (
@@ -339,40 +336,7 @@
         }
         this.multipleSelection = arry;
       },
-      //表数据查询
-      ssss(condition) {
-        if (condition) {
-          this.Mix_searchConditions.filterList = condition;
-        }
-        this.loadState.data = false;
-        this.grid.fetch(
-          {
-            url: '/system/dictionary/list-dictionaryItem',
-            query: this.Mix_searchConditions,
-            funcId: this.Mix_funcId,
-            params: {
-              dictionaryitemDictionaryId: this.Mix_searchConditions.dictionaryitemDictionaryId,
-              dictionaryGroupId: this.Mix_searchConditions.dictionaryGroupId,
-            },
-          },
-          res => {
-            this.gridData = res;
 
-            //增加 固定操作列 - 按钮数据
-            this.gridData.list.forEach(item => {
-              item.fnsclick = [
-                {label: '编辑', value: 'gridEditBtn'},
-                {label: '删除', value: 'gridRemoveBtn'},
-              ];
-            });
-            this.loadState.data = true;
-          },
-          () => {
-            this.gridData = {};
-            this.loadState.data = true;
-          }
-        );
-      },
       /**
        * dialog close
        * @param formName
@@ -380,13 +344,6 @@
       dialogClose(formName) {
         this.showMessage = false;
         store.formController.delete(formName); //销毁表单
-      },
-      //更多功能
-      handleCommand(command) {
-        if (command === 'actionExportBtn') {
-          //导出
-          downloadExcel('/system/dictionary/export-excel', this.Mix_searchConditions)
-        }
       },
     }
   };

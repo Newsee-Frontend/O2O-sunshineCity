@@ -4,20 +4,9 @@
       <div class="ns-container-right">
         <div class="action-module">
           <biz-search-conditions>
+            <!--action - 权限按钮操作区域-->
             <template slot="btns">
-              <ns-role-button
-                mode="icon"
-                :roleInfo="{
-                  areaType: 'ACTION',
-                  code: 'actionAddBtn',
-                  name: '新增',
-                  nameEn: '',
-                  index: 1,
-                  btnType: 'single',
-                }"
-                @click="addActive()"
-              >
-              </ns-role-button>
+              <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
             </template>
             <template slot="main">
               <div class="clear fl search-option">
@@ -194,10 +183,11 @@
         }
       },
 
-
-      addActive: function () {
-        this.activityType = 'add';
-        this.activityInfoVisible = true;
+      roleButtonCommand: function(command){
+        if (command.code === 'actionAddBtn') {
+          this.activityType = 'add';
+          this.activityInfoVisible = true;
+        }
       },
 
       /**

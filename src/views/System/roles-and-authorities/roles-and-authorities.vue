@@ -22,27 +22,8 @@
             @query="getTableData"
             :changeStatus="changeStatus"
           >
-            <!--fnbutton module / slot for secrch conditions ---->
-            <div class="action-fnbutton">
-              <ns-role-button
-                mode="icon"
-                :roleInfo="{
-                  code: 'actionAddRoleBtn',
-                  name: '新增角色',
-                  nameEn: '',
-                  areaType: 'ACTION',
-                  index: '',
-                  btnType: 'single',
-                }"
-                @click="addRole()"
-              ></ns-role-button>
-              <ns-role-button
-                mode="dp-text"
-                title="更多"
-                @command="handleCommand"
-                :searchConditions="Mix_searchConditions"
-              ></ns-role-button>
-            </div>
+            <!--action - 权限按钮操作区域-->
+            <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
           </ns-search-conditions>
         </div>
         <!--grid module-->
@@ -238,6 +219,22 @@
         }
       },
 
+      /**
+       * 权限按钮区域操作
+       * @param command
+       */
+      roleButtonCommand(command) {
+        //新增员工-初始化动态表单
+        if (command.code === 'actionAddRoleBtn') {
+          this.addRole();
+        }
+        if (command.code === 'actionExportBtn') {
+          //导出
+          downloadExcel('/system/role/export-excel');
+        }
+
+      },
+
       //新增-初始化动态表单
       addRole() {
         if (!this.treeNodeInfo.organizationId || this.treeNodeInfo.organizationId == 0) {
@@ -391,18 +388,6 @@
         for (let i = 0; i < selection.length; i++) {
         }
         this.multipleSelection = arry;
-      },
-
-      //更多功能
-      handleCommand(command) {
-        if (command === 'actionExportBtn') {
-          //导出
-          downloadExcel('/system/role/export-excel', this.Mix_searchConditions).then(d => {
-            console.log(d)
-          }, e => {
-            console.log(d)
-          })
-        }
       },
     }
   };
