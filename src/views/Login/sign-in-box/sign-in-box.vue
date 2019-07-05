@@ -1,7 +1,9 @@
 <template>
   <div class="sign-in-box">
     <!--用户名账号登录窗口-->
-    <div class="sign-in-left"></div>
+    <div class="sign-in-left">
+      <img src="../../../assets/img/login/loginBoxLeft.png" width="100%" height="100%">
+    </div>
     <div class="sign-in-right">
       <p class="sign-in-title">登录</p>
       <div class="sign-in-main" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">

@@ -1,6 +1,7 @@
 <!--login-->
 <template>
   <div class="login-wrap">
+    <img src="../../assets/img/login/bg.png" width="100%" height="100%">
     <div class="login-header"></div>
     <sign-in-box></sign-in-box>
     <div class="login-footer"></div>

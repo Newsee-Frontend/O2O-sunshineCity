@@ -4,8 +4,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: url("../../../img/login/bg.png") 0 0 no-repeat;
-  background-size:100% 100%;
+  /*background: url("../../../img/login/bg.png") 0 0 no-repeat;*/
+  /*background-size:100% 100%;*/
   overflow: hidden;
 }
 
@@ -43,8 +43,8 @@
 .sign-in-box .sign-in-left{
   width: 44%;
   height: 100%;
-  background: url("../../../img/login/loginBoxLeft.png")  0 0 no-repeat;
-  background-size: 100% 100%;
+  /*background: url("../../../img/login/loginBoxLeft.png")  0 0 no-repeat;*/
+  /*background-size: 100% 100%;*/
 }
 
 .sign-in-box  .sign-in-right{
