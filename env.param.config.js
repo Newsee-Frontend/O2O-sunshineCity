@@ -15,7 +15,7 @@ module.exports = {
     entry: {
       app: './src/main.js',
     },
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     templateSPA: './index.html',
     staticPath: './static',
     useEslint: false,
