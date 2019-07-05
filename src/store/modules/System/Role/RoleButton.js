@@ -19,11 +19,19 @@ const RoleButton = {
       state.roleButton.FORM = data.filter(item => item.areaType === 'FORM');
       state.roleButton.GRID = data.filter(item => item.areaType === 'GRID');
     },
+
+    CLEAR_ROLE_BUTTON_LIST:  (state) => {
+      state.roleButtonList = [];
+      state.roleButton.ACTION = [];
+      state.roleButton.FORM = [];
+      state.roleButton.GRID = [];
+    },
   },
 
   actions: {
     getRoleButtonList: ({ commit }, requestHead) => {
       let btnlist = null;
+      commit('CLEAR_ROLE_BUTTON_LIST');
       roleButtonList(requestHead)
         .then(response => {
           try {
