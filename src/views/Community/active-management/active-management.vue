@@ -64,12 +64,12 @@
 </template>
 
 <script>
-  import activityInfoDialog from './components/activityInfoDialog'
-  import checkActivityDialog from './components/checkActivityDetail'
-  import {deleteActivity} from '../../../service/Community/activeManagement'
-  import {getVillageOptions} from '../../../service/Form/getOptions'
-  import Mixin from "../../../mixins";
-  import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
+  import activityInfoDialog from './components/activityInfoDialog';
+  import checkActivityDialog from './components/checkActivityDetail';
+  import { deleteActivity } from '../../../service/Community/activeManagement';
+  import { getVillageOptions } from '../../../service/Form/getOptions';
+  import Mixin from '../../../mixins';
+  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
 
   export default {
     name: 'active-management',
@@ -80,7 +80,7 @@
 
     components: {
       activityInfoDialog,
-      checkActivityDialog
+      checkActivityDialog,
     },
 
     data() {
@@ -90,16 +90,16 @@
         checkActivityVisible: false,
         activityType: 'add',
         /**发布或保存*/
-        activestatueOptions: [{label: '暂存', value: 0}, {label: '已发布', value: 1}, {label: '已结束', value: 2}],
+        activestatueOptions: [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }, { label: '已结束', value: 2 }],
         searchConditions: {
-          noticeCategory: "",
-          precinctId: "",
-          activityBeginTime: "",
-          activityEndTime: "",
-          orderBy: "",
-          category: "2",
-          status: "",
-          keyWord: "",
+          noticeCategory: '',
+          precinctId: '',
+          activityBeginTime: '',
+          activityEndTime: '',
+          orderBy: '',
+          category: '2',
+          status: '',
+          keyWord: '',
           pageNum: 1,
           pageSize: 20,
         },
@@ -110,21 +110,22 @@
         loadState: {
           data: false,
           head: false,
+          roleButton: false,
         },
-      }
+      };
     },
 
     computed: {
       dateRange: {
-        get: function () {
-          return this.searchConditions.activityBeginTime ? [this.searchConditions.activityBeginTime, this.searchConditions.activityEndTime] : []
+        get: function() {
+          return this.searchConditions.activityBeginTime ? [this.searchConditions.activityBeginTime, this.searchConditions.activityEndTime] : [];
         },
-        set: function (arr) {
+        set: function(arr) {
           let range = arr || [];
           this.searchConditions.activityBeginTime = range.length > 1 ? range[0] + ' 00:00:00' : '';
           this.searchConditions.activityEndTime = range.length > 1 ? range[1] + ' 23:59:59' : '';
-        }
-      }
+        },
+      },
     },
 
     methods: {
@@ -167,23 +168,23 @@
        * */
       tableAction(info, scope) {
         this.rowData = scope.row;
-        if (info.value === "gridEditBtn") {
+        if (info.value === 'gridEditBtn') {
           this.activityInfoVisible = true;
-          this.activityType = 'edit'
+          this.activityType = 'edit';
         }
         else if (info.value === 'gridRemoveBtn') {
-          this.$confirm('确定要删除该活动??', '提示', {type: 'warning'}).then(() => {
-            deleteActivity({id: this.rowData.id}).then(() => {
+          this.$confirm('确定要删除该活动??', '提示', { type: 'warning' }).then(() => {
+            deleteActivity({ id: this.rowData.id }).then(() => {
               this.$message.success('删除成功');
               this.getTableData();
             });
-          })
+          });
         } else if (info.value === 'gridDetailBtn') {
           this.checkActivityVisible = true;
         }
       },
 
-      roleButtonCommand: function(command){
+      roleButtonCommand: function(command) {
         if (command.code === 'actionAddBtn') {
           this.activityType = 'add';
           this.activityInfoVisible = true;
@@ -193,16 +194,16 @@
       /**
        * 获取小区名称的权限
        */
-      getVillageOptions: function () {
+      getVillageOptions: function() {
         getVillageOptions().then((data) => {
           this.villageOptions = data.resultData || [];
-        })
-      }
+        });
+      },
     },
 
     created() {
       this.getVillageOptions();
       this.getTableData();
-    }
+    },
   };
 </script>

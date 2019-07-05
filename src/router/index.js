@@ -14,7 +14,7 @@ const routes = [...Public, ...User, ...System, ...Community];
 Vue.use(Router);
 
 const router = new Router({
-  mode: 'history',
+  mode: 'hash',
   scrollBehavior: () => ({y: 0}),
   routes,
 });
