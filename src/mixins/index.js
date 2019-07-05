@@ -1,7 +1,6 @@
-import funcId from './Common/FuncId';
-import roleButton from './system/Role-button/index';
-import searchConditions from './Common/Search-conditions';
-
+import funcId from './System/FuncId';
+import roleButton from './System/Role-button';
+import searchConditions from './System/Search-conditions';
 
 import table from './system/Table';
 

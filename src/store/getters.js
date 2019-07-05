@@ -17,9 +17,14 @@ const getters = {
   //all search conditions (object for all page search conditions)
   searchConditions: state => state.Search.conditions,
 
-  //form demo
-  optionsDataTemplate: state => state.Form.optionsDataTemplate,
+  //requestHead
+  requestHead: state => state.RequestHead.base,
+
+  //role
   roleButtonList: state => state.RoleButton.roleButtonList,
+  roleButtonAction: state => state.RoleButton.roleButton.ACTION,
+  roleButtonForm: state => state.RoleButton.roleButton.FROM,
+  roleButtonGrid: state => state.RoleButton.roleButton.GRID,
 
   //tree
   $store__orgTreeData: state => state.OrganizeTree.$store__orgTreeData,
@@ -29,8 +34,7 @@ const getters = {
   //table
   tableHead: state => state.Table.tableHead,
 
-  //requestHead
-  requestHead: state => state.RequestHead.base
+
 
 };
 export default getters;
