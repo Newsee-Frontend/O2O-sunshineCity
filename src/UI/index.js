@@ -13,13 +13,11 @@ import '../components/Biz';
 import nsMount from '../utils/nsQuery/nsMount';
 
 
-
+Vue.use(ElementUI);
 
 import nsui from 'ns-form-components/lib/ns-ui.min.js';
 import 'ns-form-components/lib/index.css';
 
-
-Vue.use(ElementUI);
 
 Vue.use(nsui, {
   prefix: 'ns', //stage name
