@@ -35,7 +35,9 @@ const RoleButton = {
                 areaType: item.resourcebuttonType, //按钮区域类型
                 index: item.syOrderindex, //排序号
                 btnType: item.resourcebuttonBigiconcls, //按钮类型 （single / dropDown）
+                disabled: item.resourcebuttonDisabled === '1',//是否禁用
                 hide: item.resourcebuttonHidden === '1', //是否隐藏
+                icon: item.resourcebuttonIconcls,//按钮图标
               };
             });
             console.log('请求的rolebtn数据',btnlist);

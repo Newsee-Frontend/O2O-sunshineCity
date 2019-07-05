@@ -21,26 +21,9 @@
             :searchConditions="Mix_searchConditions"
             @query="getTableData"
           >
-            <!--fnbutton module / slot for secrch conditions ---->
-            <div class="action-fnbutton">
-              <ns-role-button
-                mode="icon"
-                :roleInfo="{
-                  code: 'actionAddUserBtn',
-                  name: '新增员工',
-                  nameEn: '',
-                  areaType: 'ACTION',
-                  index: '',
-                  btnType: 'single',
-                }"
-                @click="addEmployee()"
-              ></ns-role-button>
-              <ns-role-button
-                mode="dp-text"
-                title="更多"
-                @command="handleCommand"
-              ></ns-role-button>
-            </div>
+            <!--action - 权限按钮操作区域-->
+            <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
+
           </ns-search-conditions>
         </div>
         <!--grid module-->
@@ -85,19 +68,19 @@
   </div>
 </template>
 <script>
-  import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
-  import {gridDataDelete, gridDataOperate} from '../../../service/System/employeeList';
+  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
+  import { gridDataDelete, gridDataOperate } from '../../../service/System/employeeList';
   import employeeStaticData from './employeeStaticData';
   import pickerOptionsMap from '../../../static-data/form/picker-options';
   import employeeForm from './employeeForm/employeeForm.vue';
-  import {downloadExcel} from '../../../service/Download/download';
-  import Mixin from "../../../mixins";
+  import { downloadExcel } from '../../../service/Download/download';
+  import Mixin from '../../../mixins';
 
   export default {
     name: 'employeeList',
     pageType: 'basic',
     mixins: [Mixin],
-    components: {employeeForm},
+    components: { employeeForm },
     data() {
       return {
         //========== 表格 grid =========
@@ -114,7 +97,7 @@
         //========== dialog auto form  =========
         // dialogVisible: {visible: false},//dialog switch
         dialogVisible: {
-          employeeFormVisible: {visible: false},
+          employeeFormVisible: { visible: false },
         },
         dialogTit: '', //dialog title
         submitType: 'add', //判断当前表单的类型（add / edit）
@@ -128,7 +111,7 @@
             userBirthday: pickerOptionsMap['date-point'].birthday,
           },
           resourcefieldBindingfnList: {
-            userState: function (params) {
+            userState: function(params) {
               if (params.type === 'change' && params.type !== 'visibleChange') {
                 const webVm = store.vm.get('employeeList');
                 if (params.formData.modelData[params.modelKey] === '0') {
@@ -163,17 +146,32 @@
       };
     },
     methods: {
-      //新增员工-初始化动态表单
-      addEmployee() {
-        this.isAdd = true; //新增开关
-        if (!this.treeNodeInfo.organizationId || this.treeNodeInfo.organizationId === 0) {
-          this.$message({message: '请先选择组织', type: 'warning'});
-        } else {
-          this.dialogTit = '新增员工';
-          this.selectedGridNodeObj.type = 'add';
-          this.dialogVisible.employeeFormVisible.visible = true;
+      /**
+       * 权限按钮区域操作
+       * @param command
+       */
+      roleButtonCommand(command) {
+        //新增员工-初始化动态表单
+        if (command.code === 'actionAddUserBtn') {
+          this.isAdd = true; //新增开关
+          if (!this.treeNodeInfo.organizationId || this.treeNodeInfo.organizationId === 0) {
+            this.$message({ message: '请先选择组织', type: 'warning' });
+          } else {
+            this.dialogTit = '新增员工';
+            this.selectedGridNodeObj.type = 'add';
+            this.dialogVisible.employeeFormVisible.visible = true;
+          }
+        }
+        //导入
+        if (command.code === 'import') {
+          this.importVisible.visible = true;
+        }
+        //导出
+        if (command.code === 'actionExportBtn') {
+          downloadExcel('/system/user/export-excel', this.Mix_searchConditions);
         }
       },
+
       /**
        * grid ation event （操作列操作回调事件）
        * @param params
@@ -339,7 +337,7 @@
         this.treeNodeInfo = condition;
         this.addUserCover.dynamicQuery.roleids = this.treeNodeInfo.organizationId;
 
-        this.getTableData()
+        this.getTableData();
       },
 
       //表数据查询
@@ -376,17 +374,6 @@
           this.loadState.data = true;
 
         });
-      },
-
-      //更多功能
-      handleCommand(command) {
-        if (command === 'import') {
-          //导入
-          this.importVisible.visible = true;
-        } else if (command === 'actionExportBtn') {
-          //导出
-          downloadExcel('/system/user/export-excel', this.Mix_searchConditions)
-        }
       },
     },
 

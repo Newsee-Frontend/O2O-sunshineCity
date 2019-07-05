@@ -1,13 +1,140 @@
+<!--权限按钮操作区域-->
 <template>
-
+  <ul class="role-button-area clear">
+    <li v-for="(item,index) in singleBtnList"
+        :index="index"
+        :key="index"
+        class="role-button-area__part fl"
+        v-if="singleBtnList && singleBtnList.length>0"
+    >
+      <ns-button type="text" size="medium" :disabled="item.disabled" @click="singleClick(item)">
+        <ns-icon-svg :icon-class="iconTransform(item)"></ns-icon-svg>
+        {{item.name}}
+      </ns-button>
+    </li>
+    <li class="role-button-area__part fl" v-if="dropDownBtnList && dropDownBtnList.length>0">
+      <el-dropdown
+        size="small"
+        trigger="click"
+        @command="handleCommand"
+      >
+        <!--title click modules-->
+        <span class="el-dropdown-link">
+            更多<i class="el-icon-caret-bottom el-icon--right"></i>
+        </span>
+        <!--menu for dropdown-->
+        <el-dropdown-menu slot="dropdown" class="more-role-button-menu">
+          <el-dropdown-item
+            v-for="(item, index) in dropDownBtnList"
+            :key="index"
+            :index="index"
+            :command="item.code"
+            :disabled="item.disabled"
+          >
+            {{ item.name }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </li>
+  </ul>
 </template>
 
 <script>
+  import iconMap from './iconMap';
+
   export default {
-    name: 'Biz-role-button-area',
+    name: 'role-button-area',
+    props: {
+      buttonList: {
+        type: Array, default() {
+          return [];
+        },
+      },
+    },
+    computed: {
+      singleBtnList() {
+        return this.buttonList.filter(item => item.btnType === 'single');
+      },
+      dropDownBtnList() {
+        return this.buttonList.filter(item => item.btnType === 'dropDown');
+      },
+
+    },
+    methods: {
+      singleClick(item) {
+        console.log(item);
+        this.$emit('command', item);
+      },
+      handleCommand(command) {
+
+        const current = this.dropDownBtnList.filter(item => item.code === command)[0] || {};
+
+        console.log(command);
+        console.log(current);
+
+        this.$emit('command', current);
+
+      },
+      iconTransform(item) {
+        try {
+          return iconMap.filter(i => i.name === item.name)[0].icon;
+        }
+        catch (e) {
+          return '';
+        }
+
+      },
+    },
   };
 </script>
 
-<style scoped>
+<style rel="stylesheet/scss" lang="scss">
+  .role-button-area {
+    vertical-align: middle;
+    height: 34px;
+    li.role-button-area__part {
+      margin-left: 10px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      //single button
+      .el-button--text {
+        padding-left: 0;
+        padding-right: 0;
+        margin-right: 0;
+        box-sizing: border-box;
+        border: none;
+        span {
+          font-size: 13px;
+          color: #606266;
+        }
+        svg {
+          padding: 0;
+          color: #409eff;
+        }
+      }
+
+      //dropdown button
+      .el-dropdown {
+        cursor: pointer;
+        span.el-dropdown-selfdefine {
+          display: inline-block;
+          font-size: 13px;
+          color: #606266;
+          font-weight: 500;
+          height: 34px;
+          line-height: 34px;
+          padding: 0;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+
+  .el-dropdown-menu.more-role-button-menu {
+    margin-top: 0;
+  }
 
 </style>

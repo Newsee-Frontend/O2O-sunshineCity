@@ -16,7 +16,7 @@
         mode="button"
         v-for="item in roleButtonForm"
         :roleInfo="item"
-        :disabled="submitLoading === 'item.code'"
+        :disabled="submitLoading === item.code"
         :btn-type="item.code === 'formReturnBtn'? '' : 'primary'"
         @click="roleBtnsClick(item)"
       >
