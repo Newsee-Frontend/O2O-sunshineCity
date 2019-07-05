@@ -130,8 +130,15 @@
           console.log('请求到的表格数据：');
           console.log(this.tableData);
           console.log('表格操作按钮', this.gridBtns,this.roleButtonGrid);
+          // this.tableData.list.forEach(item => {
+          //   item.fnsclick = this.gridBtns;
+          // });
           this.tableData.list.forEach(item => {
-            item.fnsclick = this.gridBtns;
+            item.fnsclick = [
+              {label: '编辑', value: 'gridEditBtn'},
+              {label: '删除', value: 'gridRemoveBtn'},
+              {label: '查看', value: 'gridDetailBtn'}
+            ];
           });
           this.loadState.data = true;
         }).catch(() => {

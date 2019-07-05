@@ -145,8 +145,15 @@
           console.log('请求到的表格数据：');
           console.log(this.tableData);
           console.log('表格操作按钮', this.gridBtns);
+          // this.tableData.list.forEach(item => {
+          //   item.fnsclick = this.gridBtns;
+          // });
           this.tableData.list.forEach(item => {
-            item.fnsclick = this.gridBtns;
+            item.fnsclick = [
+              {label: '编辑', value: 'gridEditBtn'},
+              {label: '删除', value: 'gridRemoveBtn'},
+              {label: '查看', value: 'gridDetailBtn'}
+            ];
           });
           this.loadState.data = true;
         }).catch(() => {
@@ -172,7 +179,7 @@
           this.activityType = 'edit'
         }
         else if (info.value === 'gridRemoveBtn') {
-          this.$confirm('确定要删除该活动??', '提示', {type: 'warning'}).then(() => {
+          this.$confirm('确定要删除该活动?', '提示', {type: 'warning'}).then(() => {
             deleteActivity({id: this.rowData.id}).then(() => {
               this.$message.success('删除成功');
               this.getTableData();
