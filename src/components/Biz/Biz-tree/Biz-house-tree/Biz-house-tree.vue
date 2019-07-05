@@ -1,23 +1,19 @@
 <!--房产树-->
 <template>
   <div class="biz-tree biz-house-tree clear" ref="biz-tree">
-    <div class="house-tree-wrapper">
-      <div v-show="showTree" class="tree-width">
-        <!--树搜索框-->
-        <el-autocomplete
-          v-model="treeSearchInput"
-          :fetch-suggestions="remoteSearch"
-          value-key="houseFullName"
-          placeholder="快速查询"
-          suffix-icon="el-icon-search"
-          clearable
-          size="small"
-          @select="houseTreeChange"
-          @clear="houseTreeChange"
-        ></el-autocomplete>
-
-      </div>
-    </div>
+    <!--树搜索框-->
+    <el-autocomplete
+      class="fl"
+      v-model="treeSearchInput"
+      :fetch-suggestions="remoteSearch"
+      value-key="houseFullName"
+      placeholder="快速查询"
+      suffix-icon="el-icon-search"
+      clearable
+      size="small"
+      @select="houseTreeChange"
+      @clear="houseTreeChange"
+    ></el-autocomplete>
   </div>
 
 </template>
@@ -32,14 +28,6 @@
     mixins: [request],
 
     props: {
-      // 树的显示隐藏
-      changeStatus: {
-        type: Object,
-        default() {
-          return {};
-        },
-      },
-
       treeType: {
         type: String,
       },
@@ -54,8 +42,6 @@
 
     data(){
       return {
-        showTree: '',
-
         treeData: [],
         treeloading: false,
 
@@ -69,14 +55,6 @@
     },
 
     methods: {
-      /**
-       * 树的显示隐藏
-       * */
-      treeToggle() {
-        this.showTree = !this.showTree;
-        this.changeStatus.status = this.showTree;   //外层根据该值重新计算
-      },
-
       /**
        * init render tree
        */

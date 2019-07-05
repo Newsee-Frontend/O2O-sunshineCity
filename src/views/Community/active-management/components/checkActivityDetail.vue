@@ -43,7 +43,6 @@
                :searchConditions="searchConditions"
                :showSummary="false"
                :hasActionCol="false"
-               :showHeadOperation="false"
                :firstColType="null"
                @reload="getTableData"
     ></biz-table>

@@ -7,7 +7,6 @@
             <template slot="btns">
               <ns-role-button
                 mode="icon"
-                :coerciveShow="true"
                 :roleInfo="{
                   areaType: 'ACTION',
                   code: 'actionAddBtn',
