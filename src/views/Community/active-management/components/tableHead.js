@@ -30,7 +30,7 @@ const head = [
     resourcecolumnName: '报名人数', //label
     resourcecolumnNameEn: 'applyNumber', //model-key
     resourcecolumnCode: 'applyNumber',
-    resourcecolumnWidth: '80', //列的宽度
+    resourcecolumnWidth: '100', //列的宽度
     resourcecolumnOrder: '4', //列的序号
     resourcecolumnHidden: '0', //显示/隐藏
     resourcecolumnXtype: 'text',
@@ -57,7 +57,7 @@ const head = [
     resourcecolumnName: '评分', //label
     resourcecolumnNameEn: 'score', //model-key
     resourcecolumnCode: 'score',
-    resourcecolumnWidth: '60', //列的宽度
+    resourcecolumnWidth: '100', //列的宽度
     resourcecolumnOrder: '7', //列的序号
     resourcecolumnHidden: '0', //显示/隐藏
     resourcecolumnXtype: 'text',

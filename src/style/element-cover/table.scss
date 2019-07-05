@@ -34,6 +34,20 @@
         font-size: 13px;
       }
 
+      //表头排序icon样式更改
+      .caret-wrapper{
+        height: 28px;
+        .sort-caret{
+          &.ascending{
+            top: 2px;
+          }
+          &.descending{
+            bottom: 4px;
+          }
+
+        }
+      }
+
       //表格操作列内容
       .el-dropdown {
         .el-dropdown-selfdefine {

@@ -1,22 +1,26 @@
 <template>
   <div class="ns-container">
-    <div class="ns-container-left" :class="{ 'ns-container-left-border': changeStatus.status }">
-      <biz-organize-tree
-        title="组织架构"
-        :funcId="Mix_funcId"
-        @tree-item-click="organizeTreeItemClick"
-        orgTypeFilter="1"
-        :searchConditions="Mix_searchConditions"
-        :changeStatus="changeStatus"
-      ></biz-organize-tree>
-    </div>
+    <ns-drawer class="ns-container-left" speed="160ms">
+      <biz-house-tree
+        @tree-item-click="treeItemClick"
+      ></biz-house-tree>
+    </ns-drawer>
   </div>
 </template>
 
 <script>
-  import biz from '../../components/Biz/Biz-tree/Biz-house-tree/Biz-house-tree'
+  import bizHouseTree from '../../components/Biz/Biz-tree/Biz-house-tree/Biz-house-tree'
+  import Mixin from "../../mixins";
   export default {
     name: 'houseManagement',
+    components: {bizHouseTree},
+    mixins: [Mixin],
+
+    methods: {
+      treeItemClick(node){
+        console.log('node change', node);
+      }
+    }
   };
 </script>
 
