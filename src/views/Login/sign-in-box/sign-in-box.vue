@@ -1,9 +1,7 @@
 <template>
   <div class="sign-in-box">
     <!--用户名账号登录窗口-->
-    <div class="sign-in-left">
-      <img src="../../../assets/img/login/loginBoxLeft.png" width="100%" height="100%">
-    </div>
+    <div class="sign-in-left"></div>
     <div class="sign-in-right">
       <p class="sign-in-title">登录</p>
       <div class="sign-in-main" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">
@@ -39,7 +37,8 @@
               style="width: 100%;"
               type="primary"
               :loading="submitLoading"
-              @click="submitForm('loginForm')">登录</ns-button>
+              @click="submitForm('loginForm')">登录
+            </ns-button>
           </ns-form-item>
         </ns-form>
       </div>
@@ -57,7 +56,7 @@
 </template>
 
 <script>
-  import {isMultipleEnterprise} from '../../../service/User/login';
+  import { isMultipleEnterprise } from '../../../service/User/login';
   import MultiEnterprise from './multi-enterprise';
   import authLogin from '../authLogin';
   import cryptoPassWord from '../cryptoPassWord';
@@ -65,7 +64,7 @@
   export default {
     name: 'sign-in-box',
     mixins: [authLogin, cryptoPassWord],
-    components: {MultiEnterprise},
+    components: { MultiEnterprise },
     data() {
       return {
         validateError: '你输入的密码和账户名不匹配,请重新输入',
@@ -76,8 +75,8 @@
           password: '',
         },
         rules_login: {
-          username: [{required: true, message: '请输入用户名', trigger: 'change'}],
-          password: [{required: true, message: '请输入密码', trigger: 'change'}],
+          username: [{ required: true, message: '请输入用户名', trigger: 'change' }],
+          password: [{ required: true, message: '请输入密码', trigger: 'change' }],
         },
         enterprise: [],
       };
@@ -122,7 +121,7 @@
               const loginParams = {
                 username: this.loginForm.username,
                 password: this.getCryptoBybase64,
-            };
+              };
               this.$store.dispatch('oauthlogin', loginParams).then(() => {
                 this.submitLoading = false;
                 this.jumpToPage();
@@ -135,7 +134,7 @@
           .catch(err => {
             this.submitLoading = false;
             console.log('失败', err);
-          })
+          });
       },
 
       // 返回上一页
@@ -147,7 +146,7 @@
       //选中企业跳转
       jumpToPage() {
         this.$store.dispatch('generateSideBar').then(list => {
-          this.$router.push({path: list.length > 0 ? '/dashboard' : '/404'});
+          this.$router.push({ path: list.length > 0 ? '/dashboard' : '/404' });
         });
       },
     },
