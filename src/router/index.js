@@ -15,11 +15,12 @@ Vue.use(Router);
 
 const router = new Router({
   mode: 'hash',
-  scrollBehavior: () => ({y: 0}),
+  scrollBehavior: () => ({ y: 0 }),
   routes,
 });
 
 router.beforeEach(hook.beforeEach);
+router.beforeResolve(hook.beforeResolve);
 router.afterEach(hook.afterEach);
 
 export default router;

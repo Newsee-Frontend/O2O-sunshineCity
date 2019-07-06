@@ -6,14 +6,13 @@
   </div>
 </template>
 <script>
-  import {getUrlParam} from '../../utils'
+  import { getUrlParam } from '../../utils';
   import authLogin from './authLogin';
 
   export default {
     mixins: [authLogin],
     data() {
-      return {
-      };
+      return {};
     },
     created() {
       this.loginTo(); //login
@@ -24,6 +23,7 @@
           token: getUrlParam('token'),
         };
         this.ssoLogin(data);
+        //http://localhost:8093/#/front/login-station?referRoute=/community/noticeList&isShowIframe=false&token=Ehm0IzQzxZEcrP4a1wnHVTdXtnvGiqgDgRxYEhp0y9Q%3d&referPath=192.168.1.135%3a89
       },
     },
   };

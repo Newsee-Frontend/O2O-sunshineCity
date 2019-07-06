@@ -1,5 +1,5 @@
 <template>
-  <ns-layout :class="{'is-simple':isSimple}">
+  <ns-layout :class="{'is-hide-frame':isHideFrame}">
     <template slot="header">
       <!--左logo 插槽 - 根据实际情况插入业务组图片 -->
       <div class="fl">
@@ -41,17 +41,17 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex';
-  import {bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom} from './index';
-  import transform from './transform'
+  import { mapGetters } from 'vuex';
+  import { bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom } from './index';
+  import transform from './transform';
 
   export default {
     name: 'layout',
     mixins: [transform],
-    components: {bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom},
+    components: { bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom },
     data() {
       return {
-        isSimple: false,//是否为iframe模式
+
       };
     },
     computed: {
@@ -63,15 +63,15 @@
       },
     },
     created() {
+      console.log(this.isHideFrame);
     },
-    methods: {
-    },
+    methods: {},
   };
 </script>
 <style rel="stylesheet/scss" lang="scss">
   #layout {
     //在嵌套模式下，去掉头，侧边栏，tab页面，内容部分全屏撑开
-    &.is-simple {
+    &.is-hide-frame {
       .header-wrapper, .sidebar-wrapper {
         display: none;
       }
