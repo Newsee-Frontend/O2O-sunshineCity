@@ -363,27 +363,6 @@
           console.log(this.tableData);
           console.log('表格操作按钮', this.gridBtns);
           this.tableBtnDistribute(this.tableData);
-          //增加 固定操作列 - 按钮数据
-          this.tableData.list.forEach(item => {
-            item.fnsclick = this.gridBtns.filter((btn) => {
-              return btn.value !== ((item.isActived === '1')? 'gridEnableBtn': 'gridStopBtn');
-            });
-          });
-          //增加 固定操作列 - 按钮数据
-          this.tableData.list.forEach(item => {
-            if (item.isActived === '1') {
-              item.fnsclick = [
-                { label: '编辑', value: 'gridEditBtn' },
-                { label: '删除', value: 'gridRemoveBtn' },
-                { label: '停用', value: 'gridStopBtn' },
-              ];
-            } else if (item.isActived === '0') {
-              item.fnsclick = [
-                { label: '编辑', value: 'gridEditBtn' },
-                { label: '删除', value: 'gridRemoveBtn' },
-                { label: '启用', value: 'gridEnableBtn' },
-              ];
-            }});
           this.loadState.data = true;
 
         }).catch(() => {
