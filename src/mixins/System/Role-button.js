@@ -26,12 +26,16 @@ export default {
       }
     },
   },
-  created() {
+  beforeCreate() {
     this.$store.dispatch('getRoleButtonList', { funcId: this.Mix_funcId }).then(
       data => {
+
+        console.log('请求到权限按钮！！！！！！！！！！！');
+        console.log('请求到权限按钮！！！！！！！！！！！');
+        console.log('请求到权限按钮！！！！！！！！！！！');
         console.log(data);
+        console.log(this.tableData);
         this.tableBtnDistribute(this.tableData);
-        this.loadState.roleButton = true;
       },
     ); //get new role button-list
   },

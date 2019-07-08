@@ -62,10 +62,10 @@
 <script>
   import noticeDialog from './componnets/notice-dialog';
   import checkNoticeDetail from './componnets/checkNoticeDetail';
-  import {deleteNotice} from '../../../service/Community/noticeManagement'
-  import {getVillageOptions} from '../../../service/Form/getOptions';
-  import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
-  import Mixin from "../../../mixins";
+  import { deleteNotice } from '../../../service/Community/noticeManagement';
+  import { getVillageOptions } from '../../../service/Form/getOptions';
+  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
+  import Mixin from '../../../mixins';
 
   export default {
     name: 'notice-management',
@@ -74,7 +74,7 @@
 
     mixins: [Mixin],
 
-    components: {noticeDialog, checkNoticeDetail},
+    components: { noticeDialog, checkNoticeDetail },
 
     data() {
       return {
@@ -86,12 +86,12 @@
           status: '',
           pubBeginTime: '',
           pubEndTime: '',
-          category: "1",
+          category: '1',
           pageNum: 1, //当前页数
           pageSize: 20, //每页显示条目个数
         },
         /**发布或保存*/
-        activestatueOptions: [{label: '暂存', value: 0}, {label: '已发布', value: 1}],
+        activestatueOptions: [{ label: '暂存', value: 0 }, { label: '已发布', value: 1 }],
         villageOptions: [],
         noticeTypeOptions: [],
 
@@ -129,17 +129,8 @@
           this.tableData = res.resultData.pageInfo || {};
           console.log('请求到的表格数据：');
           console.log(this.tableData);
-          console.log('表格操作按钮', this.gridBtns,this.roleButtonGrid);
-          // this.tableData.list.forEach(item => {
-          //   item.fnsclick = this.gridBtns;
-          // });
-          this.tableData.list.forEach(item => {
-            item.fnsclick = [
-              {label: '编辑', value: 'gridEditBtn'},
-              {label: '删除', value: 'gridRemoveBtn'},
-              {label: '查看', value: 'gridDetailBtn'}
-            ];
-          });
+          console.log('表格操作按钮', this.gridBtns, this.roleButtonGrid);
+          this.tableBtnDistribute(this.tableData);
           this.loadState.data = true;
         }).catch(() => {
           this.loadState.data = true;
@@ -168,16 +159,16 @@
        * */
       tableAction(info, scope) {
         this.rowData = scope.row;
-        if (info.value === "gridEditBtn") {
+        if (info.value === 'gridEditBtn') {
           this.showNoticeDialog = true;
-          this.noticeTpye = 'edit'
+          this.noticeTpye = 'edit';
         } else if (info.value === 'gridRemoveBtn') {
-          this.$confirm('确定要删除该活动??', '提示', {type: 'warning'}).then(() => {
-            deleteNotice({id: this.rowData.id}).then(() => {
+          this.$confirm('确定要删除该活动??', '提示', { type: 'warning' }).then(() => {
+            deleteNotice({ id: this.rowData.id }).then(() => {
               this.$message.success('删除成功');
               this.getTableData();
             });
-          })
+          });
         } else if (info.value === 'gridDetailBtn') {
           this.checkNoticeVisible = true;
         }
@@ -186,7 +177,7 @@
       /**
        * 获取小区名称的权限
        */
-      getVillageOptions: function () {
+      getVillageOptions: function() {
         getVillageOptions().then((data) => {
           this.villageOptions = data.resultData || [];
         });
@@ -196,7 +187,7 @@
       /**
        * action btn 点击
        */
-      roleButtonCommand: function(command){
+      roleButtonCommand: function(command) {
         if (command.code === 'actionAddBtn') {
           this.noticeTpye = 'add';
           this.showNoticeDialog = true;
@@ -206,11 +197,11 @@
 
     computed: {
       dateRange: {
-        get: function () {
+        get: function() {
           return this.searchConditions.pubBeginTime ? [this.searchConditions.pubBeginTime, this.searchConditions.pubEndTime] : [];
         },
 
-        set: function (arr) {
+        set: function(arr) {
           let range = arr || [];
           this.searchConditions.pubBeginTime = range.length > 1 ? range[0] + ' 00:00:00' : '';
           this.searchConditions.pubEndTime = range.length > 1 ? range[1] + ' 23:59:59' : '';

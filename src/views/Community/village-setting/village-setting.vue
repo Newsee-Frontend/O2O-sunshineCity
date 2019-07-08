@@ -60,10 +60,10 @@
 
 <script>
   // import servicePhoneDialog from './componnets/servicePhoneDialog';
-  import Mixin from "../../../mixins";
+  import Mixin from '../../../mixins';
   import villageInfoDialog from './componnets/villageInfoDialog';
-  import {checkhouse, getCompanyList} from '../../../service/Community/villageSetting';
-  import {tableDataFetch} from '../../../service/TableFetch/table-fetch'
+  import { checkhouse, getCompanyList } from '../../../service/Community/villageSetting';
+  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
 
   export default {
     name: 'village-setting',
@@ -79,7 +79,7 @@
     data() {
       return {
         pageID: 'village',
-        authStatusOptions: [{label: '待开通', value: '0'}, {label: '开通中', value: '1'}, {label: '已关闭', value: '2'}],
+        authStatusOptions: [{ label: '待开通', value: '0' }, { label: '开通中', value: '1' }, { label: '已关闭', value: '2' }],
         tableData: {},
         rowData: {},
         //表格数据加载状态
@@ -124,11 +124,7 @@
           console.log('请求到的表格数据：');
           console.log(this.tableData);
           console.log('表格操作按钮', this.gridBtns);
-          this.tableData.list.forEach(item => {
-            item.fnsclick = [
-              {label: '同步房产', value: 'gridSynchronizeBtn'},
-            ];
-          });
+          this.tableBtnDistribute(this.tableData);
           this.loadState.data = true;
         }).catch(() => {
           this.loadState.data = true;
@@ -166,7 +162,7 @@
             customClass: 'fullpage-loading',
             background: 'rgba(0, 0, 0, 0.7)',
           });
-          checkhouse({precinctId: row.id}).then(() => {
+          checkhouse({ precinctId: row.id }).then(() => {
             loading.close();
             this.$message.success('同步成功');
           }, (err) => {
@@ -178,7 +174,7 @@
       /**
        * action btn 点击
        */
-      roleButtonCommand: function(command){
+      roleButtonCommand: function(command) {
         if (command.code === 'actionAddBtn') {
           this.showVillageDialog = true;
           this.villageDialogType = 'add';

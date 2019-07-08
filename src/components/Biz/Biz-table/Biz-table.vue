@@ -72,7 +72,7 @@
     computed: {
       ...mapGetters(['funcId']),
       isRender() {
-        return this.loadState.data && this.loadState.head && this.loadState.roleButton;
+        return this.loadState.data && this.loadState.head;
       },
       finalHead() {
         return [

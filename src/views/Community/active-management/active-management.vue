@@ -109,8 +109,7 @@
         //表格数据加载状态
         loadState: {
           data: false,
-          head: false,
-          roleButton: false,
+          head: false
         },
       };
     },
