@@ -66,11 +66,8 @@
             @afterRequest="afterRequest"
           >
           </ns-auto-form>
-          <div slot="footer">
-            <ns-auto-form-operation
-              :buttonInfo="buttonInfo"
-              autoFormID="addDictionaryItemForm"
-            ></ns-auto-form-operation>
+          <div slot="footer" style="overflow: hidden;">
+            <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommandForm" class="fr"></biz-role-button-area>
           </div>
         </ns-dialog>
       </div>
@@ -83,6 +80,7 @@
   import Mixin from "../../../mixins";
   import {downloadExcel} from '../../../service/Download/download';
   import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
+  import { mapGetters } from 'vuex';
 
   export default {
     name: 'data-dictionary',
@@ -142,6 +140,9 @@
         org_nodeName: '',
         dic_nodeName: '',
       };
+    },
+    computed: {
+      ...mapGetters(['roleButtonForm'])
     },
     methods: {
       //表数据查询
@@ -248,13 +249,30 @@
         }
       },
 
+
+
+      /**
+       * 表单按钮点击
+       * @param command按钮信息
+       */
+
+      roleButtonCommandForm(command){
+        if(command.code === 'formConfirmBtn'){
+          this.autoFormSubmit()
+        }
+        if(command.code === 'formCancelBtn'){
+          this.autoFormCancel();
+        }
+      },
+
+
       /**
        * auto-form submit  ( 提交按钮事件操作 )
-       * @param formName       button-info
+       * @param command       button-info
        */
-      autoFormSubmit(formName) {
+      autoFormSubmit() {
         this.showMessage = true;
-        this.$refs[formName].submitForm(formName).then(() => {
+        this.$refs['addDictionaryItemForm'].submitForm('addDictionaryItemForm').then(() => {
           this.$message({message: '保存成功', type: 'success'});
           this.showMessage = false;
           this.$set(this.dialogVisible, 'visible', false);
@@ -267,8 +285,8 @@
        * auto-form Cancel  ( 取消按钮事件操作 )
        * @param formName       button-info
        */
-      autoFormCancel(formName) {
-        this.$refs[formName].resetForm(formName);
+      autoFormCancel() {
+        this.$refs.addDictionaryItemForm.resetForm('addDictionaryItemForm');
         this.$set(this.dialogVisible, 'visible', false);
         this.showMessage = false;
       },

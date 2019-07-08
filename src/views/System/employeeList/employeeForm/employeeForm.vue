@@ -131,10 +131,9 @@
         </ns-col>
       </ns-row>
     </ns-form>
-    <span slot="footer">
-      <el-button size="medium" type="primary" @click="submitForm('ruleForm')" :loading="submitLoading">确 定</el-button>
-      <el-button size="medium" @click="formCancel">取 消</el-button>
-    </span>
+    <div slot="footer" style="overflow: hidden;">
+      <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand" class="fr"></biz-role-button-area>
+    </div>
   </ns-dialog>
 </template>
 
@@ -145,6 +144,8 @@ import {
   submitFormData,
 } from '../../../../service/System/employeeList';
 import selectGroupingBox from './selectGroupingBox/selectGroupingBox.vue';
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'employeeForm',
   components: {
@@ -168,6 +169,7 @@ export default {
     },
     funcId: [String, Number]
   },
+
   data() {
     var validOrganizationId = (rule, value, callback) => {
       !this.id ? callback(new Error('请选择所属组织')) : callback();
@@ -235,15 +237,11 @@ export default {
       },
     };
   },
-  created() {
-    this.ruleForm.organizationId =
-      this.scope.type === 'edit' ? this.scope.organizationId : this.treeNodeObj.organizationId;
-    let query =
-      this.scope.type === 'edit'
-        ? { conditions: {}, funcId: this.funcId, userId: this.scope.userId }
-        : { conditions: {}, funcId: this.funcId };
-    this.getDocumentType(query);
+
+  computed: {
+    ...mapGetters(['roleButtonForm']),
   },
+
   methods: {
     //获取下拉框数据
     getDocumentType(query) {
@@ -290,11 +288,23 @@ export default {
         return { label: item.rolecategoryName, options: options };
       });
     },
+    //按钮点击
+    roleButtonCommand(command){
+      if(command.code === 'formConfirmBtn'){
+        this.submitForm(command);
+      }
+
+      if(command.code === 'formCancelBtn'){
+        this.formCancel();
+      }
+    },
+
+
     // 提交表单
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+    submitForm(command) {
+      this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          this.submitLoading = true;
+          this.$set(command, 'disabled', true);
           this.ruleForm.type = this.scope.type === 'edit' ? 'edit' : 'add';
           this.ruleForm.organizationId = this.id;
           submitFormData(this.ruleForm)
@@ -302,10 +312,10 @@ export default {
               this.$emit('refreshGrid');
               this.$message({ message: res.resultMsg, type: 'success' });
               this.dialogVisible.visible = false;
-              this.submitLoading = false;
+              this.$set(command, 'disabled', false);
             })
             .catch(() => {
-              this.submitLoading = false;
+              this.$set(command, 'disabled', false);
             });
         } else {
           return false;
@@ -320,6 +330,16 @@ export default {
     dialogClose() {
       this.dialogVisible.visible = false;
     },
+  },
+
+  created() {
+    this.ruleForm.organizationId =
+      this.scope.type === 'edit' ? this.scope.organizationId : this.treeNodeObj.organizationId;
+    let query =
+      this.scope.type === 'edit'
+        ? { conditions: {}, funcId: this.funcId, userId: this.scope.userId }
+        : { conditions: {}, funcId: this.funcId };
+    this.getDocumentType(query);
   },
 };
 </script>
