@@ -13,16 +13,18 @@
     <div class="slip-title">{{type === 'add'? '新增活动': '编辑活动'}}</div>
 
     <div class="slip-btns">
-      <ns-role-button
-        mode="button"
-        v-for="item in roleButtonForm"
-        :key="item.code"
-        :roleInfo="item"
-        :disabled="submitLoadingBtn === item.code"
-        :btn-type="item.code === 'formReturnBtn'? '' : 'primary'"
-        @click="roleBtnsClick(item)"
-      >
-      </ns-role-button>
+      <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand"></biz-role-button-area>
+
+      <!--<ns-role-button-->
+      <!--mode="button"-->
+      <!--v-for="item in roleButtonForm"-->
+      <!--:key="item.code"-->
+      <!--:roleInfo="item"-->
+      <!--:disabled="submitLoadingBtn === item.code"-->
+      <!--:btn-type="item.code === 'formReturnBtn'? '' : 'primary'"-->
+      <!--@click="roleBtnsClick(item)"-->
+      <!--&gt;-->
+      <!--</ns-role-button>-->
     </div>
 
     <div class="silp-container">
@@ -126,8 +128,8 @@
 
 <script>
   import bizPrecinct from '../../../../components/biz/biz-form/biz-precinct';
-  import {getActiveInfo, publishActivity} from '../../../../service/Community/activeManagement';
-  import {mapGetters} from 'vuex';
+  import { getActiveInfo, publishActivity } from '../../../../service/Community/activeManagement';
+  import { mapGetters } from 'vuex';
 
   export default {
     name: 'activityInfoDialog',
@@ -198,24 +200,24 @@
         submitLoadingBtn: '',
 
         rules: {
-          precinctIds: [{required: true, trigger: 'change', message: '请选择范围'}],
-          provinceId: [{required: true, trigger: 'change', message: '请选择省'}],
-          cityId: [{required: true, trigger: 'change', message: '请选择市'}],
-          type: [{required: true, trigger: 'change', message: '请选择活动类型'}],
-          title: [{required: true, trigger: 'change', message: '请输入活动名称'}],
-          activityLimitNum: [{validator: validActivityLimitNum, trigger: 'change'}],
-          voteEndTime: [{required: true, trigger: 'change', message: '请选择报名截止时间'}],
-          activityStartTime: [{required: true, trigger: 'change', message: '请选择活动开始时间'}],
-          activityEndTime: [{required: true, trigger: 'change', message: '请选择活动截止时间'}],
-          activitySpace: [{required: true, trigger: 'change', message: '请输入活动地点'}],
-          sponsor: [{required: true, trigger: 'change', message: '请输入主办方'}],
-          content: [{required: true, message: '请输入活动内容'}],
-          fileList: [{required: true, message: '请选择图片'}],
+          precinctIds: [{ required: true, trigger: 'change', message: '请选择范围' }],
+          provinceId: [{ required: true, trigger: 'change', message: '请选择省' }],
+          cityId: [{ required: true, trigger: 'change', message: '请选择市' }],
+          type: [{ required: true, trigger: 'change', message: '请选择活动类型' }],
+          title: [{ required: true, trigger: 'change', message: '请输入活动名称' }],
+          activityLimitNum: [{ validator: validActivityLimitNum, trigger: 'change' }],
+          voteEndTime: [{ required: true, trigger: 'change', message: '请选择报名截止时间' }],
+          activityStartTime: [{ required: true, trigger: 'change', message: '请选择活动开始时间' }],
+          activityEndTime: [{ required: true, trigger: 'change', message: '请选择活动截止时间' }],
+          activitySpace: [{ required: true, trigger: 'change', message: '请输入活动地点' }],
+          sponsor: [{ required: true, trigger: 'change', message: '请输入主办方' }],
+          content: [{ required: true, message: '请输入活动内容' }],
+          fileList: [{ required: true, message: '请选择图片' }],
         },
       };
     },
     computed: {
-      ...mapGetters(['requestHead','roleButtonForm']),
+      ...mapGetters(['requestHead', 'roleButtonForm']),
       pluginsConfig() {
         return {
           'editor-image': {
@@ -223,10 +225,10 @@
             headers: this.requestHead,//请求头
             response: res => {
               return res.resultData[0].file;
-            }
+            },
           },
         };
-      }
+      },
     },
     methods: {
       close() {
@@ -269,21 +271,38 @@
 
       },
 
-      roleBtnsClick(item){
-        switch (item.code) {
+      roleButtonCommand: function(command) {
+        switch (command.code) {
           case 'formSaveBtn':
-           this.publish('formSaveBtn');
-           break;
+            this.publish('formSaveBtn');
+            break;
 
           case 'formTempsaveBtn':
             this.publish('formTempsaveBtn');
             break;
 
           case 'formReturnBtn':
-           this.showDialog = false;
-           break
+            this.showDialog = false;
+            break;
         }
       },
+
+
+      // roleBtnsClick(item) {
+      //   switch (item.code) {
+      //     case 'formSaveBtn':
+      //       this.publish('formSaveBtn');
+      //       break;
+      //
+      //     case 'formTempsaveBtn':
+      //       this.publish('formTempsaveBtn');
+      //       break;
+      //
+      //     case 'formReturnBtn':
+      //       this.showDialog = false;
+      //       break;
+      //   }
+      // },
 
       /***
        * 发布/暂存

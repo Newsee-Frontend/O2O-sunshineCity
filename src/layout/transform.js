@@ -7,7 +7,7 @@ export default {
     };
   },
   created() {
-    this.isHideFrame = getUrlParam('isShowIframe') === 'false';
+    this.isHideFrame = getUrlParam('isShowFrame') === 'false';
     console.log(this.isHideFrame);
   },
 };

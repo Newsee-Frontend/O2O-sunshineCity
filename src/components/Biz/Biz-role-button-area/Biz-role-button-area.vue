@@ -8,8 +8,8 @@
         v-if="singleBtnList && singleBtnList.length>0"
         v-show="!item.hide"
     >
-      <ns-button type="text" size="medium" :disabled="item.disabled" @click="singleClick(item)">
-        <ns-icon-svg :icon-class="item.icon"></ns-icon-svg>
+      <ns-button :type="item.type" :disabled="item.disabled" @click="singleClick(item)">
+        <ns-icon-svg :icon-class="item.icon" v-if="item.icon"></ns-icon-svg>
         {{item.name}}
       </ns-button>
     </li>
@@ -20,10 +20,10 @@
         @command="handleCommand"
       >
         <!--title click modules-->
-        <span class="el-dropdown-link">
-            更多<i class="el-icon-caret-bottom el-icon--right"></i>
-        </span>
-        <!--menu for dropdown-->
+        <ns-button type="text" class="el-dropdown-link">
+          更多<i class="el-icon-caret-bottom el-icon--right"></i>
+        </ns-button>
+
         <el-dropdown-menu slot="dropdown" class="more-role-button-menu">
           <el-dropdown-item
             v-for="(item, index) in dropDownBtnList"
@@ -93,12 +93,14 @@
 <style rel="stylesheet/scss" lang="scss">
   .role-button-area {
     vertical-align: middle;
-    height: 34px;
     li.role-button-area__part {
       margin-left: 10px;
 
       &:first-child {
         margin-left: 0;
+      }
+      button {
+        margin: 0;
       }
 
       //single button
@@ -110,6 +112,7 @@
         border: none;
         span {
           font-size: 13px;
+          line-height: 14px;
           color: #606266;
         }
         svg {
@@ -126,8 +129,7 @@
           font-size: 13px;
           color: #606266;
           font-weight: 500;
-          height: 34px;
-          line-height: 34px;
+          line-height: 32px;
           padding: 0;
           box-sizing: border-box;
         }

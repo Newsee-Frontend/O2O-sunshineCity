@@ -14,10 +14,27 @@ const RoleButton = {
 
   mutations: {
     SET_ROLE_BUTTON_LIST: (state, data) => {
+      const td = (data, type) => {
+        data.forEach(item => {
+          if (item.areaType === 'ACTION') {
+            item.type = 'text';
+          }
+          if (item.areaType === 'FORM') {
+            item.type = item.code === 'formReturnBtn' ? 'normal' : 'primary';
+          }
+        });
+        return data;
+      };
       state.roleButtonList = data;
-      state.roleButton.ACTION = data.filter(item => item.areaType === 'ACTION');
-      state.roleButton.FORM = data.filter(item => item.areaType === 'FORM');
+      state.roleButton.ACTION = td(data).filter(item => item.areaType === 'ACTION');
+      state.roleButton.FORM = td(data).filter(item => item.areaType === 'FORM');
       state.roleButton.GRID = data.filter(item => item.areaType === 'GRID');
+
+
+      console.log(33333333333);
+      console.log(33333333333);
+      console.log(state.roleButton);
+      console.log(33333333333);
     },
 
     CLEAR_ROLE_BUTTON_LIST: (state) => {

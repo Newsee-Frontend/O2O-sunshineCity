@@ -41,6 +41,7 @@ service.interceptors.response.use(
     } else {
       const resData = response.data;
       if (resData && (resData.resultCode === '200' || resData.resultCode === 200)) {
+
         return Promise.resolve(resData);
 
       } else {
