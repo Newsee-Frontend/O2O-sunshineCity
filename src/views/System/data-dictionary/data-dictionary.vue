@@ -80,6 +80,7 @@
   import Mixin from "../../../mixins";
   import {downloadExcel} from '../../../service/Download/download';
   import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
+  import { mapGetters } from 'vuex';
 
   export default {
     name: 'data-dictionary',
@@ -271,7 +272,7 @@
        */
       autoFormSubmit() {
         this.showMessage = true;
-        this.$refs[this.autoFormID].submitForm(this.autoFormID).then(() => {
+        this.$refs['addDictionaryItemForm'].submitForm('addDictionaryItemForm').then(() => {
           this.$message({message: '保存成功', type: 'success'});
           this.showMessage = false;
           this.$set(this.dialogVisible, 'visible', false);
@@ -285,7 +286,7 @@
        * @param formName       button-info
        */
       autoFormCancel() {
-        this.$refs[this.autoFormID].resetForm(this.autoFormID);
+        this.$refs.addDictionaryItemForm.resetForm('addDictionaryItemForm');
         this.$set(this.dialogVisible, 'visible', false);
         this.showMessage = false;
       },
