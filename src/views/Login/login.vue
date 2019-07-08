@@ -9,6 +9,7 @@
 <script>
   // import {getOperatorInfo} from '../../service/User';
   import signInBox from './sign-in-box/sign-in-box';
+
   export default {
     components: { signInBox },
     data() {
@@ -20,8 +21,8 @@
           operatorLoginPic: '',
           operatorLogo: '',
           operatorPicture: '',
-          operatorDesc: ''
-        }
+          operatorDesc: '',
+        },
       };
     },
     created() {
@@ -47,5 +48,5 @@
   };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-  @import '../../assets/css/Modular/login/login.css';
+  @import "../../style/login/login";
 </style>

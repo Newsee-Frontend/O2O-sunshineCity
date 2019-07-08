@@ -232,7 +232,7 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-@import '../../../../../assets/css/mixin/mixin';
+@import '../../../../../style/mixins/mixins';
 
 .customer-info-linkage {
   .ns-label {

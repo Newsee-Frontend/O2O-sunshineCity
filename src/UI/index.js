@@ -1,15 +1,21 @@
 import Vue from "vue";
 import ElementUI from 'element-ui';
+
+//style
 import 'cx-theme/dist/cx-theme.min.css';
-import '@/assets/css/public.scss';
 import '../style/element-cover/index.scss';//cover
-import '@/assets/css/common.scss';
+import '../style/public.scss';
+import '../style/common.scss';
+
+//icon
 import '../static-data/iconfont/iconfont';
 
-
+//components
 import '../components/ns-components/index.js';
 import '../components/ns-base/index.js';
 import '../components/Biz';
+
+
 import nsMount from '../utils/nsQuery/nsMount';
 
 

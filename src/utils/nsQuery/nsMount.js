@@ -11,7 +11,7 @@ import ns from './nsQuery';
 import $store from '../../store/index';
 import { autoForm, autoFormSubmit } from '../../service/Form/auto-form';
 import tableHeadMap from '../../static-data/table/table-head';
-import { tableDataFetch } from '../../service/TableFetch/table-fetch';
+
 
 /**
  * create params for validate/reset
@@ -59,7 +59,7 @@ export default {
             console.log('表单提交成功！！');
             console.log(response);
             return response.resultData;
-          })
+          });
 
       },
       /**
@@ -159,8 +159,8 @@ export default {
               return type === 'width' ? '100%' : null;
             }
           } else {
-            throw "in function of 'convertUnits', you should set type-value to tell this function " +
-              'which style ( width / height ) you went to set value.';
+            throw 'in function of \'convertUnits\', you should set type-value to tell this function ' +
+            'which style ( width / height ) you went to set value.';
           }
         }
       },
@@ -173,144 +173,6 @@ export default {
         return data[name];
       },
 
-    };
-    //grid
-    Vue.prototype.grid = {
-      //请求表格的内容数据
-      fetch: (requestData, successcb, errorcb) => {
-        // $store.dispatch('tableDataFetch', {gridID, url, query});
-        //requestData.query.isSwitch 房产信息汇总表和房产变动信息表表格单元链接跳转查询参数开关
-        tableDataFetch(requestData)
-          .then(res => {
-            successcb(res.resultData);
-          })
-          .catch(res => {
-            errorcb(res);
-          });
-      },
-      /**
-       * grid validate
-       * @param gridCheck
-       * @returns {Promise<any>}
-       */
-      validate: gridCheck => {
-        return new Promise((resolve, reject) => {
-          try {
-            gridCheck.state = 'all-check';
-            let status = false;
-            let submitHandle = () => {
-              status = ns.base.checkRange('.grid-container', '.cx-is-error');
-              if (status) {
-                window.clearTimeout(submitHandle);
-                resolve(gridCheck);
-              } else {
-                window.clearTimeout(submitHandle);
-                reject(gridCheck);
-              }
-            };
-            setTimeout(submitHandle, 0);
-          } catch (e) {
-            // statements to handle any exceptions
-            throw 'Please check the automatic grid validation method. There are some errors in the internal code.';
-          }
-        });
-      },
-      /**
-       * grid reValidate
-       * @param gridCheck
-       * @returns {Promise<any>}
-       */
-      reValidate: gridCheck => {
-        return new Promise((resolve, reject) => {
-          try {
-            gridCheck.state = 'empty-check-list';
-            let resetHandle = () => {
-              if (gridCheck.list.length === 0) {
-                window.clearTimeout(resetHandle);
-                resolve(gridCheck);
-              } else {
-                window.clearTimeout(resetHandle);
-                reject(gridCheck);
-              }
-            };
-            setTimeout(resetHandle, 0);
-          } catch (e) {
-            // statements to handle any exceptions
-            throw 'Please check the automatic grid validation method. There are some errors in the internal code.';
-          }
-        });
-      },
-    };
-    //search
-    Vue.prototype.search = {
-      //搜索条件
-      conditions: {
-        companyId: '', //公司id
-        departmentId: '', //部门id
-        organizationId: '',
-        dictionaryitemDictionaryId: '',
-        filterList: [], //条件
-        pageNum: 1, //当前页数
-        pageSize: 10, //每页显示条目个数
-        orderBy: '', //排序：升序还是降序
-        orderFieldName: '', //排序：字段名
-        mainSearch: '', //输入框值
-        filterConditions: [], //筛选器记录的条件
-        otherConditions: {},
-        size: '',
-      },
-      /**
-       * makeData
-       * @param isFirstShow (第一行是否显示) data (后台得到数据)
-       * @param cb
-       */
-      makeData: (isFirstShow, data, thlist) => {
-        if (isFirstShow) {
-          let arry = data.resultData.list;
-          arry.splice(0, 0, {});
-          return arry;
-        } else if (thlist.length === 0) {
-          return []; //列表数据
-        } else {
-          return data.resultData.list; //列表数据
-        }
-      },
-      /**
-       * makeData
-       * @param condition (条件) data (后台得到数据)
-       * @param cb
-       */
-      errorSelect: (condition, data, thlist) => {
-        if (thlist.length === 0) {
-          return 'error';
-        } else if (data.resultData.total === 0 && condition !== []) {
-          return 'noResult';
-        } else if (data.resultData.total === 0) {
-          return 'noData';
-        } else {
-          return 'normal';
-        }
-      },
-      DateFormat(time, fmt) {
-        let o = {
-          'M+': time.getMonth() + 1, //月份
-          'd+': time.getDate(), //日
-          'h+': time.getHours(), //小时
-          'm+': time.getMinutes(), //分
-          's+': time.getSeconds(), //秒
-          'q+': Math.floor((time.getMonth() + 3) / 3), //季度
-          S: time.getMilliseconds(), //毫秒
-        };
-        if (/(y+)/.test(fmt))
-          fmt = fmt.replace(RegExp.$1, (time.getFullYear() + '').substr(4 - RegExp.$1.length));
-        for (let k in o)
-          if (new RegExp('(' + k + ')').test(fmt))
-            fmt = fmt.replace(
-              RegExp.$1,
-              RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length)
-            );
-        return fmt;
-      },
     };
   },
 };

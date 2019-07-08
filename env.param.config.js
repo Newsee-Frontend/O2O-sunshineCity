@@ -6,6 +6,7 @@ module.exports = {
     entry: {
       app: './src/main.js',
     },
+    cssExtractPublicPath: './',
     templateSPA: './index.html',
     staticPath: './static',
     port: 8093,
