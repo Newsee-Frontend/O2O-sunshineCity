@@ -9,7 +9,7 @@
         v-show="!item.hide"
     >
       <ns-button :type="item.type" :disabled="item.disabled" @click="singleClick(item)">
-        <ns-icon-svg :icon-class="item.icon"></ns-icon-svg>
+        <ns-icon-svg :icon-class="item.icon" v-if="item.icon"></ns-icon-svg>
         {{item.name}}
       </ns-button>
     </li>
@@ -20,10 +20,10 @@
         @command="handleCommand"
       >
         <!--title click modules-->
-        <span class="el-dropdown-link">
-            更多<i class="el-icon-caret-bottom el-icon--right"></i>
-        </span>
-        <!--menu for dropdown-->
+        <ns-button type="text" class="el-dropdown-link">
+          更多<i class="el-icon-caret-bottom el-icon--right"></i>
+        </ns-button>
+
         <el-dropdown-menu slot="dropdown" class="more-role-button-menu">
           <el-dropdown-item
             v-for="(item, index) in dropDownBtnList"
@@ -98,6 +98,9 @@
 
       &:first-child {
         margin-left: 0;
+      }
+      button {
+        margin: 0;
       }
 
       //single button
