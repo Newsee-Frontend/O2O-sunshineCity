@@ -15,13 +15,13 @@
     >
       <ns-form-item label="集团名称" prop="groupName">
         <ns-input
-          v-model="groupForm.groupName"
+          v-model.trim="groupForm.groupName"
           placeholder="请输入集团名称"
         ></ns-input>
       </ns-form-item>
       <ns-form-item label="集团编号" prop="groupCode">
         <ns-input
-          v-model="groupForm.groupCode"
+          v-model.trim="groupForm.groupCode"
           placeholder="请输入集团编号"
         ></ns-input>
       </ns-form-item>

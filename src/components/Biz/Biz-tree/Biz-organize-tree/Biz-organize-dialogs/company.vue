@@ -18,7 +18,7 @@
       <ns-form-item label="公司名称" prop="companyName">
         <ns-input
           @blur="autoMakeMassage"
-          v-model="companyForm.companyName"
+          v-model.trim="companyForm.companyName"
           placeholder="请输入公司名称"
         ></ns-input>
       </ns-form-item>
@@ -32,7 +32,7 @@
       <ns-form-item label="公司简称" prop="companyShortName">
         <ns-input
           v-judgeChange="judgeChangeParams_shortName"
-          v-model="companyForm.companyShortName"
+          v-model.trim="companyForm.companyShortName"
           placeholder="请输入公司简称"
         ></ns-input>
       </ns-form-item>

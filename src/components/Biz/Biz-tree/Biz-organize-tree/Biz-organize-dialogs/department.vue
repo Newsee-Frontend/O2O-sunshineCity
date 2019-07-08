@@ -21,7 +21,7 @@
       <ns-form-item label="部门名称" prop="departmentName">
         <ns-input
           @blur="autoMakeMassage"
-          v-model="departmentForm.departmentName"
+          v-model.trim="departmentForm.departmentName"
           placeholder="请输入部门名称"
         ></ns-input>
       </ns-form-item>
@@ -35,7 +35,7 @@
       <ns-form-item label="部门简称" prop="departmentShortName">
         <ns-input
           v-judgeChange="judgeChangeParams_shortName"
-          v-model="departmentForm.departmentShortName"
+          v-model.trim="departmentForm.departmentShortName"
           placeholder="请输入部门简称"
         ></ns-input>
       </ns-form-item>

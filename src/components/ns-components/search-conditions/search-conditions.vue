@@ -155,11 +155,11 @@
       >
         <div class="filter-name">
           <label>筛选器名称</label>
-          <el-input
-            v-model="strFilterName"
+          <ns-input
+            v-model.trim="strFilterName"
             placeholder="给筛选器起个名字吧"
             :class="errorBorder ? 'error-border' : ''"
-          ></el-input>
+          ></ns-input>
         </div>
         <span slot="footer" class="dialog-footer">
           <ns-button type="primary" @click="commitCondition">确 定</ns-button>
