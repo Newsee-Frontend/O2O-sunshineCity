@@ -16,7 +16,7 @@
       <ns-role-button
         mode="button"
         v-for="item in roleButtonForm"
-        key="code"
+        :key="item.code"
         :roleInfo="item"
         :disabled="submitLoadingBtn === item.code"
         :btn-type="item.code === 'formReturnBtn'? '' : 'primary'"
