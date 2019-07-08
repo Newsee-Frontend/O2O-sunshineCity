@@ -129,7 +129,6 @@
     },
 
     methods: {
-
       /**
        * 获取表格数据
        */
@@ -146,9 +145,7 @@
           console.log('请求到的表格数据：');
           console.log(this.tableData);
           console.log('表格操作按钮', this.gridBtns);
-          this.tableData.list.forEach(item => {
-            item.fnsclick = this.gridBtns;
-          });
+          this.tableBtnDistribute(this.tableData);
           this.loadState.data = true;
         }).catch(() => {
           this.loadState.data = true;
@@ -199,6 +196,8 @@
           this.villageOptions = data.resultData || [];
         });
       },
+
+
     },
 
     created() {
