@@ -8,7 +8,7 @@
         v-if="singleBtnList && singleBtnList.length>0"
         v-show="!item.hide"
     >
-      <ns-button type="text" size="medium" :disabled="item.disabled" @click="singleClick(item)">
+      <ns-button :type="item.type" :disabled="item.disabled" @click="singleClick(item)">
         <ns-icon-svg :icon-class="item.icon"></ns-icon-svg>
         {{item.name}}
       </ns-button>
@@ -93,7 +93,6 @@
 <style rel="stylesheet/scss" lang="scss">
   .role-button-area {
     vertical-align: middle;
-    height: 34px;
     li.role-button-area__part {
       margin-left: 10px;
 
@@ -110,6 +109,7 @@
         border: none;
         span {
           font-size: 13px;
+          line-height: 14px;
           color: #606266;
         }
         svg {
@@ -126,8 +126,7 @@
           font-size: 13px;
           color: #606266;
           font-weight: 500;
-          height: 34px;
-          line-height: 34px;
+          line-height: 32px;
           padding: 0;
           box-sizing: border-box;
         }

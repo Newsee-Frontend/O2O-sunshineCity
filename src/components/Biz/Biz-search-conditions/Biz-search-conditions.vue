@@ -6,9 +6,7 @@
           <span class="lineBlue"></span>
           <span class="search-title">搜索</span>
         </div>
-        <div class="action-fnbutton">
-          <slot name="btns"></slot>
-        </div>
+        <slot name="btns"></slot>
       </div>
 
       <div class="search-body clear">
