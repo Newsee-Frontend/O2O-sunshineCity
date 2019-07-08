@@ -40,11 +40,11 @@
         </ns-col>
         <ns-col :span="12">
           <ns-form-item label="姓名" prop="userName">
-            <ns-input v-model="ruleForm.userName" placeholder="请输入姓名"></ns-input>
+            <ns-input v-model.trim="ruleForm.userName" placeholder="请输入姓名"></ns-input>
           </ns-form-item>
         </ns-col>
         <ns-col :span="12">
-          <ns-form-item label="性别" prop="">
+          <ns-form-item label="性别" prop="userSex">
             <ns-select
               v-model="ruleForm.userSex"
               :options="options"
@@ -77,7 +77,7 @@
         </ns-col>
         <ns-col :span="12">
           <ns-form-item label="账号" prop="userAccount">
-            <ns-input v-model="ruleForm.userAccount" placeholder="请输入账号"></ns-input>
+            <ns-input v-model.trim="ruleForm.userAccount" placeholder="请输入账号"></ns-input>
           </ns-form-item>
         </ns-col>
         <ns-col :span="12">
@@ -89,7 +89,7 @@
           </ns-form-item>
         </ns-col>
         <ns-col :span="12">
-          <ns-form-item label="证件类型" prop="">
+          <ns-form-item label="证件类型" prop="userCertificateType">
             <ns-select
               v-model="ruleForm.userCertificateType"
               :options="documentTypeOptions"
@@ -99,7 +99,7 @@
           </ns-form-item>
         </ns-col>
         <ns-col :span="12">
-          <ns-form-item label="证件号码" prop="">
+          <ns-form-item label="证件号码" prop="userCertificateNumber">
             <ns-input
               v-model="ruleForm.userCertificateNumber"
               placeholder="请输入证件号码"
@@ -107,7 +107,7 @@
           </ns-form-item>
         </ns-col>
         <ns-col :span="12">
-          <ns-form-item label="入职日期" prop="">
+          <ns-form-item label="入职日期" prop="userHiredate">
             <ns-date-picker
               v-model="ruleForm.userHiredate"
               type="date"
@@ -120,7 +120,7 @@
           </ns-form-item>
         </ns-col>
         <ns-col :span="12">
-          <ns-form-item label="所属岗位" prop="">
+          <ns-form-item label="所属岗位" prop="sentryId">
             <ns-select
               v-model="ruleForm.sentryId"
               :options="sentryOptions"

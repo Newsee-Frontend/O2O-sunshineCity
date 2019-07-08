@@ -287,6 +287,7 @@
         this.groupDialogObj.nodeInfo = node;
         this.departmentDialogObj.parentNodeInfo = parent;
         this.departmentDialogObj.nodeInfo = node;
+        console.log(node);
         if (node.organizationType === 2) {
           //部门
           this.departmentDialogObj.type = 'edit';
