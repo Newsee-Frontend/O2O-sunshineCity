@@ -20,7 +20,8 @@ const RoleButton = {
             item.type = 'text';
           }
           if (item.areaType === 'FORM') {
-            item.type = item.code === 'formReturnBtn' ? 'normal' : 'primary';
+            let normalBtns = ['formCancelBtn', 'formReturnBtn'];
+            item.type = normalBtns.indexOf(item.code) > -1  ? 'normal' : 'primary';
           }
         });
         return data;
