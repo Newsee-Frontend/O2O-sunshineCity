@@ -8,21 +8,21 @@
       v-if="type === 'span'"
       :style="{ '-webkit-line-clamp': rows }"
       @click="click(cont)"
-      >{{ cont | allToString }}
+      >{{ cont }}
     </span>
     <a
       class="ns-text-action"
       v-if="type === 'action'"
       :style="{ '-webkit-line-clamp': rows }"
       @click="click(cont)"
-      >{{ cont | allToString }}
+      >{{ cont }}
     </a>
     <a
       class="ns-text-link"
       v-if="type === 'link'"
       :style="{ '-webkit-line-clamp': rows }"
       :href="dynamicSrc"
-      >{{ cont | allToString }}
+      >{{ cont }}
     </a>
   </div>
 </template>
