@@ -3,7 +3,7 @@
     <template slot="header">
       <!--左logo 插槽 - 根据实际情况插入业务组图片 -->
       <div class="fl">
-        <img src="../assets/img/logo/logo-white-120X50.png" alt="head-logo">
+        <img src="../assets/img/logo/nwLOGO.png" alt="head-logo">
       </div>
 
       <!--业务组 - 自定义头部模块 -->

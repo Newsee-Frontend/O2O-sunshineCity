@@ -24,6 +24,7 @@ html, body {
     );
     box-sizing: border-box;
     @include clearFloat;
+
     //left of container (tree)
     .ns-container-left {
       float: left;
@@ -35,10 +36,6 @@ html, body {
       background: $--color-white;
       box-sizing: border-box;
       margin-right: 10px;
-      &.hide {
-        border: none;
-        margin-right: 0;
-      }
     }
 
     //right of container (grid + search)
@@ -51,115 +48,5 @@ html, body {
       overflow: hidden;
       box-sizing: border-box;
     }
-  }
-}
-
-//holder
-.ns-holder {
-  box-sizing: border-box;
-}
-
-//top action module 头部操作模块
-.action-module {
-  @include clearFloat;
-  //action function button 功能按钮
-  .action-fnbutton {
-    //模块整体 - 向下偏差补足
-    $mtsub_modelue: ($search-top-height - 32px)/2;
-    //下拉菜单-  向下偏差补足
-    $mtsub_dropdown: ($search-top-height - 32px)/2;
-
-    float: right;
-    font-size: 13px;
-    @include clearFloat;
-
-    .ns-role-button-title {
-      margin-left: -5px;
-    }
-    div.icon-svg {
-      margin-right: 11px;
-    }
-    //在页面顶部的操作模块中，所有图标的大小做调整
-    svg.ns-icon-svg {
-      width: 14px;
-      height: 14px;
-      color: #0f60f6;
-      padding: 0 6px;
-    }
-
-    .el-tooltip {
-      padding: 8px 10px;
-    }
-    //1、下拉按钮菜单
-    .el-dropdown.ns-dropdown.ns-dropdown--icon {
-      margin-top: $mtsub_modelue + $mtsub_dropdown;
-    }
-
-    //2、 单个权限按钮
-    .ns-role-button {
-      line-height: $search-top-height;
-      //margin-top: $mtsub_modelue;
-
-      //权限按钮 - 下拉菜单
-      &.ns-role-dropdown {
-        //模式为 icon 和 text 的需要做调整，往下移动5px
-        .ns-dropdown--icon,
-        &.ns-dropdown--text {
-          margin-top: 5px;
-        }
-      }
-
-      //权限按钮 - 按钮
-      button.el-button {
-        float: left;
-        margin-right: 8px;
-        & + .el-button {
-          margin-left: 0;
-        }
-      }
-    }
-    //3、 权限下拉按钮菜单
-    .ns-permition-dropdown {
-      button.el-button {
-        float: none;
-      }
-      float: left;
-      margin-top: ($search-top-height - 32px)/2;
-    }
-  }
-}
-
-//dialog style
-.ns-dialog {
-  //normal dialog
-  .el-dialog {
-    .el-tabs {
-      height: 100%;
-    }
-    //tabs style change
-    .el-tabs__content {
-      min-height: 447px; //content
-      .el-tab-pane {
-        height: 100%;
-        .el-tab-pane_container {
-          height: 100%;
-        }
-      }
-    }
-  }
-}
-
-.fullpage-loading {
-  &.el-loading-mask .el-loading-spinner {
-    p {
-      display: block !important;
-      background: #0a7af8;
-      padding: 10px 30px;
-      border-radius: 5px;
-      color: #fff;
-    }
-
-    width: auto;
-    background-size: 0 0 !important;
   }
 }
