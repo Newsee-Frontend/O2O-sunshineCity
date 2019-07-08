@@ -139,7 +139,7 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import '../../../../../assets/css/public';
+@import '../../../../../style/public';
 
 .ns-role-button {
   display: inline-block;

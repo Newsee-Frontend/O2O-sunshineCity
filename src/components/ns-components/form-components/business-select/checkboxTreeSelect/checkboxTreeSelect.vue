@@ -260,7 +260,7 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-@import '../../../../../assets/css/mixin/mixin';
+@import '../../../../../style/mixins/mixins';
 
 .checkbox-tree-select {
   .el-input__icon.el-icon-circle-check {
