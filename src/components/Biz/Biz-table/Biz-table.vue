@@ -16,7 +16,7 @@
     ></ns-table>
     <ns-pagination
       class="biz-pagination"
-      :total="data.total" :searchConditions="searchConditions"
+      :total="data.total || 0" :searchConditions="searchConditions"
       @size-change="sizeChange"
       @current-change="currentChange"
     ></ns-pagination>
@@ -82,6 +82,7 @@
           ...(this.showAddRowOperation ? [columnConfig['add-row']] : []),
 
         ].map(item => {
+          //表格配置a标签
           let linkCode = ['precinctName'];
           if (linkCode.indexOf(item.resourcecolumnCode) > -1) {
             item[this.keyRefer['head']['cell-Config']] = {
