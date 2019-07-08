@@ -362,12 +362,13 @@
           console.log(this.Mix_searchConditions);
           console.log(this.tableData);
           console.log('表格操作按钮', this.gridBtns);
+          this.tableBtnDistribute(this.tableData);
           //增加 固定操作列 - 按钮数据
-          // this.tableData.list.forEach(item => {
-          //   item.fnsclick = this.gridBtns.filter((btn) => {
-          //     return btn.value !== ((item.isActived === '1')? 'gridEnableBtn': 'gridStopBtn');
-          //   });
-          // });
+          this.tableData.list.forEach(item => {
+            item.fnsclick = this.gridBtns.filter((btn) => {
+              return btn.value !== ((item.isActived === '1')? 'gridEnableBtn': 'gridStopBtn');
+            });
+          });
           //增加 固定操作列 - 按钮数据
           this.tableData.list.forEach(item => {
             if (item.isActived === '1') {
