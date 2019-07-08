@@ -2,7 +2,7 @@
   <div class="pic-404">
     <img :src="img_404" alt="404" />
     <div class="error-text"> 您要访问的页面走丢啦～ </div>
-    <ns-button type="primary" @click="goBack">点击返回</ns-button>
+    <ns-button class="error-btn" type="primary" @click="goBack">点击返回</ns-button>
   </div>
 </template>
 
@@ -35,6 +35,10 @@ export default {
     color:rgba(127,65,65,1);
     line-height:22px;
     padding: 35px 0;
+  }
+  .error-btn{
+    margin-top: 25px;
+    width: 180px;
   }
 }
 </style>
