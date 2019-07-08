@@ -1,7 +1,4 @@
-
 import Vue from 'vue';
-
-import roleButton from './Basic/button/role-button/role-button.vue';
 
 
 //tree
@@ -17,7 +14,6 @@ import text from './Form/text/text.vue';
 //Navigation
 import dropdown from './Navigation/dropdown.vue';
 
-Vue.component('ns-role-button', roleButton);
 // Vue.component('ns-select', select);
 Vue.component('ns-checkbox-tree', checkboxTree);
 
