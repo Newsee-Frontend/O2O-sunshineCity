@@ -166,20 +166,10 @@
           },
         ).then(res => {
           this.tableData = res.resultData;
-          console.log(33333333);
-          console.log(this.Mix_searchConditions);
-          console.log(this.tableData)
+          console.log('请求到的表格数据：');
+          console.log(this.tableData);
           console.log('表格操作按钮', this.gridBtns);
-          //增加 固定操作列 - 按钮数据
-          // this.tableData.list.forEach(item => {
-          //   item.fnsclick = this.gridBtns;
-          // });
-          this.tableData.list.forEach(item => {
-            item.fnsclick = [
-              {label: '编辑', value: 'gridEditBtn'},
-              {label: '删除', value: 'gridRemoveBtn'},
-            ];
-          });
+          this.tableBtnDistribute(this.tableData);
           this.loadState.data = true;
 
         }).catch(() => {
