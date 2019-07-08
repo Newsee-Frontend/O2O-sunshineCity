@@ -27,7 +27,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .pic-404 {
   width: 100%;
-  padding: 264px 0;
+  padding-top: 264px;
   overflow: hidden;
   text-align: center;
   .error-text{
