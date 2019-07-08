@@ -312,22 +312,10 @@
           }
         ).then(res => {
           this.tableData = res.resultData;
-          console.log(this.Mix_searchConditions);
+          console.log('请求到的表格数据：');
           console.log(this.tableData);
           console.log('表格操作按钮', this.gridBtns);
-          //增加 固定操作列 - 按钮数据
-          // this.tableData.list.forEach(item => {
-          //   // item.fnsclick = this.gridBtns;
-          //   this.$set(item,'fnsclick', this.gridBtns)
-          // });
-          this.tableData.list.forEach(item => {
-            item.fnsclick = [
-              {label: '新增授权人', value: 'gridAuthorizerBtn'},
-              {label: '编辑', value: 'gridEditBtn'},
-              {label: '删除', value: 'gridRemoveBtn'},
-            ];
-          });
-
+          this.tableBtnDistribute(this.tableData);
           this.loadState.data = true;
         }, () => {
           this.tableData = {};
