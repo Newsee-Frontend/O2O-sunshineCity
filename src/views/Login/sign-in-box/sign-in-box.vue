@@ -4,7 +4,7 @@
     <div class="sign-in-left"></div>
     <div class="sign-in-right">
       <p class="sign-in-title">登录</p>
-      <div class="sign-in-main" v-if="!hasMultiEnterprise" @keyup.enter="submitForm('loginForm')">
+      <div class="sign-in-main" v-if="!hasMultiEnterprise">
         <ns-form
           :model="loginForm"
           ref="loginForm"
@@ -30,6 +30,7 @@
               width="100%"
               height="40px"
               v-model="loginForm.password"
+              @keyup.native.enter="submitForm('loginForm')"
               placeholder="登录密码"></ns-input>
           </ns-form-item>
           <ns-form-item>
