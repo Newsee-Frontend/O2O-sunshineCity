@@ -14,17 +14,6 @@
 
     <div class="slip-btns">
       <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand"></biz-role-button-area>
-
-      <!--<ns-role-button-->
-      <!--mode="button"-->
-      <!--v-for="item in roleButtonForm"-->
-      <!--:key="item.code"-->
-      <!--:roleInfo="item"-->
-      <!--:disabled="submitLoadingBtn === item.code"-->
-      <!--:btn-type="item.code === 'formReturnBtn'? '' : 'primary'"-->
-      <!--@click="roleBtnsClick(item)"-->
-      <!--&gt;-->
-      <!--</ns-role-button>-->
     </div>
 
     <div class="silp-container">
@@ -197,8 +186,6 @@
 
         showDialog: this.visible,
 
-        submitLoadingBtn: '',
-
         rules: {
           precinctIds: [{ required: true, trigger: 'change', message: '请选择范围' }],
           provinceId: [{ required: true, trigger: 'change', message: '请选择省' }],
@@ -274,11 +261,11 @@
       roleButtonCommand: function(command) {
         switch (command.code) {
           case 'formSaveBtn':
-            this.publish('formSaveBtn');
+            this.publish(command);
             break;
 
           case 'formTempsaveBtn':
-            this.publish('formTempsaveBtn');
+            this.publish(command);
             break;
 
           case 'formReturnBtn':
@@ -287,45 +274,28 @@
         }
       },
 
-
-      // roleBtnsClick(item) {
-      //   switch (item.code) {
-      //     case 'formSaveBtn':
-      //       this.publish('formSaveBtn');
-      //       break;
-      //
-      //     case 'formTempsaveBtn':
-      //       this.publish('formTempsaveBtn');
-      //       break;
-      //
-      //     case 'formReturnBtn':
-      //       this.showDialog = false;
-      //       break;
-      //   }
-      // },
-
       /***
        * 发布/暂存
        * @param submitType
        */
-      publish(submitType) {
+      publish(btnInfo) {
         this.$refs.activityForm.validate((valid) => {
           if (valid) {
             if (this.model.activityStartTime > this.model.activityEndTime) {
               this.$message.error('活动开始时间不能晚于活动结束时间， 请重新选择');
               return;
             }
-            this.model.status = submitType === 'formSaveBtn' ? 1 : 0;
-            this.submitLoadingBtn = submitType;
+            this.model.status = btnInfo.code === 'formSaveBtn' ? 1 : 0;
             this.model.id = this.type === 'add' ? '' : this.rowData.id;
+            this.$set(btnInfo, 'disabled', true);
             let url = this.type === 'add' ? '/o2o/activity/publish' : '/o2o/activity/editActivity';
             publishActivity(url, this.model).then(() => {
-              this.submitLoadingBtn = '';
               this.$message.success('保存成功');
               this.close();
               this.$emit('reloadGrid');
+              this.$set(btnInfo, 'disabled', false);
             }, () => {
-              this.submitLoadingBtn = '';
+              this.$set(btnInfo, 'disabled', false);
             });
           }
         });
