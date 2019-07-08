@@ -24,9 +24,9 @@
 </template>
 
 <script>
-  import {listColumnService} from '../../../service/TableFetch/table-fetch';
-  import {addEventHandler, removeEventHandler} from '../../../utils/event'
-  import {mapGetters} from 'vuex';
+  import { listColumnService } from '../../../service/TableFetch/table-fetch';
+  import { addEventHandler, removeEventHandler } from '../../../utils/event';
+  import { mapGetters } from 'vuex';
   import columnConfig from './column-template-config';
   import cellFifter from './cell-fifter';
   import keyRefer from './keyRefer';
@@ -40,38 +40,39 @@
         cellFifter,
         isLoading: true,
         tableHead: [],
-        height: 0
+        height: 0,
       };
     },
     props: {
       data: {
         type: Object,
-        default: () => ({})
+        default: () => ({}),
       },
-      localHead: {type: Array, request: false}, //本地表头数据
+      localHead: { type: Array, request: false }, //本地表头数据
       //表格数据加载状态
       loadState: {
         type: Object, default() {
           return {
             data: false,
             head: false,
+            roleButton: false,
           };
         },
       },
-      searchConditions: {type: Object},//筛选条件
+      searchConditions: { type: Object },//筛选条件
       //第一列固定列类型（非自动表头配置）
-      firstColType: {type: [String, null], default: 'selection', validator: t => ['index', 'selection', 'radio', null].indexOf(t) > -1},
-      hasActionCol: {type: Boolean, default: true},//是否有操作列
-      showHeadOperation: {type: Boolean, default: true},//表头设置操作模块开关
-      showAddRowOperation: {type: Boolean, default: false},//表头设置 新增行操作模块开关
-      showSummary: {type: Boolean, default: true},//是否显示合计行
-      autoResize: {type: Boolean, default: true}, //表格高度是否自适应窗口变化
-      customHeight: {type: Number, default: 300},//自定义表格高度
+      firstColType: { type: [String, null], default: 'selection', validator: t => ['index', 'selection', 'radio', null].indexOf(t) > -1 },
+      hasActionCol: { type: Boolean, default: true },//是否有操作列
+      showHeadOperation: { type: Boolean, default: true },//表头设置操作模块开关
+      showAddRowOperation: { type: Boolean, default: false },//表头设置 新增行操作模块开关
+      showSummary: { type: Boolean, default: true },//是否显示合计行
+      autoResize: { type: Boolean, default: true }, //表格高度是否自适应窗口变化
+      customHeight: { type: Number, default: 300 },//自定义表格高度
     },
     computed: {
       ...mapGetters(['funcId']),
       isRender() {
-        return this.loadState.data && this.loadState.head;
+        return this.loadState.data && this.loadState.head && this.loadState.roleButton;
       },
       finalHead() {
         return [
@@ -112,7 +113,7 @@
           this.loadState.head = true;
         }
         else {
-          listColumnService({funcId: this.funcId}).then(res => {
+          listColumnService({ funcId: this.funcId }).then(res => {
             this.tableHead = res.resultData.columns || [];
 
             this.$store.dispatch('setaTableHead', this.tableHead);//store head data
@@ -143,7 +144,7 @@
        */
       getClassDomHeight(className) {
         let domArr = document.getElementsByClassName(className);
-        return domArr.length > 0 ? domArr[domArr.length -1].offsetHeight : 0
+        return domArr.length > 0 ? domArr[domArr.length - 1].offsetHeight : 0;
       },
 
       /**
@@ -200,7 +201,7 @@
     },
 
     created() {
-      this.getTableHead()
+      this.getTableHead();
     },
 
     mounted() {
@@ -209,7 +210,7 @@
         this.height = this.getAutoResizeHeight();
         addEventHandler(window, 'resize', () => {
           this.height = this.getAutoResizeHeight();
-        })
+        });
       }
       else {
         //需要使用者自行定义高度

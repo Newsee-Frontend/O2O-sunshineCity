@@ -92,6 +92,7 @@
         loadState: {
           data: false,
           head: false,
+          roleButton: false,
         },
 
         //========== dialog auto form  =========

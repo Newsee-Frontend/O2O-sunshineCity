@@ -20,7 +20,7 @@ const RoleButton = {
       state.roleButton.GRID = data.filter(item => item.areaType === 'GRID');
     },
 
-    CLEAR_ROLE_BUTTON_LIST:  (state) => {
+    CLEAR_ROLE_BUTTON_LIST: (state) => {
       state.roleButtonList = [];
       state.roleButton.ACTION = [];
       state.roleButton.FORM = [];
@@ -30,34 +30,38 @@ const RoleButton = {
 
   actions: {
     getRoleButtonList: ({ commit }, requestHead) => {
-      let btnlist = null;
       commit('CLEAR_ROLE_BUTTON_LIST');
-      roleButtonList(requestHead)
-        .then(response => {
-          try {
-            btnlist = response.resultData.map(item => {
-              return {
-                code: item.resourcebuttonCode, //按钮编码
-                name: item.resourcebuttonName, //按钮名称
-                nameEn: item.resourcebuttonNameEn, //按钮英文名称
-                areaType: item.resourcebuttonType, //按钮区域类型
-                index: item.syOrderindex, //排序号
-                btnType: item.resourcebuttonBigiconcls, //按钮类型 （single / dropDown）
-                disabled: item.resourcebuttonDisabled === '1',//是否禁用
-                hide: item.resourcebuttonHidden === '1', //是否隐藏
-                icon: item.resourcebuttonIconcls,//按钮图标
-              };
-            });
-          }
-          catch (e) {
+      let btnlist = null;
+      return new Promise((resolve, reject) => {
+        roleButtonList(requestHead)
+          .then(response => {
+            try {
+              btnlist = response.resultData.map(item => {
+                return {
+                  code: item.resourcebuttonCode, //按钮编码
+                  name: item.resourcebuttonName, //按钮名称
+                  nameEn: item.resourcebuttonNameEn, //按钮英文名称
+                  areaType: item.resourcebuttonType, //按钮区域类型
+                  index: item.syOrderindex, //排序号
+                  btnType: item.resourcebuttonBigiconcls, //按钮类型 （single / dropDown）
+                  disabled: item.resourcebuttonDisabled === '1',//是否禁用
+                  hide: item.resourcebuttonHidden === '1', //是否隐藏
+                  icon: item.resourcebuttonIconcls,//按钮图标
+                };
+              });
+            }
+            catch (e) {
+              btnlist = [];
+            }
+            commit('SET_ROLE_BUTTON_LIST', btnlist);
+            resolve(btnlist);
+          }).catch(err => {
             btnlist = [];
-          }
-          commit('SET_ROLE_BUTTON_LIST', btnlist);
-        }).catch(err => {
-          btnlist = [];
-          commit('SET_ROLE_BUTTON_LIST', btnlist);
-        },
-      );
+            commit('SET_ROLE_BUTTON_LIST', btnlist);
+            reject(err);
+          },
+        );
+      });
     },
   },
 

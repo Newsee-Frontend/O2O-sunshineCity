@@ -1,5 +1,5 @@
 import $store from '../store/index';
-import {logStyle} from '../utils/log';
+import { logStyle } from '../utils/log';
 
 /**
  * judge role and jump
@@ -17,9 +17,30 @@ export function judgeRoleAndJump(to, from, next) {
 
     _routerAndpageInfo(to);
 
+    // transQueryAndNext(to, from, next);
     next();
   });
 }
+
+
+export const transQueryAndNext = (to, from, next) => {
+  const transKey = 'isShowFrame';
+  if (to.query[transKey]) {
+    next();
+    return;
+  }
+  if (from.query[transKey]) {
+    let toQuery = JSON.parse(JSON.stringify(to.query));
+    toQuery[transKey] = from.query[transKey];
+    next({
+      path: to.path,
+      query: toQuery,
+    });
+  }
+  else {
+    next();
+  }
+};
 
 
 /**

@@ -24,42 +24,84 @@ const navmenu = (req, res) => {
         childMenus: [],//子级菜单
       },
       {
-        menuIconcls: "xiaoqu",//图标
-        menuMenuname: "小区设置",//显示名称
-        menuMenusubname: "precinctList",//路径符号
+        menuIconcls: 'gailan', //图标
+        menuMenuname: '活动中心',//显示名称
+        menuMenusubname: 'community',//路径符号
         syStatus: "1",//隐藏与否
         syOrderindex: 3,//序号
-        funcId: "precinctList",//func-ID
-        childMenus: [],//子级菜单
-      },
-      {
+        funcId: 'community',
+        childMenus: [
+          {
+            menuIconcls: "",//图标
+            menuMenuname: "小区设置",//显示名称
+            menuMenusubname: "precinctList",//路径符号
+            syStatus: "1",//隐藏与否
+            syOrderindex: 1,//序号
+            funcId: "o11111111111",//func-ID
+            childMenus: null,//子级菜单
+          },
+          {
 
-        menuIconcls: "huodong",//图标
-        menuMenuname: "活动管理",//显示名称
-        menuMenusubname: "activityList",//路径符号
-        syOrderindex: 4,//序号
-        syStatus: "1",//隐藏与否
-        funcId: "activityList",//func-ID
-        childMenus: [],//子级菜单
+            menuIconcls: "",//图标
+            menuMenuname: "活动管理",//显示名称
+            menuMenusubname: "activityList",//路径符号
+            syOrderindex: 2,//序号
+            syStatus: "1",//隐藏与否
+            funcId: "0222222222222",//func-ID
+            childMenus: null,//子级菜单
 
+          },
+          {
+            menuIconcls: "",//图标
+            menuMenuname: "公告中心",//显示名称
+            menuMenusubname: "noticeList",//路径符号
+            syOrderindex: 3,//序号
+            syStatus: "1",//隐藏与否
+            funcId: "033333333333",//func-ID
+            childMenus: null,//子级菜单
+          }
+        ]
       },
-      {
-        menuIconcls: "gonggao",//图标
-        menuMenuname: "公告中心",//显示名称
-        menuMenusubname: "noticeList",//路径符号
-        syOrderindex: 5,//序号
-        syStatus: "1",//隐藏与否
-        funcId: "noticeList",//func-ID
-        childMenus: [],//子级菜单
-      },
-      {
-        menuIconcls: "fangchan", //图标
-        menuMenuname: "房产",//显示名称
-        menuMenusubname: "housemanage",//路径符号
-        syStatus: "1",//隐藏与否
-        syOrderindex: 6,//序号
-        funcId: 'housemanage',//func-ID
-      },
+
+
+      // {
+      //   menuIconcls: "xiaoqu",//图标
+      //   menuMenuname: "小区设置",//显示名称
+      //   menuMenusubname: "precinctList",//路径符号
+      //   syStatus: "1",//隐藏与否
+      //   syOrderindex: 3,//序号
+      //   funcId: "precinctList",//func-ID
+      //   childMenus: [],//子级菜单
+      // },
+      // {
+      //
+      //   menuIconcls: "huodong",//图标
+      //   menuMenuname: "活动管理",//显示名称
+      //   menuMenusubname: "activityList",//路径符号
+      //   syOrderindex: 4,//序号
+      //   syStatus: "1",//隐藏与否
+      //   funcId: "activityList",//func-ID
+      //   childMenus: [],//子级菜单
+      //
+      // },
+      // {
+      //   menuIconcls: "gonggao",//图标
+      //   menuMenuname: "公告中心",//显示名称
+      //   menuMenusubname: "noticeList",//路径符号
+      //   syOrderindex: 5,//序号
+      //   syStatus: "1",//隐藏与否
+      //   funcId: "noticeList",//func-ID
+      //   childMenus: [],//子级菜单
+      // },
+      // {
+      //   menuIconcls: "fangchan", //图标
+      //   menuMenuname: "房产",//显示名称
+      //   menuMenusubname: "housemanage",//路径符号
+      //   syStatus: "1",//隐藏与否
+      //   syOrderindex: 6,//序号
+      //   funcId: 'housemanage',//func-ID
+      // },
+
       {
         menuIconcls: "shezhi", //图标
         menuMenuname: "设置",//显示名称
@@ -118,42 +160,4 @@ module.exports = {
 };
 
 
-// {
-//   menuIconcls: 'gailan', //图标
-//     menuMenuname: '活动中心',//显示名称
-//   menuMenusubname: 'community',//路径符号
-//   syStatus: "1",//隐藏与否
-//   syOrderindex: 3,//序号
-//   funcId: 'community',
-//   childMenus: [
-//   {
-//     menuIconcls: "",//图标
-//     menuMenuname: "小区设置",//显示名称
-//     menuMenusubname: "precinctList",//路径符号
-//     syStatus: "1",//隐藏与否
-//     syOrderindex: 1,//序号
-//     funcId: "o11111111111",//func-ID
-//     childMenus: null,//子级菜单
-//   },
-//   {
-//
-//     menuIconcls: "",//图标
-//     menuMenuname: "活动管理",//显示名称
-//     menuMenusubname: "activityList",//路径符号
-//     syOrderindex: 2,//序号
-//     syStatus: "1",//隐藏与否
-//     funcId: "0222222222222",//func-ID
-//     childMenus: null,//子级菜单
-//
-//   },
-//   {
-//     menuIconcls: "",//图标
-//     menuMenuname: "公告中心",//显示名称
-//     menuMenusubname: "noticeList",//路径符号
-//     syOrderindex: 3,//序号
-//     syStatus: "1",//隐藏与否
-//     funcId: "033333333333",//func-ID
-//     childMenus: null,//子级菜单
-//   }
-// ]
-// },
+

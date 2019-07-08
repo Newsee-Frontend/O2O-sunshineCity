@@ -1,16 +1,13 @@
-import {getUrlParam} from '../utils'
+import { getUrlParam } from '../utils';
 
 export default {
-  created() {
-
-    this.isSimple = getUrlParam("isShowIframe");
-
-    const token = getUrlParam("token");
-    const id = getUrlParam("id");
-
-    // console.log(id);
-    // console.log(token);
-    // this.$store.dispatch('setToken', token);
-
+  data() {
+    return {
+      isHideFrame: false,//是否隐藏外框（头 + 侧边栏 + tabs页)
+    };
   },
-}
+  created() {
+    this.isHideFrame = getUrlParam('isShowIframe') === 'false';
+    console.log(this.isHideFrame);
+  },
+};
