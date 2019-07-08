@@ -12,16 +12,7 @@
     <div class="slip-title">{{type === 'add'? '新增小区': '编辑小区'}}</div>
 
     <div class="slip-btns">
-      <ns-role-button
-        mode="button"
-        v-for="item in roleButtonForm"
-        key="code"
-        :roleInfo="item"
-        :disabled="submitLoading === item.code"
-        :btn-type="item.code === 'formReturnBtn'? '' : 'primary'"
-        @click="roleBtnsClick(item)"
-      >
-      </ns-role-button>
+      <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand"></biz-role-button-area>
     </div>
 
 
@@ -132,7 +123,6 @@
       return{
         authStatusOptions: [{ label: '待开通', value: 0 }, { label: '开通中', value: 1 }, { label: '已关闭', value: 2 }],
         showDialog: false,
-        submitLoading: false,
         villageModel: {
           id: "",
           organizationId: "",
@@ -298,10 +288,10 @@
       },
 
 
-      roleBtnsClick(item){
+      roleButtonCommand(item){
         switch (item.code) {
           case 'formSaveBtn':
-            this.submit('formSaveBtn');
+            this.submit(item);
             break;
 
           case 'formReturnBtn':
@@ -313,18 +303,18 @@
       /**
        *  表单提交
        */
-      submit(str){
+      submit(btnInfo){
         this.$refs.villageForm.validate((valid)=>{
           if(valid){
-            this.submitLoading = str
+           this.$set(btnInfo, 'disabled', true);
             savePrecinctInfo(this.villageModel).then((data)=>{
-              this.submitLoading = '';
               this.showDialog = false;
               this.$message.success('保存成功');
               this.$emit('reloadGrid')
+              this.$set(btnInfo, 'disabled', false);
 
             }, ()=>{
-              this.submitLoading = '';
+              this.$set(btnInfo, 'disabled', false);
             })
           }
         })

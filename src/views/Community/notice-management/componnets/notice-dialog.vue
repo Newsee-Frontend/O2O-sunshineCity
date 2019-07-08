@@ -12,16 +12,7 @@
     <div class="slip-title">{{type === 'add'? '新增公告': '编辑公告'}}</div>
 
     <div class="slip-btns">
-      <ns-role-button
-        mode="button"
-        v-for="item in roleButtonForm"
-        :key="item.code"
-        :roleInfo="item"
-        :disabled="submitLoading === item.code"
-        :btn-type="item.code === 'formReturnBtn'? '' : 'primary'"
-        @click="roleBtnsClick(item)"
-      >
-      </ns-role-button>
+      <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand"></biz-role-button-area>
     </div>
 
     <div class="silp-container">
@@ -75,7 +66,6 @@
     data() {
       return {
         showDialog: false,
-        submitLoading: '',
         provinces: [],
         cities: [],
         precincts: [],
@@ -158,14 +148,14 @@
 
 
 
-      roleBtnsClick(item){
+      roleButtonCommand(item){
         switch (item.code) {
           case 'formSaveBtn':
-            this.submit('formSaveBtn');
+            this.submit(item);
             break;
 
           case 'formTempsaveBtn':
-            this.submit('formTempsaveBtn');
+            this.submit(item);
             break;
 
           case 'formReturnBtn':
@@ -178,18 +168,18 @@
       /**
        *  提交
        */
-      submit: function (submitType) {
-        this.model.status = submitType === 'formSaveBtn' ? 1 : 0;
+      submit: function (btnInfo) {
+        this.model.status = btnInfo.code === 'formSaveBtn' ? 1 : 0;
+        this.$set(btnInfo, 'disabled', true);
         this.$refs.noticeForm.validate((valid) => {
           if (valid) {
-            this.submitLoading = submitType;
             saveNotice(this.model).then((data) => {
-              this.submitLoading = '';
+              this.$set(btnInfo, 'disabled', false);
               this.showDialog = false;
               this.$message.success('保存成功');
               this.$emit('reloadGrid')
             }, () => {
-              this.submitLoading = '';
+              this.$set(btnInfo, 'disabled', false);
             })
           }
         })
