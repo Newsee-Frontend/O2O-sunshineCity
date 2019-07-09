@@ -3,6 +3,7 @@ const getters = {
   //core
   funcId: state => state.Core.funcId,
 
+
   //user
   token: state => state.User.userinfo.token,
   userName: state => state.User.userinfo.userName,
@@ -13,6 +14,9 @@ const getters = {
   visitedPages: state => state.PageTabs.visitedPages,
   sideBarList: state => state.Sidebar.sideBarList,
   currentPageInfo: state => state.PageInfo.currentPageInfo,
+
+  //mode
+  isInIframe: state => state.FrameMode.isInIframe,
 
   //all search conditions (object for all page search conditions)
   searchConditions: state => state.Search.conditions,
@@ -33,7 +37,6 @@ const getters = {
 
   //table
   tableHead: state => state.Table.tableHead,
-
 
 
 };

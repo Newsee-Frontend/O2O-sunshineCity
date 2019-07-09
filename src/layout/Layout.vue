@@ -1,5 +1,5 @@
 <template>
-  <ns-layout :class="{'is-hide-frame':isHideFrame}">
+  <ns-layout :class="{'is-hide-frame':isInIframe}">
     <template slot="header">
       <!--左logo 插槽 - 根据实际情况插入业务组图片 -->
       <div class="fl">
@@ -63,7 +63,7 @@
       },
     },
     created() {
-      console.log(this.isHideFrame);
+      console.log(this.isInIframe);
     },
     methods: {},
   };
