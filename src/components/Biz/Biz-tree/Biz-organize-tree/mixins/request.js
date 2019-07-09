@@ -1,4 +1,4 @@
-import {getSearchData} from '../../../../../service/Tree/organize-tree';
+import {getSearchData} from '../../../../../service/System/Tree/organize-tree';
 
 export default {
   methods: {

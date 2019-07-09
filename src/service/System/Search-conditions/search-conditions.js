@@ -1,8 +1,6 @@
-/*==========================================================================================================================*/
-import fetch from '../../utils/fetch/fetch';
-import { dataFilter } from '../../utils/fetch/fetchDataType';
+import fetch from '../../../utils/fetch/fetch';
+import { dataFilter } from '../../../utils/fetch/fetchDataType';
 
-/*==========================================================================================================================*/
 /**
  * filterFetch
  * @param query
@@ -40,19 +38,7 @@ export function filterFns(query) {
   });
 }
 
-/**
- * listColumnService
- * @param head
- */
-export function listColumnService(head) {
-  // 表头数据-获取
-  dataFilter(head);
-  return fetch({
-    url: '/system/column/list-column',
-    method: 'get',
-    headers: head,
-  });
-}
+
 
 export function getItems(query) {
   //筛选器数据获取

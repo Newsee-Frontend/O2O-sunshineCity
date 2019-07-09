@@ -5,7 +5,7 @@
  * copyright (c) 2019 Broccoli spring( gcx )
  * @type {{state: {funcId: string}, mutations: {SET_FUNCID: Core.mutations.SET_FUNCID}, actions: {setFuncId({commit: *}, *=): void}}}
  */
-import {treeDataFetch, changeTreeData} from '../../../../service/Tree/organize-tree';
+import {treeDataFetch, changeTreeData} from '../../../../service/System/Tree/organize-tree';
 
 import transformKeyFun from '../../../../components/Biz/Biz-tree/utils/transformNode';
 import keyRefer from '../../../../components/Biz/Biz-tree/Biz-organize-tree/keyRefer';

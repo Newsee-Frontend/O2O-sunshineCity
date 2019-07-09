@@ -1,9 +1,6 @@
-/*==========================================================================================================================*/
+import fetch from '../../../utils/fetch/fetch';
+import { dataFilter } from '../../../utils/fetch/fetchDataType';
 
-import fetch from '../../utils/fetch/fetch';
-import { dataFilter } from '../../utils/fetch/fetchDataType';
-
-/*==========================================================================================================================*/
 /**
  * 房产树的获取
  * @param query
@@ -16,6 +13,7 @@ export function treeDataFetch(query) {
     params: query,
   });
 }
+
 export function changeTreeData(query) {
   //树数据-模糊查询后树数据变化
   dataFilter(query);

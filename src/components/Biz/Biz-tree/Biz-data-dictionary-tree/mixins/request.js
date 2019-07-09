@@ -1,6 +1,6 @@
 import {
   treeDataFetch,
-} from '../../../../../service/Tree/dictionary-tree';
+} from '../../../../../service/System/Tree/dictionary-tree';
 import transformKeyFun from '../../utils/transformNode';
 
 export default {

@@ -171,7 +171,7 @@
 </template>
 
 <script>
-import { filterFetch, filterFns, getItems } from '../../../service/Search/ns-search';
+import { filterFetch, filterFns, getItems } from '../../../service/System/Search-conditions/search-conditions';
 
 export default {
   data() {

@@ -103,7 +103,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex';
-  import {companyDelete, departmentDelete,} from '../../../../service/Tree/organize-tree';
+  import {companyDelete, departmentDelete,} from '../../../../service/System/Tree/organize-tree';
   import {addOrEditCompany, addOrEditDepartment, groupDialog} from './Biz-organize-dialogs'
   import request from './mixins/request';
   import keyRefer from './keyRefer';
