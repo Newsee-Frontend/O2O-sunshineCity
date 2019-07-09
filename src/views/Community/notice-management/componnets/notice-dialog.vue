@@ -2,14 +2,13 @@
   <biz-slip-dialog
     :visible.sync="showDialog"
     :close="close"
+    :title="type === 'add'? '新增公告': '编辑公告'"
   >
-    <div class="slip-title">{{type === 'add'? '新增公告': '编辑公告'}}</div>
-
-    <div class="slip-btns">
+    <template slot="btns">
       <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand"></biz-role-button-area>
-    </div>
+    </template>
 
-    <div class="silp-container">
+    <template slot="main">
       <ns-form ref="noticeForm" :model="model" :rules="rules" label-width="140px">
         <ns-row>
           <ns-col :span="12">
@@ -41,7 +40,7 @@
             v-if="showDialog"/>
         </ns-form-item>
       </ns-form>
-    </div>
+    </template>
   </biz-slip-dialog>
 </template>
 
@@ -181,17 +180,3 @@
     }
   };
 </script>
-
-<style>
-  .slip-title {
-    font-size: 16px;
-    font-weight: bold;
-    padding: 14px 0;
-  }
-
-  .silp-container{
-    margin: 20px auto;
-    width: 1000px;
-  }
-
-</style>

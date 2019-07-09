@@ -8,7 +8,18 @@
     :appendToBody="false"
     animation="fade-normal"
     :beforeClose="close">
-    <slot></slot>
+
+    <div class="slip-title">
+      {{title}}
+    </div>
+
+    <div class="slip-btns">
+      <slot name="btns"></slot>
+    </div>
+
+    <div class="silp-container">
+      <slot name="main"></slot>
+    </div>
   </ns-slip-dialog>
 </template>
 
@@ -21,6 +32,10 @@
       visible: {
         type: Boolean,
         default: false
+      },
+
+      title: {
+        type: String
       }
     },
 
@@ -62,4 +77,19 @@
     }
   };
 </script>
+
+
+<style>
+  .slip-title {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 14px 0;
+  }
+
+  .silp-container {
+    margin: 20px auto;
+    width: 1000px;
+  }
+
+</style>
 

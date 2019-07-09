@@ -2,14 +2,13 @@
   <biz-slip-dialog
     :visible.sync="showDialog"
     :close="close"
+    :title="type === 'add'? '新增小区': '编辑小区'"
   >
-    <div class="slip-title">{{type === 'add'? '新增小区': '编辑小区'}}</div>
-
-    <div class="slip-btns">
+    <template slot="btns">
       <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand"></biz-role-button-area>
-    </div>
+    </template>
 
-    <div class="silp-container">
+    <template slot="main">
       <ns-form ref="villageForm" :model="villageModel"  :rules="villageRules" label-width="120px">
         <ns-form-item label="所属组织" prop="organizationId">
           <!--simple tree in select （ 请选择所属部门树状数据 /  ） -->
@@ -88,7 +87,7 @@
           <ns-input size="medium" v-model.trim="villageModel.serviceCall" placeholder="请填写服务电话,多个号码用/隔开"></ns-input>
         </ns-form-item>
       </ns-form>
-    </div>
+    </template>
   </biz-slip-dialog>
 </template>
 <script>
@@ -357,17 +356,3 @@
     }
   };
 </script>
-
-<style>
-  .slip-title {
-    font-size: 16px;
-    font-weight: bold;
-    padding: 14px 0;
-  }
-
-  .silp-container {
-    margin: 20px auto;
-    width: 1000px;
-  }
-
-</style>
