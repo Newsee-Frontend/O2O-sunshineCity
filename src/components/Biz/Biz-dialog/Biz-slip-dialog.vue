@@ -1,10 +1,10 @@
 <template>
   <ns-slip-dialog
     :visible.sync="showDialog"
-    left="50px"
-    right="0px"
-    top="50px"
-    bottom="0px"
+    :left="position.left"
+    :right="position.right"
+    :top="position.top"
+    :bottom="position.bottom"
     :appendToBody="false"
     animation="fade-normal"
     :beforeClose="close">
@@ -41,7 +41,10 @@
 
       position(){
         return {
-          left: this.isInIframe ? '0px': '50px'
+          left: this.isInIframe ? '0px': '50px',
+          right: '0px',
+          bottom: '0px',
+          top: this.isInIframe ? '0px': '50px',
         }
       }
     },
