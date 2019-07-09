@@ -1,4 +1,4 @@
-import keyRefer from '../../../components/Biz/Biz-sidebar/sidebar-keyRefer';
+import keyRefer from '../../../../components/Biz/Biz-sidebar/sidebar-keyRefer';
 
 const PageInfo = {
   state: {

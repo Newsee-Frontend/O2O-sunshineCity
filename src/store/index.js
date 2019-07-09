@@ -1,25 +1,24 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import Core from './modules/Common/Core';
-import User from './modules/User/User';
+import Core from './modules/System/Common/Core';
+import User from './modules/System/User/User';
 
-import Sidebar from './modules/Common/Sidebar';
-import PageInfo from './modules/Common/PageInfo';
-import PageTabs from './modules/Common/PageTabs';
+import Sidebar from './modules/System/Layout/Sidebar';
+import PageInfo from './modules/System/Common/PageInfo';
+import PageTabs from './modules/System/Layout/PageTabs';
 import FrameMode from './modules/System/FrameMode/FrameMode';
 
 
 import Form from './modules/Form';
 
-import OrganizeTree from './modules/Tree/Organize-tree';
-import HouseTree from './modules/Tree/House-tree';
+import OrganizeTree from './modules/System/Tree/Organize-tree';
+import HouseTree from './modules/System/Tree/House-tree';
 
-import SearchConditions from './modules/Common/SearchConditions';
+import SearchConditions from './modules/System/Common/SearchConditions';
 import RoleButton from './modules/System/Role/RoleButton';
-import TreeData from './modules/TreeData';
 import Table from './modules/System/Table/Table';
-import RequestHead from './modules/Common/RequestHeader';
+import RequestHead from './modules/System/Common/RequestHeader';
 
 
 import getters from './getters';
@@ -43,7 +42,7 @@ const store = new Vuex.Store({
 
     Search: SearchConditions,
     RoleButton,
-    TreeData,
+
     Table,
     RequestHead,
   },

@@ -1,6 +1,6 @@
-import {sideBarService} from '../../../service/Sidebar/index';
-import $store from '../../index';
-import keyRefer from '../../../components/Biz/Biz-sidebar/sidebar-keyRefer';
+import {sideBarService} from '../../../../service/Sidebar/index';
+import $store from '../../../index';
+import keyRefer from '../../../../components/Biz/Biz-sidebar/sidebar-keyRefer';
 
 /**
  * filter side bar data

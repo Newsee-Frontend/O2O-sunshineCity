@@ -8,7 +8,7 @@
 /*==========================================================================================================================*/
 import axios from 'axios';
 import {fileFlowDistribute, flowTypeList} from './fileFlowDistribute';
-import requestHead from '../../store/modules/Common/RequestHeader'
+import requestHead from '../../store/modules/System/Common/RequestHeader'
 import {elMessage} from './fetch-message'
 import router from '../../router/index'
 
