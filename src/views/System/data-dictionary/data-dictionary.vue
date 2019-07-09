@@ -26,7 +26,6 @@
           <!--search module-->
           <ns-search-conditions
             :funcId="Mix_funcId"
-            :thlist="Mix_thlist"
             :searchConditions="Mix_searchConditions"
             @query="getTableData"
             :changeStatus="changeStatus"
