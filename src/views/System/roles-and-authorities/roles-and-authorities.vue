@@ -33,30 +33,45 @@
                    @table-action="tableAction"
                    @selection-change="selectionChange"
         ></biz-table>
+
+        <!--auto form 新增角色-->
+        <biz-slip-dialog
+          :id="nsDialogName"
+          :title="dialogTit"
+          :visible.sync="dialogVisible.addRolevisible"
+          @close="dialogClose('addRoleForm', 'addPersonToRoleForm')"
+        >
+          <template slot="btns">
+            <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommandForm"></biz-role-button-area>
+          </template>
+
+          <template slot="main">
+            <!--auto form 新增角色-->
+            <ns-auto-form
+              ref="addRoleForm"
+              autoFormID="addRoleForm"
+              :funcId="Mix_funcId"
+              :request-url="requestUrl"
+              :submit-url="submitUrl"
+              :query="{ roleid: selectedGridNodeObj.roleid }"
+              :local-data="localData"
+              :cover-data="addRoleCoverData"
+              cue-type="only-error"
+              :showMessage="showMessage"
+              @afterRequest="afterRequest"
+            ></ns-auto-form>
+          </template>
+        </biz-slip-dialog>
+
         <!--dialog - auto form submit infomation-->
         <ns-dialog
           :id="nsDialogName"
           :title="dialogTit"
           :width="dialogWidth"
-          :visible.sync="dialogVisible.visible"
+          :visible.sync="dialogVisible.addPersonToRoleVisible"
           @close="dialogClose('addRoleForm', 'addPersonToRoleForm')"
         >
-          <!--auto form 新增角色-->
-          <ns-auto-form
-            ref="addRoleForm"
-            autoFormID="addRoleForm"
-            :funcId="Mix_funcId"
-            :request-url="requestUrl"
-            :submit-url="submitUrl"
-            :query="{ roleid: selectedGridNodeObj.roleid }"
-            :local-data="localData"
-            :cover-data="addRoleCoverData"
-            cue-type="only-error"
-            :showMessage="showMessage"
-            @afterRequest="afterRequest"
-          ></ns-auto-form>
-
-          <!--auto form-->
+          <!--auto form 新增授权人-->
           <ns-auto-form
             ref="addPersonToRoleForm"
             autoFormID="addPersonToRoleForm"
@@ -117,31 +132,14 @@
         treeNodeObj: {},
 
         //========== dialog auto form  =========
-        dialogVisible: { visible: false }, //dialog switch
+        dialogVisible: {
+          addRolevisible: false,
+          addPersonToRoleVisible: false
+        }, //dialog switch
         dialogTit: '', //dialog title
         submitType: 'add', //判断当前表单的类型（add / edit）
         requestUrl: '', //自动表单提交地址
         showMessage: false,
-        buttonInfo: [
-          {
-            funcType: 'submit',
-            style: 'primary',
-            code: 'formConfirmBtn',
-            name: '保存',
-            areaType: 'FORM',
-            btnType: 'single',
-            event: this.autoFormSubmit,
-          },
-          {
-            funcType: 'custom',
-            style: '',
-            code: 'formCancelBtn',
-            name: '取消',
-            areaType: 'FORM',
-            btnType: 'single',
-            event: this.autoFormCancel,
-          },
-        ],
         submitUrl: '',
         autoFormID: '', //表单ID
         dialogWidth: '764px',
@@ -189,7 +187,8 @@
         this.$refs[this.autoFormID].submitForm(this.autoFormID).then(() => {
           this.$message({ message: '保存成功', type: 'success' });
           this.showMessage = false;
-          this.$set(this.dialogVisible, 'visible', false);
+          this.$set(this.dialogVisible, 'addRolevisible', false);
+          this.$set(this.dialogVisible, 'addPersonToRoleVisible', false);
           store.formController.delete('addRoleForm');
           store.formController.delete('addPersonToRoleForm');
           this.getTableData();
@@ -201,7 +200,8 @@
        */
       autoFormCancel() {
         this.$refs[this.autoFormID].resetForm(this.autoFormID);
-        this.$set(this.dialogVisible, 'visible', false);
+        this.$set(this.dialogVisible, 'addRolevisible', false);
+        this.$set(this.dialogVisible, 'addPersonToRoleVisible', false);
         this.nsDialogName = 'roles-and-authorities_addRoleForm';
       },
 
@@ -265,7 +265,7 @@
           store.formController.set('addRoleForm', {
             show: true,
           });
-          this.$set(this.dialogVisible, 'visible', true);
+          this.$set(this.dialogVisible, 'addRolevisible', true);
         }
       },
 
@@ -341,7 +341,7 @@
               show: true,
               formOperateType: 1,
             });
-            this.$set(this.dialogVisible, 'visible', true);
+            this.$set(this.dialogVisible, 'addRolevisible', true);
             break;
           case 'gridRemoveBtn': //删除
             this.$confirm('确定删除?', {
@@ -386,7 +386,7 @@
               show: true,
               formOperateType: 1,
             });
-            this.$set(this.dialogVisible, 'visible', true);
+            this.$set(this.dialogVisible, 'addPersonToRoleVisible', true);
             break;
           default:
             break;

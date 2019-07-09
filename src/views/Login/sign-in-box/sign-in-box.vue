@@ -17,7 +17,6 @@
             <ns-input
               v-model="loginForm.username"
               placeholder="用户名或者手机号"
-              autofocus="autofocus"
               width="100%"
               height="40px"
             ></ns-input>

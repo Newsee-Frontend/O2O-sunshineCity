@@ -1,140 +1,143 @@
 <template>
-  <ns-dialog
+  <biz-slip-dialog
     id="employeeForm"
     :title="dialogTit"
-    size="medium"
     :visible.sync="dialogVisible.visible"
     @close="dialogClose()"
   >
-    <ns-form :inline="true" :model="ruleForm" :rules="rules" ref="ruleForm">
-      <ns-row>
-        <ns-col :span="12">
-          <ns-form-item label="所属组织" prop="organizationId">
-            <ns-checkbox-tree-select
-              v-model="ruleForm.organizationId"
-              bizType="role-organization"
-              size="small"
-              placeholder="请选择"
-              @change="change"
-            ></ns-checkbox-tree-select>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="员工角色" prop="roleids">
-            <selectGroupingBox
-              v-model="ruleForm.roleids"
-              :items="items"
-              @change="changErolecategory"
-            ></selectGroupingBox>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="是否企业管理员">
-            <ns-radio v-model="ruleForm.isAdminState" :options="isAdminOptions"></ns-radio>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="在职状态" prop="">
-            <ns-radio v-model="ruleForm.userState" :options="statusOptions"></ns-radio>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="姓名" prop="userName">
-            <ns-input v-model.trim="ruleForm.userName" placeholder="请输入姓名"></ns-input>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="性别" prop="userSex">
-            <ns-select
-              v-model="ruleForm.userSex"
-              :options="options"
-              placeholder="请选择"
-              :clearable="true"
-            ></ns-select>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="生日" prop="userBirthday">
-            <ns-date-picker
-              v-model="ruleForm.userBirthday"
-              type="date"
-              format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              range-separator=""
-              placeholder="请选择生日日期"
-            >
-            </ns-date-picker>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="手机" prop="userTelephone">
-            <ns-input
-              v-model="ruleForm.userTelephone"
-              placeholder="请输入手机号码"
-              maxlength="11"
-            ></ns-input>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="账号" prop="userAccount">
-            <ns-input v-model.trim="ruleForm.userAccount" placeholder="请输入账号"></ns-input>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="员工密码" prop="userPassword">
-            <ns-input
-              v-model="ruleForm.userPassword"
-              placeholder="请输入6-15位英文和数字混合密码"
-            ></ns-input>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="证件类型" prop="userCertificateType">
-            <ns-select
-              v-model="ruleForm.userCertificateType"
-              :options="documentTypeOptions"
-              placeholder="请选择"
-              :clearable="true"
-            ></ns-select>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="证件号码" prop="userCertificateNumber">
-            <ns-input
-              v-model="ruleForm.userCertificateNumber"
-              placeholder="请输入证件号码"
-            ></ns-input>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="入职日期" prop="userHiredate">
-            <ns-date-picker
-              v-model="ruleForm.userHiredate"
-              type="date"
-              format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              range-separator=""
-              placeholder="请选择入职日期"
-            >
-            </ns-date-picker>
-          </ns-form-item>
-        </ns-col>
-        <ns-col :span="12">
-          <ns-form-item label="所属岗位" prop="sentryId">
-            <ns-select
-              v-model="ruleForm.sentryId"
-              :options="sentryOptions"
-              placeholder="请选择"
-              :clearable="true"
-            ></ns-select>
-          </ns-form-item>
-        </ns-col>
-      </ns-row>
-    </ns-form>
-    <div slot="footer" style="overflow: hidden;">
-      <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand" class="fr"></biz-role-button-area>
-    </div>
-  </ns-dialog>
+    <template slot="btns">
+      <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand"></biz-role-button-area>
+    </template>
+
+    <template slot="main">
+      <ns-form :inline="true" :model="ruleForm" :rules="rules" ref="ruleForm">
+        <ns-row>
+          <ns-col :span="12">
+            <ns-form-item label="所属组织" prop="organizationId">
+              <ns-checkbox-tree-select
+                v-model="ruleForm.organizationId"
+                bizType="role-organization"
+                size="small"
+                placeholder="请选择"
+                @change="change"
+              ></ns-checkbox-tree-select>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="员工角色" prop="roleids">
+              <selectGroupingBox
+                v-model="ruleForm.roleids"
+                :items="items"
+                @change="changErolecategory"
+              ></selectGroupingBox>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="是否企业管理员">
+              <ns-radio v-model="ruleForm.isAdminState" :options="isAdminOptions"></ns-radio>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="在职状态" prop="">
+              <ns-radio v-model="ruleForm.userState" :options="statusOptions"></ns-radio>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="姓名" prop="userName">
+              <ns-input v-model.trim="ruleForm.userName" placeholder="请输入姓名"></ns-input>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="性别" prop="userSex">
+              <ns-select
+                v-model="ruleForm.userSex"
+                :options="options"
+                placeholder="请选择"
+                :clearable="true"
+              ></ns-select>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="生日" prop="userBirthday">
+              <ns-date-picker
+                v-model="ruleForm.userBirthday"
+                type="date"
+                format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                range-separator=""
+                placeholder="请选择生日日期"
+              >
+              </ns-date-picker>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="手机" prop="userTelephone">
+              <ns-input
+                v-model="ruleForm.userTelephone"
+                placeholder="请输入手机号码"
+                maxlength="11"
+              ></ns-input>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="账号" prop="userAccount">
+              <ns-input v-model.trim="ruleForm.userAccount" placeholder="请输入账号"></ns-input>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="员工密码" prop="userPassword">
+              <ns-input
+                v-model="ruleForm.userPassword"
+                placeholder="请输入6-15位英文和数字混合密码"
+              ></ns-input>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="证件类型" prop="userCertificateType">
+              <ns-select
+                v-model="ruleForm.userCertificateType"
+                :options="documentTypeOptions"
+                placeholder="请选择"
+                :clearable="true"
+              ></ns-select>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="证件号码" prop="userCertificateNumber">
+              <ns-input
+                v-model="ruleForm.userCertificateNumber"
+                placeholder="请输入证件号码"
+              ></ns-input>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="入职日期" prop="userHiredate">
+              <ns-date-picker
+                v-model="ruleForm.userHiredate"
+                type="date"
+                format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                range-separator=""
+                placeholder="请选择入职日期"
+              >
+              </ns-date-picker>
+            </ns-form-item>
+          </ns-col>
+          <ns-col :span="12">
+            <ns-form-item label="所属岗位" prop="sentryId">
+              <ns-select
+                v-model="ruleForm.sentryId"
+                :options="sentryOptions"
+                placeholder="请选择"
+                :clearable="true"
+              ></ns-select>
+            </ns-form-item>
+          </ns-col>
+        </ns-row>
+      </ns-form>
+    </template>
+
+  </biz-slip-dialog>
 </template>
 
 <script>
