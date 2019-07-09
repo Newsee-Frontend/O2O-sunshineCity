@@ -1,14 +1,8 @@
 <template>
-  <ns-slip-dialog
+  <biz-slip-dialog
     :visible.sync="showDialog"
-    left="50px"
-    right="0px"
-    top="50px"
-    bottom="0px"
-    :appendToBody="false"
-    animation="fade-normal"
-    :beforeClose="close"
-    ref="slipDialog">
+    :close="close"
+  >
     <div class="slip-title">{{type === 'add'? '新增公告': '编辑公告'}}</div>
 
     <div class="slip-btns">
@@ -22,16 +16,16 @@
             <biz-precinct :precinctModel="model" ref="bizPrecinct"></biz-precinct>
           </ns-col>
           <!--<ns-col :span="12">-->
-            <!--<ns-form-item label="附件" prop="fileList">-->
-              <!--<ns-upload-->
-                <!--v-model="model.fileList"-->
-                <!--:width="120"-->
-                <!--:height="120"-->
-                <!--:headers="requestHead"-->
-                <!--@change="itemChanged('fileList')"-->
-                <!--action="/api/o2o/activity/uploadFile"-->
-              <!--&gt;</ns-upload>-->
-            <!--</ns-form-item>-->
+          <!--<ns-form-item label="附件" prop="fileList">-->
+          <!--<ns-upload-->
+          <!--v-model="model.fileList"-->
+          <!--:width="120"-->
+          <!--:height="120"-->
+          <!--:headers="requestHead"-->
+          <!--@change="itemChanged('fileList')"-->
+          <!--action="/api/o2o/activity/uploadFile"-->
+          <!--&gt;</ns-upload>-->
+          <!--</ns-form-item>-->
           <!--</ns-col>-->
         </ns-row>
         <ns-form-item label="公告标题" prop="title">
@@ -48,7 +42,7 @@
         </ns-form-item>
       </ns-form>
     </div>
-  </ns-slip-dialog>
+  </biz-slip-dialog>
 </template>
 
 <script>

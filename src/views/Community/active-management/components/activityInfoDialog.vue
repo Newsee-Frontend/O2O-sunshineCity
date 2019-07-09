@@ -1,15 +1,8 @@
 <template>
-  <ns-slip-dialog
+  <biz-slip-dialog
     :visible.sync="showDialog"
-    left="50px"
-    right="0px"
-    top="50px"
-    bottom="0px"
-    :appendToBody="false"
-    animation="fade-normal"
-    :beforeClose="close"
-    ref="slipDialog">
-
+    :close="close"
+  >
     <div class="slip-title">{{type === 'add'? '新增活动': '编辑活动'}}</div>
 
     <div class="slip-btns">
@@ -112,7 +105,7 @@
         </ns-form-item>
       </ns-form>
     </div>
-  </ns-slip-dialog>
+  </biz-slip-dialog>
 </template>
 
 <script>

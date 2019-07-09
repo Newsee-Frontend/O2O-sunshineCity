@@ -1,20 +1,13 @@
 <template>
-  <ns-slip-dialog
+  <biz-slip-dialog
     :visible.sync="showDialog"
-    left="50px"
-    right="0px"
-    top="50px"
-    bottom="0px"
-    :appendToBody="false"
-    animation="fade-normal"
-    :beforeClose="close"
-    ref="slipDialog">
+    :close="close"
+  >
     <div class="slip-title">{{type === 'add'? '新增小区': '编辑小区'}}</div>
 
     <div class="slip-btns">
       <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand"></biz-role-button-area>
     </div>
-
 
     <div class="silp-container">
       <ns-form ref="villageForm" :model="villageModel"  :rules="villageRules" label-width="120px">
@@ -96,7 +89,7 @@
         </ns-form-item>
       </ns-form>
     </div>
-  </ns-slip-dialog>
+  </biz-slip-dialog>
 </template>
 
 <script>
