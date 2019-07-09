@@ -2697,10 +2697,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-cx-builder@0.0.50:
-  version "0.0.50"
-  resolved "https://registry.npmjs.org/cx-builder/-/cx-builder-0.0.50.tgz#6c512826835d81573a2615f28d8a3c52cde29e9f"
-  integrity sha512-qF0ugxYb94vsclTn7X3vlxRvGGabKtFgBJy38i5Bd51huxTPJOZPWu3bTFpmzkSh9wouMwc8pmtPDzosI+iCnA==
+cx-builder@0.0.52:
+  version "0.0.52"
+  resolved "https://registry.npmjs.org/cx-builder/-/cx-builder-0.0.52.tgz#db0f358d2477cce74b271c7fe06bd0c5f95e6759"
+  integrity sha512-ZRR2zSzEizwoFuOMtqVqiL2HX5DKyUZeVQJpgcLuLPNYzbWjPCDZyFyOMffOsyowk/YZWewIiJSU3VQyS+oXvw==
   dependencies:
     "@babel/core" "^7.4.4"
     "@babel/helper-module-imports" "^7.0.0"

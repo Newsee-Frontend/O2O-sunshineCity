@@ -53,7 +53,8 @@ const loginInfo = (req, res) => {
         userId: 188,
         userName: "高仓雄",
         userPhone: "18768183457",
-        userSex: "1"
+        userSex: "1",
+        themeColor:"#e70012"
       },
       resultMsg: "操作成功。"
 

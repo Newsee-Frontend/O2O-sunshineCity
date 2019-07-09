@@ -12,6 +12,7 @@ import requestHead from '../../store/modules/System/Common/RequestHeader'
 import {elMessage} from './fetch-message'
 import router from '../../router/index'
 
+
 const service = axios.create({
   baseURL: process.env.BASE_API,
   timeout: 30000,
