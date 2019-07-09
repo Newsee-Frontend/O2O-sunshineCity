@@ -8,7 +8,7 @@ import '../style/public.scss';
 import '../style/common.scss';
 
 //icon
-import '../static-data/iconfont/iconfont';
+import '../assets/iconfont/iconfont';
 
 //components
 import '../components/ns-components/index.js';

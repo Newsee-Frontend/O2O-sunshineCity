@@ -5,7 +5,7 @@
  * copyright (c) 2019 Broccoli spring( gcx )
  * @type {{state: {funcId: string}, mutations: {SET_FUNCID: Core.mutations.SET_FUNCID}, actions: {setFuncId({commit: *}, *=): void}}}
  */
-import {treeDataFetch, changeTreeData, getSearchData} from '../../../service/Tree/house-tree';
+import {treeDataFetch, changeTreeData, getSearchData} from '../../../../service/Tree/house-tree';
 
 
 const HouseTree = {

@@ -25,6 +25,6 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-  @import '../../../assets/css/Modular/search-conditions/search-conditions';
+  @import '../../../style/Modular/search-conditions/search-conditions';
 </style>
 

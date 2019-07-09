@@ -23,26 +23,6 @@ export function judgeRoleAndJump(to, from, next) {
 }
 
 
-export const transQueryAndNext = (to, from, next) => {
-  const transKey = 'isShowFrame';
-  if (to.query[transKey]) {
-    next();
-    return;
-  }
-  if (from.query[transKey]) {
-    let toQuery = JSON.parse(JSON.stringify(to.query));
-    toQuery[transKey] = from.query[transKey];
-    next({
-      path: to.path,
-      query: toQuery,
-    });
-  }
-  else {
-    next();
-  }
-};
-
-
 /**
  * router and page information show in console
  * @param to

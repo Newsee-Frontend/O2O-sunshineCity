@@ -1,13 +1,14 @@
+import { mapGetters } from 'vuex';
 import { getUrlParam } from '../utils';
 
 export default {
-  data() {
-    return {
-      isHideFrame: false,//是否隐藏外框（头 + 侧边栏 + tabs页)
-    };
+  computed: {
+    ...mapGetters(['isInIframe']),
   },
   created() {
-    this.isHideFrame = getUrlParam('isShowFrame') === 'false';
-    console.log(this.isHideFrame);
+    const isInIframe = getUrlParam('isShowFrame') === 'false';
+    this.$store.dispatch('setFrameMode', isInIframe);
+
+    console.log(isInIframe);
   },
 };

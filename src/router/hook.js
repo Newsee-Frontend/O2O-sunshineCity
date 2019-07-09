@@ -1,5 +1,5 @@
 import { addPageTabs } from './pageTabsData';
-import { judgeRoleAndJump, transQueryAndNext } from './auxiliary';
+import { judgeRoleAndJump } from './auxiliary';
 import { getToken } from '../utils/auth';
 
 
