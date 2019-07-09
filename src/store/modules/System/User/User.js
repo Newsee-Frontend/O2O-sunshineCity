@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
 import {cryptoCookie} from '../../../../utils/crypto';
 import {getToken, setToken, removeToken} from '../../../../utils/auth';
-import {oauthlogin, multipleEnterpriseLogin, ssoLogin} from '../../../../service/User/login';
+import {oauthlogin, multipleEnterpriseLogin, ssoLogin} from '../../../../service/System/User/login';
 
 import $store from '@/store/index';
 

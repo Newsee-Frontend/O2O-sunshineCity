@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import { listColumnService } from '../../../service/TableFetch/table-fetch';
+  import { listColumnService } from '../../../service/System/TableFetch/table-fetch';
   import { addEventHandler, removeEventHandler } from '../../../utils/event';
   import { mapGetters } from 'vuex';
   import columnConfig from './column-template-config';

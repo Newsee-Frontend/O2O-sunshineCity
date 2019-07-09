@@ -63,7 +63,7 @@
   import Mixin from '../../../mixins';
   import villageInfoDialog from './componnets/villageInfoDialog';
   import { checkhouse, getCompanyList } from '../../../service/Community/villageSetting';
-  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
+  import { tableDataFetch } from '../../../service/System/TableFetch/table-fetch';
 
   export default {
     name: 'village-setting',

@@ -55,7 +55,7 @@
 
 <script>
   import head from './tableHead.js'
-  import {tableDataFetch} from '../../../../service/TableFetch/table-fetch';
+  import {tableDataFetch} from '../../../../service/System/TableFetch/table-fetch';
   import {downloadExcel} from '../../../../service/Download/download';
 
   export default {
