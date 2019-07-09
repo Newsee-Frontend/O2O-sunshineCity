@@ -1,6 +1,6 @@
 <template>
-  <div class="search-container" style="overflow: hidden">
-    <div class="search-conditions borderBox fl clear">
+  <div class="search-container" style="overflow: hidden;">
+    <div class="search-conditions borderBox fl clear" style="position: inherit;">
       <div class="search-header clear">
         <div class="fl">
           <span class="lineBlue"></span>

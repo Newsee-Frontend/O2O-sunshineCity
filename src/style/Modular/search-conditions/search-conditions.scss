@@ -10,6 +10,7 @@
   margin-bottom: 10px;
   border: 1px solid $container-border_color;
   overflow: hidden;
+  box-sizing: border-box;
   .el-button--text {
     color: #606266;
   }
