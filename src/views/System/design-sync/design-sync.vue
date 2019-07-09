@@ -46,7 +46,7 @@
 </template>
 <script>
   import ns from '../../../utils/nsQuery/nsQuery';
-  import { designSync_search, designSync_submit } from '../../../service/System/design-sync';
+  import { designSync_search, designSync_submit } from '../../../service/System/System-pages/design-sync';
   import Mixin from "../../../mixins";
   export default {
     name: 'design-sync',

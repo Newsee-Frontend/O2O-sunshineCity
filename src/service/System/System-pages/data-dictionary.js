@@ -1,8 +1,6 @@
-/*==========================================================================================================================*/
-import fetch from '../../utils/fetch/fetch';
-import { dataFilter } from '../../utils/fetch/fetchDataType';
+import fetch from '../../../utils/fetch/fetch';
+import { dataFilter } from '../../../utils/fetch/fetchDataType';
 
-/*==========================================================================================================================*/
 export function tableDataFetch(query, head) {
   //表数据-获取
   dataFilter(query);

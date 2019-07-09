@@ -21,7 +21,7 @@ const RoleButton = {
           }
           if (item.areaType === 'FORM') {
             let normalBtns = ['formCancelBtn', 'formReturnBtn'];
-            item.type = normalBtns.indexOf(item.code) > -1  ? 'normal' : 'primary';
+            item.type = normalBtns.indexOf(item.code) > -1 ? 'normal' : 'primary';
           }
         });
         return data;
@@ -31,11 +31,6 @@ const RoleButton = {
       state.roleButton.FORM = td(data).filter(item => item.areaType === 'FORM');
       state.roleButton.GRID = data.filter(item => item.areaType === 'GRID');
 
-
-      console.log(33333333333);
-      console.log(33333333333);
-      console.log(state.roleButton);
-      console.log(33333333333);
     },
 
     CLEAR_ROLE_BUTTON_LIST: (state) => {

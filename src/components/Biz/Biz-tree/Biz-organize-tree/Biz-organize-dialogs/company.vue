@@ -130,7 +130,7 @@ import {
   searchUserFetch,
   getDetail,
   autoMakeMassage,
-} from '../../../../../service/System/organize-tree';
+} from '../../../../../service/System/System-pages/organize-tree';
 export default {
   directives: {
     // 失去焦点时判断是否需要更新简称与编号

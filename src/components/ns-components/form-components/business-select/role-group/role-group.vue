@@ -90,7 +90,7 @@ import {
   delRoleGroup,
   roleGroupList,
   roleGroupInfo,
-} from '../../../../../service/Role/role-group';
+} from '../../../../../service/System/Role-components/role-group';
 
 export default {
   name: 'ns-role-group',

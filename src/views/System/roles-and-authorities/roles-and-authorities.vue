@@ -17,7 +17,6 @@
           <!--search module-->
           <ns-search-conditions
             :funcId="Mix_funcId"
-            :thlist="Mix_thlist"
             :searchConditions="Mix_searchConditions"
             @query="getTableData"
             :changeStatus="changeStatus"
@@ -81,13 +80,13 @@
   </div>
 </template>
 <script>
-  import {tableDataFetch} from '../../../service/System/TableFetch/table-fetch';
-  import {gridDataDelete} from '../../../service/System/roles-and-authorities';
+  import { tableDataFetch } from '../../../service/System/TableFetch/table-fetch';
+  import { gridDataDelete } from '../../../service/System/System-pages/roles-and-authorities';
   import * as store from '../../../utils/nsQuery/nsStore';
   import roleStaticData from './roleStaticData';
   import rolePersonStaticData from './rolePersonStaticData';
-  import Mixin from "../../../mixins";
-  import {downloadExcel} from '../../../service/Download/download';
+  import Mixin from '../../../mixins';
+  import { downloadExcel } from '../../../service/Download/download';
   import { mapGetters } from 'vuex';
 
 
@@ -101,7 +100,7 @@
         //========== 基本 base =========
         nsDialogName: 'roles-and-authorities_addRoleForm',
         //========== 筛选器 search =========
-        changeStatus: {status: true}, // 左侧树的状态
+        changeStatus: { status: true }, // 左侧树的状态
 
         //========== 表格 grid =========
         tableData: {}, //列表数据
@@ -118,7 +117,7 @@
         treeNodeObj: {},
 
         //========== dialog auto form  =========
-        dialogVisible: {visible: false}, //dialog switch
+        dialogVisible: { visible: false }, //dialog switch
         dialogTit: '', //dialog title
         submitType: 'add', //判断当前表单的类型（add / edit）
         requestUrl: '', //自动表单提交地址
@@ -162,7 +161,7 @@
     },
 
     computed: {
-      ...mapGetters(['roleButtonForm'])
+      ...mapGetters(['roleButtonForm']),
     },
 
     methods: {
@@ -170,11 +169,11 @@
        * 表单按钮点击
        * @param command按钮信息
        */
-      roleButtonCommandForm(command){
-        if(command.code === 'formConfirmBtn'){
+      roleButtonCommandForm(command) {
+        if (command.code === 'formConfirmBtn') {
           this.autoFormSubmit();
         }
-        if(command.code === 'formCancelBtn'){
+        if (command.code === 'formCancelBtn') {
           this.autoFormCancel();
         }
       },
@@ -188,7 +187,7 @@
         this.showMessage = true;
         this.nsDialogName = '';
         this.$refs[this.autoFormID].submitForm(this.autoFormID).then(() => {
-          this.$message({message: '保存成功', type: 'success'});
+          this.$message({ message: '保存成功', type: 'success' });
           this.showMessage = false;
           this.$set(this.dialogVisible, 'visible', false);
           store.formController.delete('addRoleForm');
@@ -255,7 +254,7 @@
       //新增-初始化动态表单
       addRole() {
         if (!this.treeNodeInfo.organizationId || this.treeNodeInfo.organizationId == 0) {
-          this.$message({message: '请先选择组织', type: 'warning'});
+          this.$message({ message: '请先选择组织', type: 'warning' });
         } else {
           this.dialogWidth = '900px';
           this.dialogTit = '新增角色';
@@ -274,7 +273,7 @@
       //选择组织节点回调
       treeItemClick(org) {
         console.log('表数据查询-表数据查询');
-        console.log(this.condition)
+        console.log(this.condition);
         this.treeNodeInfo = org;
         this.addRoleCoverData.dynamicQuery.rolecategoryId = this.treeNodeInfo.organizationId;
         this.addPersonToRoleCoverData.dynamicQuery.userIds = this.treeNodeInfo.organizationId;
@@ -309,7 +308,7 @@
             url: '/system/role/list-role',
             query: this.Mix_searchConditions,
             funcId: this.Mix_funcId,
-          }
+          },
         ).then(res => {
           this.tableData = res.resultData;
           console.log('请求到的表格数据：');
@@ -320,7 +319,7 @@
         }, () => {
           this.tableData = {};
           this.loadState.data = true;
-        })
+        });
       },
 
       /**
@@ -334,7 +333,7 @@
           case 'gridEditBtn': //编辑
             this.dialogWidth = '900px';
             this.dialogTit = '编辑角色';
-            this.requestUrl = "/system/role/detail-role?enterpriseId=" + scope.row.enterpriseId + "&organizationId=" + scope.row.organizationId;
+            this.requestUrl = '/system/role/detail-role?enterpriseId=' + scope.row.enterpriseId + '&organizationId=' + scope.row.organizationId;
             this.submitUrl = '/system/role/edit-role';
             this.autoFormID = 'addRoleForm';
             store.formController.delete('addPersonToRoleForm');
@@ -356,10 +355,10 @@
                   {
                     roleid: this.selectedGridNodeObj.roleid,
                   },
-                  {}
+                  {},
                 )
                   .then(() => {
-                    this.$message({message: '删除成功', type: 'success'});
+                    this.$message({ message: '删除成功', type: 'success' });
                     this.getTableData();
                   })
                   .catch(r => {
@@ -401,7 +400,7 @@
         }
         this.multipleSelection = arry;
       },
-    }
+    },
   };
 </script>
 <style rel="stylesheet/scss" lang="scss">
