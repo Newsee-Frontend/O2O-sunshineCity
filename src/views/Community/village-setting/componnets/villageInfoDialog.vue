@@ -91,7 +91,6 @@
     </div>
   </biz-slip-dialog>
 </template>
-
 <script>
   import { getAreaList} from '../../../../service/Form/getOptions'
   import { getPrecinctInfo, savePrecinctInfo } from '../../../../service/Community/villageSetting'
