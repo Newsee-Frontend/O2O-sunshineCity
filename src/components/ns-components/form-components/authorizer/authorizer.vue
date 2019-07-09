@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { getAuthorizerList } from '../../../../service/Role/role-authorizer';
+import { getAuthorizerList } from '../../../../service/System/Role-components/role-authorizer';
 
 export default {
   name: 'ns-authorizer',

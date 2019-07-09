@@ -39,7 +39,7 @@ import keyRefer from './keyRefer'; //指代属性字段值
 import {
   getInitRoleGroupList,
   getRoleGroupList,
-} from '../../../../../service/Role/role-employee';
+} from '../../../../../service/System/Role-components/role-employee';
 
 export default {
   name: 'ns-role-employee',
