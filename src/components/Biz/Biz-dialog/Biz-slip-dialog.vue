@@ -13,6 +13,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   export default {
     name: 'Biz-slip-dialog',
 
@@ -32,6 +33,16 @@
     watch: {
       visible(val){
         this.showDialog = val;
+      }
+    },
+
+    computed: {
+      ...mapGetters(['isInIframe']),
+
+      position(){
+        return {
+          left: this.isInIframe ? '0px': '50px'
+        }
       }
     },
 
