@@ -442,5 +442,5 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-@import '../../../../../assets/css/Modular/Form-style/Modular/select/role-group';
+@import '../../../../../style/Modular/Form-style/Modular/select/role-group';
 </style>

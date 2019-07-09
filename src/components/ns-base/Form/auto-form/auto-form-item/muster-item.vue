@@ -883,6 +883,6 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-@import '../../../../../assets/css/Modular/Form-style/validateStyle/validateStyle-judgment';
-@import '../../../../../assets/css/Modular/Form-style/Main/form-item';
+@import '../../../../../style/Modular/Form-style/validateStyle/validateStyle-judgment';
+@import '../../../../../style/Modular/Form-style/Main/form-item';
 </style>

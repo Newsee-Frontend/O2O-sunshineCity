@@ -373,7 +373,7 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-@import '../../../../assets/css/Modular/Form-style/Main/layout';
+@import '../../../../style/Modular/Form-style/Main/layout';
 
 $shadowColor: #333;
 $gap-small: 30px;
