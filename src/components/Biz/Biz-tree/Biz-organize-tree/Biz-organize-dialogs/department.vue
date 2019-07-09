@@ -129,7 +129,7 @@ import {
   searchUserFetch,
   getDetail,
   autoMakeMassage,
-} from '../../../../../service/System/organize-tree';
+} from '../../../../../service/System/System-pages/organize-tree';
 export default {
   directives: {
     judgeChange: {

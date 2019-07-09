@@ -75,7 +75,7 @@
   </div>
 </template>
 <script>
-  import {gridDataDelete} from '../../../service/System/data-dictionary';
+  import {gridDataDelete} from '../../../service/System/System-pages/data-dictionary';
   import * as store from '../../../utils/nsQuery/nsStore';
   import Mixin from "../../../mixins";
   import {downloadExcel} from '../../../service/Download/download';

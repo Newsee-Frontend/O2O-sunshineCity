@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { fetchOrgDetail, groupEdit } from '../../../../../service/System/organize-tree';
+import { fetchOrgDetail, groupEdit } from '../../../../../service/System/System-pages/organize-tree';
 export default {
   props: {
     visible: {

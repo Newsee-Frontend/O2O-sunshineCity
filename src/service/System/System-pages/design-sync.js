@@ -1,5 +1,5 @@
-import fetch from '../../utils/fetch/fetch';
-import { dataFilter } from '@/utils/fetch/fetchDataType';
+import fetch from '../../../utils/fetch/fetch';
+import { dataFilter } from '../../../utils/fetch/fetchDataType';
 import qs from 'querystring';
 
 

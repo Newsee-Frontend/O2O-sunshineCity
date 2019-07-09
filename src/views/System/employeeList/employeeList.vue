@@ -69,7 +69,7 @@
 </template>
 <script>
   import { tableDataFetch } from '../../../service/System/TableFetch/table-fetch';
-  import { gridDataDelete, gridDataOperate } from '../../../service/System/employeeList';
+  import { gridDataDelete, gridDataOperate } from '../../../service/System/System-pages/employeeList';
   import employeeStaticData from './employeeStaticData';
   import pickerOptionsMap from '../../../static-data/form/picker-options';
   import employeeForm from './employeeForm/employeeForm.vue';

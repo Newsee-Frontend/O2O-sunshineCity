@@ -1,7 +1,5 @@
-/*==========================================================================================================================*/
-
-import fetch from '../../utils/fetch/fetch';
-import { dataFilter } from '../../utils/fetch/fetchDataType';
+import fetch from '../../../utils/fetch/fetch';
+import { dataFilter } from '../../../utils/fetch/fetchDataType';
 
 export function gridDataDelete(query) {
   //删除
@@ -14,7 +12,7 @@ export function gridDataDelete(query) {
   });
 }
 
-export function gridDataOperate(query,) {
+export function gridDataOperate(query) {
   //修改
   dataFilter(query);
   return fetch({

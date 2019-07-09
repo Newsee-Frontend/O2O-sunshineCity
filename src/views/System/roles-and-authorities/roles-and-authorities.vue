@@ -82,7 +82,7 @@
 </template>
 <script>
   import {tableDataFetch} from '../../../service/System/TableFetch/table-fetch';
-  import {gridDataDelete} from '../../../service/System/roles-and-authorities';
+  import {gridDataDelete} from '../../../service/System/System-pages/roles-and-authorities';
   import * as store from '../../../utils/nsQuery/nsStore';
   import roleStaticData from './roleStaticData';
   import rolePersonStaticData from './rolePersonStaticData';
