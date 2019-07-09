@@ -49,7 +49,7 @@ export default {
             location.href = '//' + referPath;
           }
           else {
-            this.$router.push({ path: '/404' });
+            this.$router.push({ path: '/sso/404' });
           }
         });
     },
