@@ -21,10 +21,8 @@
     </ns-auto-form>
     <!--按钮-->
     <div slot="footer">
-      <ns-auto-form-operation
-        :buttonInfo="buttonInfo"
-        autoFormID="dictionary_tree_form"
-      ></ns-auto-form-operation>
+      <ns-button type="primary" @click="submit">保 存</ns-button>
+      <ns-button @click="cancelHandle">取 消</ns-button>
     </div>
   </ns-dialog>
 </template>
@@ -54,27 +52,6 @@
     },
     data() {
       return {
-        buttonInfo: [
-          {
-            funcType: 'submit',
-            style: 'primary',
-            code: 'formConfirmBtn',
-            name: '保存',
-            areaType: 'FORM',
-            btnType: 'single',
-            index: '6',
-            event: this.submit,
-          },
-          {
-            funcType: 'custom',
-            style: '',
-            code: 'formCancelBtn',
-            name: '取消',
-            areaType: 'FORM',
-            btnType: 'single',
-            event: this.cancelHandle,
-          },
-        ],
         autoFormoLcaldata: {},
         coverData: {},
         title: '',
@@ -145,9 +122,9 @@
       },
 
 
-      submit(formName) {
+      submit() {
         this.showMessage = true;
-        this.$refs[formName].submitForm(formName).then(() =>{
+        this.$refs['dictionary_tree_form'].submitForm('dictionary_tree_form').then(() =>{
           this.$message({ message: '添加成功', type: 'success' });
           this.$emit('query');
           this.changeDialogShowState(false);
@@ -159,9 +136,6 @@
 
 <style rel="stylesheet/scss" lang="scss">
   #dictionary_tree_dialog.ns-dialog {
-    .el-dialog {
-      height: 280px;
-    }
     .ns-autoForm-content {
       min-height: 0;
     }

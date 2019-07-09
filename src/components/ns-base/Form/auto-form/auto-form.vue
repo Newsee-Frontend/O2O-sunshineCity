@@ -72,16 +72,6 @@
           </ns-repeat-item>
         </div>
       </div>
-      <el-form-item
-        :class="handleModulesClass"
-        :style="handleModulesStyle"
-        v-if="submitRender && buttonInfo"
-      >
-        <ns-auto-form-operation
-          :autoFormID="autoFormID"
-          :buttonInfo="buttonInfo"
-        ></ns-auto-form-operation>
-      </el-form-item>
     </ns-form>
   </div>
 </template>

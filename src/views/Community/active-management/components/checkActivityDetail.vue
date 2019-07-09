@@ -8,21 +8,7 @@
       <div class="search-container">
         <biz-search-conditions>
           <template slot="btns">
-            <ns-role-button
-              mode="icon"
-              coerciveShow
-              :roleInfo="{
-                  areaType: 'ACTION',
-                  code: 'actionExportBtn',
-                  name: '导出Excel',
-                  nameEn: '',
-                  index: 1,
-                  btnType: 'single',
-                }"
-              @click="download()"
-
-            >
-            </ns-role-button>
+            <biz-role-button-area :buttonList="roleButtonLocal" @command="download()" class="fr"></biz-role-button-area>
           </template>
           <template slot="main">
             <div class="clear fl search-option">
@@ -64,6 +50,16 @@
     data() {
       return {
         showDialog: false,
+        roleButtonLocal: [
+          {
+            areaType: "ACTION",
+            btnType: "single",
+            code: "actionExportBtn",
+            icon: "daochuExcel",
+            name: "导出Excel",
+            type: "text"
+          }
+        ],
         keyWord: '',
         head: head,
         tableData: {},
