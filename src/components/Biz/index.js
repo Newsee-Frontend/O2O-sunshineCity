@@ -14,6 +14,10 @@ import BizOrgnizeSelectTree from './Biz-select-tree/Biz-organize-select-tree/Biz
 //conditions
 import SearchConditions from './Biz-search-conditions/Biz-search-conditions';
 
+import BizSlipDialog from './Biz-dialog/Biz-slip-dialog';
+
+import BizRoleButtonArea from './Biz-role-button-area/Biz-role-button-area';
+
 
 //table
 Vue.component('biz-table', BizTable);
@@ -28,7 +32,6 @@ Vue.component('biz-search-conditions', SearchConditions);
 //select tree
 Vue.component('biz-organize-select-tree', BizOrgnizeSelectTree);
 
-
-import BizRoleButtonArea from './Biz-role-button-area/Biz-role-button-area';
-
 Vue.component('biz-role-button-area', BizRoleButtonArea);
+
+Vue.component('biz-slip-dialog', BizSlipDialog);

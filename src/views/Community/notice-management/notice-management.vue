@@ -178,7 +178,8 @@
        * 获取小区名称的权限
        */
       getVillageOptions: function() {
-        getVillageOptions().then((data) => {
+        //入参没有实际意义
+        getVillageOptions({id: 1}).then((data) => {
           this.villageOptions = data.resultData || [];
         });
       },
