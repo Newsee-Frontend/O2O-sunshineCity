@@ -81,7 +81,7 @@
   </div>
 </template>
 <script>
-  import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
+  import {tableDataFetch} from '../../../service/System/TableFetch/table-fetch';
   import {gridDataDelete} from '../../../service/System/roles-and-authorities';
   import * as store from '../../../utils/nsQuery/nsStore';
   import roleStaticData from './roleStaticData';

@@ -1,6 +1,6 @@
-import fetch from '../../utils/fetch/fetch';
+import fetch from '../../../utils/fetch/fetch';
 import qs from 'querystring';
-import {dataFilter} from '../../utils/fetch/fetchDataType';
+import {dataFilter} from '../../../utils/fetch/fetchDataType';
 
 /**
  * get operator info(登录页面图片等信息)

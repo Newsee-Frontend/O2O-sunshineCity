@@ -79,7 +79,7 @@
   import * as store from '../../../utils/nsQuery/nsStore';
   import Mixin from "../../../mixins";
   import {downloadExcel} from '../../../service/Download/download';
-  import {tableDataFetch} from '../../../service/TableFetch/table-fetch';
+  import {tableDataFetch} from '../../../service/System/TableFetch/table-fetch';
   import { mapGetters } from 'vuex';
 
   export default {

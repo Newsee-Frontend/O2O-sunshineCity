@@ -69,7 +69,7 @@
   import { deleteActivity } from '../../../service/Community/activeManagement';
   import { getVillageOptions } from '../../../service/Form/getOptions';
   import Mixin from '../../../mixins';
-  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
+  import { tableDataFetch } from '../../../service/System/TableFetch/table-fetch';
 
   export default {
     name: 'active-management',

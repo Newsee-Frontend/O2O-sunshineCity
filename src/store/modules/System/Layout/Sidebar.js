@@ -1,4 +1,4 @@
-import {sideBarService} from '../../../../service/Sidebar/index';
+import {sideBarService} from '../../../../service/System/Layout/sideBar';
 import $store from '../../../index';
 import keyRefer from '../../../../components/Biz/Biz-sidebar/sidebar-keyRefer';
 

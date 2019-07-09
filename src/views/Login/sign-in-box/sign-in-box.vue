@@ -57,7 +57,7 @@
 </template>
 
 <script>
-  import { isMultipleEnterprise } from '../../../service/User/login';
+  import { isMultipleEnterprise } from '../../../service/System/User/login';
   import MultiEnterprise from './multi-enterprise';
   import authLogin from '../authLogin';
   import cryptoPassWord from '../cryptoPassWord';

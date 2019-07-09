@@ -64,7 +64,7 @@
   import checkNoticeDetail from './componnets/checkNoticeDetail';
   import { deleteNotice } from '../../../service/Community/noticeManagement';
   import { getVillageOptions } from '../../../service/Form/getOptions';
-  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
+  import { tableDataFetch } from '../../../service/System/TableFetch/table-fetch';
   import Mixin from '../../../mixins';
 
   export default {

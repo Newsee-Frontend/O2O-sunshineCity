@@ -68,7 +68,7 @@
   </div>
 </template>
 <script>
-  import { tableDataFetch } from '../../../service/TableFetch/table-fetch';
+  import { tableDataFetch } from '../../../service/System/TableFetch/table-fetch';
   import { gridDataDelete, gridDataOperate } from '../../../service/System/employeeList';
   import employeeStaticData from './employeeStaticData';
   import pickerOptionsMap from '../../../static-data/form/picker-options';
