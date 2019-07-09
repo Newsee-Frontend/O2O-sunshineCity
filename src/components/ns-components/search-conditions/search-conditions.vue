@@ -172,6 +172,7 @@
 
 <script>
 import { filterFetch, filterFns, getItems } from '../../../service/System/Search-conditions/search-conditions';
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -230,7 +231,7 @@ export default {
       searchBodyWidth: 1280, // searchCondition宽度
       errorBorder: false, // 错误border
       showConditions: false,
-      thHeadList: [],
+      // thHeadList: [],
       special: [],
       showBtn: false,
       mouseOverIndex: 0,
@@ -240,15 +241,15 @@ export default {
     funcId: {
       type: [Number, String],
     },
-    thlist: {
-      // 表头
-      type: Object,
-      default() {
-        return {
-          thlistDefault: [],
-        };
-      },
-    },
+    // thlist: {
+    //   // 表头
+    //   type: Object,
+    //   default() {
+    //     return {
+    //       thlistDefault: [],
+    //     };
+    //   },
+    // },
     searchConditions: {
       // 筛选条件
       type: Object,
@@ -298,6 +299,14 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['tableHead']),
+
+    thHeadList(){
+      return this.tableHead.filter((item)=>{
+        return item.resourcecolumnColumntip !== '1';
+      })
+    },
+
     showMoreBtn() {
       return this.thHeadList.length > this.defaultNum;
     },
@@ -317,12 +326,12 @@ export default {
       },
       deep: true,
     },
-    thlist: {
-      handler(newValue) {
-        this.filterthList(newValue);
-      },
-      deep: true,
-    },
+    // thlist: {
+    //   handler(newValue) {
+    //     this.filterthList(newValue);
+    //   },
+    //   deep: true,
+    // },
   },
   methods: {
     // 查询
@@ -614,33 +623,33 @@ export default {
       this.mouseOverIndex = index;
       this.showBtn = flag;
     },
-    // 处理筛选条件
-    filterthList(thlist) {
-      let thHeadList = thlist.thlistDefault.filter(item => {
-        if (item.resourcecolumnColumntip !== '1') {
-          if (item.resourcecolumnXtype === 'date') {
-            let index = this.specConditions.findIndex(o => {
-              return o.condition === item.resourcecolumnCode;
-            });
-            item.isSplitDate = index === -1;
-          }
-          return item;
-        }
-      });
-      this.thHeadList = [];
-      // date类型拆分为两个
-      thHeadList.forEach(o => {
-        if (o.isSplitDate) {
-          let o1 = this.deepClone(o);
-          let o2 = this.deepClone(o);
-          o1.date = 'start';
-          o2.date = 'end';
-          this.thHeadList = this.thHeadList.concat([o1, o2])
-        } else {
-          this.thHeadList.push(o);
-        }
-      });
-    },
+    // // 处理筛选条件
+    // filterthList(thlist) {
+    //   let thHeadList = thlist.thlistDefault.filter(item => {
+    //     if (item.resourcecolumnColumntip !== '1') {
+    //       if (item.resourcecolumnXtype === 'date') {
+    //         let index = this.specConditions.findIndex(o => {
+    //           return o.condition === item.resourcecolumnCode;
+    //         });
+    //         item.isSplitDate = index === -1;
+    //       }
+    //       return item;
+    //     }
+    //   });
+    //   this.thHeadList = [];
+    //   // date类型拆分为两个
+    //   thHeadList.forEach(o => {
+    //     if (o.isSplitDate) {
+    //       let o1 = this.deepClone(o);
+    //       let o2 = this.deepClone(o);
+    //       o1.date = 'start';
+    //       o2.date = 'end';
+    //       this.thHeadList = this.thHeadList.concat([o1, o2])
+    //     } else {
+    //       this.thHeadList.push(o);
+    //     }
+    //   });
+    // },
     // 深拷贝
     deepClone(obj) {
       let objClone = Array.isArray(obj) ? [] : {};
@@ -661,9 +670,9 @@ export default {
     },
   },
   created() {
-    if (this.thlist.thlistDefault.length) {
-      this.filterthList(this.thlist);
-    }
+    // if (this.thlist.thlistDefault.length) {
+    //   this.filterthList(this.thlist);
+    // }
     this.searchConditions.filterList = [];
     // 从房产信息报表跳转到房产管理  带默认参数
     if (this.defaultConditions.length) {
@@ -685,23 +694,6 @@ export default {
       }
       return item.condition;
     });
-    //已交款管理下钻
-    if(this.specOtherConditions.switch){
-      //车辆
-      if(this.specOtherConditions.carSwitch){
-        this.searchConditions.treeConditions[0].fieldValue = this.specOtherConditions.otherConditions.houseId;
-      }
-      //车位
-      if(this.specOtherConditions.parkingSwitch){
-        this.searchConditions.treeConditions[0].fieldValue = this.specOtherConditions.otherConditions.houseId;
-      }
-      /*//项目切换
-      if(this.specOtherConditions.projectSwitch){
-        this.searchConditions.treeConditions[0].fieldValue = this.specOtherConditions.otherConditions.houseId;
-      }*/
-      this.searchConditions.otherConditions = this.specOtherConditions.otherConditions;
-      this.searchConditions.houseId = this.specOtherConditions.otherConditions.houseId;
-    }
   },
   mounted() {
     this.setSearchBodyWidth();
