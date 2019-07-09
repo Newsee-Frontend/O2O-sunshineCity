@@ -17,7 +17,7 @@ module.exports = {
       app: './src/main.js',
     },
     assetsPublicPath: './',
-    assetsRoot: path.resolve('./dist'), // 编译输出的静态资源路径
+    assetsRoot: path.resolve('./dist'),
     cssExtractPublicPath: '../../',
     templateSPA: './index.html',
     staticPath: './static',
