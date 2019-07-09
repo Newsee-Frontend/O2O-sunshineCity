@@ -34,47 +34,49 @@
                    @selection-change="selectionChange"
         ></biz-table>
         <!--dialog - auto form submit infomation-->
-        <ns-dialog
+        <biz-slip-dialog
           :id="nsDialogName"
           :title="dialogTit"
-          :width="dialogWidth"
           :visible.sync="dialogVisible.visible"
           @close="dialogClose('addRoleForm', 'addPersonToRoleForm')"
         >
-          <!--auto form 新增角色-->
-          <ns-auto-form
-            ref="addRoleForm"
-            autoFormID="addRoleForm"
-            :funcId="Mix_funcId"
-            :request-url="requestUrl"
-            :submit-url="submitUrl"
-            :query="{ roleid: selectedGridNodeObj.roleid }"
-            :local-data="localData"
-            :cover-data="addRoleCoverData"
-            cue-type="only-error"
-            :showMessage="showMessage"
-            @afterRequest="afterRequest"
-          ></ns-auto-form>
+          <template slot="btns">
+            <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommandForm"></biz-role-button-area>
+          </template>
 
-          <!--auto form-->
-          <ns-auto-form
-            ref="addPersonToRoleForm"
-            autoFormID="addPersonToRoleForm"
-            :funcId="Mix_funcId"
-            :request-url="requestUrl"
-            :submit-url="submitUrl"
-            :query="{ roleid: selectedGridNodeObj.roleid }"
-            :local-data="localDataRolePerson"
-            :cover-data="addPersonToRoleCoverData"
-            cue-type="only-error"
-            :showMessage="showMessage"
-            @afterRequest="afterRequest"
-          ></ns-auto-form>
+          <template slot="main">
+            <!--auto form 新增角色-->
+            <ns-auto-form
+              ref="addRoleForm"
+              autoFormID="addRoleForm"
+              :funcId="Mix_funcId"
+              :request-url="requestUrl"
+              :submit-url="submitUrl"
+              :query="{ roleid: selectedGridNodeObj.roleid }"
+              :local-data="localData"
+              :cover-data="addRoleCoverData"
+              cue-type="only-error"
+              :showMessage="showMessage"
+              @afterRequest="afterRequest"
+            ></ns-auto-form>
 
-          <div slot="footer" style="overflow: hidden;">
-            <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommandForm" class="fr"></biz-role-button-area>
-          </div>
-        </ns-dialog>
+            <!--auto form-->
+            <ns-auto-form
+              ref="addPersonToRoleForm"
+              autoFormID="addPersonToRoleForm"
+              :funcId="Mix_funcId"
+              :request-url="requestUrl"
+              :submit-url="submitUrl"
+              :query="{ roleid: selectedGridNodeObj.roleid }"
+              :local-data="localDataRolePerson"
+              :cover-data="addPersonToRoleCoverData"
+              cue-type="only-error"
+              :showMessage="showMessage"
+              @afterRequest="afterRequest"
+            ></ns-auto-form>
+          </template>
+
+        </biz-slip-dialog>
       </div>
     </div>
   </div>
