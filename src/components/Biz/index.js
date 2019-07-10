@@ -14,7 +14,7 @@ import BizOrgnizeSelectTree from './Biz-select-tree/Biz-organize-select-tree/Biz
 //conditions
 import SearchConditions from './Biz-search-conditions/Biz-search-conditions';
 
-import BizSlipDialog from './Biz-dialog/Biz-slip-dialog';
+import BizSlipDialog from './Biz-slip-dialog/Biz-slip-dialog';
 
 import BizRoleButtonArea from './Biz-role-button-area/Biz-role-button-area';
 

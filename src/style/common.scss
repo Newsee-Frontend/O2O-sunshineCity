@@ -1,16 +1,6 @@
 @import 'public';
 @import 'mixins/mixins';
 
-html, body {
-  height: 100%;
-  min-height: 100%;
-  #app {
-    height: inherit;
-    min-width: $min-window_width;
-    min-height: $min-window_height;
-    font-size: 14px;
-  }
-}
 
 //右侧  转换 内容窗口
 .win {

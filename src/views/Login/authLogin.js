@@ -44,13 +44,17 @@ export default {
         })
         //单点登录跳转失败后的回调
         .catch(() => {
-          const referPath = getUrlParam('referPath');
-          if (referPath) {
-            location.href = '//' + referPath;
-          }
-          else {
-            this.$router.push({ path: '/sso/404' });
-          }
+
+          this.$router.push({ path: '/sso/404' });
+
+          // const referPath = getUrlParam('referPath');
+          // if (referPath) {
+          //   location.href = '//' + referPath;
+          // }
+          // else {
+          //   this.$router.push({ path: '/sso/404' });
+          // }
+
         });
     },
 
