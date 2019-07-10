@@ -1,7 +1,7 @@
 <!--主页-->
 <template>
   <div class="Dashboard">
-    <img src="../../assets/img/dashboard/dashboard.png" alt="">
+    <img src="../../assets/img/dashboard/dashboard.png">
     <!--<ns-particles class="ns-particles" :color="particlesColor"/>-->
   </div>
 </template>
