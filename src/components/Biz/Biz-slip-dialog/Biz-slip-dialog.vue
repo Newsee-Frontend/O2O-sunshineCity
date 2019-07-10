@@ -6,7 +6,7 @@
     :right="position.right"
     :top="position.top"
     :bottom="position.bottom"
-    :appendToBody="false"
+    appendToBody
     animation="fade-normal"
     :beforeClose="close"
   >
