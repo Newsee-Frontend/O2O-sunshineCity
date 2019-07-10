@@ -1,7 +1,7 @@
 <template>
   <biz-slip-dialog
     :visible.sync="showDialog"
-    :close="close"
+    @close="close"
     :title="type === 'add'? '新增公告': '编辑公告'"
   >
     <template slot="btns">

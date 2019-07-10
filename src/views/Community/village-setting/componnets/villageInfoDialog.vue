@@ -1,8 +1,8 @@
 <template>
   <biz-slip-dialog
     :visible.sync="showDialog"
-    :close="close"
     :title="type === 'add'? '新增小区': '编辑小区'"
+    @close="close"
   >
     <template slot="btns">
       <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommand"></biz-role-button-area>
@@ -148,6 +148,7 @@
 
     watch: {
       visible(val){
+        console.log('')
         this.showDialog = val;
         if(val){
           this.initForm()

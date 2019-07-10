@@ -39,7 +39,7 @@
           :id="nsDialogName"
           :title="dialogTit"
           :visible.sync="dialogVisible.addRolevisible"
-          @close="dialogClose('addRoleForm', 'addPersonToRoleForm')"
+          @close="dialogClose"
         >
           <template slot="btns">
             <biz-role-button-area :buttonList="roleButtonForm" @command="roleButtonCommandForm"></biz-role-button-area>
@@ -69,7 +69,7 @@
           :title="dialogTit"
           :width="dialogWidth"
           :visible.sync="dialogVisible.addPersonToRoleVisible"
-          @close="dialogClose('addRoleForm', 'addPersonToRoleForm')"
+          @close="dialogClose"
         >
           <!--auto form 新增授权人-->
           <ns-auto-form
@@ -282,14 +282,12 @@
 
       /**
        * dialog close
-       * @param formName1
-       * @param formName2
        */
-      dialogClose(formName1, formName2) {
+      dialogClose() {
         //销毁表单
         this.showMessage = false;
-        store.formController.delete(formName1);
-        store.formController.delete(formName2);
+        store.formController.delete('addRoleForm');
+        store.formController.delete('addPersonToRoleForm');
         this.nsDialogName = 'roles-and-authorities_addRoleForm';
       },
 
