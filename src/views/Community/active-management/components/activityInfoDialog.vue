@@ -1,7 +1,7 @@
 <template>
   <biz-slip-dialog
     :visible.sync="showDialog"
-    :close="close"
+    @close="close"
     :title="type === 'add'? '新增活动': '编辑活动'"
   >
     <template slot="btns">
