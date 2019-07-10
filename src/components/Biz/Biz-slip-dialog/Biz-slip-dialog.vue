@@ -103,6 +103,7 @@
     .silp-container {
       position: relative;
       top: 75px;
+      width: 700px;
       margin: 0 auto;
       padding: 20px 0 10px;
       z-index: 1;
