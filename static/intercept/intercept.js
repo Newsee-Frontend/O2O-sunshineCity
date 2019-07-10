@@ -67,7 +67,6 @@ var intercept = (function() {
         }
         break;
       case 'Chrome':
-        _createWarning(this.mark);
         break;
       default:
         break;
