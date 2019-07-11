@@ -134,80 +134,85 @@ const activeGrid = (req, res) => {
 const  notice = (req, res) => {
   return res.json({
     "resultCode": "200",
-    "resultMsg": "操作成功",
+    "resultMsg": "操作成功。",
+    "restLog": null,
     "resultData": {
-      "id": 48,
-      "category": 2,
-      "title": "22222",
-      "picid": 1560762294055,
-      "usertype": 0,
-      "createuserid": 1,
-      "createtime": "2019-06-14 14:45:28",
-      "updateuserid": 1,
-      "updatetime": "2019-06-17 17:04:53",
-      "rulecategory": 1,
-      "rulevalue": "{\"ruleValueID\":48,\"ruleValueName\":\"22222\"}",
-      "status": 1,
-      "publishtime": "2019-06-17 17:04:53",
-      "publishuserid": 1,
-      "publishUserName": "admin",
-      "sendtype": 0,
-      "ispush": 0,
-      "activityStartTime": "2019-06-05 14:44:00",
-      "activityEndTime": "2019-06-14 14:45:00",
-      "sponsor": "zx",
-      "activitySpace": "22222",
-      "activityNum": 0,
-      "roasting": 0,
-      "bgPicId": 0,
+      "id": 135,
+      "category": 1,
+      "title": "2222账号发布檀香的公告66",
+      "picId": 0,
+      "userType": 0,
+      "createUserId": 1,
+      "createTime": "2019-07-04 22:46:58",
+      "updateUserId": 1,
+      "updateTime": "2019-07-08 14:05:56",
+      "ruleCategory": null,
+      "ruleValue": null,
+      "status": 0,
+      "publishTime": "2019-07-08 14:05:56",
+      "publishUserId": 1,
+      "sendType": 0,
+      "isPush": null,
+      "categoryKey": null,
+      "publishUserName": "superAdmin",
+      "noticeCategory": "",
+      "type": 0,
+      "secondCategoryKey": null,
+      "voteEndTime": null,
+      "candidateNum": null,
+      "activityStartTime": null,
+      "activityEndTime": null,
+      "enableApply": 0,
+      "point": null,
+      "price": null,
+      "sponsor": null,
+      "activitySpace": "",
+      "activityNum": null,
+      "roasting": null,
+      "bgPicId": null,
+      "triggered": null,
+      "effectiveReplyTime": null,
+      "activityLimitType": null,
+      "activityLimitNum": null,
+      "smsTemplateId": null,
       "recommend": 1,
-      "sendToWx": 0,
-      "categoryName": "系统参数",
-      "content": "cdc fvfvfvfv",
-      "fileList": [{fileUrl: "fileupload/80800/system_default_file/2019/6/1560494716999_1446103511165800.jpg" }],
+      "sendToWx": null,
+      "categoryName": null,
+      "categoryKeyName": null,
+      "precinctIds": ["13"],
+      "productIds": null,
+      "precinctID": null,
+      "detailID": null,
+      "detailText": null,
+      "content": "<p>2222账号发布檀香的公告2222账号发布檀香的公告2222账号发布檀香的公告2222账号发布檀香的公告</p>\n<p>2222账号发布檀香的公告</p>\n<p>2222账号发布檀香的公告</p>\n<p>2222账号发布檀香的公告2222账号发布檀香的公告2222账号发布檀香的公告2222账号发布檀香的公告</p>",
+      "targetType": null,
+      "fileUrls": null,
+      "bgUrl": null,
+      "fileList": null,
+      "url": null,
+      "precinctNames": null,
+      "listPrecinctName": null,
       "listPrecinct": [{
-        "value": "5",
-        "label": "浙江·杭州·学苑管家测试"
-      }, {
-        "value": "6",
-        "label": "夏夏夏"
-      }, {
-        "value": "7",
-        "label": "中牟百合花园"
-      }, {
-        "value": "8",
-        "label": "第二·春江花月"
+        "value": "13",
+        "label": "福州檀府",
+        "valueType": null
       }],
-      "precincts": []
-    }
+      "secondCategoryName": null,
+      "applyId": null,
+      "applyTotal": null,
+      "precincts": [],
+      "categoryHtmlUrl": null,
+      "categoryPicUrl": null,
+      "provinceId": "35",
+      "cityId": "3501"
+    },
+    "pageNum": null,
+    "pageSize": null,
+    "total": null
   });
 };
 
-const getPrecincts = (req, res) => {
-  return res.json({
-    "resultCode": "200",
-    "resultMsg": "操作成功",
-    "resultData": [{
-      "value": "1",
-      "label": "桃李春风小区"
-    }, {
-      "value": "5",
-      "label": "浙江·杭州·学苑管家测试"
-    }, {
-      "value": "6",
-      "label": "夏夏夏"
-    }, {
-      "value": "7",
-      "label": "中牟百合花园"
-    }, {
-      "value": "8",
-      "label": "第二·春江花月"
-    }]
-  })
-}
-
 module.exports = {
-  'POST /o2o/noticeManage/grid': activeGrid,
-  'POST /o2o/noticeManage/getNotice': notice,
-  'POST /o2o/precinct/getPrecincts': getPrecincts
+  'POST /o2o/notice/listNotice': activeGrid,
+  'GET /o2o/notice/detailNotice': notice,
 };

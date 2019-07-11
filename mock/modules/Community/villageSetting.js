@@ -188,54 +188,117 @@ const precinctInfo = (req, res) => {
   req.method = 'GET';
   return res.json({
     "resultCode": "200",
-    "resultMsg": "操作成功",
+    "resultMsg": "操作成功。",
+    "restLog": null,
     "resultData": {
-      "o2oPropertyPrecinctVo": {
-        "id": 5,
-        "companyID": 1,
-        "precinctName": "浙江·杭州·学苑管家测试",
-        "provinceID": "981",
-        "cityID": "982",
-        "areaID": "987",
-        "address": "天堂软件园",
-        "contact": "测试1",
-        "contactPhone": "12345",
-        "lngLat": "120.123199,30.296647",
-        "status": '1',
+      "PrecinctVo": {
+        "id": 21,
+        "organizationId": 1,
+        "precinctCode": "2019070558410388",
+        "precinctName": "银爵世纪",
+        "provinceId": "33",
+        "cityId": "3301",
+        "areaId": "330108",
+        "streetId": null,
+        "address": "物美",
+        "contact": "1",
+        "contactPhone": "1",
+        "lngLat": "120.196732,30.234242",
+        "status": 0,
+        "orderId": null,
         "isCanceled": 0,
-        "createUserID": 1,
-        "createTime": "2019-05-30 10:39:54",
-        "updateTime": "2019-06-12 17:04:36",
-        "serviceCall": "12345678/324234324234234",
-        "companyCall": "13957116368",
-        "heatingCall": "",
-        "waterCall": "",
-        "electricCall": "",
-        "gasCall": "",
-        "precinctShortName": "XYGJCS",
-        "md5Key": "67018e40dd36e251611909a1ddd78fc6",
-        "workStartTime": "08:30",
-        "workEndTime": "17:30",
-        "visitLimit": 10,
-        "memberLimit": 8,
-        "repairServices": "1,2",
-        "companyName": "桃李春风控股集团",
-        "serverAddress": "http://new-see.oicp.io:1061/",
-        "provinceName": "浙江省",
-        "cityName": "杭州市",
-        "areaName": "西湖区",
-        "propertyContactList": [{
-          "id": 77,
-          "preinctid": 5,
-          "category": 1,
-          "name": "园区服务电话",
-          "phone": "12345678/324234324234234",
-          "categoryName": "园区服务电话"
-        }],
-        "uuid": "46A3C7F4876A4EE7ADAAF970C5924333"
+        "createUserId": 1,
+        "createTime": "2019-07-06 04:58:41",
+        "updateUserId": 1,
+        "updateTime": null,
+        "serviceCall": "1",
+        "serviceCallLogoId": null,
+        "precinctShortName": "yjsj",
+        "workStartTime": null,
+        "workEndTime": null,
+        "visitLimit": null,
+        "memberLimit": null,
+        "repairServices": null,
+        "qrScanLimit": null,
+        "uuid": null,
+        "govCode": null,
+        "companyName": null,
+        "serverAddress": null,
+        "serverAddressV9": null,
+        "provinceName": null,
+        "cityName": null,
+        "areaName": null,
+        "streetName": null,
+        "distance": null,
+        "houseID": null,
+        "wyPrecinctID": null,
+        "activityValue": null,
+        "statusName": null,
+        "precinctId": null,
+        "mainDataCode": null
       }
-    }
+    },
+    "pageNum": null,
+    "pageSize": null,
+    "total": null
   })
+};
+
+const getPrecinctNameList = (req, res) => {
+  req.method = 'GET';
+  return res.json({
+    "resultCode": "200",
+    "resultMsg": "操作成功。",
+    "restLog": null,
+    "resultData": [{
+      "label": "桃李春风小区",
+      "value": 1
+    }, {
+      "label": "福州檀府",
+      "value": 13
+    }, {
+      "label": "  123456",
+      "value": 14
+    }, {
+      "label": "2",
+      "value": 16
+    }, {
+      "label": "45",
+      "value": 18
+    }, {
+      "label": "  200",
+      "value": 20
+    }, {
+      "label": "银爵世纪",
+      "value": 21
+    }],
+    "pageNum": null,
+    "pageSize": null,
+    "total": null
+  })
+};
+
+
+const getPrecinctByArea = (req, res) => {
+  req.method = 'GET';
+  return res.json({
+    "resultCode": "200",
+    "resultMsg": "操作成功。",
+    "restLog": null,
+    "resultData":  [ {
+      "value": "8",
+      "label": "第二·春江花月"
+    }, {
+      "value": "7",
+      "label": "中牟百合花园"
+    }, {
+      "value": "6",
+      "label": "夏夏夏"
+    }, {
+      "value": "5",
+      "label": "浙江·杭州·学苑管家测试"
+    }]
+  });
 };
 
 module.exports = {
@@ -243,5 +306,7 @@ module.exports = {
   'POST /o2o/precinct/getServicePhoneList': phoneList,
   'POST /o2o/precinct/delServicePhone': phoneList,
   'POST /o2o/precinct/saveServicePhoneList': phoneList,
-  'POST /o2o/precinct/getPrecinct': precinctInfo
+  'POST /o2o/precinct/getPrecinct': precinctInfo,
+  'POST /o2o/precinct/getPrecinctNameList': getPrecinctNameList,
+  'POST /o2o/precinct/getPrecinctByArea': getPrecinctByArea
 };

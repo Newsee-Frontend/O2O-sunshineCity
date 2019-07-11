@@ -46,20 +46,20 @@
                    @table-action="tableAction"
         ></biz-table>
       </div>
+
+      <activity-info-dialog
+        :visible.sync="activityInfoVisible"
+        :type="activityType"
+        :rowData="rowData"
+        @reloadGrid="searchTable"
+      ></activity-info-dialog>
+
+      <check-activity-dialog
+        :visible.sync="checkActivityVisible"
+        :rowData="rowData"
+        :funcId="Mix_funcId"
+      ></check-activity-dialog>
     </div>
-
-    <activity-info-dialog
-      :visible.sync="activityInfoVisible"
-      :type="activityType"
-      :rowData="rowData"
-      @reloadGrid="searchTable"
-    ></activity-info-dialog>
-
-    <check-activity-dialog
-      :visible.sync="checkActivityVisible"
-      :rowData="rowData"
-      :funcId="Mix_funcId"
-    ></check-activity-dialog>
   </div>
 </template>
 
@@ -180,6 +180,10 @@
         }
       },
 
+
+      /**
+       * action btn 点击
+       */
       roleButtonCommand: function(command) {
         if (command.code === 'actionAddBtn') {
           this.activityType = 'add';
