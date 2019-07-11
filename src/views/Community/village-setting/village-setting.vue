@@ -47,22 +47,22 @@
                    @cell-action="getCellAction"
                    @table-action="tableAction"
         ></biz-table>
-        <village-info-dialog
-          :visible.sync="showVillageDialog"
-          :rowData="rowData"
-          :type="villageDialogType"
-          @reloadGrid="searchTable"
-        ></village-info-dialog>
       </div>
+
+      <village-info-dialog
+        :visible.sync="showVillageDialog"
+        :rowData="rowData"
+        :type="villageDialogType"
+        @reloadGrid="searchTable"
+      ></village-info-dialog>
     </div>
   </div>
 </template>
 
 <script>
-  // import servicePhoneDialog from './componnets/servicePhoneDialog';
   import Mixin from '../../../mixins';
   import villageInfoDialog from './componnets/villageInfoDialog';
-  import { checkhouse, getCompanyList } from '../../../service/Community/villageSetting';
+  import { checkhouse } from '../../../service/Community/villageSetting';
   import { tableDataFetch } from '../../../service/System/TableFetch/table-fetch';
 
   export default {
@@ -104,7 +104,7 @@
 
     methods: {
       searchTable() {
-        // this.searchConditions.pageNum = 1;
+        this.searchConditions.pageNum = 1;
         this.getTableData();
       },
 

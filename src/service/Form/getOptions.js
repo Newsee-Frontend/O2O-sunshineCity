@@ -11,17 +11,6 @@ export function  getVillageOptions(query) {
   });
 }
 
-
-export function  getNoticeTypeOptions(query) {
-  //表数据-获取
-  dataFilter(query);
-  return fetch({
-    url: '/o2o/noticeManage/noticeCagtegory',
-    method: 'post',
-    data: query
-  });
-}
-
 export function getAreaList(query) {
   //表数据-获取
   dataFilter(query);

@@ -1,60 +1,57 @@
 <template>
   <div class="win" id="notice">
     <div class="ns-container">
-      <div class="ns-container">
-        <!--temple container-->
-        <div class="ns-container-right">
-          <!--action-module (search / button)-->
-          <div class="action-module" style="overflow: hidden">
-            <biz-search-conditions>
-              <template slot="btns">
-                <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
-              </template>
-              <template slot="main">
-                <div class="clear fl search-option">
-                  <ns-input v-model="searchConditions.keyWord" placeholder="请输入标题公告"></ns-input>
-                </div>
-                <div class="clear fl search-option">
-                  <ns-select :options="villageOptions" v-model="searchConditions.precinctId"
-                             placeholder="请选择小区"></ns-select>
-                </div>
+      <!--temple container-->
+      <div class="ns-container-right">
+        <!--action-module (search / button)-->
+        <div class="action-module" style="overflow: hidden">
+          <biz-search-conditions>
+            <template slot="btns">
+              <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
+            </template>
+            <template slot="main">
+              <div class="clear fl search-option">
+                <ns-input v-model="searchConditions.keyWord" placeholder="请输入标题公告"></ns-input>
+              </div>
+              <div class="clear fl search-option">
+                <ns-select :options="villageOptions" v-model="searchConditions.precinctId"
+                           placeholder="请选择小区"></ns-select>
+              </div>
 
-                <div class="clear fl search-option">
-                  <ns-select :options="activestatueOptions" v-model="searchConditions.status"
-                             placeholder="请选择公告状态"></ns-select>
-                </div>
+              <div class="clear fl search-option">
+                <ns-select :options="activestatueOptions" v-model="searchConditions.status"
+                           placeholder="请选择公告状态"></ns-select>
+              </div>
 
-                <div class="clear fl search-option">
-                  <ns-date-picker
-                    v-model="dateRange"
-                    type="daterange"
-                    size="medium"
-                    clearable
-                    startPlaceholder="发布时间起"
-                    endPlaceholder="发布时间止"
-                  ></ns-date-picker>
-                </div>
+              <div class="clear fl search-option">
+                <ns-date-picker
+                  v-model="dateRange"
+                  type="daterange"
+                  size="medium"
+                  clearable
+                  startPlaceholder="发布时间起"
+                  endPlaceholder="发布时间止"
+                ></ns-date-picker>
+              </div>
 
-                <div class="clear fl search-option">
-                  <ns-button type="primary" @click="searchTable">查询</ns-button>
-                </div>
-              </template>
-            </biz-search-conditions>
-          </div>
-          <!--表格部分-->
-          <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
-                     :searchConditions="searchConditions"
-                     :showSummary="false"
-                     @reload="getTableData"
-                     @table-action="tableAction"
-                     @selection-change="selectionChange"
-          ></biz-table>
+              <div class="clear fl search-option">
+                <ns-button type="primary" @click="searchTable">查询</ns-button>
+              </div>
+            </template>
+          </biz-search-conditions>
         </div>
+        <!--表格部分-->
+        <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
+                   :searchConditions="searchConditions"
+                   :showSummary="false"
+                   @reload="getTableData"
+                   @table-action="tableAction"
+                   @selection-change="selectionChange"
+        ></biz-table>
       </div>
 
       <noticeDialog :type="noticeTpye" :rowData="rowData" :visible.sync="showNoticeDialog" @reloadGrid="searchTable"></noticeDialog>
       <check-notice-detail :visible.sync="checkNoticeVisible" :rowData="rowData"></check-notice-detail>
-
     </div>
   </div>
 </template>
@@ -106,6 +103,20 @@
           head: false,
         },
       };
+    },
+
+    computed: {
+      dateRange: {
+        get: function() {
+          return this.searchConditions.pubBeginTime ? [this.searchConditions.pubBeginTime, this.searchConditions.pubEndTime] : [];
+        },
+
+        set: function(arr) {
+          let range = arr || [];
+          this.searchConditions.pubBeginTime = range.length > 1 ? range[0] + ' 00:00:00' : '';
+          this.searchConditions.pubEndTime = range.length > 1 ? range[1] + ' 23:59:59' : '';
+        },
+      },
     },
 
     methods: {
@@ -193,20 +204,6 @@
           this.noticeTpye = 'add';
           this.showNoticeDialog = true;
         }
-      },
-    },
-
-    computed: {
-      dateRange: {
-        get: function() {
-          return this.searchConditions.pubBeginTime ? [this.searchConditions.pubBeginTime, this.searchConditions.pubEndTime] : [];
-        },
-
-        set: function(arr) {
-          let range = arr || [];
-          this.searchConditions.pubBeginTime = range.length > 1 ? range[0] + ' 00:00:00' : '';
-          this.searchConditions.pubEndTime = range.length > 1 ? range[1] + ' 23:59:59' : '';
-        },
       },
     },
 

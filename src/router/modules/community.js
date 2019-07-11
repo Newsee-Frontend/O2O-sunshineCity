@@ -26,22 +26,6 @@ export default [
       }
     ],
   },
-
-  //小区设置
-  {
-    path: '',
-    component: Layout,
-    redirect: '/housemanage',
-    name: '房产管理',
-    children: [
-      {
-        path: 'housemanage',
-        component: () =>import('../../views/test/houseManagement.vue'),
-        meta: {auth: true, key: 'housemanage', title: '房产管理'},
-        name: '房产管理',
-      },
-    ],
-  },
   // //活动管理
   // {
   //   path: '',

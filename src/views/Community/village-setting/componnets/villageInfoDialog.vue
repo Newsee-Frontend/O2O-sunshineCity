@@ -148,7 +148,6 @@
 
     watch: {
       visible(val){
-        console.log('')
         this.showDialog = val;
         if(val){
           this.initForm()
@@ -280,6 +279,9 @@
       },
 
 
+      /**
+       * 权限按钮的点击
+      * */
       roleButtonCommand(item){
         switch (item.code) {
           case 'formSaveBtn':
@@ -299,12 +301,11 @@
         this.$refs.villageForm.validate((valid)=>{
           if(valid){
            this.$set(btnInfo, 'disabled', true);
-            savePrecinctInfo(this.villageModel).then((data)=>{
+            savePrecinctInfo(this.villageModel).then(()=>{
               this.showDialog = false;
               this.$message.success('保存成功');
-              this.$emit('reloadGrid')
+              this.$emit('reloadGrid');
               this.$set(btnInfo, 'disabled', false);
-
             }, ()=>{
               this.$set(btnInfo, 'disabled', false);
             })
@@ -352,7 +353,7 @@
 
     mounted(){
      this.getProvince();
-      if(window.BMap) return;
+     if(window.BMap) return;
       this.MP();
     }
   };
