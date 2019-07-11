@@ -55,7 +55,6 @@
           return {
             data: false,
             head: false,
-            roleButton: false,
           };
         },
       },
