@@ -238,10 +238,69 @@ const precinctInfo = (req, res) => {
   })
 };
 
+const getPrecinctNameList = (req, res) => {
+  req.method = 'GET';
+  return res.json({
+    "resultCode": "200",
+    "resultMsg": "操作成功。",
+    "restLog": null,
+    "resultData": [{
+      "label": "桃李春风小区",
+      "value": 1
+    }, {
+      "label": "福州檀府",
+      "value": 13
+    }, {
+      "label": "  123456",
+      "value": 14
+    }, {
+      "label": "2",
+      "value": 16
+    }, {
+      "label": "45",
+      "value": 18
+    }, {
+      "label": "  200",
+      "value": 20
+    }, {
+      "label": "银爵世纪",
+      "value": 21
+    }],
+    "pageNum": null,
+    "pageSize": null,
+    "total": null
+  })
+};
+
+
+const getPrecinctByArea = (req, res) => {
+  req.method = 'GET';
+  return res.json({
+    "resultCode": "200",
+    "resultMsg": "操作成功。",
+    "restLog": null,
+    "resultData":  [ {
+      "value": "8",
+      "label": "第二·春江花月"
+    }, {
+      "value": "7",
+      "label": "中牟百合花园"
+    }, {
+      "value": "6",
+      "label": "夏夏夏"
+    }, {
+      "value": "5",
+      "label": "浙江·杭州·学苑管家测试"
+    }]
+  });
+};
+
 module.exports = {
   'POST /o2o/precinct/listPrecinct': list,
   'POST /o2o/precinct/getServicePhoneList': phoneList,
   'POST /o2o/precinct/delServicePhone': phoneList,
   'POST /o2o/precinct/saveServicePhoneList': phoneList,
-  'POST /o2o/precinct/getPrecinct': precinctInfo
+  'POST /o2o/precinct/getPrecinct': precinctInfo,
+  'POST /o2o/precinct/getPrecinctNameList': getPrecinctNameList,
+  'POST /o2o/precinct/getPrecinctByArea': getPrecinctByArea
 };

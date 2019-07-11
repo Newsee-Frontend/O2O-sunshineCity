@@ -335,179 +335,357 @@ let systemColumn = {
     },
   },
   '033333333333': {
-    columns: [
-      {
-        'resourcecolumnName': '项目名称',//label
-        'resourcecolumnNameEn': 'taskName',//model-key
-        'resourcecolumnCode': 'taskName',//model-key
-        'resourcecolumnXtype': 'text',//筛选列 类型
-        'resourcecolumnWidth': '200',//列的宽度
-        'resourcecolumnOrder': '4',//列的序号
-        'resourcecolumnHidden': '0', //是否隐藏
-        'eidtConfig': {
-          'switchType': true,
-          'type': 'link',
-          'decimal': 2,
-          'disabled': false,
-          'maxlength': null,
-          'max': 0,
-          'min': 0,
-          'placeHolder': '',
-          'require': true,
-          'validateRule': null,
-          'errorMsg': '',
-        },
-      },
-      {
-        'resourcecolumnName': '是否审核',//label
-        'resourcecolumnNameEn': 'isChecked',//model-key
-        'resourcecolumnCode': 'isChecked',//model-key
-        'resourcecolumnXtype': 'text',//筛选列 类型
-        'resourcecolumnWidth': '120',//列的宽度
-        'resourcecolumnOrder': '4',//列的序号
-        'resourcecolumnHidden': '0', //是否隐藏
-        'eidtConfig': {
-          'switchType': true,
-          'type': 'select',
-          'decimal': 2,
-          'disabled': false,
-          'maxlength': null,
-          'max': 0,
-          'min': 0,
-          'placeHolder': '请选择',
-          'require': true,
-          'validateRule': null,
-          'errorMsg': '请选择是否审核',
-        },
-      },
-      {
-        'resourcecolumnName': '成立日期',//label
-        'resourcecolumnNameEn': 'createDate',//model-key
-        'resourcecolumnCode': 'createDate',
-        'resourcecolumnXtype': 'text',//筛选列 类型
-        'resourcecolumnWidth': '150',//列的宽度
-        'resourcecolumnOrder': '7',//列的序号
-        'resourcecolumnHidden': '0', //是否隐藏
-        'eidtConfig': {
-          'switchType': true,
-          'type': 'date',
-          'decimal': 2,
-          'disabled': false,
-          'maxlength': null,
-          'max': 0,
-          'min': 0,
-          'placeHolder': null,
-          'require': true,
-          'validateRule': null,
-          'errorMsg': '请选择成立日期',
-        },
-      },
-      {
-        'resourcecolumnName': '等级调整',//label
-        'resourcecolumnNameEn': 'level',//model-key
-        'resourcecolumnCode': 'level',
-        'resourcecolumnXtype': 'text',//筛选列 类型
-        'resourcecolumnWidth': '150',//列的宽度
-        'resourcecolumnOrder': '10',//列的序号
-        'resourcecolumnHidden': '0', //是否隐藏
-        'eidtConfig': {
-          'switchType': true,
-          'type': 'rate',
-          'decimal': 2,
-          'disabled': false,
-          'maxlength': null,
-          'max': 100,
-          'min': 0,
-          'placeHolder': null,
-          'require': true,
-          'validateRule': null,
-        },
-      },
-      {
-        'resourcecolumnName': '涉猎领域（多选）',//label
-        'resourcecolumnNameEn': 'field',//model-key
-        'resourcecolumnCode': 'field',
-        'resourcecolumnXtype': 'text',//筛选列 类型
-        'resourcecolumnWidth': '500',//列的宽度
-        'resourcecolumnOrder': '5',//列的序号
-        'resourcecolumnHidden': '0', //是否隐藏
-        'eidtConfig': {
-          'switchType': true,
-          'type': 'checkbox',
-          'decimal': 2,
-          'disabled': false,
-          'maxlength': null,
-          'max': 5,
-          'min': 0,
-          'placeHolder': null,
-          'require': true,
-          'validateRule': null,
-          'errorMsg': '请选择涉猎领域',
-        },
-      },
-      {
-        'resourcecolumnName': '是否锁定（单选）',//label
-        'resourcecolumnNameEn': 'isLocked',//model-key
-        'resourcecolumnCode': 'isLocked',
-        'resourcecolumnXtype': 'text',//筛选列 类型
-        'resourcecolumnWidth': '150',//列的宽度
-        'resourcecolumnOrder': '4',//列的序号
-        'resourcecolumnHidden': '0', //是否隐藏
-        'eidtConfig': {
-          'switchType': true,
-          'type': 'radio',
-          'decimal': 2,
-          'disabled': false,
-          'maxlength': null,
-          'max': null,
-          'min': null,
-          'placeHolder': null,
-          'require': true,
-          'validateRule': null,
-          'errorMsg': '请选择是否锁定',
-        },
-      },
-      {
-        'resourcecolumnName': '使用人',//label
-        'resourcecolumnNameEn': 'ownerName',//model-key
-        'resourcecolumnCode': 'ownerName',//model-key
-        'resourcecolumnXtype': 'text',//筛选列 类型
-        'resourcecolumnWidth': '100',//列的宽度
-        'resourcecolumnOrder': '5',//列的序号
-        'resourcecolumnHidden': '0', //是否隐藏
-      },
-      {
-        'resourcecolumnName': '备注',//label
-        'resourcecolumnNameEn': 'remark',//model-key
-        'resourcecolumnCode': 'remark',
-        'resourcecolumnXtype': 'text',//筛选列 类型
-        'resourcecolumnWidth': '300',//列的宽度
-        'resourcecolumnOrder': '8',//列的序号
-        'resourcecolumnHidden': '0', //是否隐藏
-        'eidtConfig': {
-          'switchType': true,
-          'type': 'input',
-          'decimal': 2,
-          'disabled': false,
-          'maxlength': null,
-          'max': 0,
-          'min': 0,
-          'placeHolder': '请输入备注',
-          'require': true,
-          'validateRule': '',
-          'errorMsg': '',
-        },
-      },
-    ],
-    columnsEnNames: {
-      hasRelevance: '',
-      isBlockUp: '',
-      isLock: '',
-      isVirtual: '',
-      roomPropertyId: '',
-      roomTypeId: '',
-    },
+    "columns": [{
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-noticelist-column-precinctname",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-noticelist",
+      "resourcecolumnName": "小区名称",
+      "resourcecolumnNameEn": "precinctNames",
+      "resourcecolumnCode": "precinctNames",
+      "resourcecolumnXtype": "text",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }, {
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-noticelist-column-title",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-noticelist",
+      "resourcecolumnName": "标题",
+      "resourcecolumnNameEn": "title",
+      "resourcecolumnCode": "title",
+      "resourcecolumnXtype": "text",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }, {
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-noticelist-column-status",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-noticelist",
+      "resourcecolumnName": "状态",
+      "resourcecolumnNameEn": "status",
+      "resourcecolumnCode": "status",
+      "resourcecolumnXtype": "number",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }, {
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-noticelist-column-publishtime",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-noticelist",
+      "resourcecolumnName": "发布时间",
+      "resourcecolumnNameEn": "publishTime",
+      "resourcecolumnCode": "publishTime",
+      "resourcecolumnXtype": "date",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }, {
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-noticelist-column-publishusername",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-noticelist",
+      "resourcecolumnName": "发布人",
+      "resourcecolumnNameEn": "publishUserName",
+      "resourcecolumnCode": "publishUserName",
+      "resourcecolumnXtype": "text",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }],
+    "columnsEnNames": {}
   },
+  '0222222222222': {
+    'columns': [{
+      'enterpriseId': 1,
+      'eidtConfig': null,
+      'organizationId': 1,
+      'jeCoreResourcecolumnId': 'newsee-community-root-funcid-activitylist-column-precinctname',
+      'resourcecolumnFuncinfoId': 'newsee-community-root-funcid-activitylist',
+      'resourcecolumnName': '小区名称',
+      'resourcecolumnNameEn': 'precinctNames',
+      'resourcecolumnCode': 'precinctNames',
+      'resourcecolumnXtype': 'text',
+      'resourcecolumnWidth': '0',
+      'resourcecolumnAlign': 'left',
+      'resourcecolumnFieldorderindex': 0.00,
+      'resourcecolumnMorecolumnname': null,
+      'resourcecolumnStatisticstype': null,
+      'resourcecolumnAllowedit': '0',
+      'resourcecolumnColumntip': '',
+      'resourcecolumnOrder': '0',
+      'resourcecolumnHidden': '0',
+      'selectList': null,
+    }, {
+      'enterpriseId': 1,
+      'eidtConfig': null,
+      'organizationId': 1,
+      'jeCoreResourcecolumnId': 'newsee-community-root-funcid-activitylist-column-title',
+      'resourcecolumnFuncinfoId': 'newsee-community-root-funcid-activitylist',
+      'resourcecolumnName': '活动名称',
+      'resourcecolumnNameEn': 'title',
+      'resourcecolumnCode': 'title',
+      'resourcecolumnXtype': 'text',
+      'resourcecolumnWidth': '0',
+      'resourcecolumnAlign': 'left',
+      'resourcecolumnFieldorderindex': 0.00,
+      'resourcecolumnMorecolumnname': null,
+      'resourcecolumnStatisticstype': null,
+      'resourcecolumnAllowedit': '0',
+      'resourcecolumnColumntip': '',
+      'resourcecolumnOrder': '0',
+      'resourcecolumnHidden': '0',
+      'selectList': null,
+    }, {
+      'enterpriseId': 1,
+      'eidtConfig': null,
+      'organizationId': 1,
+      'jeCoreResourcecolumnId': 'newsee-community-root-funcid-activitylist-column-activitystarttime',
+      'resourcecolumnFuncinfoId': 'newsee-community-root-funcid-activitylist',
+      'resourcecolumnName': '开始时间',
+      'resourcecolumnNameEn': 'activityStartTime',
+      'resourcecolumnCode': 'activityStartTime',
+      'resourcecolumnXtype': 'date',
+      'resourcecolumnWidth': '0',
+      'resourcecolumnAlign': 'left',
+      'resourcecolumnFieldorderindex': 0.00,
+      'resourcecolumnMorecolumnname': null,
+      'resourcecolumnStatisticstype': null,
+      'resourcecolumnAllowedit': '0',
+      'resourcecolumnColumntip': '',
+      'resourcecolumnOrder': '0',
+      'resourcecolumnHidden': '0',
+      'selectList': null,
+    }, {
+      'enterpriseId': 1,
+      'eidtConfig': null,
+      'organizationId': 1,
+      'jeCoreResourcecolumnId': 'newsee-community-root-funcid-activitylist-column-activityendtime',
+      'resourcecolumnFuncinfoId': 'newsee-community-root-funcid-activitylist',
+      'resourcecolumnName': '结束时间',
+      'resourcecolumnNameEn': 'activityEndTime',
+      'resourcecolumnCode': 'activityEndTime',
+      'resourcecolumnXtype': 'date',
+      'resourcecolumnWidth': '0',
+      'resourcecolumnAlign': 'left',
+      'resourcecolumnFieldorderindex': 0.00,
+      'resourcecolumnMorecolumnname': null,
+      'resourcecolumnStatisticstype': null,
+      'resourcecolumnAllowedit': '0',
+      'resourcecolumnColumntip': '',
+      'resourcecolumnOrder': '0',
+      'resourcecolumnHidden': '0',
+      'selectList': null,
+    }, {
+      'enterpriseId': 1,
+      'eidtConfig': null,
+      'organizationId': 1,
+      'jeCoreResourcecolumnId': 'newsee-community-root-funcid-activitylist-column-status',
+      'resourcecolumnFuncinfoId': 'newsee-community-root-funcid-activitylist',
+      'resourcecolumnName': '活动状态',
+      'resourcecolumnNameEn': 'status',
+      'resourcecolumnCode': 'status',
+      'resourcecolumnXtype': 'number',
+      'resourcecolumnWidth': '0',
+      'resourcecolumnAlign': 'left',
+      'resourcecolumnFieldorderindex': 0.00,
+      'resourcecolumnMorecolumnname': null,
+      'resourcecolumnStatisticstype': null,
+      'resourcecolumnAllowedit': '0',
+      'resourcecolumnColumntip': '',
+      'resourcecolumnOrder': '0',
+      'resourcecolumnHidden': '0',
+      'selectList': null,
+    }, {
+      'enterpriseId': 1,
+      'eidtConfig': null,
+      'organizationId': 1,
+      'jeCoreResourcecolumnId': 'newsee-community-root-funcid-activitylist-column-publishusername',
+      'resourcecolumnFuncinfoId': 'newsee-community-root-funcid-activitylist',
+      'resourcecolumnName': '发布人',
+      'resourcecolumnNameEn': 'publishUserName',
+      'resourcecolumnCode': 'publishUserName',
+      'resourcecolumnXtype': 'text',
+      'resourcecolumnWidth': '0',
+      'resourcecolumnAlign': 'left',
+      'resourcecolumnFieldorderindex': 0.00,
+      'resourcecolumnMorecolumnname': null,
+      'resourcecolumnStatisticstype': null,
+      'resourcecolumnAllowedit': '0',
+      'resourcecolumnColumntip': '',
+      'resourcecolumnOrder': '0',
+      'resourcecolumnHidden': '0',
+      'selectList': null,
+    }],
+    'columnsEnNames': {},
+  },
+  'o11111111111':  {
+    "columns": [{
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-precinctlist-column-precinctname",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-precinctlist",
+      "resourcecolumnName": "小区名称",
+      "resourcecolumnNameEn": "precinctName",
+      "resourcecolumnCode": "precinctName",
+      "resourcecolumnXtype": "text",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }, {
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-precinctlist-column-companyname",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-precinctlist",
+      "resourcecolumnName": "所属组织",
+      "resourcecolumnNameEn": "companyName",
+      "resourcecolumnCode": "companyName",
+      "resourcecolumnXtype": "text",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }, {
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-precinctlist-column-status",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-precinctlist",
+      "resourcecolumnName": "状态",
+      "resourcecolumnNameEn": "status",
+      "resourcecolumnCode": "statusName",
+      "resourcecolumnXtype": "text",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }, {
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-precinctlist-column-address",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-precinctlist",
+      "resourcecolumnName": "地址",
+      "resourcecolumnNameEn": "address",
+      "resourcecolumnCode": "address",
+      "resourcecolumnXtype": "text",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }, {
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-precinctlist-column-contact",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-precinctlist",
+      "resourcecolumnName": "联系人",
+      "resourcecolumnNameEn": "contact",
+      "resourcecolumnCode": "contact",
+      "resourcecolumnXtype": "text",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }, {
+      "enterpriseId": 1,
+      "eidtConfig": null,
+      "organizationId": 1,
+      "jeCoreResourcecolumnId": "newsee-community-root-funcid-precinctlist-column-servicecall",
+      "resourcecolumnFuncinfoId": "newsee-community-root-funcid-precinctlist",
+      "resourcecolumnName": "服务电话",
+      "resourcecolumnNameEn": "serviceCall",
+      "resourcecolumnCode": "serviceCall",
+      "resourcecolumnXtype": "text",
+      "resourcecolumnWidth": "0",
+      "resourcecolumnAlign": "left",
+      "resourcecolumnFieldorderindex": 0.00,
+      "resourcecolumnMorecolumnname": null,
+      "resourcecolumnStatisticstype": null,
+      "resourcecolumnAllowedit": "0",
+      "resourcecolumnColumntip": "",
+      "resourcecolumnOrder": "0",
+      "resourcecolumnHidden": "0",
+      "selectList": null
+    }],
+    "columnsEnNames": {}
+  }
 };
 
 
