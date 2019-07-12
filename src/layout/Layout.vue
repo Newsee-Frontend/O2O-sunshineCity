@@ -50,9 +50,7 @@
     mixins: [transform],
     components: { bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom },
     data() {
-      return {
-
-      };
+      return {};
     },
     computed: {
       ...mapGetters(['userName', 'avatar']),
@@ -72,7 +70,7 @@
   #layout {
     //在嵌套模式下，去掉头，侧边栏，tab页面，内容部分全屏撑开
     &.is-hide-frame {
-      .header-wrapper, .sidebar-wrapper {
+      .header-wrapper, .sidebar-wrapper, .ns-page-tabs {
         display: none;
       }
       .main-container {
@@ -80,9 +78,6 @@
         left: 0;
         bottom: 0;
         right: 0;
-        .ns-page-tabs {
-          display: none;
-        }
         .app-main, .win, .ns-container, .ns-container-right, .ns-container-left {
           height: 100%;
           min-height: 100%;

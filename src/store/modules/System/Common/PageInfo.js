@@ -14,6 +14,11 @@ const PageInfo = {
     SET_CURRENT_PAGE: (state, data) => {
       state.currentPageInfo = data;
     },
+    EMPTY_PAGE_INFO: (state, data) => {
+      state.currentPageInfo = [];
+      state.currentPageInfo = {};
+      localStorage.removeItem('pi');
+    },
   },
   actions: {
     setPageInfoList({ commit }, data) {
@@ -37,7 +42,7 @@ const PageInfo = {
             pageInfoList.push({
               name: firstItem[keyRefer['menuLabel']],
               path: '/' + firstItem[keyRefer['menuRouter']],
-              funcId: firstItem[keyRefer['funcId']] ||  'normalFunic',
+              funcId: firstItem[keyRefer['funcId']] || 'normalFunic',
             });
           }
         });
@@ -52,6 +57,9 @@ const PageInfo = {
       });
     },
 
+    emptyPageInfo: ({ commit }) => {
+      commit('EMPTY_PAGE_INFO');
+    },
   },
 };
 export default PageInfo;

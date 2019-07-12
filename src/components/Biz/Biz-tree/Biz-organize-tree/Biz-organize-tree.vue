@@ -318,8 +318,8 @@
         if (!isEmptyObject(this.$store__orgTreeData)) {
 
           this.treeData = this.$store__orgTreeData;
-          this.treeModel = this.$store.state.OrganizeTree.currentTreeNode
-          this.treeSearchInput = this.$store.state.OrganizeTree.$store_searchQuery;
+          this.treeModel = this.$store.state.OrganizeTree.$store__currentTreeNode;
+          this.treeSearchInput = this.$store.state.OrganizeTree.$store__searchQuery;
 
           console.log('nodeClick-nodeClick-nodeClick');
           this.nodeClick(this.treeModel);

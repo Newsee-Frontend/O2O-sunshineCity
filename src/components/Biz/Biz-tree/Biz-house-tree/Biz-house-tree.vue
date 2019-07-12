@@ -66,7 +66,7 @@
         if(!isEmptyObject(this.$store__orgTreeData)){
           this.treeData = this.$store__orgTreeData;
           this.treeSearchInput = this.$store.state.HouseTree.$store_searchQuery;
-          this.nodeClick(this.$store.state.HouseTree.currentTreeNode);
+          this.nodeClick(this.$store.state.HouseTree.$store__currentTreeNode);
         }else{
           this.getTreeData(true)
         }

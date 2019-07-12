@@ -41,7 +41,7 @@ export default {
         this.treeData = this.$store__orgTreeData;
 
         //设定默认选中项
-        this.treeModel = this.$store.state.OrganizeTree.currentTreeNode;
+        this.treeModel = this.$store.state.OrganizeTree.$store__currentTreeNode;
 
         // searchConditions state change
         this.searchConditions.organizationId = res.organizationId;
@@ -76,7 +76,7 @@ export default {
           console.log(6666666666666666)
           this.treeData = this.$store__orgTreeData;
           //设定默认选中项
-          this.treeModel = this.$store.state.OrganizeTree.currentTreeNode;
+          this.treeModel = this.$store.state.OrganizeTree.$store__currentTreeNode;
 
           this.treeloading = false;
         });

@@ -16,8 +16,12 @@
   }
 
   &.sso-404 {
+    img {
+      width: 140px;
+      height: 123px;
+    }
     .error-text {
-      font-size: 20px;
+      font-size: 14px;
       color: #b7bbc2;
       font-weight: 500;
       margin-left: -15px;

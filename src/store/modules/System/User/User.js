@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
-import {cryptoCookie} from '../../../../utils/crypto';
-import {getToken, setToken, removeToken} from '../../../../utils/auth';
-import {oauthlogin, multipleEnterpriseLogin, ssoLogin} from '../../../../service/System/User/login';
+import { cryptoCookie } from '../../../../utils/crypto';
+import { getToken, setToken, removeToken } from '../../../../utils/auth';
+import { oauthlogin, multipleEnterpriseLogin, ssoLogin } from '../../../../service/System/User/login';
 
 import $store from '@/store/index';
 
@@ -61,23 +61,26 @@ const User = {
       );
     },
     LOGOUT: () => {
+
       removeToken();
+
       $store.dispatch('delAllVisitedPages');
-      localStorage.clear();
-      // Cookies.clear();
+      $store.dispatch('delSideBarData');
+      $store.dispatch('emptyPageInfo');
+
+      $store.dispatch('emptyOrganizeTreeStore');
+
+      Cookies.remove(cookieName);
     },
 
     SET_TOKEN: (state, data) => {
-      console.log('正在存token...');
       setToken(data);
-      console.log('存token..好了，现在取值：');
-      console.log(getToken());
-    }
+    },
   },
 
   actions: {
     //登录
-    oauthlogin({commit}, query) {
+    oauthlogin({ commit }, query) {
       return new Promise((resolve, reject) => {
         oauthlogin(query).then(res => {
           const userinfo = res.resultData || {};
@@ -87,41 +90,41 @@ const User = {
 
           resolve(res.resultData);
         }).catch(err => {
-          reject(err)
+          reject(err);
         });
-      })
+      });
     },
 
     //多户登录
-    multipleEnterpriseLogin({commit}, query) {
+    multipleEnterpriseLogin({ commit }, query) {
       return multipleEnterpriseLogin(query).then(res => {
         const userinfo = res.resultData || {};
 
         commit('SET_TOKEN', userinfo.token);
         commit('SET_LOGIN_DATA', userinfo);
-      })
+      });
     },
 
     //单点登录
-    ssoLogin({commit}, query) {
+    ssoLogin({ commit }, query) {
       return ssoLogin(query).then(res => {
         const userinfo = res.resultData || {};
 
         commit('SET_TOKEN', userinfo.token);
         commit('SET_LOGIN_DATA', userinfo);
-      })
+      });
     },
 
     //退出
-    logOut({commit}) {
+    logOut({ commit }) {
       return commit('LOGOUT');
     },
 
-    updateLoginData({commit}, query) {
+    updateLoginData({ commit }, query) {
       commit('SET_LOGIN_DATA', query);
     },
 
-    setToken({commit}, query) {
+    setToken({ commit }, query) {
       commit('SET_TOKEN', query);
     },
 

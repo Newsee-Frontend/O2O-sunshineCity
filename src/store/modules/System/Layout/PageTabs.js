@@ -35,6 +35,7 @@ const PageTabs = {
       state.visitedPages.splice(index, 1);
       localStorage.setItem('visitedPages', JSON.stringify(state.visitedPages));
     },
+
     DEL_ALL_VISITED_VIEWS: state => {
       state.visitedPages = [];
       localStorage.removeItem('visitedPages');

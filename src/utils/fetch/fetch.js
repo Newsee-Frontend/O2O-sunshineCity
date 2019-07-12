@@ -7,27 +7,29 @@
  */
 /*==========================================================================================================================*/
 import axios from 'axios';
-import {fileFlowDistribute, flowTypeList} from './fileFlowDistribute';
-import requestHead from '../../store/modules/System/Common/RequestHeader'
-import {elMessage} from './fetch-message'
-import router from '../../router/index'
-
+import { fileFlowDistribute, flowTypeList } from './fileFlowDistribute';
+import solveGetCache from './solveGetCache';
+import requestHead from '../../store/modules/System/Common/RequestHeader';
+import { elMessage } from './fetch-message';
+import router from '../../router/index';
 
 const service = axios.create({
   baseURL: process.env.BASE_API,
   timeout: 30000,
   withCredentials: true,
-  headers: requestHead.state.base
+  headers: requestHead.state.base,
 });
 
 service.interceptors.request.use(
   config => {
+    solveGetCache(config);
     return config;
   },
   error => {
     Promise.reject(error);
-  }
+  },
 );
+
 
 service.interceptors.response.use(
   response => {
@@ -64,7 +66,7 @@ service.interceptors.response.use(
 
     let errorInfo = error.data.error ? error.data.error.message : error.data;
     return Promise.reject(errorInfo);
-  }
+  },
 );
 
 //token error break
@@ -73,7 +75,7 @@ service.redirect = msg => {
     msg &&
     ['登陆已过期', '没有token', 'pre:PermissionFilter'].some(err => msg.indexOf(err) > -1)
   ) {
-    router.push({path: '/front/login'});
+    router.push({ path: '/front/login' });
   }
 };
 
