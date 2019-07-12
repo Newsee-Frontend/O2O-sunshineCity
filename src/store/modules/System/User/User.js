@@ -3,8 +3,7 @@ import { oauthlogin, multipleEnterpriseLogin, ssoLogin } from '../../../../servi
 import router from '../../../../router/index';
 import $store from '@/store/index';
 
-
-const userinfokey = storageFactory('user_nfo');
+const userinfokey = storageFactory('user_info');
 
 /**
  * deCrypto user-information data in cookie
@@ -32,8 +31,6 @@ const User = {
   mutations: {
     //login and set/store - token info
     SET_LOGIN_DATA: (state, data) => {
-      console.log('SET_LOGIN_DATA');
-      console.log(data);
 
       //user information by login
       state.userinfo.userId = data.userId;
@@ -45,7 +42,7 @@ const User = {
       state.userinfo.themeColor = data.themeColor;
 
 
-      localStorage.setItem(userinfokey, state.userinfo);
+      localStorage.setItem(userinfokey, JSON.stringify(state.userinfo));
     },
 
     //set token info

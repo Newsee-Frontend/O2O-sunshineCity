@@ -5,6 +5,7 @@ import $store from '@/store/index';
 
 const navkey = storageFactory('nav');
 
+
 /**
  * filter side bar data
  * @param list

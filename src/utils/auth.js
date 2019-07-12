@@ -1,9 +1,8 @@
 import Cookies from 'js-cookie';
+
 const TokenKey = 'app-token';
 
 export const getToken = () => {
-
-
   return Cookies.get(TokenKey);
 };
 
@@ -16,11 +15,11 @@ export const removeToken = () => {
 };
 
 export const storageFactory = key => {
-  const token = getToken() || '';
+  let token = getToken() || '';
+  token = token.replace(/\-/g, '_').replace(/\./g, '_');
+  const all = `NS_${key}_${token}`;
 
-  console.log(666666666666);
-  console.log(`NS_${key}_${token}`);
-  console.log(666666666666);
+//eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdXBlckFkbWluIiwianRpIjoiMSIsImlhdCI6MTU2MjkyMTI2NH0.JprDmZqzDf4iaome_pXXF_-fpeN_o5FEV_9J27ROTcM
 
-  return `NS_${key}_${token}`;
+  return all.substring(0, 80);
 };

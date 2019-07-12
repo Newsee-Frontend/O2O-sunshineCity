@@ -8,7 +8,7 @@ import { getToken } from '../utils/auth';
  */
 export default {
   beforeEach: (to, from, next) => {
-    console.log('beforeEach-beforeEach');
+
     if (to.meta.auth) {
       if (getToken()) {
         judgeRoleAndJump(to, from, next);
@@ -23,7 +23,7 @@ export default {
   },
 
   beforeResolve: (to, from, next) => {
-    console.log('beforeResolve-beforeResolve');
+
     const transKey = 'isShowFrame';
     if (to.query[transKey]) {
       next();
@@ -44,7 +44,7 @@ export default {
 
 
   afterEach: (to, from, next) => {
-    console.log('afterEach-afterEach');
+
     if (to.meta.auth) {
       addPageTabs(to.matched);
     }

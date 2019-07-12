@@ -8,7 +8,6 @@ export default {
   created() {
     const isInIframe = getUrlParam('isShowFrame') === 'false';
     this.$store.dispatch('setFrameMode', isInIframe);
-
-    console.log(isInIframe);
+    
   },
 };
