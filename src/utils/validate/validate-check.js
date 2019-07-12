@@ -8,7 +8,7 @@
  */
 /*=====================================================================================================================*/
 import validateRule from './validate-rule';
-import rulesInfo from './rulesInfo';
+import rulesInfo from './rules-config';
 
 /**
  * base validator function
