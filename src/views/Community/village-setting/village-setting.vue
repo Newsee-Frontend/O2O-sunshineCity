@@ -9,31 +9,37 @@
               <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
             </template>
             <template slot="main">
-              <div class="clear fl search-option">
-                <ns-input v-model="searchConditions.keyWord" placeholder="请输入小区名称"></ns-input>
-              </div>
+              <ns-form :model="searchConditions" :inline="true" ref="searchForm" class="search-form clear">
 
-              <div class="clear fl search-option">
-                <ns-select v-model="searchConditions.status" :options="authStatusOptions"
-                           placeholder="请选择认证状态"></ns-select>
-              </div>
+                <div class="search-form-items fl clear">
+                  <ns-form-item prop="keyWord">
+                    <ns-input v-model="searchConditions.keyWord" placeholder="请输入小区名称"></ns-input>
+                  </ns-form-item>
 
-              <div class="clear fl search-option">
-                <!--simple tree in select （ 请选择所属部门树状数据 /  ） -->
-                <ns-checkbox-tree-select
-                  v-model="searchConditions.organizationId"
-                  bizType="role-organization"
-                  placeholder="请选择组织"
-                  :multiple="false"
-                  clearable
-                >
-                </ns-checkbox-tree-select>
+                  <ns-form-item prop="status">
+                    <ns-select v-model="searchConditions.status" :options="authStatusOptions"
+                               placeholder="请选择认证状态"></ns-select>
+                  </ns-form-item>
 
-              </div>
+                  <ns-form-item prop="organizationId">
+                    <ns-checkbox-tree-select
+                      v-model="searchConditions.organizationId"
+                      bizType="role-organization"
+                      placeholder="请选择组织"
+                      :multiple="false"
+                      clearable
+                      ref="checkboxTree"
+                    >
+                    </ns-checkbox-tree-select>
+                  </ns-form-item>
 
-              <div class="clear fl search-option">
-                <ns-button type="primary" @click="searchTable">查询</ns-button>
-              </div>
+                  <ns-form-item prop="pubEndTime" v-show="false"></ns-form-item>
+                </div>
+                <div class="search-operation fl clear">
+                  <ns-button type="primary" @click="searchTable">搜索</ns-button>
+                  <ns-button @click="reset">重置</ns-button>
+                </div>
+              </ns-form>
             </template>
           </biz-search-conditions>
         </div>
@@ -106,6 +112,13 @@
       searchTable() {
         this.searchConditions.pageNum = 1;
         this.getTableData();
+      },
+
+
+      reset(){
+        this.$refs.searchForm.resetFields();
+        this.$refs.checkboxTree.initTreeModel();
+        this.searchTable();
       },
 
       /**

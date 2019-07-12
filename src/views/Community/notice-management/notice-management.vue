@@ -4,39 +4,48 @@
       <!--temple container-->
       <div class="ns-container-right">
         <!--action-module (search / button)-->
-        <div class="action-module" style="overflow: hidden">
+        <div class="action-module">
           <biz-search-conditions>
             <template slot="btns">
               <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
             </template>
+
             <template slot="main">
-              <div class="clear fl search-option">
-                <ns-input v-model="searchConditions.keyWord" placeholder="请输入标题公告"></ns-input>
-              </div>
-              <div class="clear fl search-option">
-                <ns-select :options="villageOptions" filterable v-model="searchConditions.precinctId"
-                           placeholder="请选择小区"></ns-select>
-              </div>
+              <ns-form :model="searchConditions" :inline="true" ref="searchForm" class="search-form clear">
 
-              <div class="clear fl search-option">
-                <ns-select :options="activestatueOptions" v-model="searchConditions.status"
-                           placeholder="请选择公告状态"></ns-select>
-              </div>
+                <div class="search-form-items fl clear">
+                  <ns-form-item prop="keyWord">
+                    <ns-input v-model="searchConditions.keyWord" placeholder="请输入标题公告"></ns-input>
+                  </ns-form-item>
 
-              <div class="clear fl search-option">
-                <ns-date-picker
-                  v-model="dateRange"
-                  type="daterange"
-                  size="medium"
-                  clearable
-                  startPlaceholder="发布时间起"
-                  endPlaceholder="发布时间止"
-                ></ns-date-picker>
-              </div>
+                  <ns-form-item prop="precinctId">
+                    <ns-select :options="villageOptions" filterable v-model="searchConditions.precinctId"
+                               placeholder="请选择小区"></ns-select>
+                  </ns-form-item>
 
-              <div class="clear fl search-option">
-                <ns-button type="primary" @click="searchTable">查询</ns-button>
-              </div>
+                  <ns-form-item prop="status">
+                    <ns-select :options="activestatueOptions" v-model="searchConditions.status"
+                               placeholder="请选择公告状态"></ns-select>
+                  </ns-form-item>
+
+                  <ns-form-item prop="pubBeginTime">
+                    <ns-date-picker
+                      v-model="dateRange"
+                      type="daterange"
+                      size="medium"
+                      clearable
+                      startPlaceholder="发布时间起"
+                      endPlaceholder="发布时间止"
+                    ></ns-date-picker>
+                  </ns-form-item>
+
+                  <ns-form-item prop="pubEndTime" v-show="false"></ns-form-item>
+                </div>
+                <div class="search-operation fl clear">
+                  <ns-button type="primary" @click="searchTable">搜索</ns-button>
+                  <ns-button @click="reset">重置</ns-button>
+                </div>
+              </ns-form>
             </template>
           </biz-search-conditions>
         </div>
@@ -123,6 +132,11 @@
       searchTable() {
         this.searchConditions.pageNum = 1;
         this.getTableData();
+      },
+
+      reset(){
+        this.$refs.searchForm.resetFields();
+        this.searchTable();
       },
 
       /**

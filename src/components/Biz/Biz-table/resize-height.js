@@ -11,16 +11,16 @@ export default {
     customHeight: { type: Number, default: 300 },//自定义表格高度
   },
   computed: {
+  },
+  methods: {
+
     //get auto resize height 获取动态计算高度
-    resizeHeight() {
+    getResizeHeight() {
       let containerHeight = this.getClassDomHeight('ns-container-right');
       let searchHeight = this.getClassDomHeight('action-module');
       let paginationHeight = this.getClassDomHeight('biz-pagination');
       return containerHeight - searchHeight - paginationHeight;
     },
-  },
-  methods: {
-
 
     /**
      * getClassDomHeight -获取指定 dom 高度
@@ -34,9 +34,9 @@ export default {
   mounted() {
     //是否需要自适应高度
     if (this.autoResize) {
-      this.height = this.resizeHeight;
+      this.height = this.getResizeHeight();
       addEventHandler(window, 'resize', () => {
-        this.height = this.resizeHeight;
+        this.height = this.getResizeHeight();
       });
     }
     else {

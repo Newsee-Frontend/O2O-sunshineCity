@@ -2,39 +2,47 @@
   <div class="win">
     <div class="ns-container">
       <div class="ns-container-right">
-        <div class="action-module">
+        <div class="action-module ">
           <biz-search-conditions>
             <!--action - 权限按钮操作区域-->
             <template slot="btns">
               <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
             </template>
             <template slot="main">
-              <div class="clear fl search-option">
-                <ns-input v-model="searchConditions.keyWord" placeholder="请输入活动名称"></ns-input>
-              </div>
+              <ns-form :model="searchConditions" :inline="true" ref="searchForm" class="search-form clear">
+                <div class="search-form-items fl clear">
+                  <ns-form-item prop="keyWord">
+                    <ns-input v-model="searchConditions.keyWord" placeholder="请输入活动名称"></ns-input>
+                  </ns-form-item>
 
-              <div class="clear fl search-option">
-                <ns-select :options="villageOptions" filterable v-model="searchConditions.precinctId" placeholder="请选择小区"></ns-select>
-              </div>
+                  <ns-form-item prop="precinctId">
+                    <ns-select :options="villageOptions" filterable v-model="searchConditions.precinctId"
+                               placeholder="请选择小区"></ns-select>
+                  </ns-form-item>
 
-              <div class="clear fl search-option">
-                <ns-date-picker
-                  v-model="dateRange"
-                  type="daterange"
-                  size="medium"
-                  clearable
-                  startPlaceholder="活动时间起"
-                  endPlaceholder="活动时间止"
-                ></ns-date-picker>
-              </div>
+                  <ns-form-item prop="activityBeginTime">
+                    <ns-date-picker
+                      v-model="dateRange"
+                      type="daterange"
+                      size="medium"
+                      clearable
+                      startPlaceholder="活动时间起"
+                      endPlaceholder="活动时间止"
+                    ></ns-date-picker>
+                  </ns-form-item>
 
-              <div class="clear fl search-option">
-                <ns-select v-model="searchConditions.status" :options="activestatueOptions" placeholder="请选择活动状态"></ns-select>
-              </div>
+                  <ns-form-item prop="activityEndTime" v-show="false"></ns-form-item>
 
-              <div class="clear fl search-option">
-                <ns-button type="primary" @click="searchTable">查询</ns-button>
-              </div>
+                  <ns-form-item prop="status">
+                    <ns-select v-model="searchConditions.status" :options="activestatueOptions" placeholder="请选择活动状态"></ns-select>
+                  </ns-form-item>
+
+                </div>
+                <div class="search-operation fl clear">
+                  <ns-button type="primary" @click="searchTable">搜索</ns-button>
+                  <ns-button @click="reset">重置</ns-button>
+                </div>
+              </ns-form>
             </template>
           </biz-search-conditions>
         </div>
@@ -158,6 +166,12 @@
         this.searchConditions.pageNum = 1;
         this.getTableData();
       },
+
+      reset(){
+        this.$refs.searchForm.resetFields();
+        this.searchTable();
+      },
+
 
       /**
        * 按钮点击

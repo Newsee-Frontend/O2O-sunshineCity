@@ -28,7 +28,6 @@
             :funcId="Mix_funcId"
             :searchConditions="Mix_searchConditions"
             @query="getTableData"
-            :changeStatus="changeStatus"
           >
             <!--action - 权限按钮操作区域-->
             <biz-role-button-area :buttonList="roleButtonAction" @command="roleButtonCommand" class="fr"></biz-role-button-area>
@@ -88,8 +87,6 @@
     data() {
       return {
         //========== 筛选器 search =========
-        changeStatus: {status: true}, // 左侧树的状态
-
         //表格数据加载状态
         loadState: {
           data: false,
