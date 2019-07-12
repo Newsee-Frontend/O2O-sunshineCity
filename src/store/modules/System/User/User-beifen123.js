@@ -1,10 +1,15 @@
-import { getToken, setToken, removeToken, storageFactory } from '../../../../utils/auth';
+import Cookies from 'js-cookie';
+import CryptoJS from 'crypto-js';
+import { cryptoCookie } from '../../../../utils/crypto';
+import { getToken, setToken, removeToken } from '../../../../utils/auth';
 import { oauthlogin, multipleEnterpriseLogin, ssoLogin } from '../../../../service/System/User/login';
 import router from '../../../../router/index';
 import $store from '@/store/index';
 
 
-const userinfokey = storageFactory('user_nfo');
+const lifetime = 0;
+const cookieName = 'userInfo';
+const cookieKey = 'userPass';
 
 /**
  * deCrypto user-information data in cookie
@@ -12,7 +17,11 @@ const userinfokey = storageFactory('user_nfo');
  * @private
  */
 function _deCryptoUserInfo() {
-  return JSON.parse(localStorage.getItem(userinfokey)) || {};
+  return Cookies.get(cookieName)
+    ? JSON.parse(
+      CryptoJS.AES.decrypt(Cookies.get(cookieName), cookieKey).toString(CryptoJS.enc.Utf8),
+    )
+    : {};
 }
 
 
@@ -44,8 +53,12 @@ const User = {
       state.userinfo.userSex = data.userSex;
       state.userinfo.themeColor = data.themeColor;
 
-
-      localStorage.setItem(userinfokey, state.userinfo);
+      cryptoCookie(
+        cookieName,
+        state.userinfo,
+        cookieKey,
+        lifetime,
+      );
     },
 
     //set token info
@@ -64,7 +77,7 @@ const User = {
 
       $store.dispatch('emptyOrganizeTreeStore');
 
-      localStorage.removeItem(userinfokey);
+      Cookies.remove(cookieName);
     },
   },
 

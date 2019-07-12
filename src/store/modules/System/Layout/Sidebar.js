@@ -1,6 +1,9 @@
 import { sideBarService } from '../../../../service/System/Layout/sideBar';
-import $store from '../../../index';
 import keyRefer from '../../../../components/Biz/Biz-sidebar/sidebar-keyRefer';
+import { storageFactory } from '../../../../utils/auth';
+import $store from '@/store/index';
+
+const navkey = storageFactory('nav');
 
 /**
  * filter side bar data
@@ -21,19 +24,19 @@ let _filtersidelist = (list) => {
 
 const SideBar = {
   state: {
-    sideBarList: JSON.parse(localStorage.getItem('nav')),
+    sideBarList: JSON.parse(localStorage.getItem(navkey)),
     firstpath: null,
   },
   mutations: {
     SET_SIDEBAR_DATA: (state, data) => {
       state.sideBarList = data.side;
       state.firstpath = data.entry;
-      localStorage.setItem('nav', JSON.stringify(data.side));
+      localStorage.setItem(navkey, JSON.stringify(data.side));
     },
     DEL_SIDEBAR_DATA: (state, data) => {
       state.sideBarList = [];
       state.firstpath = null;
-      localStorage.removeItem('nav');
+      localStorage.removeItem(navkey);
     },
   },
   actions: {

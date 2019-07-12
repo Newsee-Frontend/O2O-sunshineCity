@@ -9,8 +9,9 @@ export default {
   methods: {
     //登录
     authLogin(query) {
-      //clear
-      this.$store.dispatch('logOut');
+
+      this.$store.dispatch('emptyStorage');//empty
+
       this.$store.dispatch('oauthlogin', query).then(() => {
         this.getMenuAndJump();
       }, (error) => {
@@ -22,8 +23,8 @@ export default {
 
     //多企业登录
     multipleAuthLogin(query) {
-      //clear
-      this.$store.dispatch('logOut');
+
+      this.$store.dispatch('emptyStorage');//empty
 
       this.$store.dispatch('multipleEnterpriseLogin', query).then((res) => {
 

@@ -13,8 +13,8 @@ const cookieKey = 'StoreKey';
 function _deCryptoCookie() {
   return Cookies.get(cookieName)
     ? JSON.parse(
-        CryptoJS.AES.decrypt(Cookies.get(cookieName), cookieKey).toString(CryptoJS.enc.Utf8)
-      )
+      CryptoJS.AES.decrypt(Cookies.get(cookieName), cookieKey).toString(CryptoJS.enc.Utf8),
+    )
     : {};
 }
 
@@ -47,16 +47,6 @@ function _storHandle(key, store, data) {
 const Stroe = {
   state: {
     iscache: false,
-    // some core data on pages, side sidebar, and permissions
-    core: {
-      websocketUrl: '',
-      sideBarList: JSON.parse(localStorage.getItem('nav')) || [],
-      pageInfoList: JSON.parse(localStorage.getItem('PI')) || [],
-      currentPageInfo: {},
-      roleButtonList: [],
-      funcId: '1233', //funcId  todo
-    },
-
     // some normal data for business
     store: {
       ownerId: _deCryptoCookie().ownerId,
@@ -66,9 +56,9 @@ const Stroe = {
       houseType: _deCryptoCookie().houseType,
     },
     vm: [], //this vue living
-    precinct:{
-      precinctId:"",
-      precinctName:"",
+    precinct: {
+      precinctId: '',
+      precinctName: '',
     },
     /*
      * Stroe grid'headlist and requestPath for download excel
@@ -80,43 +70,7 @@ const Stroe = {
   },
 
   mutations: {
-    SETPRECINCT: (state, data) => {
-      state.precinct.precinctId = data.value;
-      state.precinct.precinctName = data.label;
-    },
-    SETSWITCH: (state, data) => {
-      state.iscache = data;
-    },
-    /* =================== core data =================== */
-
-    //set side-bar data
-    SETSIDEBARDATA: (state, data) => {
-      state.core.sideBarList = data;
-      localStorage.setItem('nav', JSON.stringify(data));
-    },
-    SETWEBSOCKETURL: (state, data) => {
-      state.core.websocketUrl = data;
-    },
-    //set page info list
-    SETPAGEINFOLIST: (state, data) => {
-      state.core.pageInfoList = data;
-      localStorage.setItem('PI', JSON.stringify(data));
-      // console.log(JSON.stringify(state.store.pageInfoList, null, 4))
-    },
-    //set current page info
-    CURRENTPAGEINFO: (state, data) => {
-      state.core.currentPageInfo = data;
-    },
-    //set role button list
-    SETROLEBUTTONLISTHANDLE: (state, data) => {
-      state.core.roleButtonList = !data || ns.base.isEmpty(data) ? [] : data;
-    },
-    //set funcId
-    SETFUNCID: (state, data) => {
-      state.core.funcId = !data || ns.base.isEmpty(data) ? '' : data;
-    },
     /* =================== normal data =================== */
-
     //detailId handle
     DETAILIDHANDLE: (state, data) => {
       _storHandle('detailId', state, data);
@@ -170,53 +124,13 @@ const Stroe = {
       return;
     },
 
-    /*
-     * Stroe  grid's requestPath for download excel
-     */
-    //1、request url
-    REQUESTPATH: (state, data) => {
-      state.downloadExcel.requestPath = data;
-    },
+
     //2、request params
     REQUESTPARAMS: (state, data) => {
       state.downloadExcel.requestParams = data;
     },
   },
   actions: {
-    setPrecinct: ({ commit }, data) => {
-      commit('SETPRECINCT', data);
-    },
-    setSwitch: ({ commit }, data) => {
-      commit('SETSWITCH', data);
-    },
-    /* =================== core data =================== */
-
-    //set side-bar list data handle
-    setSideBarData: ({ commit }, data) => {
-      commit('SETSIDEBARDATA', data);
-    },
-    //setWebsocketUrl
-
-    setWebsocketUrl: ({ commit }, data) => {
-      commit('SETWEBSOCKETURL', data);
-    },
-    //set page info list
-    setPageInfoList: ({ commit }, data) => {
-      commit('SETPAGEINFOLIST', data);
-    },
-    //set current page info
-    currentPageInfo: ({ commit }, data) => {
-      commit('CURRENTPAGEINFO', data);
-    },
-    //set page info list handle
-    setRoleButtonListHandle: ({ commit }, data) => {
-      commit('SETROLEBUTTONLISTHANDLE', data);
-    },
-    //funcId handle
-    setFuncId: ({ commit }, data) => {
-      commit('SETFUNCID', data);
-    },
-
     /* =================== normal data =================== */
 
     //detailId handle
@@ -243,10 +157,7 @@ const Stroe = {
     vmhandle({ commit }, data) {
       commit('VMHANDLE', data);
     },
-    // table data request url
-    requestPath({ commit }, data) {
-      commit('REQUESTPATH', data);
-    },
+
     requestParams({ commit }, data) {
       commit('REQUESTPARAMS', data);
     },

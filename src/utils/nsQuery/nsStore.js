@@ -6,25 +6,9 @@
  * copyright (c) 2017 Broccoli spring( gcx )
  */
 import ns from './nsQuery';
-import Cookies from 'js-cookie';
 import $store from '@/store/index';
 
-/*============= page / role info  ===============*/
-//role button list - handle
-export const roleButtonList = {
-  //set role button list
-  set: function (val) {
-    $store.dispatch('setRoleButtonListHandle', val);
-  },
-  //get role button list
-  get: function () {
-    return $store.state.Store.core.roleButtonList;
-  },
-  //empty role button list
-  empty: function () {
-    $store.dispatch('setRoleButtonListHandle', []);
-  },
-};
+
 
 /*============= bussiness data ===============*/
 //funcId - handle
@@ -276,27 +260,3 @@ export const vm = {
   },
 };
 
-//requestHead stroe
-export const requestHead = {
-  //get base request-head
-  get: function () {
-    return $store.state.Request.requestHead.base;
-  },
-  //interpreter for auto-form
-  interpreter: {
-    set: function (query) {
-      $store.dispatch('requestHeadInterpreter', {
-        type: 'set',
-        query: query,
-      });
-    },
-    get: function () {
-      return $store.state.Request.requestHead.interpreter;
-    },
-    empty: function () {
-      $store.dispatch('requestHeadInterpreter', {
-        type: 'empty',
-      });
-    },
-  },
-};
