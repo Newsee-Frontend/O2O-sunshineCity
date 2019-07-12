@@ -1,18 +1,21 @@
 <!--UI 组件库 - 业务 Table-->
 <template>
-  <div v-loading="!isRender">
+  <div>
     <ns-table ref="biz-table"
               :data="data.list" :head="finalHead" :keyRefer="keyRefer" :height="height"
+              :loadState="loadState"
+              :is-form-table="isFormTable"
               :cellFifter="cellFifter"
               :showHeadOperation="showHeadOperation"
               :showSummary="showSummary"
+              :rulesConfig="rulesConfig"
               @selection-change="selectionChange"
               @table-action="tableAction"
               @cell-action="cellAction"
               @cell-form-change="cellFormChange"
               @add-row="addRow"
               @delete-current-row="deleteCurrentRow"
-              v-if="isRender"
+              @refresh="refresh"
     ></ns-table>
     <ns-pagination
       class="biz-pagination"
@@ -24,23 +27,24 @@
 </template>
 
 <script>
-  import { listColumnService } from '../../../service/System/TableFetch/table-fetch';
-  import { addEventHandler, removeEventHandler } from '../../../utils/event';
   import { mapGetters } from 'vuex';
+  import { listColumnService } from '../../../service/System/TableFetch/table-fetch';
+  import resizeHeight from './resize-height';
   import columnConfig from './column-template-config';
   import cellFifter from './cell-fifter';
+  import rulesConfig from '../../../utils/validate/rules-config';
   import keyRefer from './keyRefer';
 
 
   export default {
     name: 'biz-table',
+    mixins: [resizeHeight],
     data() {
       return {
         keyRefer,
         cellFifter,
-        isLoading: true,
+        rulesConfig,
         tableHead: [],
-        height: 0,
       };
     },
     props: {
@@ -59,14 +63,13 @@
         },
       },
       searchConditions: { type: Object },//筛选条件
+      isFormTable: { type: Boolean, default: false },//是否是表单表格
       //第一列固定列类型（非自动表头配置）
       firstColType: { type: [String, null], default: 'selection', validator: t => ['index', 'selection', 'radio', null].indexOf(t) > -1 },
       hasActionCol: { type: Boolean, default: true },//是否有操作列
       showHeadOperation: { type: Boolean, default: true },//表头设置操作模块开关
       showAddRowOperation: { type: Boolean, default: false },//表头设置 新增行操作模块开关
       showSummary: { type: Boolean, default: true },//是否显示合计行
-      autoResize: { type: Boolean, default: true }, //表格高度是否自适应窗口变化
-      customHeight: { type: Number, default: 300 },//自定义表格高度
     },
     computed: {
       ...mapGetters(['funcId']),
@@ -128,24 +131,6 @@
         }
       },
 
-      /**
-       * get auto resize height 获取动态计算高度
-       */
-      getAutoResizeHeight() {
-        let containerHeight = this.getClassDomHeight('ns-container-right');
-        let searchHeight = this.getClassDomHeight('action-module');
-        let paginationHeight = this.getClassDomHeight('biz-pagination');
-        return containerHeight - searchHeight - paginationHeight;
-      },
-
-      /**
-       * getClassDomHeight -获取指定 dom 高度
-       * @param className
-       */
-      getClassDomHeight(className) {
-        let domArr = document.getElementsByClassName(className);
-        return domArr.length > 0 ? domArr[domArr.length - 1].offsetHeight : 0;
-      },
 
       /**
        * 分页器当前显示条数改变
@@ -198,34 +183,23 @@
       resetCheck() {
         this.$refs['biz-table'].resetCheck();
       },
+      refresh() {
+        this.$emit('reload');
+      },
     },
 
     created() {
       this.getTableHead();
-    },
-
-    mounted() {
-      //是否需要自适应高度
-      if (this.autoResize) {
-        this.height = this.getAutoResizeHeight();
-        addEventHandler(window, 'resize', () => {
-          this.height = this.getAutoResizeHeight();
-        });
-      }
-      else {
-        //需要使用者自行定义高度
-        this.height = this.customHeight;
-      }
-    },
-
-    beforeDestroy() {
-      removeEventHandler(window, 'resize');
     },
   };
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
   .ns-pagination {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 5px;
     z-index: 99;
     background-color: #ebedef;

@@ -6,7 +6,7 @@
  * copyright (c) 2017 Broccoli spring( gcx )
  */
 import ns from '@/utils/nsQuery/nsQuery';
-import rulesInfo from './rulesInfo';
+import rulesInfo from './rules-config';
 
 /**
  * validate rule private
