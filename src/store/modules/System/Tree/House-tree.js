@@ -11,8 +11,8 @@ import {treeDataFetch, changeTreeData, getSearchData} from '../../../../service/
 const HouseTree = {
   state: {
     $store__houseTreeData: [],
-    currentTreeNode: {},//current tree node information
-    $store_searchQuery: ''
+    $store__currentTreeNode: {},//current tree node information
+    $store__searchQuery: ''
   },
   mutations: {
     SET_HOUSE_TREE_DATA: (state, data) => {
@@ -20,11 +20,11 @@ const HouseTree = {
     },
 
     SET_CURRENT_TREE_NODE: (state, data) => {
-      state.currentTreeNode = data;
+      state.$store__currentTreeNode = data;
     },
 
     SET_SEARCH_QUERY: (state, data) => {
-      state.$store_searchQuery = data;
+      state.$store__searchQuery = data;
     },
 
   },

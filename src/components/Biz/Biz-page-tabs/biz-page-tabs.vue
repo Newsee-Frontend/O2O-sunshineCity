@@ -28,10 +28,6 @@
         return this.$route.path;
       },
     },
-    created() {
-      console.log(222222222);
-      console.log(this.visitedPages);
-    },
     methods: {
       /**
        * 关闭当前tabs
@@ -97,6 +93,9 @@
         // console.log('activeRule');
         return path === this.$route.path;
       },
+
+    },
+    created() {
 
     },
   };

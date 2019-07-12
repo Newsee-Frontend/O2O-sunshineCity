@@ -1,18 +1,26 @@
 import keyRefer from '../../../../components/Biz/Biz-sidebar/sidebar-keyRefer';
+import { storageFactory } from '../../../../utils/auth';
+
+const pikey = storageFactory('pi');
 
 const PageInfo = {
   state: {
-    pageinfoList: JSON.parse(localStorage.getItem('pi')) || [],
+    pageinfoList: JSON.parse(localStorage.getItem(pikey)) || [],
     currentPageInfo: {},
   },
   mutations: {
     SET_PAGE_INFO_LIST: (state, data) => {
       state.pageinfoList = data;
-      localStorage.setItem('pi', JSON.stringify(data));
+      localStorage.setItem(pikey, JSON.stringify(data));
     },
 
     SET_CURRENT_PAGE: (state, data) => {
       state.currentPageInfo = data;
+    },
+    EMPTY_PAGE_INFO: (state, data) => {
+      state.currentPageInfo = [];
+      state.currentPageInfo = {};
+      localStorage.removeItem(pikey);
     },
   },
   actions: {
@@ -37,7 +45,7 @@ const PageInfo = {
             pageInfoList.push({
               name: firstItem[keyRefer['menuLabel']],
               path: '/' + firstItem[keyRefer['menuRouter']],
-              funcId: firstItem[keyRefer['funcId']] ||  'normalFunic',
+              funcId: firstItem[keyRefer['funcId']] || 'normalFunic',
             });
           }
         });
@@ -52,6 +60,9 @@ const PageInfo = {
       });
     },
 
+    emptyPageInfo: ({ commit }) => {
+      commit('EMPTY_PAGE_INFO');
+    },
   },
 };
 export default PageInfo;

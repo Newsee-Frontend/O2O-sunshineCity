@@ -26,10 +26,12 @@
     height: 100%;
     img {
       position: absolute;
+      width: 224px;
+      height: 123px;
       top: 50%;
       left: 50%;
-      margin-left: -250px;
-      margin-top: -150px;
+      margin-left: -110px;
+      margin-top: -60px;
     }
   }
 </style>

@@ -1,6 +1,10 @@
+import { storageFactory } from '../../../../utils/auth';
+
+const visitedkey = storageFactory('visited_pages');
+
 const PageTabs = {
   state: {
-    visitedPages: JSON.parse(localStorage.getItem('visitedPages')) || [],
+    visitedPages: JSON.parse(localStorage.getItem(visitedkey)) || [],
   },
   mutations: {
     /**
@@ -16,7 +20,7 @@ const PageTabs = {
         state.visitedPages = state.visitedPages.filter(item => item.path !== view.path);
         state.visitedPages.push({ name: view.name, path: view.path, meta: view.meta });
       }
-      localStorage.setItem('visitedPages', JSON.stringify(state.visitedPages));
+      localStorage.setItem(visitedkey, JSON.stringify(state.visitedPages));
     },
     /**
      * delete visited views
@@ -33,11 +37,12 @@ const PageTabs = {
         }
       }
       state.visitedPages.splice(index, 1);
-      localStorage.setItem('visitedPages', JSON.stringify(state.visitedPages));
+      localStorage.setItem(visitedkey, JSON.stringify(state.visitedPages));
     },
+
     DEL_ALL_VISITED_VIEWS: state => {
       state.visitedPages = [];
-      localStorage.removeItem('visitedPages');
+      localStorage.removeItem(visitedkey);
     },
   },
   actions: {

@@ -71,8 +71,7 @@
 
         const current = this.dropDownBtnList.filter(item => item.code === command)[0] || {};
 
-        console.log(command);
-        console.log(current);
+
 
         this.$emit('command', current);
 

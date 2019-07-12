@@ -21,13 +21,6 @@
         colorFormat: 'hax',
       };
     },
-    watch: {
-      skinerModel(val) {
-        console.log('skinerModel - 变化了 ');
-        console.log(val);
-
-      },
-    },
     computed: {
       ...mapGetters(['themeColor']),
     },
