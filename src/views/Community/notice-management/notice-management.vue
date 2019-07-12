@@ -14,7 +14,7 @@
                 <ns-input v-model="searchConditions.keyWord" placeholder="请输入标题公告"></ns-input>
               </div>
               <div class="clear fl search-option">
-                <ns-select :options="villageOptions" v-model="searchConditions.precinctId"
+                <ns-select :options="villageOptions" filterable v-model="searchConditions.precinctId"
                            placeholder="请选择小区"></ns-select>
               </div>
 

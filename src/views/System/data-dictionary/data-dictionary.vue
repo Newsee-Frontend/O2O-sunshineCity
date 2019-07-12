@@ -107,26 +107,6 @@
         submitType: 'add', //判断当前表单的类型（add / edit）
         requestUrl: '', //自动表单提交地址
         showMessage: false,
-        buttonInfo: [
-          {
-            funcType: 'submit',
-            style: 'primary',
-            code: 'formConfirmBtn',
-            name: '保存',
-            areaType: 'FORM',
-            btnType: 'single',
-            event: this.autoFormSubmit,
-          },
-          {
-            funcType: 'custom',
-            style: '',
-            code: 'formCancelBtn',
-            name: '取消',
-            areaType: 'FORM',
-            btnType: 'single',
-            event: this.autoFormCancel,
-          },
-        ],
         submitUrl: '',
         coverData: {},
 
