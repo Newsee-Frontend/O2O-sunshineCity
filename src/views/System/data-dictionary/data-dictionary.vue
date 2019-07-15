@@ -8,7 +8,6 @@
           @tree-item-click="organizeTreeItemClick"
           orgTypeFilter="1"
           :searchConditions="Mix_searchConditions"
-          :changeStatus="changeStatus"
         ></biz-organize-tree>
       </ns-drawer>
       <ns-drawer class="ns-container-left" speed="160ms">
