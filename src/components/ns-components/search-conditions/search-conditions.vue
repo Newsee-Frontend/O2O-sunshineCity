@@ -1,166 +1,153 @@
 <!--new 筛选器-->
 <template>
-  <div style="height: 121px;position: relative" :class="funcId">
+  <div style="height: 70px" class="search-modular clear" :class="funcId">
     <div class="search-conditions borderBox fl clear" :class="showMore ? 'boxshadow' : ''">
       <div class="search-header clear">
-        <div class="fl">
-          <span class="lineBlue"></span>
-          <span class="search-title">搜索</span>
-          <span class="line inline-block"></span>
-          <ns-button class="save-btn" @click="saveAsFilter(-1)" :disabled="isDisabled"
-          >保存为
-          </ns-button
-          >
-        </div>
-        <div class="filter-list fl cursor-pointer">
-          <span @click="isShowfilterSelect = !isShowfilterSelect">
-            <span class="filter-name inline-block oneline-ellipsis">
-              {{
-                selectIndex === -1 ? '已保存的筛选条件' : filterSelectList[selectIndex].filterName
-              }}
-            </span>
-            <i
-              class="el-input__icon el-icon-error"
-              v-show="selectIndex !== -1"
-              @click.stop="clearFilter"
-            ></i>
-            <i
-              slot="suffix"
-              class="el-input__icon"
-              :class="isShowfilterSelect ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"
-            ></i>
-          </span>
-          <ul
-            v-show="isShowfilterSelect && filterSelectList.length"
-            @mouseleave="isShowfilterSelect = false"
-            :class="filterSelectList.length > 8 ? 'overflow' : ''"
-          >
-            <li
-              v-for="(item, index) in filterSelectList"
-              @click="filterSelected(item, index)"
-              class="clear"
-              @mouseover="toggleBtnShow(index, true)"
-              @mouseout="toggleBtnShow(index, false)"
-            >
-              <span class="filter-option-name fl oneline-ellipsis">{{ item.filterName }}</span>
-              <div class="fr" v-show="showBtn && mouseOverIndex === index">
-                <img
-                  @click.stop="delFilterOption(index)"
-                  src="../../../assets/img/search-conditions/delete.png"
-                  alt=""
-                />
-                <img
-                  @click.stop="saveAsFilter(index)"
-                  src="../../../assets/img/search-conditions/edit.png"
-                  alt=""
-                />
+        <!--所有筛选条件-->
+        <div class="search-body fl">
+          <div class="clear">
+            <div class="clear fl" :style="{ width: searchBodyWidth + 'px' }">
+              <div class="clear fl" v-for="(item, index) in thHeadList" v-show="index < num">
+                <!--specConditions-->
+                <template v-if="specConditions.length">
+                  <div v-for="spec in specConditions" v-if="spec.condition === item.resourcecolumnCode">
+                    <ns-date-picker
+                      :class="(index + 1) % defaultNum === 0 ? 'margin-right0' : ''"
+                      class="search-option"
+                      v-if="spec.type === 'date' && spec.condition === item.resourcecolumnCode"
+                      type="date"
+                      value-format="yyyy-MM-dd"
+                      :placeholder="item.resourcecolumnName"
+                      v-model="conditions[item.resourcecolumnCode]"
+                      @change="handleChange(item, spec)">
+                    </ns-date-picker>
+                    <ns-select
+                      :class="(index + 1) % defaultNum === 0 ? 'margin-right0' : ''"
+                      class="search-option"
+                      v-else-if="spec.type === 'select' && spec.condition === item.resourcecolumnCode"
+                      :placeholder="item.resourcecolumnName"
+                      v-model="conditions[item.resourcecolumnCode]"
+                      :multiple="spec.multiple"
+                      collapse-tags
+                      filterable
+                      :items="spec.items"
+                      @change="handleChange(item, spec)">
+                    </ns-select>
+                  </div>
+                </template>
+                <template v-if="!special.length || special.indexOf(item.resourcecolumnCode) === -1">
+                  <ns-input
+                    :class="(index + 1) % defaultNum === 0 ? 'margin-right0' : ''"
+                    class="search-option"
+                    v-if="item.resourcecolumnXtype === 'text' || item.resourcecolumnXtype === 'number'"
+                    :placeholder="'请输入' + item.resourcecolumnName"
+                    v-model.trim="conditions[item.resourcecolumnCode]"
+                    @change="handleChange(item)">
+                  </ns-input>
+                  <ns-select
+                    :class="(index + 1) % defaultNum === 0 ? 'margin-right0' : ''"
+                    class="search-option"
+                    v-else-if="item.resourcecolumnXtype === 'select'"
+                    :placeholder="item.resourcecolumnName"
+                    v-model="conditions[item.resourcecolumnCode]"
+                    :options="item.selectList"
+                    @change="handleChange(item)">
+                  </ns-select>
+                  <template v-else-if="item.resourcecolumnXtype === 'date' && item.date === 'start'">
+                    <ns-date-picker
+                      :class="(index + 1) % defaultNum === 0 ? 'margin-right0' : ''"
+                      class="search-option fl"
+                      value-format="yyyy-MM-dd"
+                      :placeholder="item.resourcecolumnName === '应收日期' ? '应收开始日期' : item.resourcecolumnName + '开始'"
+                      type="date"
+                      v-model="dateConditions[item.resourcecolumnCode + '0']"
+                      @change="handleChange(item)">
+                    </ns-date-picker>
+                  </template>
+                  <template v-else-if="item.resourcecolumnXtype === 'date' && item.date === 'end'">
+                    <ns-date-picker
+                      :class="(index + 1) % defaultNum === 0 ? 'margin-right0' : ''"
+                      class="search-option fl"
+                      value-format="yyyy-MM-dd"
+                      :placeholder="item.resourcecolumnName === '应收日期' ? '应收结束日期' : item.resourcecolumnName + '结束'"
+                      type="date"
+                      v-model="dateConditions[item.resourcecolumnCode + '1']"
+                      @change="handleChange(item)">
+                    </ns-date-picker>
+                  </template>
+                </template>
               </div>
-            </li>
-          </ul>
+            </div>
+            <div
+              class="search-btn fl clear"
+              v-show="showConditions"
+              :style="{ left: (searchBodyWidth - 12) + 'px', position: 'absolute' }">
+              <div class="showMoreBtn fl">
+                <ns-button class="border-none" type="text" @click="toggle">
+                  <span>{{ showMore ? '收起' : '更多' }}</span>
+                  <i class="el-icon--right" :class="showMore ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"></i>
+                </ns-button>
+              </div>
+              <ns-button class="fl" type="primary" @click="query">搜索</ns-button>
+              <ns-button class="fl" @click="clearFilter">重置</ns-button>
+            </div>
+          </div>
+          <div class="clear saved-filter-list" v-if="showMore">
+            <ns-button class="fl save-btn" @click="saveAsFilter(-1)" :disabled="isDisabled">保存</ns-button>
+            <div class="filter-list fl cursor-pointer">
+              <span @click="isShowfilterSelect = !isShowfilterSelect">
+                <span class="filter-name inline-block oneline-ellipsis">
+                  {{selectIndex === -1 ? '已保存的条件' : filterSelectList[selectIndex].filterName}}
+                </span>
+                <i
+                  class="el-input__icon el-icon-error"
+                  v-show="selectIndex !== -1"
+                  @click.stop="clearFilter"></i>
+                <i
+                  slot="suffix"
+                  class="el-input__icon"
+                  :class="isShowfilterSelect ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"></i>
+              </span>
+              <ul
+                v-show="isShowfilterSelect && filterSelectList.length"
+                @mouseleave="isShowfilterSelect = false"
+                :class="filterSelectList.length > 8 ? 'overflow' : ''">
+                <li
+                  v-for="(item, index) in filterSelectList"
+                  @click="filterSelected(item, index)"
+                  class="clear"
+                  @mouseover="toggleBtnShow(index, true)"
+                  @mouseout="toggleBtnShow(index, false)">
+                  <span class="filter-option-name fl oneline-ellipsis">{{ item.filterName }}</span>
+                  <div class="fr" v-show="showBtn && mouseOverIndex === index">
+                    <img
+                      @click.stop="delFilterOption(index)"
+                      src="../../../assets/img/search-conditions/delete.png"
+                      alt=""/>
+                    <img
+                      @click.stop="saveAsFilter(index)"
+                      src="../../../assets/img/search-conditions/edit.png"
+                      alt=""/>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <slot></slot>
-      </div>
-      <!--所有筛选条件-->
-      <div class="search-body clear">
-        <div class="clear fl" :style="{ width: searchBodyWidth + 'px' }">
-          <div class="clear fl" v-for="(item, index) in thHeadList" v-show="index < num">
-            <!--specConditions-->
-            <template v-if="specConditions.length">
-              <div v-for="spec in specConditions" v-if="spec.condition === item.resourcecolumnCode">
-                <ns-date-picker
-                  class="search-option"
-                  v-if="spec.type === 'date' && spec.condition === item.resourcecolumnCode"
-                  type="date"
-                  value-format="yyyy-MM-dd"
-                  :placeholder="item.resourcecolumnName"
-                  v-model="conditions[item.resourcecolumnCode]"
-                  @change="handleChange(item, spec)"
-                >
-                </ns-date-picker>
-                <ns-select
-                  class="search-option"
-                  v-else-if="spec.type === 'select' && spec.condition === item.resourcecolumnCode"
-                  :placeholder="item.resourcecolumnName"
-                  v-model="conditions[item.resourcecolumnCode]"
-                  :multiple="spec.multiple"
-                  collapse-tags
-                  filterable
-                  :options="spec.items"
-                  @change="handleChange(item, spec)"
-                >
-                </ns-select>
-              </div>
-            </template>
-            <template v-if="!special.length || special.indexOf(item.resourcecolumnCode) === -1">
-              <ns-input
-                class="search-option"
-                v-if="item.resourcecolumnXtype === 'text' || item.resourcecolumnXtype === 'number'"
-                :placeholder="'请输入' + item.resourcecolumnName"
-                v-model.trim="conditions[item.resourcecolumnCode]"
-                @change="handleChange(item)"
-              ></ns-input>
-              <ns-select
-                class="search-option"
-                v-else-if="item.resourcecolumnXtype === 'select'"
-                :placeholder="item.resourcecolumnName"
-                v-model="conditions[item.resourcecolumnCode]"
-                :options="item.selectList"
-                @change="handleChange(item)"
-              >
-              </ns-select>
-              <template v-else-if="item.resourcecolumnXtype === 'date' && item.date === 'start'">
-                <ns-date-picker
-                  class="search-option fl"
-                  value-format="yyyy-MM-dd"
-                  :placeholder="item.resourcecolumnName + '开始'"
-                  type="date"
-                  v-model="dateConditions[item.resourcecolumnCode + '0']"
-                  @change="handleChange(item)">
-                </ns-date-picker>
-              </template>
-              <template v-else-if="item.resourcecolumnXtype === 'date' && item.date === 'end'">
-                <ns-date-picker
-                  class="search-option fl"
-                  value-format="yyyy-MM-dd"
-                  :placeholder="item.resourcecolumnName + '结束'"
-                  type="date"
-                  v-model="dateConditions[item.resourcecolumnCode + '1']"
-                  @change="handleChange(item)">
-                </ns-date-picker>
-              </template>
-            </template>
-          </div>
-        </div>
-        <div
-          class="search-btn fl clear"
-          v-show="showConditions"
-          :style="{ left: searchBodyWidth + 24 + 'px', position: 'absolute' }"
-        >
-          <div class="showMoreBtn fl">
-            <ns-button v-if="showMoreBtn" class="border-none" type="text" @click="toggle"
-            ><span>{{ showMore ? '收起' : '更多' }}</span
-            ><i
-              class="el-icon--right"
-              :class="showMore ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"
-            ></i
-            ></ns-button>
-          </div>
-          <ns-button class="fl" type="primary" @click="query">查询</ns-button>
-        </div>
       </div>
       <ns-dialog
         title="筛选器名称"
         :visible.sync="dialogVisible.visible"
         type="autoHeight"
-        @close="dialogClose"
-      >
+        @close="dialogClose">
         <div class="filter-name">
           <label>筛选器名称</label>
-          <ns-input
-            v-model.trim="strFilterName"
+          <el-input
+            v-model="strFilterName"
             placeholder="给筛选器起个名字吧"
             :class="errorBorder ? 'error-border' : ''"
-          ></ns-input>
+          ></el-input>
         </div>
         <span slot="footer" class="dialog-footer">
           <ns-button type="primary" @click="commitCondition">确 定</ns-button>
@@ -170,6 +157,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
   import { filterFetch, filterFns, getItems } from '../../../service/System/Search-conditions/search-conditions';
@@ -232,7 +220,6 @@
         searchBodyWidth: 1280, // searchCondition宽度
         errorBorder: false, // 错误border
         showConditions: false,
-        // thHeadList: [],
         special: [],
         showBtn: false,
         mouseOverIndex: 0,
@@ -242,15 +229,6 @@
       funcId: {
         type: [Number, String],
       },
-      // thlist: {
-      //   // 表头
-      //   type: Object,
-      //   default() {
-      //     return {
-      //       thlistDefault: [],
-      //     };
-      //   },
-      // },
       searchConditions: {
         // 筛选条件
         type: Object,
@@ -273,12 +251,12 @@
         },
       },
       // 左侧树展开或收起
-      changeStatus: {
-        type: Object,
-        default() {
-          return {};
-        },
-      },
+      // changeStatus: {
+      //   type: Object,
+      //   default() {
+      //     return {};
+      //   },
+      // },
       pageID: '', // 自动计划管理特殊处理
       defaultConditions: {
         type: Array,
@@ -307,19 +285,15 @@
           return item.resourcecolumnColumntip !== '1';
         });
       },
-
-      showMoreBtn() {
-        return this.thHeadList.length > this.defaultNum;
-      },
     },
     watch: {
       // 左侧树展开或收起时重新计算宽度
-      changeStatus: {
-        handler() {
-          this.setSearchBodyWidth();
-        },
-        deep: true,
-      },
+      // changeStatus: {
+      //   handler() {
+      //     this.setSearchBodyWidth();
+      //   },
+      //   deep: true,
+      // },
       // 监听筛选条件，改变保存为按钮的状态
       conditions: {
         handler(newValue, oldValue) {
@@ -581,9 +555,9 @@
           // 应收款计算-任务查看
           searchConditionsWidth = 826;
         } else {
-          searchConditionsWidth = $('.' + this.funcId + ' .search-conditions').width();
+          searchConditionsWidth = $('.' + this.funcId + ' .search-body').width();
         }
-        let num = Math.floor((searchConditionsWidth - 140) / 216);
+        let num = Math.floor((searchConditionsWidth - 200) / 216);
         // 一行最多摆放5个
         num = num > 5 ? 5 : num;
         this.showMore = false;
