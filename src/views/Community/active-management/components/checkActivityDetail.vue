@@ -4,34 +4,40 @@
              size="large"
              @close="close"
   >
-    <div class="action-module">
-      <div class="search-container">
-        <biz-search-conditions>
-          <template slot="btns">
-            <biz-role-button-area :buttonList="roleButtonLocal" @command="download()" class="fr"></biz-role-button-area>
-          </template>
-          <template slot="main">
-            <div class="clear fl search-option">
-              <ns-input v-model="searchConditions.applyUserName" placeholder="请输入客户名称"></ns-input>
-            </div>
-            <div class="clear fl search-option">
-              <ns-button type="primary" @click="searchTable">查询</ns-button>
-            </div>
-          </template>
-        </biz-search-conditions>
+    <div style="position: relative;height: 100%">
+      <div class="action-module">
+        <div class="search-container">
+          <biz-search-conditions>
+            <template slot="btns">
+              <biz-role-button-area :buttonList="roleButtonLocal" @command="download()" class="fr"></biz-role-button-area>
+            </template>
+            <template slot="main">
+              <ns-form :model="searchConditions" :inline="true" ref="searchForm" class="search-form clear">
+                <div class="search-form-items fl clear">
+                  <ns-form-item prop="keyWord">
+                    <ns-input v-model="searchConditions.applyUserName" placeholder="请输入活动名称"></ns-input>
+                  </ns-form-item>
+                </div>
+                <div class="search-operation fl clear">
+                  <ns-button type="primary" @click="searchTable">搜索</ns-button>
+                </div>
+              </ns-form>
+            </template>
+          </biz-search-conditions>
+        </div>
       </div>
+      <!--表格部分-->
+      <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
+                 :autoResize="false"
+                 :customHeight="404"
+                 :localHead="head"
+                 :searchConditions="searchConditions"
+                 :showSummary="false"
+                 :hasActionCol="false"
+                 :firstColType="null"
+                 @reload="getTableData"
+      ></biz-table>
     </div>
-    <!--表格部分-->
-    <biz-table ref="biz-table" :loadState="loadState" :data="tableData"
-               :autoResize="false"
-               :customHeight="340"
-               :localHead="head"
-               :searchConditions="searchConditions"
-               :showSummary="false"
-               :hasActionCol="false"
-               :firstColType="null"
-               @reload="getTableData"
-    ></biz-table>
 
     <span slot="footer" class="dialog-footer">
         <ns-button size="small" @click="showDialog = false">关 闭</ns-button>
