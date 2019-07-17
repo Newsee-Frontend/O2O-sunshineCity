@@ -191,6 +191,13 @@
     created() {
       this.getTableHead();
     },
+
+    beforeDestroy() {
+      this.tableHead = null;
+      this.keyRefer = null;
+      this.rulesConfig = null;
+      this.cellFifter = null;
+    },
   };
 </script>
 

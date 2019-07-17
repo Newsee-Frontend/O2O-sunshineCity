@@ -6,7 +6,9 @@ export default {
   },
 
   beforeDestroy() {
+    this.Mix_searchConditions = null;
     this.$store.dispatch('emptySearchConditions', this.Mix_funcId);
+    this.searchConditions = null;
   },
 
   created() {
