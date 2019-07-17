@@ -1,4 +1,4 @@
-import keyRefer from '../../../../components/Biz/Biz-sidebar/sidebar-keyRefer';
+import keyRefer from '../../../../components/Biz/Ns-biz-sidebar/sidebar-keyRefer';
 import { storageFactory } from '../../../../utils/auth';
 
 const pikey = storageFactory('pi');

@@ -14,19 +14,19 @@
       <!--右边 - 用户下拉菜单 业务组在插槽内调用组件，传入值，并且调用方法即可  -->
       <div class="fr">
         <ns-screenfull></ns-screenfull>
-        <biz-skiner></biz-skiner>
-        <biz-user-dropdown></biz-user-dropdown>
+        <ns-biz-skiner></ns-biz-skiner>
+        <ns-biz-user-dropdown></ns-biz-user-dropdown>
       </div>
     </template>
 
     <!--侧边栏 - 业务组直接调用封装的侧边栏组件即可 -->
     <template slot="sidebar">
-      <biz-sidebar></biz-sidebar>
+      <ns-biz-sidebar></ns-biz-sidebar>
     </template>
 
     <!--history task-tabs link-->
     <template slot="tabs-view">
-      <biz-tabs-views></biz-tabs-views>
+      <ns-biz-tabs-views></ns-biz-tabs-views>
     </template>
 
     <!--工作台模块 - 嵌入路由视图即可 -->
@@ -42,13 +42,13 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  import { bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom } from './index';
+  import { nsBizSidebar, nsBizTabsViews, nsBizSkiner, nsBizUserDropdown, headerCustom } from './index';
   import transform from './transform';
 
   export default {
     name: 'layout',
     mixins: [transform],
-    components: { bizSidebar, bizTabsViews, bizSkiner, bizUserDropdown, headerCustom },
+    components: { nsBizSidebar,nsBizTabsViews, nsBizSkiner, nsBizUserDropdown, headerCustom },
     data() {
       return {};
     },

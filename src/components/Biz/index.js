@@ -1,37 +1,37 @@
 import Vue from 'vue';
 
 //table
-import BizTable from './Biz-table/Biz-table';
+import NsBizTable from './Ns-biz-table/Ns-biz-table';
 
 //tree
-import BizOrganizeTree from './Biz-tree/Biz-organize-tree/Biz-organize-tree';
-import BizDataDictionaryTree from './Biz-tree/Biz-data-dictionary-tree/Biz-data-dictionary-tree';
+import NsBizOrganizeTree from './Ns-biz-tree/Ns-biz-organize-tree/Ns-biz-organize-tree';
+import NsBizDataDictionaryTree from './Ns-biz-tree/Ns-biz-data-dictionary-tree/Ns-biz-data-dictionary-tree';
 
 //select-tree
-import BizOrgnizeSelectTree from './Biz-select-tree/Biz-organize-select-tree/Biz-organize-select-tree.vue';
+import NsBizOrgnizeSelectTree from './Ns-biz-select-tree/Ns-biz-organize-select-tree/Ns-biz-organize-select-tree.vue';
 
 
 //conditions
-import SearchConditions from './Biz-search-conditions/Biz-search-conditions';
+import NsBizSearchConditions from './Ns-biz-search-conditions/Ns-biz-search-conditions';
 
-import BizSlipDialog from './Biz-slip-dialog/Biz-slip-dialog';
+import NsBizSlipDialog from './Ns-biz-slip-dialog/Ns-biz-slip-dialog';
 
-import BizRoleButtonArea from './Biz-role-button-area/Biz-role-button-area';
+import NsBizRoleButtonArea from './Ns-biz-role-button-area/Ns-Biz-role-button-area';
 
 
 //table
-Vue.component('biz-table', BizTable);
+Vue.component('ns-biz-table', NsBizTable);
 
 //tree
-Vue.component('biz-organize-tree', BizOrganizeTree);
-Vue.component('biz-data-dictionary-tree', BizDataDictionaryTree);
+Vue.component('ns-biz-organize-tree', NsBizOrganizeTree);
+Vue.component('ns-biz-data-dictionary-tree', NsBizDataDictionaryTree);
 
 
-Vue.component('biz-search-conditions', SearchConditions);
+Vue.component('ns-biz-search-conditions', NsBizSearchConditions);
 
 //select tree
-Vue.component('biz-organize-select-tree', BizOrgnizeSelectTree);
+Vue.component('ns-biz-organize-select-tree', NsBizOrgnizeSelectTree);
 
-Vue.component('biz-role-button-area', BizRoleButtonArea);
+Vue.component('ns-biz-role-button-area', NsBizRoleButtonArea);
 
-Vue.component('biz-slip-dialog', BizSlipDialog);
+Vue.component('ns-biz-slip-dialog', NsBizSlipDialog);

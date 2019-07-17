@@ -7,8 +7,8 @@
  */
 import { treeDataFetch, changeTreeData } from '../../../../service/System/Tree/organize-tree';
 
-import transformKeyFun from '../../../../components/Biz/Biz-tree/utils/transformNode';
-import keyRefer from '../../../../components/Biz/Biz-tree/Biz-organize-tree/keyRefer';
+import transformKeyFun from '../../../../components/Biz/Ns-biz-tree/utils/transformNode';
+import keyRefer from '../../../../components/Biz/Ns-biz-tree/Ns-biz-organize-tree/keyRefer';
 
 const OrganizeTree = {
   state: {

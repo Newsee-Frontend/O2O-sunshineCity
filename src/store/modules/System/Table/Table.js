@@ -3,7 +3,7 @@ import {listColumnService} from '../../../../service/System/TableFetch/table-fet
 
 /**
  * Store public table head data
- * in our System, we use one path / query to request head data
+ * in our system, we use one path / query to request head data
  * in this module file, write some business code is sweet and relaxed
  * created: 2019/06/19.
  * author: Broccoli spring( 高仓雄 - gcx )
