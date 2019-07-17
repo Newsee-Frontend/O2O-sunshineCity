@@ -32,7 +32,7 @@
 <script>
   import { getAreaList, getPrecinct } from '../../../service/Form/getOptions'
   export default {
-    name: 'biz-precinct',
+    name: 'ns-biz-precinct',
 
     props: {
       precinctModel: Object,
