@@ -4,8 +4,8 @@
  * author: Broccoli spring( 高仓雄 - gcx )
  * copyright (c) 2018 Broccoli spring( gcx )
  */
-import fetch from '@/utils/fetch/fetch';
-import { dataFilter } from '@/utils/fetch/fetchDataType';
+import fetch from '../../utils/fetch/fetch';
+import { dataFilter } from '../../utils/fetch/fetchDataType';
 
 /**
  * get select value and tree model data

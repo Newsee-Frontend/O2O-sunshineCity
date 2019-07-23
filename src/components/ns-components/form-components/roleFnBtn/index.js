@@ -1,4 +1,4 @@
-import ns from '@/utils/nsQuery/nsQuery';
+import ns from '../../../../utils/nsQuery/nsQuery';
 import keyRefer from './keyRefer'; //指代属性字段值
 const firstKeyRefer = keyRefer.firstLevel; //指代属性字段值 一级
 const secondKeyRefer = keyRefer.secondLevel; //指代属性字段值 二级

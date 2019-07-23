@@ -1,4 +1,4 @@
-import ns from '@/utils/nsQuery/nsQuery';
+import ns from '../../utils/nsQuery/nsQuery';
 
 /*ns Encapsulation form - Automatic Verification：
 On the label of ns-simple-item, any'ns-is-error'class name is used as an error mark, and the activation error identification is as follows

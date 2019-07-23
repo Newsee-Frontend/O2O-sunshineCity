@@ -4,7 +4,7 @@ import { cryptoCookie } from '../../../../utils/crypto';
 import { getToken, setToken, removeToken } from '../../../../utils/auth';
 import { oauthlogin, multipleEnterpriseLogin, ssoLogin } from '../../../../service/System/User/login';
 import router from '../../../../router/index';
-import $store from '@/store/index';
+import $store from '../../../../store/index';
 
 
 const lifetime = 0;

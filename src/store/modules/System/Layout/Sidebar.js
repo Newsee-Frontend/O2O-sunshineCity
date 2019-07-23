@@ -1,7 +1,7 @@
 import { sideBarService } from '../../../../service/System/Layout/sideBar';
 import keyRefer from '../../../../components/Biz/Ns-biz-sidebar/sidebar-keyRefer';
 import { storageFactory } from '../../../../utils/auth';
-import $store from '@/store/index';
+import $store from '../../../../store/index';
 
 const navkey = storageFactory('nav');
 

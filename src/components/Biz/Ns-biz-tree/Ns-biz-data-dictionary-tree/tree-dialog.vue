@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import * as store from '@/utils/nsQuery/nsStore';
+  import * as store from '../../../../utils/nsQuery/nsStore';
   import { reset_group, reset_dic } from './reset';
 
   export default {

@@ -1,4 +1,4 @@
-import ns from '@/utils/nsQuery/nsQuery';
+import ns from '../../../../utils/nsQuery/nsQuery';
 import $store from '../../../../store/index';
 
 class Loginfo {

@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import ns from '@/utils/nsQuery/nsQuery';
+import ns from '../../../../utils/nsQuery/nsQuery';
 
 export default {
   name: 'ns-text',

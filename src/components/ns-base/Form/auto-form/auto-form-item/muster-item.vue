@@ -476,8 +476,8 @@
   </el-form-item>
 </template>
 <script>
-import * as store from '@/utils/nsQuery/nsStore';
-import ns from '@/utils/nsQuery/nsQuery';
+import * as store from '../../../../../utils/nsQuery/nsStore';
+import ns from '../../../../../utils/nsQuery/nsQuery';
 import { distributor } from '../../../../../utils/validate/index';
 import { config } from './config';
 

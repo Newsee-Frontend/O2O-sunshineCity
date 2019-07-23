@@ -136,7 +136,7 @@
   </div>
 </template>
 <script>
-import ns from '@/utils/nsQuery/nsQuery';
+import ns from '../../../../utils/nsQuery/nsQuery';
 import keyRefer from './keyRefer'; //key - refer
 import { createInitModel, watchModel, checkAllMethods } from './index'; //methods
 import { getRoleFuncButton } from '../../../../service/System/Role-components/role-funcButton';

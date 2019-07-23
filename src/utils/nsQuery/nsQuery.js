@@ -7,7 +7,7 @@
  */
 
 import Cookies from 'js-cookie';
-import $store from '@/store/index';
+import $store from '../../store/index';
 import CryptoJS from 'crypto-js';
 
 const crypto = require('crypto');

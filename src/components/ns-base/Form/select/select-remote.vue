@@ -30,8 +30,7 @@
   </el-select>
 </template>
 <script>
-import ns from '@/utils/nsQuery/nsQuery';
-import { request, choiceRemoteMethod, customerInfo } from './remoteFunc';
+  import { request, choiceRemoteMethod, customerInfo } from './remoteFunc';
 
 export default {
   name: 'select-remote',

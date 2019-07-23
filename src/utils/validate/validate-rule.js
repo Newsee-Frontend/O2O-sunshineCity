@@ -5,7 +5,7 @@
  * author: Broccoli spring( 高仓雄 - gcx )
  * copyright (c) 2017 Broccoli spring( gcx )
  */
-import ns from '@/utils/nsQuery/nsQuery';
+import ns from '../../utils/nsQuery/nsQuery';
 import rulesInfo from './rules-config';
 
 /**

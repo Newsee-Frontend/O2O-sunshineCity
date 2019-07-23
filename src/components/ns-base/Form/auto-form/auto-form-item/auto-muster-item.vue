@@ -77,8 +77,7 @@
   </ns-muster-item>
 </template>
 <script>
-import ns from '@/utils/nsQuery/nsQuery';
-import * as store from '@/utils/nsQuery/nsStore';
+import ns from '../../../../../utils/nsQuery/nsQuery';
 import keyRefer from '../keyRefer';
 import DP from './DP';
 

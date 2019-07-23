@@ -34,7 +34,7 @@
   </el-select>
 </template>
 <script>
-import ns from '@/utils/nsQuery/nsQuery';
+import ns from '../../../../../utils/nsQuery/nsQuery';
 import keyRefer from './keyRefer'; //指代属性字段值
 import {
   getInitRoleGroupList,
