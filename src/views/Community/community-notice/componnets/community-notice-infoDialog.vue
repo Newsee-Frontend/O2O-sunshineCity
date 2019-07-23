@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  import bizPrecinct from '../../../../components/Biz/Ns-biz-precint/Ns-biz-precinct'
+  import nsBizPrecinct from '../../../../components/Biz/Ns-biz-precint/Ns-biz-precinct'
   import {saveNotice, getNotice} from '../../../../service/Community/noticeManagement.js'
   import {mapGetters} from 'vuex';
 
@@ -44,7 +44,7 @@
     name: 'notice-dialog',
 
     components: {
-      bizPrecinct,
+      nsBizPrecinct,
     },
 
     data() {
