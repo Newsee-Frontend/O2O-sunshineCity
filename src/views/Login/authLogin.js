@@ -37,7 +37,7 @@ export default {
     //单点登录
     ssoLogin(query) {
       //clear
-      this.$store.dispatch('logOut');
+      this.$store.dispatch('emptyStorage');//empty
       this.$store.dispatch('ssoLogin', query)
         .then((res) => {
           this.initPath = getUrlParam('referRoute');

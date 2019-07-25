@@ -96,7 +96,6 @@ const User = {
     ssoLogin({ commit }, query) {
       return ssoLogin(query).then(res => {
         const userinfo = res.resultData || {};
-
         commit('SET_TOKEN', userinfo.token);
         commit('SET_LOGIN_DATA', userinfo);
       });

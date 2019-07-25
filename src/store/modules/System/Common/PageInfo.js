@@ -1,17 +1,15 @@
 import keyRefer from '../../../../components/Biz/Ns-biz-sidebar/sidebar-keyRefer';
 import { storageFactory } from '../../../../utils/auth';
 
-const pikey = storageFactory('pi');
-
 const PageInfo = {
   state: {
-    pageinfoList: JSON.parse(localStorage.getItem(pikey)) || [],
+    pageinfoList: JSON.parse(localStorage.getItem(storageFactory('pi'))) || [],
     currentPageInfo: {},
   },
   mutations: {
     SET_PAGE_INFO_LIST: (state, data) => {
       state.pageinfoList = data;
-      localStorage.setItem(pikey, JSON.stringify(data));
+      localStorage.setItem(storageFactory('pi'), JSON.stringify(data));
     },
 
     SET_CURRENT_PAGE: (state, data) => {
@@ -20,7 +18,7 @@ const PageInfo = {
     EMPTY_PAGE_INFO: (state, data) => {
       state.currentPageInfo = [];
       state.currentPageInfo = {};
-      localStorage.removeItem(pikey);
+      localStorage.removeItem(storageFactory('pi'));
     },
   },
   actions: {

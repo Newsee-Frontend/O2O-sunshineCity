@@ -23,7 +23,6 @@ export default {
   },
 
   beforeResolve: (to, from, next) => {
-
     const transKey = 'isShowFrame';
     if (to.query[transKey]) {
       next();
