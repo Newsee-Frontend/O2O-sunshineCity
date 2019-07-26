@@ -21,5 +21,5 @@ export const storageFactory = key => {
 
 //eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdXBlckFkbWluIiwianRpIjoiMSIsImlhdCI6MTU2MjkyMTI2NH0.JprDmZqzDf4iaome_pXXF_-fpeN_o5FEV_9J27ROTcM
 
-  return all.substring(0, 80);
+  return all.substring(0, 70);
 };
