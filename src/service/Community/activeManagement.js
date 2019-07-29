@@ -34,3 +34,15 @@ export function publishActivity(url, query) {
     data: query
   });
 };
+
+
+
+export  function approvalActivity(query) {
+  //表数据-获取
+  dataFilter(query);
+  return fetch({
+    url: '/o2o/activity/approvalActivity',
+    method: 'post',
+    data: query
+  });
+}

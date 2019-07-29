@@ -10,7 +10,6 @@ import NsBizDataDictionaryTree from './Ns-biz-tree/Ns-biz-data-dictionary-tree/N
 //select-tree
 import NsBizOrgnizeSelectTree from './Ns-biz-select-tree/Ns-biz-organize-select-tree/Ns-biz-organize-select-tree.vue';
 
-
 //conditions
 import NsBizSearchConditions from './Ns-biz-search-conditions/Ns-biz-search-conditions';
 

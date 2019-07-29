@@ -96,12 +96,21 @@
                      v-model="model.content" v-if="showDialog"/>
         </ns-form-item>
       </ns-form>
+
+      <apply-dialog
+        :visible.sync="showApplyDialog"
+        :submitModel = model
+        @submitApproval="publishSuccess"
+        :baseInfo="baseInfo"></apply-dialog>
     </template>
+
+
   </ns-biz-slip-dialog>
 </template>
 
 <script>
   import nsBizPrecinct from '../../../../components/Biz/Ns-biz-precint/Ns-biz-precinct';
+  import applyDialog from './community-active-applyDialog';
   import { getActiveInfo, publishActivity } from '../../../../service/Community/activeManagement';
   import { mapGetters } from 'vuex';
 
@@ -110,6 +119,7 @@
 
     components: {
       nsBizPrecinct,
+      applyDialog
     },
 
     props: {
@@ -130,7 +140,6 @@
           callback();
         }
       };
-
       return {
         // 是否可报名options
         enableApplyOptions: {
@@ -171,6 +180,8 @@
         },
 
         showDialog: this.visible,
+        showApplyDialog: false,
+        baseInfo: {},
 
         rules: {
           precinctIds: [{ required: true, trigger: 'change', message: '请选择范围' }],
@@ -290,17 +301,30 @@
             this.model.id = this.type === 'add' ? '' : this.rowData.id;
             this.$set(btnInfo, 'disabled', true);
             let url = this.type === 'add' ? '/o2o/activity/publish' : '/o2o/activity/editActivity';
-            publishActivity(url, this.model).then(() => {
-              this.$message.success('保存成功');
-              this.close();
-              this.$emit('reloadGrid');
+            publishActivity(url, this.model).then((res) => {
               this.$set(btnInfo, 'disabled', false);
+              if(typeof res.resultData === 'object'){
+                this.baseInfo =  res.resultData;
+                this.showApplyDialog = true;
+              }else{
+                this.publishSuccess();
+              }
             }, () => {
               this.$set(btnInfo, 'disabled', false);
             });
           }
         });
       },
+
+
+      /**
+       * publish success
+       */
+      publishSuccess(){
+        this.$message.success('保存成功');
+        this.close();
+        this.$emit('reloadGrid');
+      }
     }
 
   };

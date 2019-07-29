@@ -47,6 +47,7 @@
         <!--表格部分-->
         <ns-biz-table ref="biz-table"
                    :loadState="loadState"
+                   is-form-table
                    :data="tableData"
                    :searchConditions="searchConditions"
                    :showSummary="false"
