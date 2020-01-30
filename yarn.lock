@@ -9263,9 +9263,9 @@ timsort@^0.3.0:
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
 tinymce@^5.0.6:
-  version "5.0.11"
-  resolved "https://registry.npmjs.org/tinymce/-/tinymce-5.0.11.tgz#71589a6bea1fbc4affbf47578f2a18cb23e51d18"
-  integrity sha512-V3wRlxsaEOrbh1T3bW0/buR/L+eXsz8w+hJa6E8tfitJNtO9haKqdFCG16oyBEbwpQq9Zc97tHLF2Cx3IX/62w==
+  version "5.1.6"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.1.6.tgz#20b484dbb31f7678484fa5c7b639ff6992f27e8b"
+  integrity sha512-QDFLqHhYyHaY8e6nWLeM5zrkWOzPA3FqcBKbhEin47cna/0jNHL4DzNqmZpmA7ch9AWBF24Nzvhf1gzUFkE4aQ==
 
 tmp@^0.0.33:
   version "0.0.33"
