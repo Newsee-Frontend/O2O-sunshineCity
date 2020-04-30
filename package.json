@@ -20,7 +20,7 @@
     "davidshimjs-qrcodejs": "^0.0.2",
     "echarts": "^4.2.1",
     "element-ui": "^2.7.0",
-    "jquery": "^3.2.1",
+    "jquery": "^3.5.0",
     "js-cookie": "^2.2.0",
     "ns-form-components": "0.0.58",
     "sortable": "^2.0.0",
