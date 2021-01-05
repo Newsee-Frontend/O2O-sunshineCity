@@ -11,7 +11,7 @@
     "build": "cross-env NODE_ENV=production env_config=prod node node_modules/cx-builder/lib/run/prod/run.prod.js"
   },
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "cookie-parser": "^1.4.3",
     "core-js": "^3.1.4",
     "crypto-js": "^3.1.9-1",
